@@ -1,0 +1,220 @@
+﻿@model SessionEdit
+
+<div class="modal-title">
+    Сесія міськради
+    <ul class="modal-lang-swicher">
+        <li data-lang="en">EN</li>
+        <li data-lang="ru">RU</li>
+        <li class="active" data-lang="uk">UA</li>
+    </ul>
+</div>
+
+<ul class="nav nav-tabs" role="tablist">
+    <li class="active">
+        <a href="#divMain" data-toggle="tab">Головне</a>
+    </li>
+    <li>
+        <a href="#divProjects" data-toggle="tab">Питання до розгляду</a>
+    </li>
+    <li>
+        <a href="#divAgenda" data-toggle="tab">Порядок денний</a>
+    </li>
+    <li>
+        <a href="#divVote" data-toggle="tab">Голосування</a>
+    </li>
+    <li>
+        <a href="#divMedia" data-toggle="tab">Відео/аудіо</a>
+    </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane active" id="divMain">
+        <form action="/uk/ControlPanel/Sessions/Save" id="formMain" method="post" novalidate="novalidate"
+              data-ajax="true"
+              data-ajax-begin="bsAdmin.startProcessing(); coreUtils.disableButton($('#btnSave'));"
+              data-ajax-complete="bsAdmin.endProcessing();"
+              data-ajax-mode="replace"
+              data-ajax-update="#divEditForm">
+
+            <div class="lang-uk">
+                @Html.SimpleTextAreaFor(x => x.TitleUk, "Назва (ua)", new { @class = "form-control", rows = 2, maxlength = 255 })
+            </div>
+
+            <div class="lang-ru">
+                @Html.SimpleTextAreaFor(x => x.TitleRu, "Назва (ru)", new { @class = "form-control", rows = 2, maxlength = 255 })
+            </div>
+
+            <div class="lang-en">
+                @Html.SimpleTextAreaFor(x => x.TitleEn, "Назва (en)", new { @class = "form-control", rows = 2, maxlength = 255 })
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    @Html.SimpleTextBoxFor(x => x.SessionDate, "Дата сесії", new { @class = "form-control bs-datepicker", @readonly = "readonly", data_format = "DD.MM.YYYY HH:mm" }, helpText: "Документ буде не доступним для перегляду на сайті раніше від цієї дати")
+                </div>
+                <div class="col-sm-6">
+                    @Html.SimpleTextBoxFor(x => x.PublishDate, "Дата публікації на сайті", new { @class = "form-control bs-datepicker", @readonly = "readonly", data_format = "DD.MM.YYYY HH:mm" }, helpText: "Дата коли докумет було офіційно прийнято")
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    @Html.SimpleCheckboxFor(x => x.Ended, "Статус", "Сесію завершено")
+                </div>
+                <div class="col-sm-6">
+                    @Html.SimpleCheckboxFor(x => x.Published, "Налаштування", "Опублікувати на сайті")
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-8">
+                    @Html.SimpleTextBoxFor(x => x.AgendaAdditionId, "Додаткові питання порядку денного", new { @class = "form-control bs-autocompleteselect", palaceholder = "Введіть назву документа або ID", data_text = Model.AgendaAdditionTitle, data_remote = "/uk/controlpanel/ajax/finddoc?category=session-additionalagenda", form = "formMain" }, true)                    
+                    @Html.SimpleTextBoxFor(x => x.DecreeId, "Розпорядження про скликання", new { placeholder = "Введіть назву або ID документа", @class = "form-control bs-autocompleteselect", data_text = Model.DecreeTitle, data_remote = "/uk/controlpanel/ajax/finddoc?category=session-decree" }, true)
+                    @Html.SimpleTextBoxFor(x => x.ReglamentId, "Регламент сессії", new { placeholder = "Введіть назву або ID документа", @class = "form-control bs-autocompleteselect", data_text = Model.ReglamentId, data_remote = "/uk/controlpanel/ajax/finddoc?category=session-reglament" }, true)
+                    @Html.SimpleTextBoxFor(x => x.ProtocolId, "Протокол проведення сессії", new { placeholder = "Введіть назву або ID документа", @class = "form-control bs-autocompleteselect", data_text = Model.ProtocolId, data_remote = "/uk/controlpanel/ajax/finddoc?category=session-protocol" }, true)
+                </div>
+                <div class="col-sm-4">
+                    @Html.SimpleUploaderFor(x => x.AgendaFile, "Файл порядку денного",
+                        new ImageUploaderOptions()
+                        {
+                            UploadUrl = "/api/upload/uploadfile?type=file&directory=docs_agenda",
+                            ContainerId = "divAgendaUpload",
+                            ContainerHeight = 150,
+                        }, new { @class = "form-control", @readonly = "readonly", form = "formMain" })
+                </div>
+            </div>
+            @Html.HiddenFor(x => x.Id, new { Value = Model.Id, id = "hId" })
+        </form>
+    </div>
+
+    <div class="tab-pane" id="divProjects">        
+        @using (Ajax.BeginForm(new AjaxOptions()
+        {
+            Url = "/uk/controlpanel/sessions/addproject",
+            OnBegin = "coreUtils.disableButton($('#btnAddProject'));",
+            OnComplete = "coreUtils.enableButton($('#btnAddProject'));",
+            InsertionMode = InsertionMode.InsertAfter,
+            UpdateTargetId = "divSessionProjects"
+        }))
+        {
+            <h3 class="card-subtitle">
+                Додати проект
+            </h3>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-sm-9">
+                        @Html.SimpleTextBox("DocId", null, "Введіть назву документа або ID", new { @class = "form-control bs-autocompleteselect", data_remote = "/uk/controlpanel/ajax/finddoc?category=proekty-miskrada" }, true)
+                        @Html.Hidden("SessionId", Model.Id)
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="control-label">&nbsp;</label>
+                            <input type="submit" class="btn btn-default btn-block" id="btnAddProject" value="Додати" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }                            
+        <h3 class="card-subtitle">
+            Питяння до розгляду
+        </h3>
+        <div class="well">
+            <div class="" id="divSessionProjects">
+                <div class="card-header-sm">
+                    <div class='row'>
+                        <div class="col-sm-10">
+                            Назва проекту
+                        </div>
+                        <div class="col-sm-2 text-right">
+                            Редагувати
+                        </div>
+                    </div>
+                </div>
+                @foreach (var item in Model.Projects)
+                {
+                    @Html.Partial("_prtSessionProjectListItem", item)
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="tab-pane" id="divAgenda">
+        <h3 class="card-subtitle">
+            Питання порядку денного
+        </h3>
+        <div class="well">
+            <div class="card-header-sm">
+                <div class='row'>
+                    <div class="col-sm-2">
+                        Номер
+                    </div>
+                    <div class="col-sm-8">
+                        Назва
+                    </div>
+                    <div class="col-sm-2 text-right">
+                        Редагувати
+                    </div>
+                </div>               
+            </div>
+            <div class="sort-list" id="divSessionAgendas" data-type="agenda" data-session-id="@Model.Id">
+                @foreach (var item in Model.Agenda)
+                {
+                    @Html.Partial("_prtSessionAgendaListItem", item)
+                }
+            </div>
+        </div>
+        <div class="form-group">
+            <button type="button" class="btn btn-primary nav-link" data-action="edit-agenda" data-id="0" data-session-id="@Model.Id">
+                Додати питання без прив'язки до проекту
+            </button>
+        </div>                
+    </div>
+
+    <div class="tab-pane" id="divVote">
+        <h3 class="card-subtitle">
+            Голосування
+        </h3>
+        <div class="well">
+            <div class="card-header-sm">
+                <div class='row'>
+                    <div class="col-sm-2">
+                        Номер
+                    </div>
+                    <div class="col-sm-5">
+                        Назва
+                    </div>
+                    <div class="col-sm-3">
+                        Результат
+                    </div>
+                    <div class="col-sm-2 text-right">
+                        Редагувати
+                    </div>
+                </div>
+            </div>
+            <div class="sort-list" id="divSessionVotes" data-type="vote" data-session-id="@Model.Id">
+                @foreach (var item in Model.Votes)
+                {
+                    @Html.Partial("_prtSessionVoteListItem", item)
+                }
+            </div>
+        </div>
+        <button type="button" class="btn btn-primary nav-link" data-action="edit-vote" data-id="0" data-session-id="@Model.Id">
+            Додати голосування
+        </button>
+    </div>
+
+    <div class="tab-pane" id="divMedia">
+        @Html.SimpleTextAreaFor(x => x.EmbedVideo, "Код відео", new { @class = "form-control", form = "formMain" })
+        @Html.SimpleTextAreaFor(x => x.EmbedAudio, "Код аудіо", new { @class = "form-control", form = "formMain" })
+    </div>
+</div>
+
+
+<div class="modal-footer">
+    <a href="#" type="button" class="btn btn-link" data-dismiss="modal">
+        @Locals.Close
+    </a>
+    <button type="button" id="btnSave" class="btn btn-primary" onclick="javascript: $('#formMain').trigger('submit');">
+        @Locals.Save
+    </button>
+</div>

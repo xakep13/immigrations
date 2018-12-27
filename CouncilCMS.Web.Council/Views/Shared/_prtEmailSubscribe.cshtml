@@ -1,0 +1,16 @@
+﻿@using reCAPTCHA.MVC;
+@model EmailSubscribe
+
+
+@using (Ajax.BeginForm(new AjaxOptions() { Url = "/uk/feed/subscribe", UpdateTargetId = "formEmail", InsertionMode = InsertionMode.Replace, OnBegin = "$('.btn-qr-send').prop('disabled', true)" }))
+{
+    @Html.SimpleTextBoxFor(x => x.Email, "Ваш email", new { @class = "form-control" })
+
+    @Html.Recaptcha()
+
+    <div class="form-group text-left" style="margin-top:25px;">
+                    <button type="submit" class="btn btn-primary btn-qr-send">Підписатися</button>
+                    <button data-remodal-action="cancel" class="remodal-cancel btn btn-default">Закрити</button>
+                </div>
+                
+}

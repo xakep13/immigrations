@@ -1,0 +1,75 @@
+﻿@model CmsDoc
+
+@{
+    ViewBag.Title = Model.Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-sm-12 col-md-8">
+        <div class="cms-post block" id="divPrint">
+            <h1 class="title">
+                @Model.Title
+            </h1>
+            <span class="date">
+                @if (!String.IsNullOrEmpty(Model.Number))
+                {
+                    <strong>
+                       @Model.Type №@Model.Number
+                    </strong>                    
+                }
+                @if (Model.AcceptDate.HasValue) {
+                    <span>
+                        @CmsLabels.From @(Model.AcceptDate.Value.ToString("dd.MM.yyyy")).
+                    </span>                    
+                }    
+                   
+                @if (Model.PostDate.HasValue)
+                {
+                    <strong>
+                        @CmsLabels.PostDate @(Model.PostDate.Value.ToString("dd.MM.yyyy"))
+                    </strong>
+                }                
+            </span>
+            
+            <div class="cms-content">
+                <div class="page-content content-text block doc-content">
+                    @Html.Raw(Model.Text)
+                </div>
+
+                @if (Model.Files != null && Model.Files.Count > 0)
+                {
+                    <div class="page-content content-text">
+                        <h2>@CmsLabels.Files</h2>
+                        @foreach (var item in Model.Files)
+                        {
+                            <div class="file">
+                                <div class="page-content content-file text-left" style="margin-bottom:15px;">
+                                    <i class="fa fa-fw fa-file-text"></i>
+                                    <a href="@item.File" download="@item.Title">@item.Title (@item.Extension, @(item.Size > 1024 ? ((item.Size / 1024) + " mb") : (item.Size + " kb")))</a>
+                                </div>
+                            </div>
+                        }                        
+                    </div>
+                }
+            </div>            
+        </div>
+        
+       @* @Html.Partial("_prtShareBlock", true)*@
+    </div>
+
+    <div class="col-sm-12 col-md-4 hidden-xs">
+        <div class="block">
+            <h1 class="block-title">
+                @Model.CategoryName
+            </h1>
+           @* @Html.Action("LastDocuments", "Documents", new { url = Model.CategoryUrl, excludeId = Model.Id })*@
+        </div>
+    </div>    
+</div>
+
+<script>
+    $(function () {
+        coreUtils.createPage($(".cms-content"));
+    });
+</script>

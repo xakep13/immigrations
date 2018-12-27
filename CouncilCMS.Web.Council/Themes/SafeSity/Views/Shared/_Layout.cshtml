@@ -1,0 +1,371 @@
+﻿@using System.Drawing;
+
+@{
+	var min = HttpContext.Current.IsDebuggingEnabled ? String.Empty : ".min";
+	var colors = new List<string> { "red", "blue", "green", "orng", "dblue" };
+	var color = colors.Contains(CmsSettings.DesignVersion) ? CmsSettings.DesignVersion : "blue";
+	var color_main = ColorTranslator.FromHtml(((!String.IsNullOrEmpty(CmsSettings.DesignVersion) && CmsSettings.DesignVersion.StartsWith("#")) ? CmsSettings.DesignVersion : "#0849a3"));
+	var color_dark = color_main.TransformColor((float)-0.1);
+	var color_light = color_main.TransformColor((float)0.1);
+}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+
+	@*<script src="~/Content/SafeSity/js/libs.min.js" type="text/javascript"></script>*@
+
+	<style>
+        :root {
+            --main-color:@(ColorTranslator.ToHtml(color_main));
+            --dark-color:@(ColorTranslator.ToHtml(color_dark));
+            --light-color:@(ColorTranslator.ToHtml(color_light));
+            --hotline-color:@((!String.IsNullOrEmpty(CmsSettings.HotlineColor) && CmsSettings.HotlineColor.StartsWith("#")) ? CmsSettings.HotlineColor : "#999")
+        }
+	</style>
+	<link rel="shortcut icon" href="@CmsSettings.LogoUk" type="image/x-icon">
+	<link rel="stylesheet" href="~/content/SafeSity/css/VersionForTheVisuallyImpaired.css">
+
+	@*<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>*@
+	<script src="~/Content/libs/jquery/jquery-3.1.1.min.js"></script>
+	<script src="~/Content/libs/jQuery/jquery.validate.min.js"></script>
+	@*<script src="~/Content/libs/jQuery/jquery.validate.unobtrusive.min.js"></script>*@
+	<script src="~/Content/libs/jQuery/jquery.unobtrusive-ajax.min.js"></script>
+	<script src="~/Content/libs/jQuery/jquery.print.min.js"></script>
+	<script src="~/Content/libs/moment/moment-wl.min.js"></script>
+	<script src="~/Content/libs/bootstrap-smartcity/js/bootstrap.min.js"></script>
+	<script src="~/Content/libs/bootsrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+	<script src="~/Content/libs/bootstrap-select/js/bootstrap-select.min.js"></script>
+	<script src="~/Content/libs/jsCookie/js-cookie.min.js"></script>
+	<script src="~/Content/libs/remodal/js/remodal.min.js"></script>
+	<script src="~/Content/libs/slick/slick.min.js"></script>
+	<script src="~/Content/app/js/elements.min.js?v=@(CmsSettings.ProductVersion)"></script>
+	<script src="@CmsSettings.CdnDomain/app/js/core-utils.min.js?v=@(CmsSettings.ProductVersion)"></script>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js"></script>
+	<script async defer src="https://maps.googleapis.com/maps/api/js?key=@(CmsSettings.GoogleMapApiKey)&libraries=places&language=@(CurrentCulture.Name.ToLower())&callback=coreUtils.initMapApi"></script>
+	<script src='https://www.google.com/recaptcha/api.js'></script>
+	<script src="~/Content/js/libs.min.js" type="text/javascript"></script>
+	<script src="~/Content/js/custom.js" type="text/javascript"></script>
+
+	<meta charset="UTF-8">
+	<title>@CmsSettings.TitleUk @CmsSettings.SubTitleUk</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" href="~/Content/SafeSity/css/style.css">
+</head>
+<body>
+
+	@* Версія для слабозорих *@
+	<div class="setings">
+		<div class="container">
+			<div class="setings_fonts">
+				<span>Шрифт: </span>
+				<div class="fonts_down">
+					&#8211;
+				</div>
+				<div class="fonts_up">
+					+
+				</div>
+			</div>
+			<div class="setings_color">
+				<span>Колір:</span>
+				<div class="color color_white"> Т</div>
+				<div class="color color_black"> Т</div>
+				<div class="color color_blue"> Т</div>
+			</div>
+			<div class="setings_images">
+				<span>Зображення: </span>
+				<div class="slideChB">
+					<input value="None" id="slideChB" name="check" type="checkbox">
+					<label for="slideChB"></label>
+				</div>
+			</div>
+			<div class="setings_full">
+				<a href="/">Звичайна версія</a>
+			</div>
+		</div>
+	</div>
+	@* End Версія для слабозорих *@
+
+	<header class="header ">
+		<div class="header-top">
+			<div class="container">
+				<div class="header-top-left">
+					@Html.Action("TopMenu", "Home")
+				</div>
+				<div class="header-top-right">
+					<a href="">Реєстрація</a>
+					<a href="/controlpanel/">Вхід</a>
+					<a class="language" href="">UA</a>
+				</div>
+			</div>
+		</div>
+		<div class="header-middle">
+			<div class="container">
+				<div class="header-middle-info">
+					<a class="header-middle-logo" href="/"><img src="@CmsSettings.BaseDomain@CmsSettings.LogoUk" alt=""></a>
+					<div class="descr">
+						<span class="subtitle">@CmsSettings.SubTitleUk</span><br>
+						<span class="title">@CmsSettings.TitleUk</span><br>
+					</div>
+				</div>
+
+				<div class="header-middle-search">
+					@using(Html.BeginForm("Search", "Search", new { Area = "", lang = CurrentCulture.Name.ToLower() }, FormMethod.Get, new { @class = "header-middle-search-form" }))
+					{
+						<input type="text" name="query">
+						<button type="submit"><svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 451 451" style="enable-background:new 0 0 451 451;" xml:space="preserve"><g><path d="M447.05,428l-109.6-109.6c29.4-33.8,47.2-77.9,47.2-126.1C384.65,86.2,298.35,0,192.35,0C86.25,0,0.05,86.3,0.05,192.3s86.3,192.3,192.3,192.3c48.2,0,92.3-17.8,126.1-47.2L428.05,447c2.6,2.6,6.1,4,9.5,4s6.9-1.3,9.5-4C452.25,441.8,452.25,433.2,447.05,428z M26.95,192.3c0-91.2,74.2-165.3,165.3-165.3c91.2,0,165.3,74.2,165.3,165.3s-74.1,165.4-165.3,165.4C101.15,357.7,26.95,283.5,26.95,192.3z" /></g></svg></button>
+					}
+					<br>
+
+					<ul class="header-middle-social">
+						<li class="header-middle-social-item"><a href="@CmsSettings.BaseDomain/rss/news"><img src="/content/img/icons/social-item-1.svg" alt=""></a></li>
+						@if(!String.IsNullOrEmpty(CmsSettings.FbLink))
+						{
+							<li class="header-middle-social-item"><a href="@CmsSettings.FbLink"><img src="/content/img/icons/social-item-5.svg" alt=""></a></li>
+						}
+						@if(!String.IsNullOrEmpty(CmsSettings.TwLink))
+						{
+							<li class="header-middle-social-item"><a href="@CmsSettings.TwLink"><img src="/content/img/icons/social-item-3.svg" alt=""></a></li>
+						}
+						@if(!String.IsNullOrEmpty(CmsSettings.YtLink))
+						{
+							<li class="header-middle-social-item"><a href="@CmsSettings.YtLink"><img src="/content/img/icons/social-item-2.svg" alt=""></a></li>
+						}
+						@if(!String.IsNullOrEmpty(CmsSettings.IgLink))
+						{
+							<li class="header-middle-social-item"><a href="@CmsSettings.IgLink"><img src="/content/img/icons/social-item-4.svg" alt=""></a></li>
+						}
+						<li class="header-middle-social-item">
+							<a class="header-middle-extra-btn vision-btn" href="">
+								<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512.001 512.001" style="enable-background:new 0 0 512.001 512.001;" xml:space="preserve">
+								<g><g><path d="M503.698,231.895c-28.735-36.843-65.956-67.318-107.637-88.128c-42.548-21.243-88.321-32.265-136.104-32.843c-1.316-0.036-6.6-0.036-7.916,0c-47.782,0.579-93.556,11.6-136.104,32.843c-41.681,20.81-78.9,51.284-107.636,88.128c-11.07,14.193-11.07,34.018,0,48.211c28.735,36.843,65.955,67.318,107.636,88.128c42.548,21.243,88.321,32.265,136.104,32.843c1.316,0.036,6.6,0.036,7.916,0c47.782-0.579,93.556-11.6,136.104-32.843c41.681-20.81,78.901-51.284,107.637-88.128C514.768,265.911,514.768,246.088,503.698,231.895z M125.242,349.599c-38.92-19.432-73.678-47.892-100.517-82.303c-5.187-6.651-5.187-15.94,0-22.591c26.838-34.411,61.596-62.871,100.517-82.303c11.054-5.518,22.342-10.29,33.839-14.33c-29.578,26.588-48.213,65.12-48.213,107.928c0,42.81,18.636,81.345,48.217,107.932C147.588,359.892,136.297,355.118,125.242,349.599z M256,380.303c-68.542,0-124.304-55.762-124.304-124.304S187.458,131.696,256,131.696S380.304,187.458,380.304,256S324.542,380.303,256,380.303z M487.275,267.295c-26.838,34.411-61.596,62.871-100.517,82.303c-11.041,5.512-22.322,10.263-33.805,14.299c29.558-26.587,48.179-65.107,48.179-107.898c0-42.814-18.64-81.351-48.223-107.939c11.5,4.041,22.793,8.819,33.85,14.34c38.92,19.432,73.678,47.892,100.517,82.303C492.462,251.355,492.462,260.644,487.275,267.295z" /></g></g><g><g><path d="M256,202.804c-29.332,0-53.195,23.863-53.195,53.195s23.863,53.195,53.195,53.195s53.195-23.863,53.195-53.195C309.196,226.667,285.333,202.804,256,202.804z M256,288.367c-17.847,0-32.368-14.519-32.368-32.368c0-17.848,14.519-32.367,32.368-32.367c17.847,0,32.367,14.519,32.367,32.367C288.368,273.848,273.847,288.367,256,288.367z" /></g></g>
+								</svg>
+							</a>
+						</li>
+					</ul>
+				</div>
+				<div class="header-middle-extra">
+					<a href="" class="weather-btn">
+						
+						<div class="weather">
+							<span>Погода</span>
+							<i class="fa fa-fw fa-spin fa-refresh"></i>
+						</div>
+						
+					</a>
+
+				</div>
+			</div>
+		</div>
+
+		<div class="container">
+			<nav class="main-navigation">
+				<a class="main-navigation-link" href="">меню</a>
+				@Html.Action("MainMenu", "Home")
+			</nav>
+		</div>
+	</header>
+
+	@RenderBody()
+
+
+	<footer class="footer">
+		<div class="footer-menu container">
+			<ul class="footer-menu-list">
+				@Html.Action("FooterMenu", "Widgets", new { Area = String.Empty, name = "footer-menu-1" })
+				@Html.Action("FooterMenu", "Widgets", new { Area = String.Empty, name = "footer-menu-2" })
+				@Html.Action("FooterMenu", "Widgets", new { Area = String.Empty, name = "footer-menu-3" })
+			</ul>
+		</div>
+		<div class="footer-info">
+			<div class="container">
+				<a class="footer-info-logo" href="index.html">
+					<img src="@CmsSettings.BaseDomain@CmsSettings.LogoUk" alt="">
+					<span class="title">
+						@CmsSettings.TitleUk
+						<span class="subtitle">@CmsSettings.SubTitleUk</span>
+					</span>
+				</a>
+				<ul class="header-middle-social">
+					<li class="header-middle-social-item"><a href="@CmsSettings.BaseDomain/rss/news"><img src="/content/img/icons/social-item-1.svg" alt=""></a></li>
+					@if(!String.IsNullOrEmpty(CmsSettings.FbLink))
+					{
+						<li class="header-middle-social-item"><a href="@CmsSettings.FbLink"><img src="/content/img/icons/social-item-5.svg" alt=""></a></li>
+					}
+					@if(!String.IsNullOrEmpty(CmsSettings.TwLink))
+					{
+						<li class="header-middle-social-item"><a href="@CmsSettings.TwLink"><img src="/content/img/icons/social-item-3.svg" alt=""></a></li>
+					}
+					@if(!String.IsNullOrEmpty(CmsSettings.YtLink))
+					{
+						<li class="header-middle-social-item"><a href="@CmsSettings.YtLink"><img src="/content/img/icons/social-item-2.svg" alt=""></a></li>
+					}
+					@if(!String.IsNullOrEmpty(CmsSettings.IgLink))
+					{
+						<li class="header-middle-social-item"><a href="@CmsSettings.IgLink"><img src="/content/img/icons/social-item-4.svg" alt=""></a></li>
+					}
+				</ul>
+				<a class="header-middle-extra-btn vision-btn" href="">
+					<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512.001 512.001" style="enable-background:new 0 0 512.001 512.001;" xml:space="preserve">
+					<g><g><path d="M503.698,231.895c-28.735-36.843-65.956-67.318-107.637-88.128c-42.548-21.243-88.321-32.265-136.104-32.843c-1.316-0.036-6.6-0.036-7.916,0c-47.782,0.579-93.556,11.6-136.104,32.843c-41.681,20.81-78.9,51.284-107.636,88.128c-11.07,14.193-11.07,34.018,0,48.211c28.735,36.843,65.955,67.318,107.636,88.128c42.548,21.243,88.321,32.265,136.104,32.843c1.316,0.036,6.6,0.036,7.916,0c47.782-0.579,93.556-11.6,136.104-32.843c41.681-20.81,78.901-51.284,107.637-88.128C514.768,265.911,514.768,246.088,503.698,231.895z M125.242,349.599c-38.92-19.432-73.678-47.892-100.517-82.303c-5.187-6.651-5.187-15.94,0-22.591c26.838-34.411,61.596-62.871,100.517-82.303c11.054-5.518,22.342-10.29,33.839-14.33c-29.578,26.588-48.213,65.12-48.213,107.928c0,42.81,18.636,81.345,48.217,107.932C147.588,359.892,136.297,355.118,125.242,349.599z M256,380.303c-68.542,0-124.304-55.762-124.304-124.304S187.458,131.696,256,131.696S380.304,187.458,380.304,256S324.542,380.303,256,380.303z M487.275,267.295c-26.838,34.411-61.596,62.871-100.517,82.303c-11.041,5.512-22.322,10.263-33.805,14.299c29.558-26.587,48.179-65.107,48.179-107.898c0-42.814-18.64-81.351-48.223-107.939c11.5,4.041,22.793,8.819,33.85,14.34c38.92,19.432,73.678,47.892,100.517,82.303C492.462,251.355,492.462,260.644,487.275,267.295z" /></g></g><g><g><path d="M256,202.804c-29.332,0-53.195,23.863-53.195,53.195s23.863,53.195,53.195,53.195s53.195-23.863,53.195-53.195C309.196,226.667,285.333,202.804,256,202.804z M256,288.367c-17.847,0-32.368-14.519-32.368-32.368c0-17.848,14.519-32.367,32.368-32.367c17.847,0,32.367,14.519,32.367,32.367C288.368,273.848,273.847,288.367,256,288.367z" /></g></g>
+					</svg>
+					<span class="first">Версія для слабозорих</span>
+					<span class="second">Звичайна версiя сайту</span>
+				</a>
+				<button id="admin_logIn_btn">
+					Адміністрування
+				</button>
+			</div>
+		</div>
+		<div class="footer-copyright">
+			<div class="container">
+				<span class="copyright">&#9400 Всі права захищені. 2018</span>
+				<a href="/">Розробник ТОВ БИССОФТ</a>
+			</div>
+		</div>
+	</footer>
+
+	<div class="overlay"></div>
+	<section class="popup">
+		<span class="popup-close"></span>
+		<span class="popup-title">Форма обратной связи</span>
+		<form class="popup-form js-form">
+			<input type="text" name="name" placeholder="Имя" required>
+			<input type="tel" name="phone" placeholder="Телефон" required>
+			<input type="email" name="email" placeholder="E-mail" required ">
+			<textarea name="comment" placeholder="Сообщение"></textarea>
+			<button type="submit" value="go">Отправить</button>
+		</form>
+	</section>
+
+
+	<section class="project-popup"></section>
+
+</body>
+</html>
+
+@*<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>*@
+@*<script ssrc="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.18.0/jquery.validate.min.js"></script>*@
+@*<script src="/Content/SafeSity/js/libs.min.js" type="text/javascript"></script>
+	<script src="/Content/SafeSity/js/custom.js" type="text/javascript"></script>*@
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		$("#admin_logIn_btn").on("click", function () {
+			window.location.href = "/uk/ControlPanel";
+		});
+		$("#signTotheOfficial").validate({
+			lang: "uk,en,ru"
+		});
+		$("body").delegate("#signToTheOfficial", "submit", function (event) {
+			event.preventDefault();
+			let payload = $(this).serialize();
+			$.ajax({
+				url: "uk/Widgets/RecordingAtReceptionPost",
+				type: "Post",
+				//contentType: "application/json",
+				data: payload,
+				success: function (data) {
+					$("#placeToRecordToTheOfficial").empty();
+					$("#placeToRecordToTheOfficial").append(data);
+					//console.log("success after sending an application");
+				},
+				error: function () {
+					console.log("failed after sending an application");
+				}
+			});
+		});
+	});
+
+	$(function () {
+            $(".weather").load("/home/weather");
+
+            $(window).scroll(function () {
+                if ($(this).scrollTop() >= 300) {
+                    $('#btnGoTop').fadeIn(200);
+                } else {
+                    $('#btnGoTop').fadeOut(200);
+                }
+            });
+
+            $("#btnBurger").on("click", function () {
+                $(".header-content,.main-menu").toggleClass("in");
+            });
+
+            $("#btnSubMenu").on("click", function () {
+                $(this).toggleClass("in");
+                $(".sub-menu").toggleClass("in");
+            });
+
+            $('#btnGoTop').on("click", function () {
+                $('body,html').animate({
+                    scrollTop: 0
+                }, 500);
+            });
+
+            coreUtils.createDatepicker($(".date-input"));
+            coreUtils.createDatepicker($(".bs-datepicker"));
+
+            $(".date-input").on("dp.change", function () {
+                window.location.href = "/@(CurrentCulture.Name.ToLower())/articles/category/pres-centr?date=" + $(this).val();
+            });
+
+            $('.cms-banners').slick({
+                dots: true,
+                slidesToShow: 4,
+                autoplay: true,
+                responsive: [
+                    {
+                        breakpoint: 1200,
+                        settings: {
+                            arrows: true,
+                            slidesToShow: 3
+                        }
+                    },
+                     {
+                         breakpoint: 992,
+                         settings: {
+                             arrows: true,
+                             slidesToShow: 2,
+                             dots: false,
+                         }
+                     },
+                    {
+                        breakpoint: 768,
+                        settings: {
+                            arrows: false,
+                            slidesToShow: 1,
+                            dots: false,
+                        }
+                    }
+                ]
+            });
+
+        });
+
+</script>
+<style>
+	/* styles for validation helpers */
+	.field-validation-error {
+		color: #b94a48;
+	}
+
+	.field-validation-valid {
+		display: none;
+	}
+
+	input.input-validation-error {
+		border: 1px solid #b94a48;
+	}
+
+
+	input[type="checkbox"].input-validation-error {
+		border: 0 none;
+	}
+
+	.validation-summary-errors {
+		color: #b94a48;
+	}
+</style>

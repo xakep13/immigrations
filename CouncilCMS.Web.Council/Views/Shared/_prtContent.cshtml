@@ -1,0 +1,58 @@
+﻿@model List<CmsContentRow>
+
+<div class="cms-content">
+    @if (Model != null && Model.Count > 0)
+    {
+        foreach (var row in Model)
+        {
+            <div class="row" style="@row.CssStyle">
+                @foreach (var col in row.Columns)
+                {
+                    <div class="@col.CssClass" style="@col.CssStyle">
+                        @foreach (var content in col.Contents)
+                        {
+                            switch (content.Type)
+                            {
+                                case ContentType.Widget:        
+                                    {
+                                        <div class="cms-widget">
+                                            @Html.Action(content.Body, "Widgets")
+                                        </div>
+                                        break;
+                                    }
+                                case ContentType.Menu:
+                                    {
+                                        <div class="cms-widget">
+                                            @Html.Action("SimpleMenu", "Widgets", new { Id = content.Body, Area = "" })
+                                        </div>
+                                        break;
+                                    }
+                                case ContentType.Accordion:
+                                    {
+                                        <div class="cms-widget">
+                                            @Html.Action("AccordionMenu", "Widgets", new { Id = content.Body, Area = "" })
+                                        </div>
+                                        break;
+                                    }
+                                default:
+                                    {
+                                        @Html.Raw(content.Body)
+                                        break;
+                                    }
+                            }
+                        }
+                    </div>
+                }
+            </div>
+        }
+    }
+    else
+    {
+        <div class="well text-center">
+            <div class="form-group">
+                <img src="~/Content/img/parts/cogs.png" />
+            </div>
+            <em>Сторінка в стадії наповнення</em>
+        </div>
+    }
+</div>

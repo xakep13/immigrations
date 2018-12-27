@@ -1,0 +1,77 @@
+﻿@model MenuItemListItem
+
+<div class="card-sm item" id="divItem@(Model.Id)" data-id="@Model.Id" data-parent-id="@Model.ParentMenuId" data-container-id="@Model.MenuId">
+    <div class="div-table">
+        <div class="div-cell" style="width:70px;">            
+            <span class="link-btn btn-drag btn-@(Model.ParentMenuId ?? 0)-drag">
+                <i class="fa fa-fw fa-bars"></i>
+            </span>
+            
+            <span class="link-btn btn-expand" data-toggle="collapse" data-target="#itemChilds@(Model.Id)" style="display:@(Model.HasChilds ? "inline-block" : "none")">
+                <i class="fa fa-fw fa-angle-down"></i>
+            </span>
+        </div>
+
+        <div class="div-cell">
+            @if (!string.IsNullOrEmpty(Model.Image))
+            {
+                <img src="@(CmsSettings.BaseDomain + Model.Image)" width="30" height="30" style="display:inline-block; vertical-align:middle; margin-right:15px;" />
+            }
+            <div class="inline-elipsis" style="vertical-align:middle;">
+                <span class="lang-uk @(Model.ShowItemUk ? null : "text-gray")">
+                    <strong>
+                        @Model.TitleUk
+                    </strong>
+                    <br />
+                    <em style="font-size:12px">
+                        @(Model.ShowItemUk ? "видимий" : "прихований")
+                    </em>
+                </span>
+                <span class="lang-ru @(Model.ShowItemRu ? null : "text-gray")">
+                    <strong>
+                        @Model.TitleRu
+                    </strong>
+                    <br />
+                    <em style="font-size:12px">
+                        @(Model.ShowItemUk ? "видимий" : "прихований")
+                    </em>
+                </span>
+                <span class="lang-en @(Model.ShowItemEn ? null : "text-gray")">
+                    <strong>
+                        @Model.TitleEn
+                    </strong>
+                    <br />
+                    <em style="font-size:12px">
+                        @(Model.ShowItemEn ? "видимий" : "прихований")
+                    </em>
+                </span>
+            </div>
+        </div>
+        <div class="div-cell" style="width:200px;">
+            <span>@Model.Type</span><br />
+            @if (!String.IsNullOrEmpty(Model.Url))
+            {
+                <a href="@Model.Url" target="_blank" style="font-size:12px">посилання</a>
+            }
+            else
+            {
+                <em style="font-size:12px">без посилання</em>
+            }
+        </div>
+
+        <div class="div-cell text-right" style="width:100px;">
+            @if (Model.Allowed)
+            {
+                <a href="#" class="link-btn nav-link" data-action="edit-item" data-id="-1" data-parent-id="@Model.Id" title="додати вкладений пункт меню">
+                    <i class="fa fa-fw fa-plus"></i>
+                </a>
+                <a href="#" class="link-btn nav-link" data-action="edit-item" title="редагувати пункт меню">
+                    <i class="fa fa-fw fa-pencil"></i>
+                </a>
+                <a href="#" class="link-btn nav-link" data-action="remove-item" title="видалити пункт меню">
+                    <i class="fa fa-fw fa-trash"></i>
+                </a>
+            }
+        </div>
+    </div>
+</div>

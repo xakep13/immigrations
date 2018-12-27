@@ -1,0 +1,237 @@
+﻿@helper CpPager(Int32 Count, Int32 Page, Int32 PerPage, Boolean ForceShow = false)
+{
+    var countMod = Count % PerPage;
+    var pageCount = Count / PerPage + (countMod > 0 ? 1 : 0);
+    var from = Page - 2;
+    var to = Page + 2;
+
+    if (pageCount < 10)
+    {
+        from = 2;
+        to = pageCount - 1;
+    }
+    else
+    {
+        if (Page <= 5)
+        {
+            from = 2;
+            to = 7;
+        }
+        else if (Page > pageCount - 5)
+        {
+            from = pageCount - 6;
+            to = pageCount - 1;
+        }
+    }
+
+    <div class="content-title pager-container">
+        @if (Count > PerPage || ForceShow)
+        {
+            <div id="divPager">
+                <div class="pull-left">
+                    <div class="form-control-static">
+                        <strong class="text-uppercase">
+                            всього: @Count
+                        </strong>
+                    </div>
+                </div>
+                <ul class="list-pager">
+                    <li class="list-page-1">
+                        <a href="#page1" data-page="1" class="nav-link @(Page == 1 ? "cur" : "")">1</a>
+                    </li>
+
+                    @if ((Page - 2) > 3 && pageCount > 9)
+                    {
+                        <li>
+                            <a href="#page@(Page - 4)" class="nav-link" data-page="@(Page - 4)">...</a>
+                        </li>
+                    }
+
+                    @for (var i = from; i <= to; i++)
+                    {
+                        <li class="list-page-@i">
+                            <a class="nav-link @(Page == i ? "cur" : String.Empty)" href="#page@(i)" data-page="@(i)">@i</a>
+                        </li>
+                    }
+
+                    @if ((Page + 2) <= pageCount - 3 && pageCount > 9)
+                    {
+                        <li>
+                            <a href="#page@(Page + 4)" class="nav-link" data-page="@(Page + 4)">...</a>
+                        </li>
+                    }
+
+                    <li class="list-page-@pageCount">
+                        <a class="nav-link @(Page == pageCount ? "cur" : String.Empty)" href="#page@(pageCount)" data-page="@pageCount">@pageCount</a>
+                    </li>
+                </ul>
+            </div>
+        }
+    </div>
+}
+
+@helper LinkPager(String Before, String After, Int32 Count, Int32 Page, Int32 PerPage, Boolean ForceShow = false)
+{
+    var countMod = Count % PerPage;
+    var pageCount = Count / PerPage + (countMod > 0 ? 1 : 0);
+    var from = Page - 2;
+    var to = Page + 2;
+
+    if (pageCount < 10)
+    {
+        from = 2;
+        to = pageCount - 1;
+    }
+    else
+    {
+        if (Page <= 5)
+        {
+            from = 2;
+            to = 7;
+        }
+        else if (Page > pageCount - 5)
+        {
+            from = pageCount - 6;
+            to = pageCount - 1;
+        }
+    }
+
+    <div class="container">
+        <ul class="pagination-template">
+            <span class="prev"></span>
+            @if (Count > PerPage || ForceShow)
+            {
+                <li class="pagination-item">
+
+                    <a href="@(Before)1@(After)" data-page="1" class="nav-link @(Page == 1 ? "cur" : "")">1</a>
+                </li>
+
+               if ((Page - 2) > 3 && pageCount > 9)
+                {
+                    <li class="pagination-item">
+                        <a href="@(Before)@(Page - 4)@(After)" class="nav-link" data-page="@(Page - 4)">...</a>
+                    </li>
+                }
+
+                for (var i = from; i <= to; i++)
+                {
+                    <li class="pagination-item list-page-@i">
+                        <a class="nav-link @(Page == i ? "cur" : String.Empty)" href="@(Before)@(i)@(After)" data-page="@(i)">@i</a>
+                    </li>
+                }
+
+                if ((Page + 2) <= pageCount - 3 && pageCount > 9)
+                {
+                    <li >
+                        <a href="@(Before)@(Page + 4)@(After)" class="nav-link" data-page="@(Page + 4)">...</a>
+                    </li>
+                }
+
+                <li class="pagination-item list-page-@pageCount">
+                    <a class="nav-link @(Page == pageCount ? "cur" : String.Empty)" href="@(Before)@(pageCount)@(After)" data-page="@pageCount">@pageCount</a>
+                </li>
+
+            }
+        </ul>
+    </div>
+  
+}
+
+@helper TextAlignSelect(String title, String name, String value = "left")
+{
+    <div class="form-group">
+        <label class="control-label">@title</label>
+        <select name="@name" class="form-control bs-select">
+            @if (value.ToLower() == "left")
+            {
+                <option value="left" selected>Зліва</option>
+            }
+            else
+            {
+                <option value="left">Зліва</option>
+            }
+            @if (value.ToLower() == "right")
+            {
+                <option value="right" selected>Справа</option>
+            }
+            else
+            {
+                <option value="right">Справа</option>
+            }
+            @if (value.ToLower() == "center")
+            {
+                <option value="center" selected>По центру</option>
+            }
+            else
+            {
+                <option value="center">По центру</option>
+            }
+        </select>
+    </div>
+}
+
+@helper FontWeightSelect(String title, String name, int value = 400)
+{
+    <div class="form-group">
+        <label class="control-label">@title</label>
+        <select name="@name" class="form-control bs-select">
+            <option value="300" data-content="<span style='font-weight:300'>Тонкий</span>" @(value == 300 ? "selected" : null)>Тонкий</option>
+            <option value="400" data-content="<span style='font-weight:400'>Звичайний</span>" @(value == 400 ? "selected" : null)>Звичайний</option>
+            <option value="700" data-content="<span style='font-weight:700'>Жирний</span>" @(value == 700 ? "selected" : null)>Жирний</option>
+        </select>
+    </div>
+}
+
+@helper MarginBottomSelect(String title, String name, int value = 15)
+{
+    <div class="form-group">
+        <label class="control-label">@title</label>
+        <select name="@name" class="form-control bs-select">
+            <option value="5" @(value == 5 ? "selected" : null)>5px - малий</option>
+            <option value="15" @(value == 15 ? "selected" : null)>15px - стандартний</option>
+            <option value="30" @(value == 30 ? "selected" : null)>30px - великий</option>
+            <option value="50" @(value == 50 ? "selected" : null)>50px - дуже великий</option>
+        </select>
+    </div>
+}
+
+@helper FontSizeSelect(String title, String name, int value = 0)
+{
+    <div class="form-group">
+        <label class="control-label">@title</label>
+        <select name="@name" class="form-control bs-select">
+            <option value="0" title="Стандартний" data-content="<span>Стандартний</span>" @(value == 0 ? "selected" : null)>Стандартний</option>
+            <option value="14" title="14px" data-content="<span style='font-size:14px'>14px</span>" @(value == 14 ? "selected" : null)>14px</option>
+            <option value="16" title="16px" data-content="<span style='font-size:16px'>16px</span>" @(value == 16 ? "selected" : null)>16px</option>
+            <option value="18" title="18px" data-content="<span style='font-size:18px'>18px</span>" @(value == 18 ? "selected" : null)>18px</option>
+            <option value="20" title="20px" data-content="<span style='font-size:20px'>20px</span>" @(value == 20 ? "selected" : null)>20px</option>
+            <option value="22" title="22px" data-content="<span style='font-size:22px'>22px</span>" @(value == 22 ? "selected" : null)>22px</option>
+            <option value="24" title="24px" data-content="<span style='font-size:24px'>24px</span>" @(value == 24 ? "selected" : null)>24px</option>
+        </select>
+    </div>
+}
+
+@helper FontStyleSelect(String title, String name, String value = "normal")
+{
+    <div class="form-group">
+        <label class="control-label">@title</label>
+        <select name="@name" class="form-control bs-select">
+            <option value="normal" data-content="<span style='font-style:normal'>Звичайний</span>" @(value == "normal" ? "selected" : null)>Звичайний</option>
+            <option value="italic" data-content="<span style='font-style:italic'>Курсив</span>" @(value == "italic" ? "selected" : null)>Курсив</option>
+        </select>
+    </div>
+}
+
+@helper BillboardDate(DateTime? EventDate = null, DateTime? PublishDate = null)
+{
+    var date = EventDate.HasValue ? EventDate : PublishDate;
+
+    if (date.HasValue)
+    {
+        <span class="date">
+            <span class="day">@date.Value.Day</span>
+            <span class="month">@date.Value.ToString("MMM")</span>
+            <span class="year">@date.Value.Year</span>
+        </span>
+    }
+}

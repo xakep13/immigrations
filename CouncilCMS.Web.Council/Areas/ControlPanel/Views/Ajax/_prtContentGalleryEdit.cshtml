@@ -1,0 +1,144 @@
+﻿@model GalleryEdit
+
+@{
+    var targetId = Model.IsNew ? ("column" + Model.ContentColumnId + "contents") : ("content" + Model.Id);
+    var insMode = Model.IsNew ? InsertionMode.InsertAfter : InsertionMode.ReplaceWith;
+}
+
+<div class="modal-title">
+    Галерея фото
+    <ul class="modal-lang-swicher">
+        <li data-lang="en">EN</li>
+        <li data-lang="ru">RU</li>
+        <li class="active" data-lang="uk">UA</li>
+    </ul>
+</div>
+
+@using (Ajax.BeginForm("SaveGalleryContent","", new AjaxOptions()
+{
+    Url = "/uk/controlpanel/ajax/SaveGalleryContent",
+    HttpMethod = "POST",
+    InsertionMode = insMode,
+    UpdateTargetId = targetId,
+    OnSuccess = "bsAdmin.divContentEdit.modal('hide'); $('.slide-gallery').fotorama();"
+
+},new { id="GalleryForm" }))
+{
+    @Html.HiddenFor(x => x.ContentColumnId)
+    @Html.HiddenFor(x => x.Position)
+
+    @Html.HiddenFor(x => x.Id, new { Value = Model.Id })
+    
+    <div class="lang-uk">
+        @Html.SimpleTextAreaFor(x => x.DescriptionUk, "Опис галереї (ru)", new { @class = "form-control bs-ckeditor", data_height = "100" })
+    </div>
+    <div class="lang-ru">
+        @Html.SimpleTextAreaFor(x => x.DescriptionRu, "Опис галереї (ua)", new { @class = "form-control bs-ckeditor", data_height = "100" })
+    </div>
+    <div class="lang-en">
+        @Html.SimpleTextAreaFor(x => x.DescriptionEn, "Опис галереї (en)", new { @class = "form-control bs-ckeditor", data_height = "100" })
+    </div>
+
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label class="control-label">Співвідношення сторін</label>
+                <select class="form-control bs-select" name="Ratio">
+                    <option value="">За замовчуванням</option>
+                    <option value="4/3">4/3</option>
+                    <option value="16/9">16/9</option>
+                    <option value="1/1">1/1</option>
+                </select>
+            </div>
+        </div>
+
+        @*<div class="col-sm-12 gallery-content">
+            @if (Model.GalleryItems != null)
+            {
+                foreach (var item in Model.GalleryItems)
+                {
+                    @Html.Partial("_prtContentGalleryItemEdit", item);
+                }
+            }         
+        </div>
+        <div class="col-lg-6">
+            <input type="button" value="Додати зображення" onclick="javascript: window.addGalleryItem();" class="btn btn-primary" />
+        </div>*@        
+    </div>
+    <div class="well">
+        <div class="gallery-edit-items" id="divGalleryEditItems">
+            @if (Model.GalleryItems != null)
+                {
+                    for (var i = 0; i < Model.GalleryItems.Count(); i++)
+                    {
+                        var index = Guid.NewGuid().ToString("N");
+
+                    <div class="gallery-edit-item card-sm" id="galleryEditItem@(index)">
+                        <input type="hidden" name="GalleryItems.Index" value="@index" />
+                        <input type="hidden" name="GalleryItems[@index].Image" value="@Model.GalleryItems[i].Image" />
+                        <div class="div-table">
+                            <div class="div-cell gallery-edit-item-img" style="width:120px;height:120px;">
+                                <img class="img" id="galleryEditItemImg@(index)" src="@Model.GalleryItems[i].Image" />
+                            </div>
+                            <div class="div-cell">
+                                <div class="form-group">
+                                    <div class="lang-uk">
+                                        <label class="control-label">Підпис фото (ua)</label>
+                                        <input type="text" class="form-control" placeholder="Підпис фото (ua)" name="GalleryItems[@index].NameUk" value="@Model.GalleryItems[i].NameUk" />
+                                    </div>
+                                    <div class="lang-ru">
+                                        <label class="control-label">Підпис фото (ua)</label>
+                                        <input type="text" class="form-control" placeholder="Підпис фото (ua)" name="GalleryItems[@index].NameRu" value="@Model.GalleryItems[i].NameRu" />
+                                    </div>
+                                    <div class="lang-en">
+                                        <label class="control-label">Підпис фото (ua)</label>
+                                        <input type="text" class="form-control" placeholder="Підпис фото (ua)" name="GalleryItems[@index].NameEn" value="@Model.GalleryItems[i].NameEn" />
+                                    </div>
+                                </div>
+                                
+                                <div class="text-right">
+                                    <a href="@Model.GalleryItems[i].Image" target="_blank" class="link-btn" title="переглянути зображення">
+                                        <i class="fa fa-fw fa-eye"></i>
+                                    </a>
+                                    <span class="link-btn gallery-edit-item-edit" data-id="@index" title="редагувати зображення">
+                                        <i class="fa fa-fw fa-edit"></i>
+                                    </span>
+                                    <span class="link-btn gallery-edit-item-del" data-id="@index" title="видалити зображення">
+                                        <i class="fa fa-fw fa-trash"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+        <hr />
+        <div class="gallery-edit-upload">
+            <div>
+                <input type="button" id="btnUploadGalleryItems" value="Додати зображення" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        @if (Model.IsNew)
+        {
+            <button type="button" href="#" class="btn btn-link remove-content" data-id="@Model.Id">
+                @Locals.Cancle
+            </button>
+            <button type="submit" id="saveMapEdit" class="btn btn-primary">
+                @Locals.Add
+            </button>
+        }
+        else
+        {
+            <button type="button" class="btn btn-link nav-link" data-dismiss="modal">
+                @Locals.Close
+            </button>
+            <button type="submit" id="saveMapEdit" class="btn btn-primary">
+                @Locals.Save
+            </button>
+        }
+    </div>
+}

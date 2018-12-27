@@ -1,0 +1,31 @@
+﻿@model NewsletterPreview
+    <style type="text/css">
+        .pdf-article { font-family:Arial, Helvetica, sans-serif; margin-bottom:30px; }
+        .pdf-article-text, .pdf-article-text * { font-size:18px !important; }
+        .pdf-article-date { font-style:italic; margin-bottom:20px; }
+        .pagebreak { page-break-after: always; }
+        .pdf-article-text .page-content { margin-bottom:10px; }
+        .pdf-article-text table { border-collapse:separate; border-spacing:3px; background:#000; width:100%; }
+        .pdf-article-text table td { padding:5px; font-size:16px; background:#fff; }
+        .pdf-article-text table th { padding:5px; font-size:16px; background:#fff; font-weight:bold; }
+        .pdf-article-text table tr { page-break-inside: avoid; }
+        .pdf-article-text .image-desc, .pdf-article-text .content-desc { display:block; margin-top:5px; margin-bottom:10px; font-style:italic; text-align:center; }
+        .pdf-article-text .content-text img { margin:0 10px; }
+        .pdf-article-text .img-responsive { margin:0 auto; max-width:100%; }
+        .pdf-article-text .content-gallery img { margin:0 auto 10px auto; max-width:100%; }
+    </style>
+
+    @foreach (var item in Model.Articles)
+    {
+        <div class="pdf-article">
+            <h1 class="pdf-article-title">
+                @item.Title
+            </h1>
+            <div class="pdf-article-date">
+                @item.Date
+            </div>
+            <div class="pdf-article-text">
+                @Html.Raw(item.Html.Replace("src=\"/", "src=\"http://" + CmsSettings.BaseDomain + "/").Replace("src='/", "src=\"http://" + CmsSettings.BaseDomain + "/"))
+            </div>
+        </div>       
+    }

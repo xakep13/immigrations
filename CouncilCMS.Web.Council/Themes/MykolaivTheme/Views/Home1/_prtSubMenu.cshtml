@@ -1,0 +1,23 @@
+﻿@model CmsMenu
+
+@if (Model.Items.Count > 0)
+{
+    <div class="sub-menu @(HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower() == "home" ? "index" : null)" style="display:@(HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower() == "home" ? "block" : "none")">
+        <div class="container">
+            <ul class="theme-menu">
+                <li class="title">@CmsLabels.Actual</li>
+                @foreach (var item in Model.Items)
+                {
+                    @Html.Partial("_prtSimpleMenuItem", item)
+                }
+                <li class="sub-menu-more dropdown" style="display:none" data-width="80">
+                    <a href="#" data-toggle="dropdown">
+                        <i class="fa fa-fw fa-angle-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-right"></ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+}
+

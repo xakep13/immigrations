@@ -1,0 +1,57 @@
+﻿@model CmsDoc
+
+@{
+    ViewBag.Title = Model.Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<main class="">
+    <section class="organization">
+        <div class="container">
+            <span class="block-title block-decor-bottom">@Model.Title</span>
+
+            <div class="page-content content-text block doc-content">
+                @Html.Raw(Model.Text)
+            </div>
+
+            @if (Model.Files != null && Model.Files.Count > 0)
+            {
+                <div class="page-content content-text">
+                    <h2>@CmsLabels.Files</h2>
+                    @foreach (var item in Model.Files)
+                    {
+                        <div class="file">
+                            <div class="page-content content-file text-left" style="margin-bottom:15px;">
+                                <i class="fa fa-fw fa-file-text"></i>
+                                <a href="@item.File" download="@item.Title">@item.Title (@item.Extension, @(item.Size > 1024 ? ((item.Size / 1024) + " mb") : (item.Size + " kb")))</a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+
+            <div class="organization-right">
+                <div class="header_banner-info">
+                    <span class="title">Гаряча лінія</span>
+                    <div class="header_banner-contacts block-decor-bottom block-decor-top">
+                        <a class="phone" href="tel:@CmsSettings.HotlinePhone">@CmsSettings.HotlinePhone</a>
+                        <a class="mail" href="mailto:@CmsSettings.HotlineEmail">@CmsSettings.HotlineEmail</a>
+                    </div>
+                    <div class="header_banner-contacts">
+                        <a class="icon" href="tel:@CmsSettings.HotlinePhone"><img src="/content/img/icons/header_banner-phone.svg" alt=""></a>
+                        <a class="icon" href="mailto:@CmsSettings.HotlineEmail"><img src="/content/img/icons/header_banner-mail.svg" alt=""></a>
+                    </div>
+                    <p class="header_banner-descr">Електронний центр обробки інформації громадян</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+
+<script>
+    $(function () {
+        coreUtils.createPage($(".cms-content"));
+    })
+</script>

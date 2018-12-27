@@ -1,0 +1,56 @@
+﻿@model CmsEnterpriseList
+@{
+	ViewBag.Title = Model.CategoryName;
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container">
+	<div class="left-content">
+		<div class="cms-list">
+			<div class="cms-list-header">
+				<h1>@Model.CategoryName</h1>
+				@if(!String.IsNullOrEmpty(Model.CategoryDescription))
+				{
+					<div class="cms-list-desc">
+						@Html.Raw(Model.CategoryDescription)
+					</div>
+				}
+			</div>
+
+			@if(Model.Enterprises != null && Model.Enterprises.Count > 0)
+			{
+				foreach(var item in Model.Enterprises.OrderBy(x => x.Title))
+				{
+					<div class="cms-person-item" id="personItem@(item.Id)" data-title="@item.Title">
+						<a href="/@CurrentCulture.Name.ToLower()/organizations/item/@item.Id">
+							<img src="@CmsSettings.BaseDomain@(!String.IsNullOrEmpty(item.Image) ? item.Image : "/content/img/parts/default-img-1x1.png")" title="@item.Title" class="img" />
+							<div class="text">
+								<span class="name">
+									@item.Title
+								</span>
+								@if(!String.IsNullOrEmpty(item.Description))
+								{
+									<p class="desc">
+										@item.Description
+									</p>
+								}
+							</div>
+						</a>
+					</div>
+				}
+			}
+			else
+			{
+				<div class="well">
+					У цьому розділі записів не знайдено
+				</div>
+			}
+		</div>
+	</div>
+	<div class="right-content">
+		@Html.Partial("_prtSidebar")
+		@if(Model.CategoryMenu != null)
+		{
+			@Html.Partial("_prtSidebarMenu", Model.CategoryMenu)
+		}
+	</div>
+</div>

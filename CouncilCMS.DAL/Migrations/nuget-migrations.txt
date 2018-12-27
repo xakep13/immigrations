@@ -1,0 +1,7 @@
+﻿Add-Migration -ConfigurationTypeName Bissoft.SmartCity.DAL.Migrations.Base.Configuration ""
+Add-Migration -ConfigurationTypeName Bissoft.SmartCity.DAL.Migrations.Dnepr.Configuration ""
+Add-Migration -ConfigurationTypeName Bissoft.CouncilCMS.DAL.Migrations.Cms.Configuration ""
+
+Update-Database -ConfigurationTypeName Bissoft.SmartCity.DAL.Migrations.Dnepr.Configuration
+Update-Database -ConfigurationTypeName Bissoft.SmartCity.DAL.Migrations.Dnepr.Configuration
+Update-Database -ConfigurationTypeName Bissoft.SmartCity.DAL.Migrations.Zp.Configuration

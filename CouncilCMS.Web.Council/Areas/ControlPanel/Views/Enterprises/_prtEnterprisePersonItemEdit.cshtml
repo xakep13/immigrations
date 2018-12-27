@@ -1,0 +1,63 @@
+﻿@model EnterprisePersonItem
+
+<div class="modal-title">
+    Персона в організації
+    <ul class="modal-lang-swicher">
+        <li data-lang="en">EN</li>
+        <li data-lang="ru">RU</li>
+        <li class="active" data-lang="uk">UA</li>
+    </ul>
+</div>
+
+@using (Ajax.BeginForm(new AjaxOptions()
+{
+    Url = "/uk/controlpanel/enterprises/saveperson",
+    HttpMethod = "POST",
+    OnBegin = "bsAdmin.startProcessing();",
+    OnComplete = "bsAdmin.endProcessing(); window.divItemEdit.modal('hide');",
+    UpdateTargetId = "itemPerson" + Model.PersonId + "Enterprise" + Model.EnterpriseId,
+    InsertionMode = InsertionMode.ReplaceWith,
+}))
+{   
+    @Html.HiddenFor(x => x.PersonId, new { Value = Model.PersonId })
+    @Html.HiddenFor(x => x.EnterpriseId, new { Value = Model.EnterpriseId })    
+
+    <div class="form-group">
+        <label class="control-label">П.І.Б.</label>
+        <div class="form-control-static">
+            @Model.Title
+        </div>
+    </div>
+
+    <div>
+        <div class="lang-uk">
+            @Html.SimpleTextBoxFor(x => x.PostUk, "@CmsLabels.Post в організації (ua)", new { @class = "form-control" })
+        </div>
+        <div class="lang-ru">
+            @Html.SimpleTextBoxFor(x => x.PostRu, "@CmsLabels.Post в організації (ru)", new { @class = "form-control" })
+        </div>
+        <div class="lang-en">
+            @Html.SimpleTextBoxFor(x => x.PostEn, "@CmsLabels.Post в організації (en)", new { @class = "form-control" })
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-sm-4">
+            @Html.SimpleTextBoxFor(x => x.Position, "Номер в списку", new { @class = "form-control" })            
+        </div>   
+        <div class="cols-sm-8">
+            @Html.SimpleCheckboxFor(x => x.IsDeputyFraction, String.Empty, "Вказати дану організацію як поточну партію для персони")
+        </div>     
+    </div>
+
+    <div class="modal-footer">
+        <a href="#" type="button" class="btn btn-link nav-link" data-dismiss="modal">
+            @Locals.Close
+        </a>
+        <button type="submit" class="btn btn-primary">
+            @Locals.Save
+        </button>
+    </div>
+
+}
+

@@ -1,0 +1,617 @@
+﻿@model MkIndex
+
+<main class="">
+    <section class="header_banner">
+        <div class="owl-carousel">
+            @foreach (var news in Model.MainNews)
+            {
+                <div class="header_banner-item">
+
+                    <a href="/uk/articles/item/@news.Id/@news.UrlName">
+                        <img src="@CmsSettings.BaseDomain@news.Image" alt="">
+                        <span class="slide-title">@news.Title</span>
+                    </a>
+                </div>
+            }
+        </div>
+        <div class="header_banner-info">
+            <span class="title">Гаряча лінія</span>
+            <div class="header_banner-contacts block-decor-bottom block-decor-top">
+                <a class="phone" href="tel:">@CmsSettings.HotlinePhone</a>
+                <a class="mail" href="mailto:@CmsSettings.HotlineEmail">@CmsSettings.HotlineEmail</a>
+            </div>
+            <div class="header_banner-contacts">
+                <a class="icon" href="tel:"><img src="/content/img/icons/header_banner-phone.svg" alt=""></a>
+                <a class="icon" href="mailto:@CmsSettings.HotlineEmail"><img src="/content/img/icons/header_banner-mail.svg" alt=""></a>
+            </div>
+            <p class="header_banner-descr">Електронний центр обробки інформації громадян</p>
+        </div>
+    </section>
+    <section class="news">
+        <div class="container">
+            <ul class="news-tabs">
+                <li class="news-tabs-item active"><a href="/uk/articles/category/novini">Новини</a></li>
+                <li class="news-tabs-item"><a href="/uk/articles/category/novini">Події</a></li>
+                <li class="news-tabs-item"><a href="/uk/articles/category/ogoloshennya">Оголошення</a></li>
+                <li class="news-tabs-item"><a href="">Офіційні документи</a></li>
+            </ul>
+        </div>
+        <div class="news-tabs-content">
+            <div class="container">
+                <div class="news-tabs-content-item active">
+                    <ul class="news-filter">
+                        <li class="news-filter-item active"><a href="/uk/articles/category/novini">Усі теми</a></li>
+                        @*<li class="news-filter-item"><a href="">Аграрні новини</a></li>
+                            <li class="news-filter-item"><a href="">Свята</a></li>
+                            <li class="news-filter-item"><a href="">Будівництво</a></li>
+                            <li class="news-filter-item"><a href="">Комунальні новини</a></li>
+                            <li class="news-filter-item"><a href="">Економіка</a></li>
+                            <li class="news-filter-item"><a href="">Соціальна політика</a></li>
+                            <li class="news-filter-item"><a href="">Реформи</a></li>*@
+                    </ul>
+                    <div class="news-list">
+                        @Html.Action("GetMajorLast", "Widgets", new { Area = String.Empty, Url = "mayor" })
+                        @foreach (var news in Model.MainNewsSecond.Take(3))
+    {
+                    <div class="news-item top">
+                        <img src="@CmsSettings.BaseDomain@news.Image" alt="">
+                        <a href="@CurrentCulture.Name.ToLower()/articles/item/@news.Id/@news.UrlName" class="news-item-content">
+                            <span class="title">@news.Title</span>
+                            <p class="descr">@news.Description</p>
+                            <div class="news-item-info">
+                                <span class="views">@news.ViewCount</span>
+                                <span class="category">@news.CategoryTitle</span>
+                                <time>@news.PublishDate</time>
+                            </div>
+                        </a>
+                    </div>
+
+}
+                        @foreach (var news in Model.MainNewsSecond.Skip(3))
+    {
+                    <div class="news-item bottom">
+                        <img src="@CmsSettings.BaseDomain@news.Image" alt="">
+                        <a href="@CurrentCulture.Name.ToLower()/articles/item/@news.Id/@news.UrlName" class="news-item-content">
+                            <span class="title">@news.Title</span>
+                            <p class="descr">@news.Description</p>
+                            <div class="news-item-info">
+                                <span class="views">@news.ViewCount</span>
+                                <span class="category">@news.CategoryTitle</span>
+                                <time>@news.PublishDate</time>
+                            </div>
+                        </a>
+                    </div>
+}
+         
+                        <div class="news-calendar">
+                            <div class="data">
+                                <label>
+                                    <img src="/content/img/icons/calendar.svg" alt="">
+                                    <input type="date" name="news-date" id="tbNewsDate">
+                                    Обрати дату
+                                </label>
+                            </div>
+                            <ul class="news-calendar-list">
+                                <span class="title">КАЛЕНДАР ПОДІЙ</span>
+                                <li class="news-calendar-item"><a href="/uk/articles/category/anonsi-podij">Останні події</a></li>
+                                <li class="news-calendar-item"><a href="/uk/articles/category/ogoloshennya">Важливі оголошення</a></li>
+                                <li class="news-calendar-item"><a href="">Свята</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <a href="/uk/articles/category/novini" class="site-btn">До розділу новин</a>
+                </div>
+                <div class="news-tabs-content-item"></div>
+                <div class="news-tabs-content-item"></div>
+                <div class="news-tabs-content-item"></div>
+            </div>
+        </div>
+    </section>
+    <section class="center-banner">
+        <div class="container">
+            <div class="center-banner-info">
+                <div class="head">
+                    <span class="center-banner-title">
+                        <img src="/contnet/img/icons/header_banner-mail.svg" alt="">
+                        Як бути в курсі останніх новин?
+                    </span>
+                    <p class="block-decor-top block-decor-bottom">
+                        Підпишіться та отримуйте оперативну інформацію про перектиття доріг, надзвичайні ситуації, зміни руху транспорту, міські заходи та інші важливі події
+                    </p>
+                </div>
+                <form method="POST" class="center-banner-form">
+                    <input type="mail" name="mail" placeholder="Введіть свою електронну адресу" required pattern="[a-z0-9._%+-]+@("@")[a-z0-9.-]+\.[a-z]{2,4}$">
+                    <button class="form-btn">Підписатися на актуальні новини</button>
+                </form>
+            </div>
+            <div class="center-banner-social">
+                <span class="title">Або заходьте на наші сторінки у соціальних мережах:</span>
+                <ul class="header-middle-social">
+                    <li class="header-middle-social-item"><a href=""><img src="/content/img/icons/social-item-1.svg" alt=""></a></li>
+                    <li class="header-middle-social-item"><a href=""><img src="/content/img/icons/social-item-2.svg" alt=""></a></li>
+                    <li class="header-middle-social-item"><a href=""><img src="/content/img/icons/social-item-3.svg" alt=""></a></li>
+                    <li class="header-middle-social-item"><a href=""><img src="/content/img/icons/social-item-4.svg" alt=""></a></li>
+                    <li class="header-middle-social-item"><a href=""><img src="/content/img/icons/social-item-5.svg" alt=""></a></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <section class="e-services">
+        <div class="container">
+            <span class="block-title block-decor-bottom">Електронні послуги</span>
+            <ul class="e-services-list">
+                <!-- li.e-services-item*10>div.e-services-item-head>img[src=/img/icons/e-services-item-$.png]+span.title{Назва Е-сервісу}^+p.descr{Опис та коротка характеристика електронного сервiсу} -->
+                @foreach (var item in Model.ServiceMenu.Items)
+                {
+                    <li class="e-services-item">
+                        <a href="@item.Url">
+                            <div class="e-services-item-head"><img src="@CmsSettings.BaseDomain@item.Image" alt=""><span class="title">@item.Title</span></div>
+                            <p class="descr"></p>
+                        </a>
+                    </li>
+                }
+            </ul>
+            @*<a href="" class="site-btn">До усіх сервісів</a>*@
+        </div>
+    </section>
+    <section class="services">
+        <div class="container">
+            <span class="block-title block-decor-bottom">Послуги та корисна інформація</span>
+            <ul class="services-list">
+                @foreach (var item in Model.ThemeMenu.Items)
+                {
+                    <li class="services-item">
+                        <div class="services-item-head"><img src="@CmsSettings.BaseDomain@item.Image" alt=""></div>
+                        <div class="services-item-info">
+                            <a href="@item.Url" class="title">@item.Title</a>
+                            @if (item.Items != null && item.Items.Count > 0)
+                            {
+                                <ul>
+                                    @foreach (var sitem in item.Items)
+                                    {
+                                        <li><a href="@sitem.Url" class="services-link">@sitem.Title</a></li>
+                                    }
+                                </ul>
+                            }
+
+                        </div>
+                    </li>
+                }
+
+            </ul>
+            @*<a href="" class="site-btn">До усіх сервісів</a>*@
+        </div>
+    </section>
+
+    @if (CmsSettings.Type > 1)
+    {
+        <section class="city-info">
+            <div class="container">
+                <div class="city-info-left">
+                    <ul class="city-info-tabs">
+                        <li class="city-info-tabs-item active">@Model.AreaMenu.Name</li>
+                    </ul>
+                    <div class="city-info-content">
+                        <div class="city-info-content-item first active">
+                            <ul class="community">
+                                @foreach (var item in Model.AreaMenu.Items)
+                                {
+                                    <li class="community-item">
+                                        <a href="@item.Url">
+                                            @if (!String.IsNullOrEmpty(item.Image))
+                                            {
+                                                <img src="@CmsSettings.BaseDomain@item.Image" alt="" />
+                                            }
+                                            <span class="community-title">@item.Title</span>
+                                        </a>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                        @*<div class="city-info-content-item second">
+                                <ul class="city-info-numbers">
+                                    <li class="city-info-numbers-item"><span class="title">Первомайський район утворений:</span><span class="info">в січні 1965 року</span></li>
+                                    <li class="city-info-numbers-item"><span class="title">Загальна кількість сільського населення:</span><span class="info">16 тис. 683 чол.</span></li>
+                                    <li class="city-info-numbers-item"><span class="title">Загальна площа району:</span><span class="info">1194,43 км2</span></li>
+                                    <li class="city-info-numbers-item"><span class="title">Щільність населення в районі:</span><span class="info">14 чол. на один  кв.км</span></li>
+                                    <li class="city-info-numbers-item"><span class="title">В Первомайському районі налічується сільських населених пунктів:</span><span class="info">58</span></li>
+                                    <li class="city-info-numbers-item"><span class="title">Площа сільськогосподарських угідь:</span><span class="info">103, 2 тис. га</span></li>
+                                </ul>
+                            </div>*@
+                        @*<div class="city-info-content-item third ">
+                                <ul class="community">
+                                    <li class="community-item"><a href=""><img src="/img/coat_of_arms.png" alt=""><span class="community-title">Верховна рада України</span></a></li>
+                                    <li class="community-item"><a href=""><img src="/img/coat_of_arms.png" alt=""><span class="community-title">Верховна рада України</span></a></li>
+                                    <li class="community-item"><a href=""><img src="/img/coat_of_arms.png" alt=""><span class="community-title">Верховна рада України</span></a></li>
+                                    <li class="community-item"><a href=""><img src="/img/coat_of_arms.png" alt=""><span class="community-title">Верховна рада України</span></a></li>
+                                    <li class="community-item"><a href=""><img src="/img/coat_of_arms.png" alt=""><span class="community-title">Верховна рада України</span></a></li>
+                                    <li class="community-item"><a href=""><img src="/img/coat_of_arms.png" alt=""><span class="community-title">Верховна рада України</span></a></li>
+                                    <li class="community-item"><a href=""><img src="/img/coat_of_arms.png" alt=""><span class="community-title">Верховна рада України</span></a></li>
+                                    <li class="community-item"><a href=""><img src="/img/coat_of_arms.png" alt=""><span class="community-title">Верховна рада України</span></a></li>
+                                    <li class="community-item"><a href=""><img src="/img/coat_of_arms.png" alt=""><span class="community-title">Верховна рада України</span></a></li>
+                                    <li class="community-item"><a href=""><img src="/img/coat_of_arms.png" alt=""><span class="community-title">Верховна рада України</span></a></li>
+                                    <li class="community-item"><a href=""><img src="/img/coat_of_arms.png" alt=""><span class="community-title">Верховна рада України</span></a></li>
+                                    <li class="community-item"><a href=""><img src="/img/coat_of_arms.png" alt=""><span class="community-title">Верховна рада України</span></a></li>
+                                    <li class="community-item"><a href=""><img src="/img/coat_of_arms.png" alt=""><span class="community-title">Верховна рада України</span></a></li>
+                                    <li class="community-item"><a href=""><img src="/img/coat_of_arms.png" alt=""><span class="community-title">Верховна рада України</span></a></li>
+                                    <li class="community-item"><a href=""><img src="/img/coat_of_arms.png" alt=""><span class="community-title">Верховна рада України</span></a></li>
+                                </ul>
+                            </div>*@
+                        @*<div class="city-info-content-item fourth active">
+                                <div class="city-info-facts">
+                                    <p class="facts-item">Первомайський район утворений в січні 1965 року на базі Олексіївського району</p>
+                                    <p class="facts-item">Адміністративним центром району є місто обласного підпорядкування Первомайський</p>
+                                    <p class="facts-item">Тваринницька галузь сільгосппідприємств налічує - 1310 голів великої рогатої худоби, у тому числі: корови - 555, свині - 1000, вівці - 700, птиці - 533 голови.</p>
+                                    <p class="facts-item">В районі функціонує один стадіон, 14 типових спортзалів, 78 – спортивних майданчиків, 18 футбольних полів, 10 стрілецьких тирів на дистанцію не менше 25 м, 9 приміщень для фізкультурно-оздоровчих занять.</p>
+                                    <p class="facts-item">Значну частину в економіці району займають малі підприємства. Зараз цей сектор налічує 538 суб’єктів малого підприємництва, де 369 – фізичні – особи підприємства.</p>
+                                    <p class="facts-item">Cума сплачених малими підприємствами податків у місцевий бюджет за 6 місяців 2014 року склала 2379, 63 тис. грн.</p>
+                                    <p class="facts-item">В районі функціонують близько 9 філій відділення Ощадбанку України.</p>
+                                    <p class="facts-item">Залізнична станція Лихачове повністю забезпечує потреби замовників у перевезенні вантажів залізничним транспортом. </p>
+                                    <p class="facts-item">Нині в районі діє 21 сільська автоматична телефонна станція.</p>
+                                </div>
+                            </div>*@
+                    </div>
+                </div>
+                <div class="city-info-right">
+                    <span class="news-block-title">Новини громад</span>
+                    @foreach (var news in Model.AreaNews)
+                    {
+                        <div class="news-block-item">
+                            <a href="">
+                                <img class="news-block-item-img" src="@CmsSettings.BaseDomain@news.Image" alt="">
+                                <div class="info">
+                                    <span class="subtitle">@news.CategoryTitle</span>
+                                    <span class="title">@news.Title</span>
+                                    <p class="descr">@news.Description</p>
+                                    <div class="news-item-info">
+                                        <span class="views">@news.ViewCount</span>
+
+                                        <time>@news.PublishDate</time>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    }
+                    <a class="all-news" href="/articles/category/novini-area">Всі новини</a>
+                </div>
+            </div>
+        </section>
+    }
+
+
+    <section class="useful">
+        <div class="container">
+            <span class="block-title block-decor-bottom">Корисні посилання</span>
+            <ul class="useful-list">
+                @foreach (var item in Model.LinkMenu.Items)
+                {
+                    <li class="useful-item"><a href="@item.Url"><img src="@CmsSettings.BaseDomain@item.Image" alt=""><span class="title">@item.Title</span></a></li>
+                }
+
+            </ul>
+            <!-- <a href="" class="site-btn">До усіх сервісів</a> -->
+        </div>
+    </section>
+</main>
+
+
+@*<div class="container index">
+        <div class="block">
+            <div class="row">
+                <div class="col-md-9 col-sm-12">
+                    <div id="divMainCarousel" class="carousel slide" data-ride="carousel">
+                        <!-- Indicators -->
+                        <ol class="carousel-indicators">
+                            <li data-target="#divMainCarousel" data-slide-to="0" class="active"></li>
+                            <li data-target="#divMainCarousel" data-slide-to="1"></li>
+                            <li data-target="#divMainCarousel" data-slide-to="2"></li>
+                        </ol>
+
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner" role="listbox">
+                            <div class="item active">
+                                <img style="width:100%;" src="@(CmsSettings.BaseDomain + Model.MainNews[0].Image)" alt="...">
+                                <div class="carousel-caption">
+                                    <a href="@CurrentCulture.Name.ToLower()/articles/item/@Model.MainNews[0].Id/@Model.MainNews[0].UrlName">
+                                        <span>@Model.MainNews[0].PublishDate</span>
+                                        @Model.MainNews[0].Title
+                                    </a>
+                                </div>
+                            </div>
+                            @foreach (var item in Model.MainNews.Skip(1))
+                            {
+                                <div class="item">
+                                    <img style="width:100%;" src="@(CmsSettings.BaseDomain + item.Image)" alt="...">
+                                    <div class="carousel-caption">
+                                        <a href="@CurrentCulture.Name.ToLower()/articles/item/@item.Id/@item.UrlName">
+                                            <span>@item.PublishDate</span>
+                                            @item.Title
+                                        </a>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+
+                        <!-- Controls -->
+                        <a class="left carousel-control" href="#divMainCarousel" role="button" data-slide="prev">
+                            <span class="glyphicon fa fa-chevron-left" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="right carousel-control" href="#divMainCarousel" role="button" data-slide="next">
+                            <span class="glyphicon fa fa-chevron-right" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm12">
+                    @Html.Action("GetMajorLast", "Widgets", new { Area = String.Empty, Url = "mayor" })
+                    <div class="hotline-info">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-3">
+                                <div class="title">
+                                    <strong>Гаряча лінія</strong>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12 col-md-3">
+                                <div class="number">
+                                    (05161) 4-20-21
+                                </div>
+                                <div class="email">
+                                    pervomaysk@mk.gov.ua
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12 col-md-3">
+                                <div class="info">
+                                    Електонний центр обробки інформації громадян
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="block">
+            <div class="row">
+
+                    @foreach (var item in Model.MainNewsSecond.Take(4))
+                    {
+                        <div class="col-md-3 col-sm-6">
+                            <div class="cms-article-item form-group fixed sm">
+                                <a href="/@CurrentCulture.Name.ToLower()/articles/item/@item.Id/@item.UrlName">
+                                    <img src="@(!String.IsNullOrEmpty(item.Image) ? (CmsSettings.BaseDomain + item.Image) : "/Content/img/parts/default-img-4x3.png" )" />
+                                    <div class="text">
+                                        <div class="title">@item.Title</div>
+                                        <div class="desc">@item.Description</div>
+                                        <div class="date">@item.PublishDate</div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    }
+            </div>
+            <div class="text-center">
+                <a href="#" class="btn btn-success btn-lg">
+                    Більше новин
+                </a>
+            </div>
+        </div>
+
+        @*<div class="block">
+            <div class="right-content">
+                @Html.Action("GetMajorLast", "Widgets", new { Area = String.Empty, Url = "mayor" })
+                <div class="yellow-banner">
+                    <a href="/@CurrentCulture.Name.ToLower()/articles/category/naradi-onlajn/">
+                        <i class="fa fa-fw fa-play"></i>
+                        <span>Наради онлайн</span>
+                    </a>
+                </div>
+                <div class="calendar">
+                    <div class="links">
+                        <a href="/@CurrentCulture.Name.ToLower()/articles/category/novini">Останні</a>
+                        <a href="/@CurrentCulture.Name.ToLower()/articles/category/vazhlivi">Важливі</a>
+                        <a href="/@CurrentCulture.Name.ToLower()/articles/category/svyata">Свята</a>
+                    </div>
+                    <div class="title">
+                        Календар подій
+                    </div>
+                    <div class="date">
+                        <input type="text" class="date-input bs-datepicker" placeholder="Виберіть дату" readonly="readonly" />
+                        <i class="fa fa-calendar"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="left-content">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="cms-article-item news-of-day">
+                            <a href="/@CurrentCulture.Name.ToLower()/articles/item/@Model.MainNews[0].Id/@Model.MainNews[0].UrlName">
+                                <div class="img" style="background-image:url('@(!String.IsNullOrEmpty(Model.MainNews[0].Image) ? (CmsSettings.BaseDomain + Model.MainNews[0].Image) : "/Content/img/parts/default-img-4x3.png" )');"></div>
+                                <span class="item-label"><span>Новина дня</span></span>
+                                <div class="text">
+                                    <div class="date">@Model.MainNews[0].PublishDate</div>
+                                    <div class="title">@Model.MainNews[0].Title</div>
+                                    <div class="desc">@Model.MainNews[0].Description</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="cms-article-item vertical">
+                            <a href="/@CurrentCulture.Name.ToLower()/articles/item/@Model.MainNewsSecond[0].Id/@Model.MainNewsSecond[0].UrlName">
+                                <div class="img" style="background-image:url('@(!String.IsNullOrEmpty(Model.MainNewsSecond[0].Image) ? (CmsSettings.BaseDomain + Model.MainNewsSecond[0].Image) : "/Content/img/parts/default-img-4x3.png" )');"></div>
+                                <div class="text">
+                                    <div class="date">@Model.MainNewsSecond[0].PublishDate</div>
+                                    <div class="title">@Model.MainNewsSecond[0].Title</div>
+                                    <div class="desc">@Model.MainNewsSecond[0].Description</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="cms-article-item fixed sm">
+                            <a href="/@CurrentCulture.Name.ToLower()/articles/item/@item.Id/@item.UrlName">
+                                <div class="img" style="background-image:url('@(!String.IsNullOrEmpty(item.Image) ? (CmsSettings.BaseDomain + item.Image) : "/Content/img/parts/default-img-4x3.png" )');"></div>
+                                <div class="text">
+                                    <div class="date">@item.PublishDate</div>
+                                    <div class="title">@item.Title</div>
+                                    <div class="desc">@item.Description</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="cms-article-item fixed sm">
+                            <a href="/@CurrentCulture.Name.ToLower()/articles/item/@Model.MainNewsSecond[2].Id/@Model.MainNewsSecond[2].UrlName">
+                                <div class="img" style="background-image:url('@(!String.IsNullOrEmpty(Model.MainNewsSecond[2].Image) ? (CmsSettings.BaseDomain + Model.MainNewsSecond[0].Image) : "/Content/img/parts/default-img-4x3.png" )');"></div>
+                                <div class="text">
+                                    <div class="date">@Model.MainNewsSecond[2].PublishDate</div>
+                                    <div class="title">@Model.MainNewsSecond[2].Title</div>
+                                    <div class="desc">@Model.MainNewsSecond[2].Description</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="clear:both"></div>
+        </div>
+        <div class="rel white">
+            <div class="row">
+                <div class="col-lg-9 col-md-12">
+                    <div class="cms-icon-categories" style="background:#f3f3f3;">
+                        <div class="title">
+                            послуги для мешканців первомайщини
+                        </div>
+                        @foreach (var item in Model.ServiceMenu.Items.Batch(4))
+                        {
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="row">
+                                        @foreach (var cat in item.Take(2))
+                                        {
+                                            <div class="col-sm-6 col-xs-6">
+                                                <a href="@cat.Url" class="widget-icon-category">
+                                                    <div>
+                                                        <img src="@(CmsSettings.BaseDomain + cat.Image)" />
+                                                        <span>
+                                                            <span>
+                                                                @cat.Title
+                                                            </span>
+                                                        </span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="row">
+                                        @foreach (var cat in item.Skip(2))
+                                        {
+                                            <div class="col-sm-6 col-xs-6">
+                                                <a href="@cat.Url" class="widget-icon-category">
+                                                    <div>
+                                                        <img src="@(CmsSettings.BaseDomain + cat.Image)" />
+                                                        <span>
+                                                            <span>
+                                                                @cat.Title
+                                                            </span>
+                                                        </span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div class="cms-icon-categories">
+                        <div class="title">
+                            Корисна інформація
+                        </div>
+
+                        @foreach (var item in Model.ThemeMenu.Items.Batch(4))
+                        {
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="row">
+                                        @foreach (var cat in item.Take(2))
+                                        {
+                                            <div class="col-sm-6 col-xs-6">
+                                                <a href="@cat.Url" class="widget-icon-category">
+                                                    <div>
+                                                        <img src="@(CmsSettings.BaseDomain + cat.Image)" />
+                                                        <span>
+                                                            <span>
+                                                                @cat.Title
+                                                            </span>
+                                                        </span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="row">
+                                        @foreach (var cat in item.Skip(2))
+                                        {
+                                            <div class="col-sm-6 col-xs-6">
+                                                <a href="@cat.Url" class="widget-icon-category">
+                                                    <div>
+                                                        <img src="@(CmsSettings.BaseDomain + cat.Image)" />
+                                                        <span>
+                                                            <span>
+                                                                @cat.Title
+                                                            </span>
+                                                        </span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-12">
+                    <div class="area-news">
+                        <div class="title">
+                            новини населених
+                            пунктів первомайщини
+                        </div>
+                        <div class="row">
+                            @foreach (var item in Model.AreaNews)
+                            {
+                                <div class="col-lg-12 col-sm-4">
+                                    <div class="cms-article-item fixed sm">
+                                        <a href="/@CurrentCulture.Name.ToLower()/articles/item/@item.Id/@item.UrlName">
+                                            <div class="img" style="background-image:url('@(!String.IsNullOrEmpty(item.Image) ? (CmsSettings.BaseDomain + item.Image) : "/Content/img/parts/default-img-4x3.png" )');"></div>
+                                            <div class="text">
+                                                <div class="date">@item.PublishDate</div>
+                                                <div class="title">@item.Title</div>
+                                                <div class="desc">@item.Description</div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                        <div class="link">
+                            <a href="#">
+                                Переглянути всі
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>*@

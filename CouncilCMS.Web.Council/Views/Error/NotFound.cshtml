@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_errorLayout.cshtml";
+}
+    <div class="error">
+        <div class="error-wrap"></div>
+        <div class="error-code">
+            404
+            <div class="error-label">
+                @CmsLabels.Error
+            </div>
+        </div>
+        <div class="error-desc">
+            @CmsLabels.PageNotFound
+        </div>
+    </div>
+    <div class="error-tip">
+       <a href="/">@CmsLabels.BackToMain</a>
+    </div>
+                

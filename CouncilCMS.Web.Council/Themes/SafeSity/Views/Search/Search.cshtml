@@ -1,0 +1,51 @@
+﻿@model CmsSearchList
+@{
+	ViewBag.Title = "Пошук";
+}
+
+@if(Model != null)
+{
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 col-md-7 col-sm-12 ">
+				<div class="page cms-newsletters">
+					<h2>Пошук: @Model.Query </h2>
+
+					<div class="article-category">
+						@if(Model.Results != null && Model.Results.Count > 0)
+						{
+							<div class="row">
+								@foreach(var item in Model.Results)
+								{
+									<div class="article-item simple">
+										<div class="text">
+											<a href="@item.Url">
+												@item.Title
+											</a>
+										</div>
+									</div>
+								}
+							</div>
+
+							@Helpers.LinkPager("/" + CurrentCulture.Name.ToLower() + "/search/search?query=" + Url.Encode(Model.Query) + "&page=", null, Model.Count, Model.Page, 20)
+						}
+						else
+						{
+							<div class="well">
+								записів не знайдено
+							</div>
+						}
+					</div>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+
+}
+else
+{
+	<div class="well">
+		записів не знайдено
+	</div>
+}

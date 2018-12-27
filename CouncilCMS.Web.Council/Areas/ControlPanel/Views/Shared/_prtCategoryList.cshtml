@@ -1,0 +1,22 @@
+﻿@model List<CategoryListItem>
+
+@if (Model != null && Model.Count() > 0)
+{
+    foreach (var item in Model)
+    {
+        <div class="rel">
+            @Html.Partial("_prtCategoryListItem", item)
+            <div class="related-list collapse" id="itemChilds@(item.Id)" data-id="@item.Id">
+                @if (item.ChildCategoryItems != null && item.ChildCategoryItems.Count > 0)
+                {
+                    if (User.HasPremission("ed_cat") && item.Allowed)
+                    {
+                        item.ChildCategoryItems.ForEach(x => x.Allowed = true);
+                    }
+
+                    @Html.Partial("_prtCategoryList", item.ChildCategoryItems)
+                }
+            </div>
+        </div>
+    }
+}

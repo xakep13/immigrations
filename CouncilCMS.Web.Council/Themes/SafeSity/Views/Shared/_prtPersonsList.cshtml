@@ -1,0 +1,16 @@
+﻿@model List<CmsPersonListItem>
+
+@if (Model != null && Model.Count > 0)
+{
+    foreach (var person in Model)
+    {
+        <div class="organization-page-person">
+            <img src="/img/rada-item-1.jpg" alt="">
+            <div class="info">
+                <span class="name">@person.Title</span>
+                <span class="position block-decor-bottom block-decor-top">@person.EnterprisePost</span>
+                <span class="work"><b>Стаж роботи:</b>@person.ViewCount років</span>
+            </div>
+        </div>
+    }
+}

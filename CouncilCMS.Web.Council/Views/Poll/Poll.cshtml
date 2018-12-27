@@ -1,0 +1,126 @@
+﻿@model List<Bissoft.CouncilCMS.BLL.ViewModels.Public.CmsPoll>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main class="">
+    <div class="breadcrumbs container">
+        <ul class="breadcrumbs-list ">
+            <li><a href="index.html">Главная</a></li>
+            <li><span>Опитування населення</span></li>
+        </ul>
+    </div>
+
+    <section class="test">
+        <div class="container">
+            <span class="block-title block-decor-bottom">Опитування населення</span>
+            <div class="test-list">
+                @foreach (var item in Model)
+                {
+                    Html.RenderPartial("_prtPoll", item);
+                }
+
+            </div>
+        </div>
+    </section>
+</main>
+<script>
+    (function () {
+        //var coockie = getCookie("pollId");
+        //if (coockie != "") {
+
+        //    $.ajax({
+        //        url: 'Poll/',
+        //        method: 'POST',
+        //        data: { id: coockie },
+        //        success: function (data) {
+        //            $('.test-item#' + coockie).replaceWith(result(data));
+        //        }
+
+        //    });
+        //}
+    }());
+    $("main").on("click", ".btn", function () {
+        var pollId = event.target.id;
+        var questId = $('input[type=radio][name=vote-' + pollId + ']:checked').attr('id');
+        if (questId)
+            $.ajax({
+                url: 'Vote/', //DoVote
+                method: 'POST',
+                data: { pollId: pollId, questId: questId },
+                success: function (data) {
+                    $('.test-item#' + pollId).replaceWith(data);
+                    setCookie("pollId-" + pollId, questId + '', 1);
+                }
+            });
+    });
+
+    function result(data) {
+        var res = '<div class="test-item" id="' + data.Id + '">' +
+            '<span class="title block-decor-bottom">' + data.Title + '</span>' +
+            '<div class="test-date">' +
+            '<p class="date">' +
+            'Термiн голосування:' +
+            '<span>' + data.DateFrom + '-' + data.DateTo + '</span>' +
+            '</p>' +
+            '<p class="voted">' +
+            'Усього голосiв:' +
+            '<span>' + data.VoiсeCount + '</span>' +
+            '</p>' +
+            '</div>' +
+            '<div>' +
+            questresult(data.CmsQuestions, data) +
+            //'<input class="btn btn-default" style="float:right;" type="submit" id="' + data.Id + '" value="Проголосувати" />' +
+            '</div>' +
+            ' </div>';
+        return res;
+    }
+    function questresult(data, model) {
+        var result = '';
+        for (var i = 0; i < data.length; i++) {
+            result += '<div class="test-choice">' +
+                '<label>' +
+                //'<input type="radio" id="' + data[i].Id + '" name="vote-' + model.Id + '">' +
+                data[i].Title + '</label>' +
+                '<div class="vote">' +
+                ' <div class="vote-strip">' + '<span style="width:' + percent(model, data[i]) + '%; background-color:' + data[i].Color + ';"></span>' +
+                '</div>' +
+                '<p class="vote-people"><span class="vote-percent">' + percent(model, data[i]) + '%</span><span class="vote-number">(' + data[i].CheckCount + ')</span></p>' +
+                '</div>' +
+                '</div>';
+        }
+        return result;
+    }
+    function percent(poll, quest) {
+        var r = quest.CheckCount / poll.VoiсeCount * 100;
+
+        return r.toFixed(2);
+    }
+
+
+
+
+    /////////////////////////////////////////////cookie///////////////
+    function setCookie(cname, cvalue, exdays) {
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+        var expires = "expires=" + d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+
+    function getCookie(cname) {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+</script>

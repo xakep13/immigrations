@@ -1,0 +1,54 @@
+﻿@model CmsRoleEdit
+
+@{
+    var targetId = Model.Id <= 0 ? "divList" : ("divItem" + Model.Id);
+    var insertionMode = Model.Id <= 0 ? InsertionMode.InsertAfter : InsertionMode.ReplaceWith;
+}
+
+@using (Ajax.BeginForm(new AjaxOptions()
+{
+    Url = "/uk/controlpanel/roles/save",
+    HttpMethod = "POST",
+    OnBegin = "coreUtils.disableButton($(this).find('button[type=submit]'));",
+    OnComplete = "window.saveComplete();",
+    UpdateTargetId = targetId,
+    InsertionMode = insertionMode
+}))
+{
+    @Html.HiddenFor(x => x.Id)
+
+    <div class="modal-title">
+        Роль користувача
+        <ul class="modal-lang-swicher">
+            <li data-lang="en">EN</li>
+            <li data-lang="ru">RU</li>
+            <li class="active" data-lang="uk">UA</li>
+        </ul>
+    </div>
+
+    <div>
+        <div class="lang-uk">
+            @Html.SimpleTextBoxFor(x => x.TitleUk, "Назва (ua) *", new { @class = "form-control" })
+        </div>
+        <div class="lang-ru">
+            @Html.SimpleTextBoxFor(x => x.TitleRu, "Назва (ru) *", new { @class = "form-control" })
+        </div>
+        <div class="lang-en">
+            @Html.SimpleTextBoxFor(x => x.TitleEn, "Назва (en) *", new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label">Дозволи</label>
+        @Html.EditorFor(x => x.Premissions)
+    </div>
+
+    <div class="modal-footer">
+        <a href="#" type="button" class="btn btn-link nav-link" data-dismiss="modal">
+            @Locals.Close
+        </a>
+        <button type="submit" class="btn btn-primary">
+            @Locals.Save
+        </button>
+    </div>
+}

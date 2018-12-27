@@ -1,0 +1,50 @@
+﻿@model CmsLogin
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_simpleLayout.cshtml";
+}
+
+   
+@using (Html.BeginForm("Login", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="card">
+        <div class="card-heading">
+            <h1>@Locals.Enter</h1>
+            <h2>@CmsSettings.GetLocalValue("Title")</h2>
+        </div>
+        <div class="card-content">
+            <div class="form-group input-group input-group-lg">
+                <span class="input-group-addon">
+                    <i class="fa fa-fw fa-envelope-o text-primary"></i>
+                </span>
+                @Html.TextBoxFor(x => x.Email, new { type = "email", @class = "form-control", placeholder = "Ваш email" })
+            </div>
+            <div class="input-group input-group-lg">
+                <span class="input-group-addon">
+                    <i class="fa fa-fw fa-lock text-primary"></i>
+                </span>
+                @Html.PasswordFor(x => x.Password, new { type = "password", @class = "form-control  input-lg", placeholder = "Ваш пароль" })
+            </div>
+
+            @Html.ValidationMessage("WrongLogin")
+        </div>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-sm-8">
+                    <div class="form-control-static input-lg">
+                        <a href="/">
+                            Повернутися на головну
+                        </a>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <input type="submit" value="УВІЙТИ" class="btn btn-primary btn-lg btn-block" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+     
+
+
+

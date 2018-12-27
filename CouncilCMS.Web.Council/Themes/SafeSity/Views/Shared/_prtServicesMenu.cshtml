@@ -1,0 +1,6 @@
+﻿@model CmsMenu
+
+@foreach (var item in Model.Items)
+    {
+        <li class="footer-menu-services-item"><a href="@(item.Url)">@Html.Raw(item.Title) </a></li>
+    }

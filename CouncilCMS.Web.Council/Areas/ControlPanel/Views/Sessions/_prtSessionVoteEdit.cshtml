@@ -1,0 +1,99 @@
+﻿@model SessionVoteEdit
+
+@{ 
+    var targetId = Model.Id <= 0 ? "divSessionVotes" : ("vote" + Model.Id);
+    var insertionMode = Model.Id <= 0 ? InsertionMode.InsertAfter : InsertionMode.ReplaceWith;
+}
+
+<div class="modal-title">
+    Голосування
+    <ul class="modal-lang-swicher">
+        <li data-lang="en">EN</li>
+        <li data-lang="ru">RU</li>
+        <li class="active" data-lang="uk">UA</li>
+    </ul>
+</div>
+
+@using (Ajax.BeginForm(new AjaxOptions()
+{
+    Url = "/uk/controlpanel/sessions/savevote",
+    HttpMethod = "POST",
+    OnBegin = "bsAdmin.startProcessing();",
+    OnComplete = "bsAdmin.endProcessing(); window.divVoteEdit.modal('hide');",
+    UpdateTargetId = targetId,
+    InsertionMode = insertionMode,
+}))
+{
+    @Html.HiddenFor(x => x.Id, new { Value = Model.Id })  
+    @Html.HiddenFor(x => x.SessionId, new { Value = Model.SessionId })
+
+    <div>
+        <div class="lang-uk">
+            @Html.SimpleTextBoxFor(x => x.TitleUk, "Назва (ua)", new { @class = "form-control" })
+        </div>
+        <div class="lang-ru">
+            @Html.SimpleTextBoxFor(x => x.TitleRu, "Назва (ru)", new { @class = "form-control" })
+        </div>
+        <div class="lang-en">
+            @Html.SimpleTextBoxFor(x => x.TitleEn, "Назва (en)", new { @class = "form-control" })
+        </div>
+    </div>
+
+    @Html.SimpleTextBoxFor(x => x.DocId, "Пов'язане рішення", new { @class = "form-control bs-autocompleteselect", data_text = Model.DocTitle, data_remote = "/uk/controlpanel/ajax/finddoc?category=rishennya-miskrada" }, true)
+
+    @*<div>
+        <div class="lang-uk">
+            @Html.SimpleTextAreaFor(x => x.TextUk, "Опис (ua)", new { @class = "form-control bs-ckeditor", data_height = "300" })
+        </div>
+        <div class="lang-ru">
+            @Html.SimpleTextAreaFor(x => x.TextRu, "Опис (ru)", new { @class = "form-control bs-ckeditor", data_height = "300" })
+        </div>
+        <div class="lang-en">
+            @Html.SimpleTextAreaFor(x => x.TextEn, "Опис (en)", new { @class = "form-control bs-ckeditor", data_height = "300" })
+        </div>
+    </div>*@
+
+    <div class="row">
+        <div class="col-sm-4">
+            @Html.SimpleTextBoxFor(x => x.For, "За", new { @class = "form-control" })
+        </div>
+        <div class="col-sm-4">
+            @Html.SimpleTextBoxFor(x => x.Against, "Проти", new { @class = "form-control" })
+        </div>
+        <div class="col-sm-4">
+            @Html.SimpleTextBoxFor(x => x.Abstained, "Утримались", new { @class = "form-control" })
+        </div>
+        <div class="col-sm-4">
+            @Html.SimpleTextBoxFor(x => x.NotVote, "Не голосували", new { @class = "form-control" })
+        </div>
+        <div class="col-sm-4">
+            @Html.SimpleTextBoxFor(x => x.Absent, "Відсутні", new { @class = "form-control" })
+        </div>
+        <div class="col-sm-4">
+            @Html.SimpleDropDownListFor(x => x.Result, Model.Result.ToSelectList(), "Результат голосування", new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div>
+        <div class="lang-uk">
+            @Html.SimpleTextAreaFor(x => x.ResultUk, "Результат поіменного голосування (ua)", new { @class = "form-control bs-ckeditor", data_height = "300", data_toolbar = "simple" })
+        </div>
+        <div class="lang-ru">
+            @Html.SimpleTextAreaFor(x => x.ResultRu, "Результат поіменного голосування (ru)", new { @class = "form-control bs-ckeditor", data_height = "300", data_toolbar = "simple" })
+        </div>
+        <div class="lang-en">
+            @Html.SimpleTextAreaFor(x => x.ResultEn, "Результат поіменного голосування (en)", new { @class = "form-control bs-ckeditor", data_height = "300", data_toolbar = "simple" })
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <a href="#" type="button" class="btn btn-link nav-link" data-dismiss="modal">
+            @Locals.Close
+        </a>
+        <button type="submit" class="btn btn-primary">
+            @Locals.Save
+        </button>
+    </div>
+
+}
+

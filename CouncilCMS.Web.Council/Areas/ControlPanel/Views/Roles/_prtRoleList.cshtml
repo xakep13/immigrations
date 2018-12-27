@@ -1,0 +1,9 @@
+﻿@model List<CmsRoleListItem>
+
+@if (Model != null && Model.Count() > 0)
+{
+    foreach (var item in Model)
+    {
+        @Html.Partial("_prtRoleListItem", item)
+    }
+}

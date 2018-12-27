@@ -1,0 +1,34 @@
+﻿@model string
+
+@{
+	bool emailStatus = bool.Parse(ViewData["EmailStatus"].ToString());
+	bool phoneStatus = bool.Parse(ViewData["PhoneStatus"].ToString());
+}
+
+<div class="header_banner-info">
+	<span class="title">Гаряча лінія</span>
+	<div class="header_banner-contacts block-decor-bottom block-decor-top">
+		@if(phoneStatus == true)
+		{
+			<a class="phone" href="tel:">@CmsSettings.HotlinePhone</a>
+		}
+		else
+		{
+			<a class="phone" href="#"></a>
+		}
+
+		@if(emailStatus == true)
+		{
+			<a class="mail" href="mailto:@CmsSettings.HotlineEmail">@CmsSettings.HotlineEmail</a>
+		}
+		else
+		{
+			<a class="mail" href="#"></a>
+		}
+	</div>
+		<div class="header_banner-contacts">
+			<a class="icon" href="tel:"><img src="/content/img/icons/header_banner-phone.svg" alt=""></a>
+			<a class="icon" href="mailto:@CmsSettings.HotlineEmail"><img src="/content/img/icons/header_banner-mail.svg" alt=""></a>
+		</div>
+		<p class="header_banner-descr">Електронний центр обробки інформації громадян</p>
+</div>

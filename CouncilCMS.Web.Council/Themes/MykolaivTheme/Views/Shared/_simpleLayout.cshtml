@@ -1,0 +1,62 @@
+﻿@{
+    Layout = null;
+    var cdnHost = HttpContext.Current.IsDebuggingEnabled ? "http://localhost:12790" : CmsSettings.CdnDomain;
+    var cpColor = Request.Cookies["cp_color"] != null ? Request.Cookies["cp_color"].Value : "blue";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+
+    <title>@((String.IsNullOrEmpty(ViewBag.Title) ? null : (ViewBag.Title + " - ")) + "BisSoft: ControlPanel")</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Arimo:400,400i,700,700i|PT+Sans:400,400i,700,700i&amp;subset=cyrillic-ext" rel="stylesheet">
+
+    <link href="@cdnHost/libs/bootstrap-smartcity/css/city/bs-cp-@(cpColor).min.css?v=@(CmsSettings.ProductVersion)" rel="stylesheet" />
+    <link href="@cdnHost/libs/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="@cdnHost/app/css/theme/simple-@(cpColor).min.css?v=@(CmsSettings.ProductVersion)" rel="stylesheet" />
+
+    <script>
+        CDN_DOMAIN = '@CmsSettings.CdnDomain';
+    </script>
+
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+    <script src="@cdnHost/libs/jQuery/jquery.validate.min.js"></script>
+    <script src="@cdnHost/libs/jQuery/jquery.validate.unobtrusive.min.js"></script>
+    <script src="@cdnHost/libs/jQuery/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="@cdnHost/libs/bootstrap-smartcity/js/bootstrap.min.js"></script>
+    <script src="@cdnHost/app/js/jquery.conditionalvalidate.min.js"></script>
+    <script src="@cdnHost/app/js/core-utils.min.js?v=@(CmsSettings.ProductVersion)"></script>
+</head>
+<body>
+    <div class="blur-wrap">
+        <div class="inner"></div>
+    </div>
+    <div class="left">
+
+        <div class="content">
+            <div class="inner">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+    <div class="right">
+        <div class="content">
+            <div class="inner">
+                <div class="logo">
+                    <a href="http://bissoft.org">
+                        <img src="http://cdn.bissoft.org/img/parts/bissoft-logo-white-color-100.png" />
+                    </a>
+                </div>
+                <div class="title">
+                    <strong>Bissoft Control Panel</strong>
+                    <span>Developed by Bissoft Ltd.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

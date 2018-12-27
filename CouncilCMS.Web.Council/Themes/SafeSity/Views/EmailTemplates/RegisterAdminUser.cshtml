@@ -1,0 +1,20 @@
+﻿@using Bissoft.CouncilCMS.BLL.ViewModels;
+@model RegisteredUser
+
+<div>
+    <h2>Запорізька мыська рада</h2>
+    <hr />
+    <em>@DateTime.Now.ToString("dd MMMM yyyy")</em>
+    <p>
+        Шановний(а), @Model.Name<br /><br />
+        Ви зареєстровані в системі керування контентом.
+        Ви можете увійти в систему за наступним посиланням:<br />
+        <a href="@ViewBag.Domain/controlpanel">@ViewBag.Domain/controlpanel</a><br /><br />
+        Ваші дані для входу:<br />
+        логін: <strong>@Model.Email</strong><br />
+        пароль: <strong>@Model.TempPassword</strong><br /><br />
+        Ви можете змінити пароль після взоду в ситему керування контентом
+        @*Після першого входу Вам буде запропоновано змінити пароль і вказати бажаний.
+        Будь ласка, використовуйте достатньо надійний пароль.*@
+    </p>
+</div>

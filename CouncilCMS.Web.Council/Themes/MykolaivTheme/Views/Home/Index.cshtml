@@ -1,0 +1,256 @@
+﻿@model MkIndex
+
+<div class="container index">
+	<div class="block">
+		<div class="right-content">
+			@Html.Action("GetMajorLast", "Widgets", new { Area = String.Empty, Url = "mayor" })
+			<div class="yellow-banner">
+				<a href="/@CurrentCulture.Name.ToLower()/articles/category/naradi-onlajn/">
+					<i class="fa fa-fw fa-play"></i>
+					<span>Наради онлайн</span>
+				</a>
+			</div>
+			<div class="calendar">
+				<div class="links">
+					<a href="/@CurrentCulture.Name.ToLower()/articles/category/novini">Останні</a>
+					<a href="/@CurrentCulture.Name.ToLower()/articles/category/vazhlivi">Важливі</a>
+					<a href="/@CurrentCulture.Name.ToLower()/articles/category/svyata">Свята</a>
+				</div>
+				<div class="title">
+					Календар подій
+				</div>
+				<div class="date">
+					<input type="text" class="date-input bs-datepicker" placeholder="Виберіть дату" readonly="readonly" />
+					<i class="fa fa-calendar"></i>
+				</div>
+			</div>
+		</div>
+		<div class="left-content">
+            <div class="row">
+                <div class="col-sm-8">
+                    <div class="cms-article-item news-of-day">
+                        <a href="/@CurrentCulture.Name.ToLower()/articles/item/@Model.MainNews[0].Id/@Model.MainNews[0].UrlName">
+                            <img class="img"
+                                 src='@(!String.IsNullOrEmpty(Model.MainNews[0].Image) ? (CmsSettings.BaseDomain + Model.MainNews[0].Image) : "/Content/img/parts/default-img-4x3.png" )' );" />
+
+                            <span class="item-label"><span>Новина дня</span></span>
+                            <div class="text">
+                                <div class="date">@Model.MainNews[0].PublishDate</div>
+                                <div class="title">@Model.MainNews[0].Title</div>
+                                <div class="desc">@Model.MainNews[0].Description</div>
+                            </div>
+                        </a>
+                    </div>
+                 </div>
+                    <div class="col-sm-4">
+                        <div class="cms-article-item vertical">
+                            <a href="/@CurrentCulture.Name.ToLower()/articles/item/@Model.MainNewsSecond[0].Id/@Model.MainNewsSecond[0].UrlName">
+                                <img class="img" src='@(!String.IsNullOrEmpty(Model.MainNewsSecond[0].Image) ? (CmsSettings.BaseDomain + Model.MainNewsSecond[0].Image) : "/Content/img/parts/default-img-4x3.png" )' );" />
+                                <div class="text">
+                                    <div class="date">@Model.MainNewsSecond[0].PublishDate</div>
+                                    <div class="title">@Model.MainNewsSecond[0].Title</div>
+                                    <div class="desc">@Model.MainNewsSecond[0].Description</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="cms-article-item fixed sm">
+                            <a href="/@CurrentCulture.Name.ToLower()/articles/item/@Model.MainNewsSecond[1].Id/@Model.MainNewsSecond[1].UrlName">
+                                <img class="img" src='@(!String.IsNullOrEmpty(Model.MainNewsSecond[1].Image) ? (CmsSettings.BaseDomain + Model.MainNewsSecond[1].Image) : "/Content/img/parts/default-img-4x3.png" )' );" />
+                                <div class="text">
+                                    <div class="date">@Model.MainNewsSecond[1].PublishDate</div>
+                                    <div class="title">@Model.MainNewsSecond[1].Title</div>
+                                    <div class="desc">@Model.MainNewsSecond[1].Description</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="cms-article-item fixed sm">
+                            <a href="/@CurrentCulture.Name.ToLower()/articles/item/@Model.MainNewsSecond[2].Id/@Model.MainNewsSecond[2].UrlName">
+                                <img class="img" src='@(!String.IsNullOrEmpty(Model.MainNewsSecond[2].Image) ? (CmsSettings.BaseDomain + Model.MainNewsSecond[2].Image) : "/Content/img/parts/default-img-4x3.png" )' );" />
+                                <div class="text">
+                                    <div class="date">@Model.MainNewsSecond[2].PublishDate</div>
+                                    <div class="title">@Model.MainNewsSecond[2].Title</div>
+                                    <div class="desc">@Model.MainNewsSecond[2].Description</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+		<div style="clear:both"></div>
+	</div>
+	<div class="rel white">
+		<div class="row">
+			<div class="col-lg-9 col-md-12">
+				<div class="cms-icon-categories">
+					<div class="title">
+						Розумний регіон: Е-сервіси Миколаївщини
+					</div>
+
+					@foreach(var item in Model.ServiceMenu.Items.Batch(4))
+					{
+						<div class="row">
+							<div class="col-sm-6">
+								<div class="row">
+									@foreach(var cat in item.Take(2))
+									{
+										<div class="col-sm-6">
+											<a href="@cat.Url" class="widget-icon-category">
+												<div>
+													<img src="@(CmsSettings.BaseDomain + cat.Image)" />
+													<span>
+														<span>
+															@cat.Title
+														</span>
+													</span>
+												</div>
+											</a>
+										</div>
+									}
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="row">
+									@foreach(var cat in item.Skip(2))
+									{
+										<div class="col-sm-6">
+											<a href="@cat.Url" class="widget-icon-category">
+												<div>
+													<img src="@(CmsSettings.BaseDomain + cat.Image)" />
+													<span>
+														<span>
+															@cat.Title
+														</span>
+													</span>
+												</div>
+											</a>
+										</div>
+									}
+								</div>
+							</div>
+						</div>
+					}
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-12">
+				<div class="hotline-info">
+					<div class="row">
+						<div class="col-lg-12 col-md-3">
+							<div class="title">
+                                <strong>@(CmsSettings.HotlineTitleUk ?? "Гаряча лінія")</strong>
+								@*<span>ОЛЕКСІЯ САВЧЕНКА</span>*@
+                                <span>
+                                    @CmsSettings.MayorNameUk  
+                                </span>
+							</div>
+						</div>
+						<div class="col-lg-12 col-md-3">
+							<div class="info">
+								УСЕ НА БЛАГО ГРОМАДИ!
+							</div>
+						</div>
+                        <div class="col-lg-12 col-md-3">
+                            @if (CmsSettings.IsPhoneActive == true)
+                            {
+                                <div class="number">
+                                    @CmsSettings.HotlinePhone
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="number number-not_active-Mykolaiv">
+                                    @CmsSettings.HotlinePhone
+                                </div>
+                            }
+
+                        </div>
+						<div class="col-lg-12 col-md-3">
+                            <div class="icons">
+                                @if (CmsSettings.IsEmailActive == true)
+                                {
+                                    <a href="mailto:@CmsSettings.HotlineEmail" class="icon">
+                                        <i class="fa fa-fw fa-envelope-o"></i>
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a href="javascript:void(0)" class=" icon icon-not_active-Mykolaiv">
+                                        <i class="fa fa-fw fa-envelope-o"></i>
+                                    </a>
+                                }
+                                @if (CmsSettings.IsPhoneActive == true)
+                                {
+                                    <a href="tel:@CmsSettings.HotlinePhone" class="icon">
+                                        <i class="fa fa-fw fa-phone"></i>
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a href="javascript:void(0)" class="icon icon-not_active-Mykolaiv">
+                                        <i class="fa fa-fw fa-phone"></i>
+                                    </a>
+                                }
+                            </div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="rel">
+		<div class="cms-icon-categories">
+			<div class="title">
+				Корисна інформація
+			</div>
+
+			@foreach(var item in Model.ThemeMenu.Items.Batch(4))
+			{
+				<div class="row">
+					<div class="col-sm-6">
+						<div class="row">
+							@foreach(var cat in item.Take(2))
+							{
+								<div class="col-sm-6">
+									<a href="@cat.Url" class="widget-icon-category">
+										<div>
+											<img src="@(CmsSettings.BaseDomain + cat.Image)" />
+											<span>
+												<span>
+													@cat.Title
+												</span>
+											</span>
+										</div>
+									</a>
+								</div>
+							}
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<div class="row">
+							@foreach(var cat in item.Skip(2))
+							{
+								<div class="col-sm-6">
+									<a href="@cat.Url" class="widget-icon-category">
+										<div>
+											<img src="@(CmsSettings.BaseDomain + cat.Image)" />
+											<span>
+												<span>
+													@cat.Title
+												</span>
+											</span>
+										</div>
+									</a>
+								</div>
+							}
+						</div>
+					</div>
+				</div>
+			}
+		</div>
+	</div>
+</div>

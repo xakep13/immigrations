@@ -1,0 +1,140 @@
+﻿@model CmsPerson
+
+@{
+    ViewBag.Title = Model.Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main class="">
+
+    <section class="person">
+        <div class="container">
+            <div class="person-info">
+                <div class="img-wrap"><img src="@CmsSettings.BaseDomain@Model.Image" alt=""></div>
+                <div class="info">
+                    <span class="title">
+                        @Model.Title
+                    </span>
+                    <span class="subtitle block-decor-top block-decor-bottom">@Model.Post</span>
+                    <div class="schedule">
+                        @Html.Raw(Model.ContactAddress)
+                    </div>
+                   
+                </div>
+            </div>
+			@*<div class="header_banner-info">
+				<span class="title">@(CmsSettings.HotlineTitleUk ?? "Гаряча лінія")</span>
+
+				<div class="header_banner-contacts block-decor-bottom block-decor-top">
+					<a class="phone" href=@(CmsSettings.IsPhoneActive == true ? "tel:@CmsSettings.HotlinePhone" : "#")>@CmsSettings.HotlinePhone</a>
+					<a class="mail" href=@(CmsSettings.IsEmailActive == true ? "mailto:@CmsSettings.HotlineEmail:" : "#")>@CmsSettings.HotlineEmail</a>
+				</div>
+				<div class="header_banner-contacts">
+					<a class="icon" href=@(CmsSettings.IsPhoneActive == true ? "tel:@CmsSettings.HotlinePhone" : "#")><img src="/content/img/icons/header_banner-phone.svg" alt=""></a>
+					<a class="icon" href=@(CmsSettings.IsEmailActive == true ? "mailto:@CmsSettings.HotlineEmail:" : "#")><img src="/content/img/icons/header_banner-mail.svg" alt=""></a>
+				</div>
+
+				<p class="header_banner-descr">Електронний центр обробки інформації громадян</p>
+			</div>*@
+            <div class="descr block-decor-top block-decor-bottom">
+                <div class="cms-page">
+                    @Html.Partial("_prtContent", Model.ContentRows)
+                    <div class="cms-article-date text-right">
+                        @if (!String.IsNullOrEmpty(Model.PublishDate))
+                        {
+                            <em class="help-text">
+                                Опубліковано: @Model.PublishDate
+                            </em>
+                        }
+                        @if (!String.IsNullOrEmpty(Model.LastEditDate))
+                        {
+                            <em class="help-text">
+                                (оновлено: @Model.LastEditDate)
+                            </em>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    @if (!String.IsNullOrEmpty(Model.Email))
+    {
+        <section class="record">
+            <div class="container">
+                <span class="block-title block-decor-bottom">Запис на прийом</span>
+                <span class="form-info">Пункти з позначкою <b>*</b> обов’язкові для заповнення</span>
+            </div>
+            <form method="POST" class="record-form">
+                <div class="container">
+                    <label class="top-name">Ваше прізвище ім'я по батькові<b>*</b><input type="text" name="name"></label>
+                    <label>Ваш телефон<b>*</b><input type="tel" name="phone"></label>
+                    <label>Електронна адреса<b>*</b><input type="mail" name="email"></label>
+
+                    <label class="comment">Коментар<b>*</b><textarea name="comment"></textarea></label>
+                    <p class="licence">Заповнивши цю форму, Ви приймаєте угоду користувача сайту</p>
+                    <button class="site-btn">Відправити запит</button>
+                </div>
+            </form>
+        </section>
+    }
+</main>
+
+
+
+@*<div class="container">
+    <div class="left-content">
+        <div class="cms-person">
+            <div class="cms-person-header">
+                <div class="text">
+                    <h1>@Html.Raw(Model.Title.Insert(Model.Title.IndexOf(" "), "<br/>"))</h1>
+
+                    @if (!String.IsNullOrEmpty(Model.Post))
+                    {
+                        <p class="post">@Model.Post</p>
+                    }
+
+                    @if (!String.IsNullOrEmpty(Model.Description))
+                    {
+                        <p class="desc">
+                            @Html.Raw(Model.Description)
+                        </p>
+                    }
+                </div>
+                <img src="@CmsSettings.BaseDomain@(!String.IsNullOrEmpty(Model.Image) ? Model.Image : "/content/img/parts/default-img-1x1.png")" title="@Model.Title" class="img" />
+            </div>
+
+            <div class="cms-page">
+                @Html.Partial("_prtContent", Model.ContentRows)
+
+                <div class="cms-article-date text-right">
+                    @if (!String.IsNullOrEmpty(Model.PublishDate))
+                    {
+                        <em class="help-text">
+                            Опубліковано: @Model.PublishDate
+                        </em>
+                    }
+                    @if (!String.IsNullOrEmpty(Model.LastEditDate))
+                    {
+                        <em class="help-text">
+                            (оновлено: @Model.LastEditDate)
+                        </em>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="right-content">
+        @Html.Partial("_prtSidebar")
+        @if (Model.PersonMenu != null)
+        {
+            @Html.Partial("_prtSidebarMenu", Model.PersonMenu)
+        }
+    </div>
+</div>*@
+
+<script>
+    $(function () {
+        coreUtils.createPage($(".page-contents"));
+    })
+</script>

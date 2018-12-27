@@ -1,0 +1,26 @@
+﻿@model CmsMenu
+
+@if (Model != null)
+{
+    <ul class="footer-menu">
+        @foreach (var item in Model.Items)
+        {
+            <li>
+               @if (!string.IsNullOrEmpty(item.Url))
+               {
+                    <a href="@(item.Url)">
+                        @Html.Raw(item.Title)
+                    </a>
+               }
+               else
+               {
+                    <span>
+                        @Html.Raw(item.Title)
+                    </span>
+               }
+            </li>
+        }
+    </ul>
+}
+
+

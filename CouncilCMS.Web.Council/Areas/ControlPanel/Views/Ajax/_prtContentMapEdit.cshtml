@@ -1,0 +1,174 @@
+﻿@model MapEdit
+@{
+    var targetId = Model.IsNew ? ("column" + Model.ContentColumnId + "contents") : ("content" + Model.Id);
+    var insMode = Model.IsNew ? InsertionMode.InsertAfter : InsertionMode.ReplaceWith;
+}
+
+<div class="modal-title">
+    Мапа
+    <ul class="modal-lang-swicher">
+        <li data-lang="en">EN</li>
+        <li data-lang="ru">RU</li>
+        <li class="active" data-lang="uk">UA</li>
+    </ul>
+</div>
+
+@using (Ajax.BeginForm("SaveMapContent", "", new AjaxOptions()
+{
+    Url = "/uk/controlpanel/ajax/SaveMapContent",
+    HttpMethod = "POST",
+    InsertionMode = insMode,
+    UpdateTargetId = targetId,
+    OnSuccess = "bsAdmin.divContentEdit.modal('hide')"
+}, new { id = "formMapEdit" }))
+{
+
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label class="control-label">Висота мапи</label>
+                <div class="input-group">
+                    <input type="text" value="@Model.Height" name="Height" id="tbMapHeight" class="form-control" />
+                    <div class="input-group-btn">
+                        <button type="button" class="btn btn-default" id="btnMapHeightPlus">
+                            <i class="fa fa-fw fa-plus"></i>
+                        </button>
+                        <button type="button" class="btn btn-default" id="btnMapHeightMinus">
+                            <i class="fa fa-fw fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label class="control-label">Масштаб мапи</label>
+                <div class="input-group">
+                    <input type="text" value="@Model.Zoom" name="Zoom" id="tbMapZoom" class="form-control" />
+                    <div class="input-group-btn">
+                        <button type="button" class="btn btn-default" id="btnMapZoomPlus">
+                            <i class="fa fa-fw fa-plus"></i>
+                        </button>
+                        <button type="button" class="btn btn-default" id="btnMapZoomMinus">
+                            <i class="fa fa-fw fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div id="divContentMap" style="height:@(Model.Height)px;"></div>
+    </div>
+   
+    <div id="divMarkerEdit">
+        <hr />
+        <div class="well">
+            <div class="row form-group collapse in" id="divFindMarker">
+                <div class="col-sm-5">
+                    <input type="button" class="btn btn-primary btn-block" id="btnAddMarker" value="Додати маркер в центр мапи" />
+                </div>
+                <div class="col-sm-1 text-center">
+                    <div class="form-control-static">або</div>
+                </div>
+                <div class="col-sm-6">
+                    <input type="text" id="tbAddMarkerByPlace" class="form-control" placeholder="Вкажіть адресу та оберіть місце із списку" />
+                </div>
+            </div>
+            <div id="divSaveMarker" class="collapse">
+                <div class="lang-uk">
+                    <div class="form-group">
+                        <label class="control-label">Назва маркера (ua)</label>
+                        <input id="tbMarkerTitleUk" class="form-control" type="text" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Опис маркера (ua)</label>
+                        <textarea id="tbMarkerDescUk" class="form-control bs-ckeditor" data-height="120"></textarea>
+                    </div>
+                </div>
+                <div class="lang-ru">
+                    <div class="form-group">
+                        <label class="control-label">Назва маркера (ru)</label>
+                        <input id="tbMarkerTitleRu" class="form-control" type="text" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Опис маркера (ru)</label>
+                        <textarea id="tbMarkerDescRu" class="form-control bs-ckeditor" data-height="120"></textarea>
+                    </div>
+                </div>
+                <div class="lang-en">
+                    <div class="form-group">
+                        <label class="control-label">Назва маркера (en)</label>
+                        <input id="tbMarkerTitleEn" class="form-control" type="text" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Опис маркера (en)</label>
+                        <textarea id="tbMarkerDescEn" class="form-control bs-ckeditor" data-height="120"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button type="button" class="btn btn-default" id="btnDelMarker">
+                        Видалити маркер
+                    </button>
+                    <button type="button" class="btn btn-primary" id="btnSaveMarker">
+                        Зберегти маркер
+                    </button>
+                </div>
+                <input type="hidden" name="MarkerId" id="hMarkerId" />
+            </div>
+        </div>
+        <hr />
+    </div>
+
+    @Html.HiddenFor(x => x.Id, new { Value = Model.Id })
+    @Html.HiddenFor(x => x.ContentColumnId)
+    @Html.HiddenFor(x => x.Position)
+    @Html.HiddenFor(x => x.CenterLat, new { id = "hCenterLat" })
+    @Html.HiddenFor(x => x.CenterLng, new { id = "hCenterLng" })
+
+    <div class="map-edit-markers" id="divMapEditMarkers">
+        @if (Model.MapPoints != null)
+        {
+            for (var i = 0; i < Model.MapPoints.Count(); i++)
+            {
+                var index =   Guid.NewGuid().ToString("N");
+
+                <div class="map-edit-marker" id="marker@(index)">
+                    <input type="hidden" name="MapPoints.Index" value="@index" />
+                    <input type="hidden" name="MapPoints[@index].Lat" value="@Model.MapPoints[i].Lat" />
+                    <input type="hidden" name="MapPoints[@index].Lng" value="@Model.MapPoints[i].Lng" />
+                    <input type="hidden" name="MapPoints[@index].TitleUk" value="@Model.MapPoints[i].TitleUk" />
+                    <input type="hidden" name="MapPoints[@index].TitleRu" value="@Model.MapPoints[i].TitleRu" />
+                    <input type="hidden" name="MapPoints[@index].TitleEn" value="@Model.MapPoints[i].TitleEn" />
+                    <input type="hidden" name="MapPoints[@index].DescriptionUk" value="@Model.MapPoints[i].DescriptionUk" />
+                    <input type="hidden" name="MapPoints[@index].DescriptionRu" value="@Model.MapPoints[i].DescriptionRu" />
+                    <input type="hidden" name="MapPoints[@index].DescriptionEn" value="@Model.MapPoints[i].DescriptionEn" />
+                </div>
+            }
+        }
+    </div>
+
+    <div class="modal-footer">
+        @if (Model.IsNew)
+        {
+            <button type="button" href="#" class="btn btn-link remove-content" data-id="@Model.Id">
+                @Locals.Cancle
+            </button>
+            <button type="submit" id="saveMapEdit" class="btn btn-primary">
+                @Locals.Add
+            </button>
+        }
+        else
+        {
+            <button type="button" class="btn btn-link nav-link" data-dismiss="modal">
+                @Locals.Close
+            </button>
+            <button type="submit" id="saveMapEdit" class="btn btn-primary">
+                @Locals.Save
+            </button>
+        }
+    </div>
+}

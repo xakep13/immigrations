@@ -1,0 +1,50 @@
+﻿@model List<ContentColumnItem>
+
+@if (Model != null)
+{
+    foreach (var item in Model)
+    {
+        <div id="column@(item.Id)" class="col-item col-lg-@item.LgWidth col-md-@item.MdWidth col-sm-@item.SmWidth col-lg-offset-@item.LgOffset col-md-offset-@item.MdOffset col-sm-offset-@item.SmOffset">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="rel">
+                                <div class="pull-right">
+                                    <span class="link-btn add-content" title="Додати контент" data-col-id="@item.Id" data-position="@(item.Contents != null ? (item.Contents.Count + 1) : 1)">
+                                        <i class="fa fa-fw fa-plus-circle"></i>
+                                    </span>
+                                    <span class="link-btn edit-content-column" title="Редагувати колонку" data-id="@item.Id">
+                                        <i class="fa fa-fw fa-pencil"></i>
+                                    </span>
+                                    @*<span class="link-btn" title="Видалити колонку" onclick="javascript: $(this).prop('disabled'); window.removeContentColumn(@item.Id);">
+                                        <i class="fa fa-fw fa-trash"></i>
+                                    </span>*@
+                                </div>
+                                <span title="колонка">
+                                    колонка
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="contents" id="column@(item.Id)contents">
+                        @if (item.Contents != null)
+                        {
+                            foreach (var content in item.Contents)
+                            {
+                                @Html.Partial("~/areas/controlpanel/views/ajax/_prtContentItem.cshtml", content)
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
+
+
+
+
+

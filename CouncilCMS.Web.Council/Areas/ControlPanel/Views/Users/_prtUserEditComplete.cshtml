@@ -1,0 +1,28 @@
+﻿@model RegisteredUser
+
+<div class="text-center complete-text">
+    <i class="fa fa-fw fa-floppy-o text-success"></i>
+    <span class="message">@Locals.DataSaved</span><br />
+    <p class="desc">
+        <span>
+            Ім'я: <strong>@Model.Name</strong>
+        </span><br />
+        <span>
+            Email: <strong>@Model.Email</strong> 
+        </span>
+        @if (!String.IsNullOrEmpty(Model.TempPassword))
+        {
+            <br />
+            <span>
+                Пароль: <strong>@Model.TempPassword</strong>
+            </span>
+            <br />
+            <em>Лист з паролем відправлено на електронну адресу користувача</em>
+        }        
+    </p>    
+</div>
+<div class="text-right">
+    <a href="#" class="btn btn-link nav-link" data-dismiss="modal">
+        <span>@Locals.Close</span>
+    </a>
+</div>

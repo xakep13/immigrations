@@ -1,0 +1,43 @@
+﻿@model GalleryItemEdit
+
+
+<div class="gallery-content-item">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Елемент в галереї
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-lg-5">
+                    <div class="simply-uploader">
+                        @Html.SimpleUploaderFor(x => x.Image, "Зображення",
+                        new ImageUploaderOptions()
+                        {
+                            UploadUrl = "/api/upload/uploadfile?type=image&directory=content",
+                            ContainerId = "divLogoUpload",
+                            ContainerHeight = 160
+                        }, new { @class = "form-control gallery-items", @readonly = "readonly" })
+                    </div>
+                </div>
+                <div class="col-sm-7">
+                    @Html.SimpleTextBoxFor(x => x.NameUk, "Підпис фото (uk)", new { @class = "form-control gallery-items" })
+                    @Html.SimpleTextBoxFor(x => x.NameRu, "Підпис фото (ru)", new { @class = "form-control gallery-items" })
+                    @Html.SimpleTextBoxFor(x => x.NameEn, "Підпис фото (en)", new { @class = "form-control gallery-items" })
+                    <hr />
+                    <hr />
+                    <div class="text-right">
+                        <button type="button" onclick="javascript: window.deleteGalleryImage($(this))" class="btn btn-primary">
+                            <i class="fa fa-trash-o" aria-hidden="true"></i>
+                        </button>
+                        <button type="button" onclick="javascript:window.swapGalleryItemTop($(this))" class="btn btn-primary">
+                            <i class="fa fa-caret-up" aria-hidden="true"></i>
+                        </button>
+                        <button type="button" onclick="javascript: window.swapGalleryItemDown($(this))" class="btn btn-primary">
+                            <i class="fa fa-caret-down" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

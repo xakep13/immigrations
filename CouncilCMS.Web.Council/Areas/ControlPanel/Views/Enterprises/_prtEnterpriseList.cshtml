@@ -1,0 +1,177 @@
+﻿@model List<EnterpriseListItem>
+
+@if (Model != null && Model.Count() > 0)
+{
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Назва</th>
+                    <th style="min-width:200px;">Категорії</th>
+                    <th>Статус</th>
+                    <th><i class="fa fa-fw fa-eye" title="кількість переглядів"></i></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="td-min">
+                            @item.Id
+                        </td>
+                        <td>
+                            <strong class="lang-uk">
+                                @item.TitleUk
+                            </strong>
+                            <strong class="lang-ru">
+                                @item.TitleRu
+                            </strong>
+                            <strong class="lang-en">
+                                @item.TitleEn
+                            </strong>
+                        </td>
+                        <td>
+                            <ul class="lang-uk" style="padding-left:20px; margin:0;">
+                                @foreach (var cat in item.CategoriesUk)
+                                {
+                                    <li>@cat</li>
+                                }
+                            </ul>
+                            <ul class="lang-ru" style="padding-left:20px; margin:0;">
+                                @foreach (var cat in item.CategoriesRu)
+                                {
+                                    <li>@cat</li>
+                                }
+                            </ul>
+                            <ul class="lang-en" style="padding-left:20px; margin:0;">
+                                @foreach (var cat in item.CategoriesEn)
+                                {
+                                    <li>@cat</li>
+                                }
+                            </ul>
+                        </td>
+                        <td class="td-min no-wrap dropdown">
+                            <div class="dropdown">
+                                <span data-toggle="dropdown">
+                                    @if (item.Deleted)
+                                    {
+                                        <i class="fa fa-fw fa-trash" title="видалено"></i>
+                                        <span class="dash-link" title="видалено">
+                                            видалено
+                                        </span>
+                                    }
+                                    else if (!item.Published)
+                                    {
+                                        <i class="fa fa-fw fa-edit" title="чернетка"></i>
+                                        <span class="dash-link" title="чернетка">
+                                            чернетка
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        if (DateTime.Now >= item.PublishDate)
+                                        {
+                                            <i class="fa fa-fw fa-calendar-check-o" title="опубліковано"></i>
+                                            <span class="dash-link" title="опубліковано">
+                                                @(DateTimeHelper.NullableDateTimeString(item.PublishDate) ?? "дата не вказана")
+                                            </span>
+
+                                        }
+                                        else
+                                        {
+                                            <i class="fa fa-fw fa-clock-o" title="відкладена публікація"></i>
+                                            <span class="dash-link" title="відкладена публікація">
+                                                @(DateTimeHelper.NullableDateTimeString(item.PublishDate) ?? "дата не вказана")
+                                            </span>
+                                        }
+                                    }
+                                </span>
+                                <ul class="dropdown-menu dropdown-menu-right text-right">
+                                    <li>
+                                        <a href="#" class="no-event" title="дата створення">
+                                            <i class="fa fa-fw fa-plus"></i>&nbsp;&nbsp;&nbsp;@DateTimeHelper.DateTimeString(item.CreateDate)
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="no-event" title="вказана дата публікації на сайті">
+                                            <i class="fa fa-fw fa-check"></i>&nbsp;&nbsp;&nbsp;@(DateTimeHelper.NullableDateTimeString(item.PublishDate) ?? "дата не вказана")
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="no-event" title="вказана дата оновлення інформації">
+                                            <i class="fa fa-fw fa-refresh"></i>&nbsp;&nbsp;&nbsp;@(DateTimeHelper.NullableDateTimeString(item.EditedDate) ?? "дата не вказана")
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="no-event" title="дата останнього редагування">
+                                            <i class="fa fa-fw fa-pencil"></i>&nbsp;&nbsp;&nbsp;@(DateTimeHelper.NullableDateTimeString(item.LastEditDate) ?? "дата не вказана")
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="no-event" title="створено">
+                                            <i class="fa fa-fw fa-user"></i>&nbsp;&nbsp;&nbsp;@(item.CreateUser ?? "користувача не вказано")
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="no-event" title="останній раз відредаговано">
+                                            <i class="fa fa-fw fa-user-plus"></i>&nbsp;&nbsp;&nbsp;@(item.LastEditUser ?? "користувача не вказано")
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                        <td>
+                            @item.ViewCount
+                        </td>
+                        <td class="td-min no-wrap rel">
+                            <div class="dropdown">
+                                <a href="#" class="link-btn" data-toggle="dropdown">
+                                    <i class="fa fa-fw fa-ellipsis-v"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-right text-right">
+                                    @if (item.Deleted && User.HasPremission("dl_enterprises"))
+                                    {
+                                        <li>
+                                            <a href="#" class="nav-link" data-action="restore" data-id="@item.Id">
+                                                <i class="fa fa-fw fa-undo"></i> відновити
+                                            </a>
+                                        </li>
+                                    }
+                                    else
+                                    {
+                                        <li>
+                                            <a href="#" class="nav-link" data-action="edit" data-id="@item.Id">
+                                                <i class="fa fa-fw fa-pencil"></i> редагувати
+                                            </a>
+                                        </li>
+                                        if (User.HasPremission("dl_enterprises"))
+                                        {
+                                            <li>
+                                                <a href="#" class="nav-link" data-action="delete" data-id="@item.Id">
+                                                    <i class="fa fa-fw fa-trash"></i> видалити
+                                                </a>
+                                            </li>
+                                        }
+                                        <li>
+                                            <a href="/@CurrentCulture.Name.ToLower()/organizations/item/@item.Id/@item.Url" target="_blank">
+                                                <i class="fa fa-fw fa-external-link"></i> переглянути
+                                            </a>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    @Helpers.CpPager(ViewBag.Count, ViewBag.Page, ViewBag.PerPage)
+}
+
+
+
+

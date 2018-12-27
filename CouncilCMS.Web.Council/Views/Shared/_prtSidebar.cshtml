@@ -1,0 +1,61 @@
+﻿<div class="row">    
+    <div class="col-sm-12">
+        <div class="calendar">
+            <div class="links">
+                <a href="/@CurrentCulture.Name.ToLower()/articles/category/novini">Останні</a>
+                <a href="/@CurrentCulture.Name.ToLower()/articles/category/vazhlivi">Важливі</a>
+                <a href="/@CurrentCulture.Name.ToLower()/articles/category/svyata">Свята</a>
+            </div>
+            <div class="title">
+                Календар подій
+            </div>
+            <div class="date">
+                <input type="text" class="date-input bs-datepicker" placeholder="Виберіть дату" readonly="readonly" />
+                <i class="fa fa-calendar"></i>
+            </div>
+        </div>
+        <div class="yellow-banner">
+            <a href="/@CurrentCulture.Name.ToLower()/articles/category/naradi-onlajn/">
+                <i class="fa fa-fw fa-play"></i>
+                <span>Наради онлайн</span>
+            </a>
+        </div>
+        
+        @Html.Action("GetMajorLast", "Widgets", new { Area = String.Empty, Url = "mayor" })        
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12 col-sm-6">
+        <div class="hotline-info">
+            <div class="row">
+                <div class="col-lg-12 col-md-3">
+                    <div class="title">
+                        <strong>Гаряча лінія</strong>
+                        <span>ОЛЕКСІЯ САВЧЕНКА</span>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-3">
+                    <div class="info">
+                        УСЕ НА БЛАГО ГРОМАДИ!+6++
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-3">
+                    <div class="number">
+                        0 800 502 191
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-3">
+                    <div class="icons">
+                        <a href="#" class="icon">
+                            <i class="fa fa-fw fa-envelope-o"></i>
+                        </a>
+                        <a href="#" class="icon">
+                            <i class="fa fa-fw fa-phone"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>    
+</div>

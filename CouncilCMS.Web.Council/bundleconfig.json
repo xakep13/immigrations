@@ -1,0 +1,182 @@
+[
+  {
+    "outputFileName": "Content/app/js/uploader.min.js",
+    "inputFiles": [
+      "Content/app/js/uploader.js"
+    ]
+  },
+  {
+    "outputFileName": "Content/libs/fotorama/fotorama.min.css",
+    "inputFiles": [
+      "Content/libs/fotorama/fotorama.css"
+    ]
+  },
+  {
+    "outputFileName": "Content/libs/fotorama/fotorama.min.js",
+    "inputFiles": [
+      "Content/libs/fotorama/fotorama.js"
+    ]
+  },
+  {
+    "outputFileName": "Content/libs/palete-color-picker/palette-color-picker.min.js",
+    "inputFiles": [
+      "Content/libs/palete-color-picker/palette-color-picker.js"
+    ]
+  },
+  {
+    "outputFileName": "Content/app/js/common-utils.min.js",
+    "inputFiles": [
+      "Content/app/js/common-utils.js"
+    ]
+  },
+  {
+    "outputFileName": "Content/app/js/controlpanel.min.js",
+    "inputFiles": [
+      "Content/app/js/controlpanel.js"
+    ]
+  },
+  {
+    "outputFileName": "Content/app/js/core-utils.min.js",
+    "inputFiles": [
+      "Content/app/js/core-utils.js"
+    ]
+  },
+  {
+    "outputFileName": "Content/app/js/elements.min.js",
+    "inputFiles": [
+      "Content/app/js/elements.js"
+    ]
+  },
+  {
+    "outputFileName": "Content/app/js/globals.min.js",
+    "inputFiles": [
+      "Content/app/js/globals.js"
+    ]
+  },
+  {
+    "outputFileName": "Content/app/js/jquery.conditionalvalidate.min.js",
+    "inputFiles": [
+      "Content/app/js/jquery.conditionalvalidate.js"
+    ]
+  },
+  {
+    "outputFileName": "Content/app/js/jquery.googlemap.min.js",
+    "inputFiles": [
+      "Content/app/js/jquery.googlemap.js"
+    ]
+  },
+  {
+    "outputFileName": "Content/app/js/locals.ru.min.js",
+    "inputFiles": [
+      "Content/app/js/locals.ru.js"
+    ]
+  },
+  {
+    "outputFileName": "Content/app/js/site.min.js",
+    "inputFiles": [
+      "Content/app/js/site.js"
+    ]
+  },
+  {
+    "outputFileName": "Content/app/js/locals.uk.min.js",
+    "inputFiles": [
+      "Content/app/js/locals.uk.js"
+    ]
+  },
+  {
+    "outputFileName": "Content/libs/bootsrap-datetimepicker/js/bootstrap-datetimepicker.min.js",
+    "inputFiles": [
+      "Content/libs/bootsrap-datetimepicker/js/bootstrap-datetimepicker.js"
+    ]
+  },
+  {
+    "outputFileName": "Content/libs/bootstrap-modal/css/bootstrap-modal.min.css",
+    "inputFiles": [
+      "Content/libs/bootstrap-modal/css/bootstrap-modal.css"
+    ]
+  },
+  {
+    "outputFileName": "Content/libs/bootstrap-modal/js/bootstrap-modalmanager.min.js",
+    "inputFiles": [
+      "Content/libs/bootstrap-modal/js/bootstrap-modalmanager.js"
+    ]
+  },
+  {
+    "outputFileName": "Content/libs/bootstrap-modal/js/bootstrap-modal.min.js",
+    "inputFiles": [
+      "Content/libs/bootstrap-modal/js/bootstrap-modal.js"
+    ]
+  },
+  {
+    "outputFileName": "Content/libs/bootstrap-select/js/bootstrap-select.min.js",
+    "inputFiles": [
+      "Content/libs/bootstrap-select/js/bootstrap-select.js"
+    ]
+  },
+  {
+    "outputFileName": "Content/libs/cropper/cropper.min.css",
+    "inputFiles": [
+      "Content/libs/cropper/cropper.css"
+    ]
+  },
+  {
+    "outputFileName": "Content/libs/cropper/cropper.min.js",
+    "inputFiles": [
+      "Content/libs/cropper/cropper.js"
+    ]
+  },
+  {
+    "outputFileName": "Content/libs/font-awesome/css/font-awesome.min.css",
+    "inputFiles": [
+      "Content/libs/font-awesome/css/font-awesome.css"
+    ]
+  },
+  {
+    "outputFileName": "Content/libs/remodal/css/remodal-default-theme.min.css",
+    "inputFiles": [
+      "Content/libs/remodal/css/remodal-default-theme.css"
+    ]
+  },
+  {
+    "outputFileName": "Content/libs/remodal/css/remodal.min.css",
+    "inputFiles": [
+      "Content/libs/remodal/css/remodal.css"
+    ]
+  },
+  {
+    "outputFileName": "Content/libs/slick/slick.min.js",
+    "inputFiles": [
+      "Content/libs/slick/slick.js"
+    ]
+  },
+  {
+    "outputFileName": "Content/libs/sortable/sortable.min.js",
+    "inputFiles": [
+      "Content/libs/sortable/sortable.js"
+    ]
+  },
+  {
+    "outputFileName": "Content/libs/jQuery/jquery.maskedinput.min.js",
+    "inputFiles": [
+      "Content/libs/jQuery/jquery.maskedinput.js"
+    ]
+  },
+  {
+    "outputFileName": "Content/libs/bootstrap-smartcity/js/bootstrap.min.js",
+    "inputFiles": [
+      "Content/libs/bootstrap-smartcity/js/bootstrap.js"
+    ]
+  },
+  {
+    "outputFileName": "Content/libs/simple-calendar/jquery.simple-calendar.min.js",
+    "inputFiles": [
+      "Content/libs/simple-calendar/jquery.simple-calendar.js"
+    ]
+  },
+  {
+    "outputFileName": "Content/libs/clndr/clndr.min.js",
+    "inputFiles": [
+      "Content/libs/clndr/clndr.js"
+    ]
+  }
+]

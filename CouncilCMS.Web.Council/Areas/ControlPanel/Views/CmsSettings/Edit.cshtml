@@ -1,0 +1,325 @@
+﻿@model CmsSettingsEdit
+@{
+	ViewBag.Title = Locals.Settings;
+	Layout = "~/Areas/ControlPanel/Views/Shared/_Layout.cshtml";
+
+	var colors = new List<SelectListItem>()
+{
+new SelectListItem() { Text = "blue", Value = "blue" },
+new SelectListItem() { Text = "green", Value = "green" },
+new SelectListItem() { Text = "red", Value = "red" },
+new SelectListItem() { Text = "orng", Value = "orng" },
+new SelectListItem() { Text = "dark-blue", Value = "dblue" },
+};
+}
+
+<div class="page-title">
+	<h1>
+		<i class="fa fa-fw fa-cog"></i>
+		@Locals.Settings
+	</h1>
+</div>
+
+<div class="card">
+
+	@using(Ajax.BeginForm(new AjaxOptions()
+	{
+		Url = "/uk/controlpanel/cmssettings/save",
+		HttpMethod = "POST",
+		OnBegin = "bsAdmin.startProcessing();",
+		OnComplete = "bsAdmin.endProcessing();",
+		UpdateTargetId = "divMsg",
+		InsertionMode = InsertionMode.ReplaceWith
+	}))
+	{
+		<h3 class="card-subtitle">
+			Базові налаштування
+		</h3>
+		<div class="row">
+			<div class="col-sm-4">
+				@Html.SimpleTextBoxFor(x => x.TitleUk, "Title сайту (ua)", new { @class = "form-control" })
+				@Html.SimpleTextBoxFor(x => x.SubTitleUk, "Subtitle сайту (ua)", new { @class = "form-control" })
+				@Html.SimpleTextBoxFor(x => x.DefaultMetaKeywordsUk, "МЕТА ключові слова за замовчуваням (ua)", new { @class = "form-control" })
+				@Html.SimpleTextAreaFor(x => x.DefaultMetaDescriptionUk, "МЕТА опис за замовчуваням (ua)", new { @class = "form-control", rows = 2 })
+				@Html.SimpleUploaderFor(x => x.LogoUk, "Логотип (ua)",
+	   new ImageUploaderOptions()
+	   {
+		   UploadUrl = "/api/upload/uploadfile?type=image&directory=cms_logo",
+		   ContainerId = "divLogoUpload",
+		   ContainerHeight = 150
+	   }, new { @class = "form-control", @readonly = "readonly" })
+				@Html.SimpleUploaderFor(x => x.SubLogoUk, "Додатковий логотип (ua)",
+	   new ImageUploaderOptions()
+	   {
+		   UploadUrl = "/api/upload/uploadfile?type=image&directory=cms_logo",
+		   ContainerId = "divLogoUpload",
+		   ContainerHeight = 150
+	   }, new { @class = "form-control", @readonly = "readonly" })
+			</div>
+			<div class="col-sm-4">
+				@Html.SimpleTextBoxFor(x => x.TitleRu, "Title сайту (ru)", new { @class = "form-control" })
+				@Html.SimpleTextBoxFor(x => x.SubTitleRu, "Subtitle сайту (ru)", new { @class = "form-control" })
+				@Html.SimpleTextBoxFor(x => x.DefaultMetaKeywordsRu, "МЕТА ключові слова за замовчуваням (ru)", new { @class = "form-control" })
+				@Html.SimpleTextAreaFor(x => x.DefaultMetaDescriptionRu, "МЕТА опис за замовчуваням (ru)", new { @class = "form-control", rows = 2 })
+				@Html.SimpleUploaderFor(x => x.LogoRu, "Логотип (ru)",
+	   new ImageUploaderOptions()
+	   {
+		   UploadUrl = "/api/upload/uploadfile?type=image&directory=cms_logo",
+		   ContainerId = "divLogoUpload",
+		   ContainerHeight = 150
+	   }, new { @class = "form-control", @readonly = "readonly" })
+				@Html.SimpleUploaderFor(x => x.SubLogoUk, "Додатковий логотип (ua)",
+new ImageUploaderOptions()
+{
+  UploadUrl = "/api/upload/uploadfile?type=image&directory=cms_logo",
+  ContainerId = "divLogoUpload",
+  ContainerHeight = 150
+}, new { @class = "form-control", @readonly = "readonly" })
+			</div>
+			<div class="col-sm-4">
+				@Html.SimpleTextBoxFor(x => x.TitleEn, "Title сайту (en)", new { @class = "form-control" })
+				@Html.SimpleTextBoxFor(x => x.SubTitleEn, "Subtitle сайту (en)", new { @class = "form-control" })
+				@Html.SimpleTextBoxFor(x => x.DefaultMetaKeywordsEn, "МЕТА ключові слова за замовчуваням (en)", new { @class = "form-control" })
+				@Html.SimpleTextAreaFor(x => x.DefaultMetaDescriptionEn, "МЕТА опис за замовчуваням (en)", new { @class = "form-control", rows = 2 })
+				@Html.SimpleUploaderFor(x => x.LogoEn, "Логотип (en)",
+	   new ImageUploaderOptions()
+	   {
+		   UploadUrl = "/api/upload/uploadfile?type=image&directory=cms_logo",
+		   ContainerId = "divLogoUpload",
+		   ContainerHeight = 150
+	   }, new { @class = "form-control", @readonly = "readonly" })
+				@Html.SimpleUploaderFor(x => x.SubLogoUk, "Додатковий логотип (ua)",
+new ImageUploaderOptions()
+{
+  UploadUrl = "/api/upload/uploadfile?type=image&directory=cms_logo",
+  ContainerId = "divLogoUpload",
+  ContainerHeight = 150
+}, new { @class = "form-control", @readonly = "readonly" })
+			</div>
+		</div>
+		<hr />
+		<h3 class="card-subtitle">
+			Налаштування головної
+		</h3>
+		<div class="row">
+			<div class="col-sm-12">
+				@Html.SimpleCheckboxFor(x => x.HideMayor, null, "Приховати блок звернення")
+			</div>
+			<div class="col-sm-4">
+				@Html.SimpleTextBoxFor(x => x.MayorTitleUk, "Заголовок блока зверненнь (ua)", new { @class = "form-control" })
+			</div>
+			<div class="col-sm-4">
+				@Html.SimpleTextBoxFor(x => x.MayorTitleRu, "Заголовок блока зверненнь (ru)", new { @class = "form-control" })
+			</div>
+			<div class="col-sm-4">
+				@Html.SimpleTextBoxFor(x => x.MayorTitleEn, "Заголовок блока зверненнь (en)", new { @class = "form-control" })
+			</div>
+			<div class="col-sm-4">
+				@Html.SimpleTextBoxFor(x => x.MayorNameUk, "П.І.Б. голови (ua)", new { @class = "form-control" })
+			</div>
+			<div class="col-sm-4">
+				@Html.SimpleTextBoxFor(x => x.MayorNameRu, "П.І.Б. голови (ru)", new { @class = "form-control" })
+			</div>
+			<div class="col-sm-4">
+				@Html.SimpleTextBoxFor(x => x.MayorNameEn, "П.І.Б. голови (en)", new { @class = "form-control" })
+			</div>
+			<div class="col-sm-4">
+				@Html.SimpleUploaderFor(x => x.MayorImage, "Фото голови",
+	  new ImageUploaderOptions()
+	  {
+		  UploadUrl = "/api/upload/uploadfile?type=image&directory=cms_logo",
+		  ContainerId = "divLogoUpload",
+		  ContainerHeight = 130,
+		  AllowEdit = true,
+		  CropWidth = 130,
+		  CropHeight = 130,
+	  }, new { @class = "form-control", @readonly = "readonly" })
+			</div>
+			<div class="col-sm-4">
+				@Html.SimpleUploaderFor(x => x.BanerImage, "Фото для банера",
+	  new ImageUploaderOptions()
+	  {
+		  UploadUrl = "/api/upload/uploadfile?type=image&directory=cms_logo",
+		  ContainerId = "divLogoUpload",
+		  ContainerHeight = 130,
+		  AllowEdit = true,
+		  
+	  }, new { @class = "form-control", @readonly = "readonly" })
+			</div>
+			<div class="col-sm-4">
+				@Html.SimpleTextBoxFor(x => x.HotlineTitleUk, "Заголовок гарячої лінії (ua)", new { @class = "form-control" })
+				@Html.SimpleTextBoxFor(x => x.HotlineTitleRu, "Заголовок гарячої лінії (ru)", new { @class = "form-control" })
+				@Html.SimpleTextBoxFor(x => x.HotlineTitleEn, "Заголовок гарячої лінії (en)", new { @class = "form-control" })
+			</div>
+			<div class="col-sm-4">
+				@Html.SimpleTextBoxFor(x => x.HotlineSubTitleUk, "Підзаголовок гарячої лінії (ua)", new { @class = "form-control" })
+				@Html.SimpleTextBoxFor(x => x.HotlineSubTitleRu, "Підзаголовок гарячої лінії (ru)", new { @class = "form-control" })
+				@Html.SimpleTextBoxFor(x => x.HotlineSubTitleEn, "Підзаголовок гарячої лінії (en)", new { @class = "form-control" })
+
+			</div>
+
+			<div class="col-sm-4">
+				@Html.SimpleTextBoxFor(x => x.HotlinePhone, "Телефон гарячої лінії", new { @class = "form-control" })
+			</div>
+			<div class="col-sm-4 form-group">
+
+				@Html.SimpleDropDownListFor(x => x.IsEmailActive,
+				new List<SelectListItem>()
+				{
+					new SelectListItem(){ Text= "активний", Value = "true",  },
+					new SelectListItem(){ Text= "неактивний", Value = "false" }
+				}, "Телефон Активний на сайті"
+				, new { @class = "form-control" })
+
+
+			</div>
+
+			<div class="col-sm-2">
+				@Html.SimpleTextBoxFor(x => x.HotlineColor, "Колір гарячої лінії", new { @class = "form-control bs-colpick" })
+			</div>
+
+			<div class="col-sm-2">
+				@Html.SimpleTextBoxFor(x => x.OldSite, "Посилання на старий сайт", new { @class = "form-control" })
+			</div>
+
+			<div class="col-sm-4">
+				@Html.SimpleTextBoxFor(x => x.HotlineEmail, "Email гарячої лінії", new { @class = "form-control" })
+			</div>
+			<div class="col-sm-4 form-group">
+				@Html.SimpleDropDownListFor(x => x.IsPhoneActive,
+				new List<SelectListItem>()
+				{
+					new SelectListItem(){ Text= "активний", Value = "true",  },
+					new SelectListItem(){ Text= "неактивний", Value = "false" }
+				}, "Email Активний на сайті"
+				, new { @class = "form-control" })
+
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-sm-6">
+				@Html.SimpleTextBoxFor(x => x.FbLink, "Посилання на Facebook", new { @class = "form-control" })
+			</div>
+			<div class="col-sm-6">
+				@Html.SimpleTextBoxFor(x => x.TwLink, "Посилання на Twitter", new { @class = "form-control" })
+			</div>
+			<div class="col-sm-6">
+				@Html.SimpleTextBoxFor(x => x.YtLink, "Посилання на YouTube", new { @class = "form-control" })
+			</div>
+			<div class="col-sm-6">
+				@Html.SimpleTextBoxFor(x => x.IgLink, "Посилання на Instagram", new { @class = "form-control" })
+			</div>
+		</div>
+		<hr />
+		<h3 class="card-subtitle">
+			Налаштування середовища
+		</h3>
+		<div class="row">
+			<div class="col-sm-4">
+				@Html.SimpleTextBoxFor(x => x.ProductVersion, "Версія збірки", new { @class = "form-control" })
+			</div>
+			<div class="col-sm-4">
+				@Html.SimpleTextBoxFor(x => x.ReleaseVersion, "Версія релізу", new { @class = "form-control" })
+			</div>
+			<div class="col-sm-4">
+				@Html.SimpleTextBoxFor(x => x.DesignVersion, "Колір дизайну", new { @class = "form-control bs-colpick" })
+			</div>
+			<div class="col-sm-4">
+				@Html.SimpleTextBoxFor(x => x.BaseDomain, "Базовий домен", new { @class = "form-control" })
+			</div>
+			<div class="col-sm-4">
+				@Html.SimpleTextBoxFor(x => x.CdnDomain, "CDN домен", new { @class = "form-control" })
+			</div>
+			<div class="col-sm-4">
+				@Html.SimpleTextBoxFor(x => x.AdminDomain, "Посилання на адмін-панель", new { @class = "form-control" })
+			</div>
+			<div class="col-sm-4">
+				@Html.SimpleDropDownListFor(x => x.ShowMenuItemMode, Model.ShowMenuItemMode.ToIntSelectList(), "Тип вiдображення меню", new { @class = "form-control" })
+			</div>
+			<div class="col-sm-4">
+				@Html.SimpleTextBoxFor(x => x.ThemeName, "Назва теми", new { @class = "form-control" })
+			</div>
+			<div class="col-sm-4">
+				@Html.SimpleTextBoxFor(x => x.FeedbackEmail, "Email для зворотнього зв'язку", new { @class = "form-control" })
+			</div>
+			<div class="col-sm-4">
+				@Html.SimpleDropDownListFor(x => x.Type, new List<SelectListItem>() { new SelectListItem() { Text = "Місто", Value = "1" }, new SelectListItem() { Text = "Район", Value = "2" } }, "Тип портала", new { @class = "form-control" })
+			</div>
+		</div>
+		<hr />
+		<h3 class="card-subtitle">
+			Налаштування сервісного Email
+		</h3>
+		<div class="row">
+			<div class="col-sm-6">
+				@Html.SimpleTextBoxFor(x => x.DefaultEmail, "Електронна адреса", new { @class = "form-control" })
+				@Html.SimpleTextBoxFor(x => x.DefaultEmailUser, "SMTP UserName", new { @class = "form-control" })
+				@Html.SimpleTextBoxFor(x => x.DefaultEmailHost, "SMTP Host", new { @class = "form-control" })
+			</div>
+			<div class="col-sm-6">
+				@Html.SimpleTextBoxFor(x => x.DefaultEmailName, "Ім'я відправника", new { @class = "form-control" })
+				@Html.SimpleTextBoxFor(x => x.DefaultEmailPassword, "SMTP Password", new { @class = "form-control" })
+				<div class="row">
+					<div class="col-sm-6">
+						@Html.SimpleTextBoxFor(x => x.DefaultEmailPort, "SMTP Port", new { @class = "form-control" })
+					</div>
+					<div class="col-sm-6">
+						@Html.SimpleCheckboxFor(x => x.DefaultEmailSsl, "SSL", "Використовувати SSL")
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<hr />
+		<h3 class="card-subtitle">
+			Налаштування аналітики
+		</h3>
+		<div class="row">
+			<div class="col-sm-6">
+				@Html.SimpleTextAreaFor(x => x.GoogleAnaliticsCode, "Код Google Analitics", new { @class = "form-control", rows = 5 })
+			</div>
+			<div class="col-sm-6">
+				@Html.SimpleTextAreaFor(x => x.YandexMetricsCode, "Код Yandex Metrics", new { @class = "form-control", rows = 5 })
+			</div>
+		</div>
+
+		<hr />
+		<h3 class="card-subtitle">
+			Налаштування сервісів
+		</h3>
+
+		<div class="row">
+			<div class="col-sm-6">
+				@Html.SimpleTextBoxFor(x => x.GoogleCaptchaApiKey, "Google Captcha API Key", new { @class = "form-control" })
+				@Html.SimpleTextBoxFor(x => x.GoogleCaptchaApiSecret, "Google Captcha API Secret", new { @class = "form-control" })
+				@Html.SimpleTextBoxFor(x => x.GoogleMapApiKey, "Google Map API Key", new { @class = "form-control" })
+				@Html.SimpleTextBoxFor(x => x.OpenDataApiKey, "Open Data API Key", new { @class = "form-control" })
+				@Html.SimpleTextBoxFor(x => x.FacebookAppId, "Facebook app id", new { @class = "form-control" })
+				@Html.SimpleTextBoxFor(x => x.FacebookSecretKey, "Facebook secret key", new { @class = "form-control" })
+				@Html.SimpleTextBoxFor(x => x.FacebookPublicPageId, "Facebook public page id", new { @class = "form-control" })
+				@Html.SimpleTextBoxFor(x => x.DisqusName, "Disqus Name", new { @class = "form-control" })
+				@Html.SimpleTextBoxFor(x => x.FeedburnerName, "Feedburner Name", new { @class = "form-control" })
+				@Html.SimpleTextAreaFor(x => x.WeatherWidgetHtml, "Weather Widget Html", new { @class = "form-control" })
+			</div>
+			<div class="col-sm-6">
+				@Html.SimpleMapFor(x => x.DefaultLat, x => x.DefaultLng, "Центр мапи за замовчуванням")
+				@Html.SimpleTextBoxFor(x => x.DefaultMapZoom, "Масштаб карти за замовчуванням", new { @class = "form-control" })
+			</div>
+		</div>
+
+		<div class="msg-alert" id="divMsg">
+
+		</div>
+		<div class="text-right">
+			<button type="submit" class="btn btn-primary">
+				@Locals.Save
+			</button>
+		</div>
+	}
+
+</div>
+
+<script>
+
+</script>

@@ -1,0 +1,65 @@
+﻿@model HtmlContent
+@{
+    var targetId = Model.IsNew ? ("column" + Model.ContentColumnId + "contents") : ("content" + Model.Id);
+    var insMode = Model.IsNew ? InsertionMode.InsertAfter : InsertionMode.ReplaceWith;
+}
+
+<div class="modal-title">
+    HTML код
+    <ul class="modal-lang-swicher">
+        <li data-lang="en">EN</li>
+        <li data-lang="ru">RU</li>
+        <li class="active" data-lang="uk">UA</li>
+    </ul>
+</div>
+
+@using (Ajax.BeginForm(new AjaxOptions()
+{
+    Url = "/uk/controlpanel/ajax/SaveHtmlContent",
+    HttpMethod = "POST",
+    InsertionMode = insMode,
+    UpdateTargetId = targetId,
+    OnSuccess = "bsAdmin.divContentEdit.modal('hide')"
+}))
+{
+
+    <div class="row">
+        @Html.HiddenFor(x => x.ContentColumnId)
+        @Html.HiddenFor(x => x.Position)
+
+        <input type="hidden" name="Id" value="@Model.Id" />
+
+        <div class="lang-uk">
+            @Html.SimpleTextAreaFor(x => x.BodyUk, "Html (ua)", new { @class = "form-control", rows = 12 })
+        </div>
+        <div class="lang-uk">
+            @Html.SimpleTextAreaFor(x => x.BodyRu, "Html (ru)", new { @class = "form-control", rows = 12 })
+        </div>
+        <div class="lang-uk">
+            @Html.SimpleTextAreaFor(x => x.BodyEn, "Html (en)", new { @class = "form-control", rows = 12 })
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        @if (Model.IsNew)
+        {
+            <button type="button" href="#" class="btn btn-link remove-content" data-id="@Model.Id">
+                @Locals.Cancle
+            </button>
+            <button type="submit" class="btn btn-primary">
+                @Locals.Add
+            </button>
+        }
+        else
+        {
+            <button type="button" class="btn btn-link nav-link" data-dismiss="modal">
+                @Locals.Close
+            </button>
+            <button type="submit" class="btn btn-primary">
+                @Locals.Save
+            </button>
+        }
+    </div>
+}
+
+

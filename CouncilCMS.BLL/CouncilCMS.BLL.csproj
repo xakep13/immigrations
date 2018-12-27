@@ -1,0 +1,331 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{666E19B4-047D-49B3-A184-A4E7922B190A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Bissoft.CouncilCMS.BLL</RootNamespace>
+    <AssemblyName>CouncilCMS.BLL</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AngleSharp, Version=0.9.9.0, Culture=neutral, PublicKeyToken=e83494dcdc6d31ea, processorArchitecture=MSIL">
+      <HintPath>..\packages\AngleSharp.0.9.10\lib\net45\AngleSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper, Version=6.1.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.6.1.0\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Facebook, Version=6.0.10.0, Culture=neutral, PublicKeyToken=58cb4f2111d1e6de, processorArchitecture=MSIL">
+      <HintPath>..\packages\Facebook.7.0.6\lib\net45\Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="LemmaSharp, Version=4.12.5287.29676, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\LemmaGenerator.1.1.0\lib\net20\LemmaSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RazorEngine, Version=3.10.0.0, Culture=neutral, PublicKeyToken=9ee697374c7e744a, processorArchitecture=MSIL">
+      <HintPath>..\packages\RazorEngine.3.10.0\lib\net45\RazorEngine.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.105.2.3\lib\net46\RestSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AutoMapper\AppProfile.cs" />
+    <Compile Include="AutoMapper\AutoMapperConfiguration.cs" />
+    <Compile Include="Generic\BaseCategoryAdminService.cs" />
+    <Compile Include="Generic\BaseCategoryEdit.cs" />
+    <Compile Include="Generic\BaseService.cs" />
+    <Compile Include="Helpers\ValueHelper.cs" />
+    <Compile Include="Helpers\ViewHelper.cs" />
+    <Compile Include="Lemmatizer\BaseLemmaProcessor.cs" />
+    <Compile Include="Lemmatizer\LemmaProcessor.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Admin\ArticleAdminService.cs" />
+    <Compile Include="Services\Admin\ArticleCategoryAdminService.cs" />
+    <Compile Include="Services\Admin\BannerAdminService.cs" />
+    <Compile Include="Services\Admin\CmsRoleAdminService.cs" />
+    <Compile Include="Services\Admin\CmsSearchAdminService.cs" />
+    <Compile Include="Services\Admin\CmsSettingsAdminService.cs" />
+    <Compile Include="Services\Admin\CmsUserAdminService.cs" />
+    <Compile Include="Services\Admin\ContentAdminService.cs" />
+    <Compile Include="Services\Admin\FacebookLoginService.cs" />
+    <Compile Include="Services\Admin\FacebookPagePostService.cs" />
+    <Compile Include="Services\Admin\PollAdminService.cs" />
+    <Compile Include="Services\Admin\SessionAdminService.cs" />
+    <Compile Include="Services\Admin\DocAdminService.cs" />
+    <Compile Include="Services\Admin\DocCategoryAdminService.cs" />
+    <Compile Include="Services\Admin\DocTypeAdminService.cs" />
+    <Compile Include="Services\Admin\EnterpriseAdminService.cs" />
+    <Compile Include="Services\Admin\EnterpriseCategoryAdminServie.cs" />
+    <Compile Include="Services\Admin\MenuAdminService.cs" />
+    <Compile Include="Services\Admin\NewsletterAdminService.cs" />
+    <Compile Include="Services\Admin\PageAdminService.cs" />
+    <Compile Include="Services\Admin\PersonAdminService.cs" />
+    <Compile Include="Services\Admin\PersonCategoryAdminServie.cs" />
+    <Compile Include="Services\Admin\RemoteAdminService.cs" />
+    <Compile Include="Services\Common\EmailService.cs" />
+    <Compile Include="Services\Common\OpenDataService.cs" />
+    <Compile Include="Services\Common\SelectListService.cs" />
+    <Compile Include="Services\Common\SettingsService.cs" />
+    <Compile Include="Services\Common\WeatherService.cs" />
+    <Compile Include="Services\Common\AccountService.cs" />
+    <Compile Include="Services\Public\CmsArticleService.cs" />
+    <Compile Include="Services\Public\CmsNewsletterService.cs" />
+    <Compile Include="Services\Public\CmsBannerService.cs" />
+    <Compile Include="Services\Public\CmsContentService.cs" />
+    <Compile Include="Services\Public\CmsPollService.cs" />
+    <Compile Include="Services\Public\CmsSessionService.cs" />
+    <Compile Include="Services\Public\CmsDocService.cs" />
+    <Compile Include="Services\Public\CmsEnterpriseService.cs" />
+    <Compile Include="Services\Public\CmsMenuService.cs" />
+    <Compile Include="Services\Public\CmsPageService.cs" />
+    <Compile Include="Services\Public\CmsPersonService.cs" />
+    <Compile Include="Services\Public\CmsRssService.cs" />
+    <Compile Include="Services\Public\CmsSearchService.cs" />
+    <Compile Include="Services\Public\CmsWidgetService.cs" />
+    <Compile Include="UnitOfWork\UnitOfWork.cs" />
+    <Compile Include="ViewModels\Admin\AccordionContent.cs" />
+    <Compile Include="ViewModels\Admin\AllowedRole.cs" />
+    <Compile Include="ViewModels\Admin\AllowedUser.cs" />
+    <Compile Include="ViewModels\Admin\ArticleCategoryEdit.cs" />
+    <Compile Include="ViewModels\Admin\ArticleEdit.cs" />
+    <Compile Include="ViewModels\Admin\ArticleList.cs" />
+    <Compile Include="ViewModels\Admin\ArticleListItem.cs" />
+    <Compile Include="ViewModels\Admin\BannerEdit.cs" />
+    <Compile Include="ViewModels\Admin\BannerList.cs" />
+    <Compile Include="ViewModels\Admin\BannerListItem.cs" />
+    <Compile Include="ViewModels\Admin\CategoryListItem.cs" />
+    <Compile Include="ViewModels\Admin\CkeContent.cs" />
+    <Compile Include="ViewModels\Admin\CmsChangePassword.cs" />
+    <Compile Include="ViewModels\Admin\CmsLogin.cs" />
+    <Compile Include="ViewModels\Admin\CmsQuestionsEdit.cs" />
+    <Compile Include="ViewModels\Admin\CmsRoleEdit.cs" />
+    <Compile Include="ViewModels\Admin\CmsRoleListItem.cs" />
+    <Compile Include="ViewModels\Admin\CmsSettingsEdit.cs" />
+    <Compile Include="ViewModels\Admin\CmsUserEdit.cs" />
+    <Compile Include="ViewModels\Admin\CmsUserList.cs" />
+    <Compile Include="ViewModels\Admin\CmsUserListItem.cs" />
+    <Compile Include="ViewModels\Admin\CollapseContent.cs" />
+    <Compile Include="ViewModels\Admin\ContentColumnEdit.cs" />
+    <Compile Include="ViewModels\Admin\ContentColumnItem.cs" />
+    <Compile Include="ViewModels\Admin\ContentEdit.cs" />
+    <Compile Include="ViewModels\Admin\ContentItem.cs" />
+    <Compile Include="ViewModels\Admin\ContentRowItem.cs" />
+    <Compile Include="ViewModels\Admin\ContentRowsEdit.cs" />
+    <Compile Include="ViewModels\Admin\DocCategoryEdit.cs" />
+    <Compile Include="ViewModels\Admin\FacebookPostEntity.cs" />
+    <Compile Include="ViewModels\Admin\MenuItemDTO.cs" />
+    <Compile Include="ViewModels\Admin\MenuSubItemDTO.cs" />
+    <Compile Include="ViewModels\Admin\PollEdit.cs" />
+    <Compile Include="ViewModels\Admin\PollListItem.cs" />
+    <Compile Include="ViewModels\Admin\QuestionEdit.cs" />
+    <Compile Include="ViewModels\Admin\QuestionListItem.cs" />
+    <Compile Include="ViewModels\Admin\SessionVoteEdit.cs" />
+    <Compile Include="ViewModels\Admin\SessionVoteListItem.cs" />
+    <Compile Include="ViewModels\Admin\SessionEdit.cs" />
+    <Compile Include="ViewModels\Admin\DocEdit.cs" />
+    <Compile Include="ViewModels\Admin\SessionListItem.cs" />
+    <Compile Include="ViewModels\Admin\SessionList.cs" />
+    <Compile Include="ViewModels\Admin\DocList.cs" />
+    <Compile Include="ViewModels\Admin\DocListItem.cs" />
+    <Compile Include="ViewModels\Admin\DocTypeEdit.cs" />
+    <Compile Include="ViewModels\Admin\DocTypeListItem.cs" />
+    <Compile Include="ViewModels\Admin\EnterpriseCategoryEdit.cs" />
+    <Compile Include="ViewModels\Admin\EnterpriseEdit.cs" />
+    <Compile Include="ViewModels\Admin\EnterpriseList.cs" />
+    <Compile Include="ViewModels\Admin\EnterpriseListItem.cs" />
+    <Compile Include="ViewModels\Admin\FileUpload.cs" />
+    <Compile Include="ViewModels\Admin\GalleryEdit.cs" />
+    <Compile Include="ViewModels\Admin\HtmlContent.cs" />
+    <Compile Include="ViewModels\Admin\ItemContent.cs" />
+    <Compile Include="ViewModels\Admin\MapEdit.cs" />
+    <Compile Include="ViewModels\Admin\MenuContent.cs" />
+    <Compile Include="ViewModels\Admin\MenuEdit.cs" />
+    <Compile Include="ViewModels\Admin\MenuItemEdit.cs" />
+    <Compile Include="ViewModels\Admin\MenuItemListItem.cs" />
+    <Compile Include="ViewModels\Admin\MenuListItem.cs" />
+    <Compile Include="ViewModels\Admin\NewsletterEdit.cs" />
+    <Compile Include="ViewModels\Admin\NewsletterList.cs" />
+    <Compile Include="ViewModels\Admin\NewsletterListItem.cs" />
+    <Compile Include="ViewModels\Admin\NewsletterPreview.cs" />
+    <Compile Include="ViewModels\Admin\OpenDataDocument.cs" />
+    <Compile Include="ViewModels\Admin\PageEdit.cs" />
+    <Compile Include="ViewModels\Admin\PageList.cs" />
+    <Compile Include="ViewModels\Admin\PageListItem.cs" />
+    <Compile Include="ViewModels\Admin\PersonCategoryEdit.cs" />
+    <Compile Include="ViewModels\Admin\PersonCategoryListItem.cs" />
+    <Compile Include="ViewModels\Admin\PersonEdit.cs" />
+    <Compile Include="ViewModels\Admin\PersonList.cs" />
+    <Compile Include="ViewModels\Admin\PersonListItem.cs" />
+    <Compile Include="ViewModels\Email\PasswordReseted.cs" />
+    <Compile Include="ViewModels\Email\RegisteredUser.cs" />
+    <Compile Include="ViewModels\Admin\TableContent.cs" />
+    <Compile Include="ViewModels\Admin\TextBlockContent.cs" />
+    <Compile Include="ViewModels\Admin\UploadImage.cs" />
+    <Compile Include="ViewModels\Admin\VideoEdit.cs" />
+    <Compile Include="ViewModels\Admin\WidgetContent.cs" />
+    <Compile Include="ViewModels\Admin\СontentDefaultEdit.cs" />
+    <Compile Include="ViewModels\Common\AuthorizeUser.cs" />
+    <Compile Include="ViewModels\Common\CaptchaResponse.cs" />
+    <Compile Include="ViewModels\Common\CheckedListItem.cs" />
+    <Compile Include="ViewModels\Common\CheckedListItemStr.cs" />
+    <Compile Include="ViewModels\Common\CmsAppSettings.cs" />
+    <Compile Include="ViewModels\Common\MenuCotentItem.cs" />
+    <Compile Include="ViewModels\Common\RelatedItem.cs" />
+    <Compile Include="ViewModels\Common\SuggestionItem.cs" />
+    <Compile Include="ViewModels\Public\CalendarWidget.cs" />
+    <Compile Include="ViewModels\Public\CmsContactReception.cs" />
+    <Compile Include="ViewModels\Public\CmsDocListSubItem.cs" />
+    <Compile Include="ViewModels\Public\CmsPoll.cs" />
+    <Compile Include="ViewModels\Public\CmsQuestions.cs" />
+    <Compile Include="ViewModels\Public\CmsSession.cs" />
+    <Compile Include="ViewModels\Public\CmsResolutionListItem.cs" />
+    <Compile Include="ViewModels\Public\CmsSessionResolutionList.cs" />
+    <Compile Include="ViewModels\Public\CmsSessionProjectList.cs" />
+    <Compile Include="ViewModels\Public\CmsSessionMedia.cs" />
+    <Compile Include="ViewModels\Public\CmsSessionVote.cs" />
+    <Compile Include="ViewModels\Public\CmsSessionAgenda.cs" />
+    <Compile Include="ViewModels\Public\CmsWeatherItem.cs" />
+    <Compile Include="ViewModels\Public\CmsArticle.cs" />
+    <Compile Include="ViewModels\Public\CmsArticleList.cs" />
+    <Compile Include="ViewModels\Public\CmsArticleListItem.cs" />
+    <Compile Include="ViewModels\Public\CmsBanner.cs" />
+    <Compile Include="ViewModels\Public\CmsContent.cs" />
+    <Compile Include="ViewModels\Public\CmsContentColumn.cs" />
+    <Compile Include="ViewModels\Public\CmsContentRow.cs" />
+    <Compile Include="ViewModels\Public\CmsDoc.cs" />
+    <Compile Include="ViewModels\Public\CmsDocCategoryListItem.cs" />
+    <Compile Include="ViewModels\Public\CmsDocList.cs" />
+    <Compile Include="ViewModels\Public\CmsDocListItem.cs" />
+    <Compile Include="ViewModels\Public\CmsEnterprise.cs" />
+    <Compile Include="ViewModels\Public\CmsEnterpriseList.cs" />
+    <Compile Include="ViewModels\Public\CmsEnterpriseListItem.cs" />
+    <Compile Include="ViewModels\Public\CmsEnterpriseReception.cs" />
+    <Compile Include="ViewModels\Public\CmsIndex.cs" />
+    <Compile Include="ViewModels\Public\CmsMenu.cs" />
+    <Compile Include="ViewModels\Public\CmsMenuItem.cs" />
+    <Compile Include="ViewModels\Public\CmsNewsletter.cs" />
+    <Compile Include="ViewModels\Public\CmsNewsletterList.cs" />
+    <Compile Include="ViewModels\Public\CmsPage.cs" />
+    <Compile Include="ViewModels\Public\CmsPerson.cs" />
+    <Compile Include="ViewModels\Public\CmsPersonList.cs" />
+    <Compile Include="ViewModels\Public\CmsPersonListItem.cs" />
+    <Compile Include="ViewModels\Public\CmsPersonReception.cs" />
+    <Compile Include="ViewModels\Public\CmsSearch.cs" />
+    <Compile Include="ViewModels\Public\CmsSearchItem.cs" />
+    <Compile Include="ViewModels\Public\RecordingAtReceptionModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CouncilCMS.Core\CouncilCMS.Core.csproj">
+      <Project>{3449b910-0147-4aec-81ac-9c004ee58ddf}</Project>
+      <Name>CouncilCMS.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CouncilCMS.DAL\CouncilCMS.DAL.csproj">
+      <Project>{c85ea0f0-9556-4dde-9ce6-f2c0cda285b3}</Project>
+      <Name>CouncilCMS.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CouncilCMS.Entities\CouncilCMS.Entities.csproj">
+      <Project>{7cd812c7-2dd4-448b-a948-599c01dd7739}</Project>
+      <Name>CouncilCMS.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\xTab.Tools\xTab.Tools.csproj">
+      <Project>{a68a16b6-657a-4e3f-b126-5695c45abab7}</Project>
+      <Name>xTab.Tools</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Lemmatizer\compact7z-mlteast-en.lem" />
+    <EmbeddedResource Include="Lemmatizer\compact7z-mlteast-ru.lem" />
+    <EmbeddedResource Include="Lemmatizer\compact7z-mlteast-uk.lem" />
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Classes\7zip\Compress\LzmaAlone\LzmaAlone.csproj" />
+    <Content Include="Classes\7zip\Compress\LzmaAlone\LzmaAlone.sln" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

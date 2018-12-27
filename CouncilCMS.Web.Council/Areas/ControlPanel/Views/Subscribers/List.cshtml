@@ -1,0 +1,419 @@
+﻿@model SubscriberList
+@{
+    ViewBag.Title = "Підписники";
+    Layout = "~/Areas/ControlPanel/Views/Shared/_Layout.cshtml";
+    var filterState = Request.Cookies["filter_states"] != null ? Request.Cookies["filter_states"].Values["article"] : "0";
+}
+
+<div class="page-title">
+    <h1>
+        Підписники
+    </h1>
+</div>
+
+<div class="card">
+    <div class="filter @(filterState == "1" ? "expanded" : "")" id="divFilter">
+        @using (Ajax.BeginForm(ajaxOptions: new AjaxOptions()
+        {
+            Url = "/uk/controlpanel/articles/list?ajaxmode=true",
+            HttpMethod = "get",
+            OnBegin = "bsAdmin.startProcessing(); $('#hPage').val(1); window.createListState();",
+            OnComplete = " bsAdmin.endProcessing(); window.pushState();",
+            UpdateTargetId = "divList",
+            InsertionMode = InsertionMode.Replace,
+        }))
+        {
+            <div class="filter-btns form-group">
+                <div class="pull-right filter-submit">
+                    <button type="button" class="btn btn-defaul" id="btnClearFilter" data-onclear="window.createListState();window.getList();">
+                        @Locals.Reset @Locals.Filter
+                    </button>
+                    <button type="submit" class="btn btn-primary" id="btnFiter">
+                        @Locals.Apply @Locals.Filter
+                    </button>
+                </div>
+                <button class="btn btn-default" type="button" id="btnShowFilter">
+                    <i class="fa fa-fw fa-filter"></i>
+                    <span>
+                        @Locals.Filter
+                    </span>
+                    <i class="fa fa-fw fa-angle-down @(filterState == "1" ? "rotate-180" : "")"></i>
+                </button>
+            </div>
+            @Html.HiddenFor(x => x.Page, new { @class = "filter-input", id = "hPage", data_default_val = 1 })
+           
+        }
+    </div>
+    <div class="" id="divList"></div>
+</div>
+
+@section Scripts {
+    <script>
+        $(function () {
+            window.divList = $("#divList");
+            window.divEdit = $("#divEdit");
+            window.divRowEdit = $("#divRowEdit");
+            window.divColumnEdit = $("#divColumnEdit");
+            window.divContentEdit = $("#divContentEdit")
+            window.divPreview = $("#divPreview");
+            window.modalManager = $("body").data("modalmanager");
+            window.editMap;
+            window.editMapMarkers;
+
+            window.getList = function (pushState) {
+                pushState = pushState || true;
+
+                bsAdmin.startProcessing();
+
+                $.get("/uk/controlpanel/subscribers/list?ajaxmode=true", window.currentState, function (r) {
+                    window.divList.html(r);
+                    bsAdmin.endProcessing();
+
+                    if (pushState)
+                        window.pushState();
+                });
+            };
+
+            window.getEdit = function (pushState) {
+                pushState = pushState || true;
+
+                $('body').modalmanager('loading');
+
+                window.divEdit.find(".modal-body").load("/uk/controlpanel/articles/getform", window.currentState, function () {
+
+                    window.divEdit.modal({ backdrop: 'static', keyboard: false, modalOverflow: true });
+
+                    $('.slide-gallery').fotorama();
+
+                    if (pushState)
+                        window.pushState();
+                });
+            }
+
+            window.createListState = function () {
+                window.currentState = {};
+
+                $(".filter-input").each(function () {
+                    var t = $(this);
+
+                    if (t.val()) {
+                        window.currentState[t.attr("name")] = t.val();
+                    }
+                });
+
+                return window.currentState;
+            }
+
+            window.createEditState = function (id) {
+                window.currentState = { id: id };
+                return window.currentState;
+            }
+
+            window.getPrev = function () {
+                $('body').modalmanager('loading');
+
+                window.divPreview.find(".modal-body").load("/uk/controlpanel/articles/pageprev", window.currentState, function () {
+                    window.divPreview.modal({ backdrop: 'static', keyboard: false, modalOverflow: true });
+                    coreUtils.createPage(divPreview.find(".modal-body"));
+                });
+            };
+
+            window.getRowEdit = function (id) {
+                $('body').modalmanager('loading');
+
+                window.divRowEdit.find(".modal-body").load("/@(CurrentCulture.Name.ToLower())/controlpanel/ajax/GetContentRowEditForm/", { id: id }, function () {
+                    window.divRowEdit.modal({ backdrop: 'static', keyboard: false });
+                });
+            }
+
+            window.getColumnEdit = function (id) {
+                $('body').modalmanager('loading');
+
+                window.divColumnEdit.find(".modal-body").load("/@(CurrentCulture.Name.ToLower())/controlpanel/ajax/GetContentColumnEditForm/", { id: id }, function () {
+                    window.divColumnEdit.modal({ backdrop: 'static', keyboard: false });
+                });
+            }
+
+            window.getContentSelect = function (colId) {
+                $('body').modalmanager('loading');
+
+                window.divContentEdit.find(".modal-body").load("/@(CurrentCulture.Name.ToLower())/controlpanel/ajax/GetContentSelect/", { contentcolumnid: colId }, function () {
+                    window.divContentEdit.modal({ backdrop: 'static', keyboard: false, modalOverflow: true });
+                });
+            }
+
+            window.getContentEdit = function (id) {
+                $('body').modalmanager('loading');
+
+                window.divContentEdit.find(".modal-body").load("/@(CurrentCulture.Name.ToLower())/controlpanel/ajax/GetContentEditForm/", { id: id }, function () {
+                    coreUtils.createForm(window.divContentEdit.find("form[data-ajax='true']"));
+                    window.divContentEdit.modal({ backdrop: 'static', keyboard: false });
+                    window.createEditMap();
+                });
+            }
+
+            window.getNewContentEdit = function (colId, type) {
+                window.divContentEdit.find(".modal-body").load("/@(CurrentCulture.Name.ToLower())/controlpanel/ajax/GetContentEditForm/", { id: 0, contentcolumnid: colId, type: type }, function () {
+                    coreUtils.createForm(window.divContentEdit.find("form[data-ajax='true']"));
+                    window.divContentEdit.modal('loading');
+                    window.createEditMap();
+                });
+            }
+
+            window.removeContent = function (id) {
+                $.post("/uk/controlpanel/ajax/removecontent", { id: id }, function () {
+                    $("#content" + id).empty().remove();
+                });
+            };
+            window.removeContentColumn = function (id) {
+                if (confirm("Увага! Весь контент в цій колонці буде видалено. Ви впевнені, що хочете продовжити?")) {
+                    $.post("/uk/controlpanel/ajax/removecontentcolumn", { id: id }, function () {
+                        $("#column" + id).empty().remove();
+                    });
+                } else {
+                    $(".col-item .link-btn").prop('disabled', false);
+                }
+            };
+            window.removeContentRow = function (id, itemId) {
+                if (confirm("Увага! Весь контент цього блоку буде видалено. Ви впевнені, що хочете продовжити?")) {
+                    $.post("/uk/controlpanel/ajax/removecontentrow", { id: id, itemid: itemId, type: 'Article' }, function () {
+                        $("#row" + id).empty().remove();
+                    });
+                } else {
+                    $(".row-item .del-link").prop('disabled', false);
+                }
+            };
+
+            window.updateRow = function (data) {
+                var el = $("#row" + data.Id);
+                window.divRowEdit.modal('hide');
+
+                el.css({ backgroundColor: data.BackgroundColor });
+            }
+
+           window.deleteGalleryImage = function (childElem) {
+                var elem = childElem.closest('.gallery-content-item');
+                elem.remove();
+            };
+
+            window.addGalleryItem = function () {
+                $.ajax({
+                    url: "/@(CurrentCulture.Name.ToLower())/controlpanel/ajax/AddGalleryItem",
+                    type: "POST",
+                    success: function (result) {
+                        var elem = $(result);
+                        coreUtils.createUploader(elem.find('.simply-uploader'));
+
+                        $(".gallery-content").append(elem);
+
+
+                    }
+                });
+            };
+
+            window.swapGalleryItemDown = function (elem) {
+
+                var aDiv = $(elem).parents(".gallery-content-item");
+                var nextDiv = aDiv.next(".gallery-content-item");
+                aDiv.insertAfter(nextDiv);
+            };
+
+            window.swapGalleryItemTop = function (elem) {
+                var aDiv = $(elem).parents(".gallery-content-item");
+                var prevDiv = aDiv.prev(".gallery-content-item");
+                aDiv.insertBefore(prevDiv);
+            }
+
+            window.submitGalleryForms = function (count) {
+                var count = 0;
+                $(".gallery-items").each(function (i) {
+
+                    if ((i % 3 == 0) && i != 0) {
+                        count++;
+                    }
+                    $(this).attr('name', "GalleryItems[" + count + "]." + $(this).attr('name'));
+                });
+
+                $("#GalleryForm").submit();
+            }
+
+            window.successGallery = function () {
+                var elem = $('.slide-gallery');
+                $('.slide-gallery').fotorama();
+            }
+
+            window.createEditMap = function () {
+                if ($("#MapForm").length > 0) {
+                    var mapSearchBox = new google.maps.places.SearchBox($("#tbAddMarkerByPlace")[0]);
+
+                    window.editMapMarkers = [];
+
+                    window.editMap = new google.maps.Map(document.getElementById('mapAddContent'), {
+                        zoom: parseInt($("#MapCenterZoom").val()),
+                        center: { lat: parseFloat($("#MapCenterLat").val()), lng: parseFloat($("#MapCenterLng").val()) },
+                        scrollwheel: false
+                    });
+
+                    google.maps.event.addListener(mapSearchBox, 'places_changed', function () {
+                        var place = mapSearchBox.getPlaces()[0];
+                        var coords = place.geometry.location;
+                        window.editMap.setCenter(coords);
+                        window.addMarker(coords.lat(), coords.lng(), true);
+                    });
+
+                    $(".map-markers > .map-marker").each(function () {
+                        window.addMarker($(this).data("lat"), $(this).data("lng"), false, $(this).data("title-ru"), $(this).data("title-uk"), $(this).data("desc-ru"), $(this).data("desc-uk"));
+                    });
+                }
+            }
+
+            window.addMarker = function(lat, lng, showForm, titleRu, titleUk, descRu, descUk) {
+                lat = lat || window.editMap.getCenter().lat();
+                lng = lng || window.editMap.getCenter().lng();
+                showForm = showForm;
+                descRu = descRu || "";
+                descUk = descUk || "";
+                titleRu = titleRu || "Новый маркер";
+                titleUk = titleUk || "Новий маркер";
+
+                var marker = new google.maps.Marker({
+                    position: { lat: lat, lng: lng },
+                    title: titleUk,
+                    map: window.editMap,
+                    id: window.editMapMarkers.length,
+                    descRu: descRu,
+                    descUk: descUk,
+                    titleRu: titleRu,
+                    titleUk: titleUk,
+                    draggable: true
+                });
+
+                marker.addListener('click', function () {
+                    window.showMarkerForm(this.id);
+                });
+
+                window.editMapMarkers.push(marker);
+
+                if (showForm)
+                    window.showMarkerForm(marker.id);
+            }
+
+            window.showMarkerForm =  function (id) {
+                var marker = window.editMapMarkers[id];
+                var markerForm = $("#divMarkerEdit");
+
+                CKEDITOR.instances["tbMarkerDescUk"].setData(marker.descUk);
+                CKEDITOR.instances["tbMarkerDescRu"].setData(marker.descRu);
+                markerForm.find("#tbMarkerTitleUk").val(marker.titleUk);
+                markerForm.find("#tbMarkerTitleRu").val(marker.titleRu);
+                markerForm.find("#markerId").val(id);
+                markerForm.collapse('show');
+            }
+
+            window.saveMarkerForm = function () {
+                var marker = window.editMapMarkers[$("#markerId").val()];
+                var markerForm = $("#divMarkerEdit");
+
+                marker.descUk = $("#tbMarkerDescUk").val();
+                marker.descRu = $("#tbMarkerDescRu").val();
+                marker.titleUk = $("#tbMarkerTitleUk").val();
+                marker.titleRu = $("#tbMarkerTitleRu").val();
+
+                var infowindow = new google.maps.InfoWindow();
+                infowindow.setContent(marker.descUk);
+                infowindow.open(window.editMap, marker);
+
+                markerForm.collapse('hide');
+            }
+
+            window.plusMapHeight = function () {
+                var height = parseInt($("#tbMapHeight").val());
+                height = height + 20;
+                $("#mapAddContent").css({ height: height });
+                $("#tbMapHeight").val(height);
+            }
+
+            window.minusMapHeight = function () {
+                var height = parseInt($("#tbMapHeight").val());
+                height = height - 20;
+                $("#mapAddContent").css({ height: height });
+                $("#tbMapHeight").val(height);
+            }
+        }());
+    </script>
+
+    <script>
+        $(function () {
+            if (window.currentState.id != undefined) {
+                window.getEdit();
+            } else {
+                window.getList();
+            }
+
+            $(document).on("click", ".nav-link", function (e) {
+                e.preventDefault();
+
+                var t = $(this);
+                if (t.data("prev") != true || t.data("prev") == undefined) {
+                    if (t.data("id") != undefined) {
+                        window.createEditState(t.data("id") || "");
+                        window.getEdit();
+                    }
+                    else {
+                        if ($(this).data("page") && $(this).data("page") != window.currentState.page) {
+                            $("#hPage").val($(this).data("page"));
+                        }
+
+                        window.createListState();
+                        window.getList();
+                    }
+                }
+                else {
+                    if (t.data("id") != undefined) {
+                        window.createEditState(t.data("id") || "");
+                        window.getPrev();
+                    }
+                }
+            });
+
+            $(document).on("click", "#submit_MapForm", function (e) {
+                e.preventDefault();
+
+                $("#MapCenterLng").val(window.editMap.getCenter().lng());
+                $("#MapCenterLat").val(window.editMap.getCenter().lat());
+                var zoom = window.editMap.getZoom();
+                $("#MapCenterZoom").val(zoom);
+
+
+                for (var i = 0 ; i < window.editMapMarkers.length; i++) {
+                    $(".result-map").append("<input type='hidden' name='MapPoints[" + i + "].Lng' value='" + window.editMapMarkers[i].position.lng() + "'>");
+                    $(".result-map").append("<input type='hidden' name='MapPoints[" + i + "].Lat' value='" + window.editMapMarkers[i].position.lat() + "'>");
+                    //    $(".result-map").append("<input type='hidden' name='MapPoints[" + i + "].Icon' value=" + markers[i].Icon + "'>");
+                    $(".result-map").append("<input type='hidden' name='MapPoints[" + i + "].DescriptionUk' value='" + window.editMapMarkers[i].descUk + "'>");
+                    $(".result-map").append("<input type='hidden' name='MapPoints[" + i + "].DescriptionRu' value='" + window.editMapMarkers[i].descRu + "'>");
+                    $(".result-map").append("<input type='hidden' name='MapPoints[" + i + "].TitleRu' value='" + window.editMapMarkers[i].titleRu + "'>");
+                    $(".result-map").append("<input type='hidden' name='MapPoints[" + i + "].TitleUk' value='" + window.editMapMarkers[i].titleUk + "'>");
+                }
+
+                $("#MapForm").submit();
+            });
+
+            $(window).on("popstate", function (e) {
+                var state = e.originalEvent.state;
+                window.currentState = state;
+
+                if (window.currentState.id) {
+                    window.getEdit(false);
+                } else {
+                    window.getList(false);
+                }
+            });
+        });
+    </script>
+}
+
+
+
+
+
+

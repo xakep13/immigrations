@@ -1,0 +1,16 @@
+﻿@model List<Bissoft.CouncilCMS.BLL.ViewModels.Admin.QuestionListItem>
+
+
+    @if (Model != null && Model.Count() > 0)
+    {
+        foreach (var item in Model)
+        {
+            <div class="rel">
+                @Html.Partial("_prtQuestionItem", item)
+                
+            </div>
+        }
+    
+
+}
+

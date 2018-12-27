@@ -1,0 +1,31 @@
+﻿@model CmsArticleList
+
+
+
+<section class="camera">
+	<div class="container">
+		<div class="camera-list news-list camera-list-video">
+			@if(Model.Articles != null && Model.Articles.Count > 0)
+			{
+				foreach(var item in Model.Articles)
+				{
+					<div class="news-item camera-item camera-item-video top">
+						<a href="/@CurrentCulture.Name.ToLower()/articles/item/@item.Id/@item.UrlName" class="news-item-content">
+							<div class="img-wrap">
+								<img src='@(!String.IsNullOrEmpty(item.Image) ? (CmsSettings.BaseDomain + item.Image) : "~/Content/SafeSity/img/parts/default-img-4x3.png" )' );" alt="">
+							</div>
+							<span class="title">@item.Title</span>
+							<p class="descr">@item.Description</p>
+							<div class="news-item-info">
+								<span class="views">@item.ViewCount</span>
+								<span class="comments">14</span>
+								<time>@item.PublishDate</time>
+							</div>
+						</a>
+					</div>
+				}
+			}
+
+		</div>
+	</div>
+</section>

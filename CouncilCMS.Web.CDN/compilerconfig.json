@@ -1,0 +1,166 @@
+﻿[
+  {
+    "outputFile": "libs/bootstrap-cp/css/bs-cp.css",
+    "inputFile": "libs/bootstrap-cp/css/bs-cp.scss"
+  },
+  {
+    "outputFile": "app/css/cp.css",
+    "inputFile": "app/css/cp.scss"
+  },
+  {
+    "outputFile": "libs/bootstrap-ndb/css/bs-ndb.css",
+    "inputFile": "libs/bootstrap-ndb/css/bs-ndb.scss"
+  },
+  {
+    "outputFile": "app/css/ndb.css",
+    "inputFile": "app/css/ndb.scss"
+  },
+  {
+    "outputFile": "libs/bootstrap-smartcity/css/blue-theme/bs-cp.css",
+    "inputFile": "libs/bootstrap-smartcity/css/blue-theme/bs-cp.scss"
+  },
+  {
+    "outputFile": "libs/bootstrap-smartcity/css/bs-cp.css",
+    "inputFile": "libs/bootstrap-smartcity/css/bs-cp.scss"
+  },
+  {
+    "outputFile": "libs/bootstrap-smartcity/css/green-theme/bs-cp.css",
+    "inputFile": "libs/bootstrap-smartcity/css/green-theme/bs-cp.scss"
+  },
+  {
+    "outputFile": "app/css/theme-blue/smartcity-controlpanel.css",
+    "inputFile": "app/css/theme-blue/smartcity-controlpanel.scss"
+  },
+  {
+    "outputFile": "app/css/theme-green/smartcity-controlpanel.css",
+    "inputFile": "app/css/theme-green/smartcity-controlpanel.scss"
+  },
+  {
+    "outputFile": "libs/bootstrap-smartcity/css/theme-blue/bs-cp.css",
+    "inputFile": "libs/bootstrap-smartcity/css/theme-blue/bs-cp.scss"
+  },
+  {
+    "outputFile": "libs/bootstrap-smartcity/css/theme-blue/bs-ndb.css",
+    "inputFile": "libs/bootstrap-smartcity/css/theme-blue/bs-ndb.scss"
+  },
+  {
+    "outputFile": "libs/bootstrap-smartcity/css/theme-green/bs-ndb.css",
+    "inputFile": "libs/bootstrap-smartcity/css/theme-green/bs-ndb.scss"
+  },
+  {
+    "outputFile": "app/css/theme-blue/smartcity-ndb.css",
+    "inputFile": "app/css/theme-blue/smartcity-ndb.scss"
+  },
+  {
+    "outputFile": "app/css/theme-green/smartcity-ndb.css",
+    "inputFile": "app/css/theme-green/smartcity-ndb.scss"
+  },
+  {
+    "outputFile": "libs/hover-css/hover.css",
+    "inputFile": "libs/hover-css/hover.scss"
+  },
+  {
+    "outputFile": "app/css/theme-blue/smartcity-simple.css",
+    "inputFile": "app/css/theme-blue/smartcity-simple.scss"
+  },
+  {
+    "outputFile": "app/css/theme-blue/smartcity-openbudget.css",
+    "inputFile": "app/css/theme-blue/smartcity-openbudget.scss"
+  },
+  {
+    "outputFile": "libs/bootstrap-smartcity/css/city/bs-cp-purple.css",
+    "inputFile": "libs/bootstrap-smartcity/css/city/bs-cp-purple.scss"
+  },
+  {
+    "outputFile": "libs/bootstrap-smartcity/css/city/bs-cp-blue.css",
+    "inputFile": "libs/bootstrap-smartcity/css/city/bs-cp-blue.scss"
+  },
+  {
+    "outputFile": "libs/bootstrap-smartcity/css/city/bs-cp-gray.css",
+    "inputFile": "libs/bootstrap-smartcity/css/city/bs-cp-gray.scss"
+  },
+  {
+    "outputFile": "libs/bootstrap-smartcity/css/city/bs-cp-brown.css",
+    "inputFile": "libs/bootstrap-smartcity/css/city/bs-cp-brown.scss"
+  },
+  {
+    "outputFile": "libs/bootstrap-smartcity/css/city/bs-cp-green.css",
+    "inputFile": "libs/bootstrap-smartcity/css/city/bs-cp-green.scss"
+  },
+  {
+    "outputFile": "libs/bootstrap-smartcity/css/city/bs-cp-red.css",
+    "inputFile": "libs/bootstrap-smartcity/css/city/bs-cp-red.scss"
+  },
+  {
+    "outputFile": "libs/bootstrap-smartcity/css/city/bs-cp-yellow.css",
+    "inputFile": "libs/bootstrap-smartcity/css/city/bs-cp-yellow.scss"
+  },
+  {
+    "outputFile": "libs/bootstrap-smartcity/css/city/bs-cp-teal.css",
+    "inputFile": "libs/bootstrap-smartcity/css/city/bs-cp-teal.scss"
+  },
+  {
+    "outputFile": "app/css/theme/site-blue.css",
+    "inputFile": "app/css/theme/site-blue.scss"
+  },
+  {
+    "outputFile": "app/css/theme/site-brown.css",
+    "inputFile": "app/css/theme/site-brown.scss"
+  },
+  {
+    "outputFile": "app/css/theme/site-gray.css",
+    "inputFile": "app/css/theme/site-gray.scss"
+  },
+  {
+    "outputFile": "app/css/theme/site-green.css",
+    "inputFile": "app/css/theme/site-green.scss"
+  },
+  {
+    "outputFile": "app/css/theme/site-purple.css",
+    "inputFile": "app/css/theme/site-purple.scss"
+  },
+  {
+    "outputFile": "app/css/theme/site-red.css",
+    "inputFile": "app/css/theme/site-red.scss"
+  },
+  {
+    "outputFile": "app/css/theme/site-teaL.css",
+    "inputFile": "app/css/theme/site-teaL.scss"
+  },
+  {
+    "outputFile": "app/css/theme/site-yellow.css",
+    "inputFile": "app/css/theme/site-yellow.scss"
+  },
+  {
+    "outputFile": "app/css/theme/simple-blue.css",
+    "inputFile": "app/css/theme/simple-blue.scss"
+  },
+  {
+    "outputFile": "app/css/theme/simple-brown.css",
+    "inputFile": "app/css/theme/simple-brown.scss"
+  },
+  {
+    "outputFile": "app/css/theme/simple-gray.css",
+    "inputFile": "app/css/theme/simple-gray.scss"
+  },
+  {
+    "outputFile": "app/css/theme/simple-green.css",
+    "inputFile": "app/css/theme/simple-green.scss"
+  },
+  {
+    "outputFile": "app/css/theme/simple-red.css",
+    "inputFile": "app/css/theme/simple-red.scss"
+  },
+  {
+    "outputFile": "app/css/theme/simple-purple.css",
+    "inputFile": "app/css/theme/simple-purple.scss"
+  },
+  {
+    "outputFile": "app/css/theme/simple-teal.css",
+    "inputFile": "app/css/theme/simple-teal.scss"
+  },
+  {
+    "outputFile": "app/css/theme/simple-yellow.css",
+    "inputFile": "app/css/theme/simple-yellow.scss"
+  }
+]

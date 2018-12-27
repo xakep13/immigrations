@@ -1,0 +1,55 @@
+﻿@model CmsDocList
+
+<div class="cms-post-list">
+    <div class="result-head">
+        <span class="block-title block-decor-bottom">Документи</span>
+        <ul class="result-filter">
+            <span class="title">Сортувати:</span>
+            <li class="@(Model.Order == "acceptdate" ? "active" : null)">
+                <a href="@("/" + CurrentCulture.Name.ToLower() + "/documents/category/" + Model.CategoryUrl + "/1" + "?QueryTitle=" + Url.Encode(Model.QueryTitle) + "&QueryText=" + Url.Encode(Model.QueryText) + "&Type=" + Model.Type + "&Date=" + Model.Date + "&order=acceptdate")">
+                    за датою
+                </a>
+            </li>
+            <li class="@(Model.Order == "number" ? "active" : null)">
+                <a href="@("/" + CurrentCulture.Name.ToLower() + "/documents/category/" + Model.CategoryUrl + "/1" + "?QueryTitle=" + Url.Encode(Model.QueryTitle) + "&QueryText=" + Url.Encode(Model.QueryText) + "&Type=" + Model.Type + "&Date=" + Model.Date + "&order=number")">
+                    за номером
+                </a>
+            </li>
+            @*<li class="@(Model.Order == "titleuk" ? "active" : null)">
+                    <a href="@("/" + CurrentCulture.Name.ToLower() + "/documents/category/" + Model.CategoryUrl + "/1" + "?QueryTitle=" + Url.Encode(Model.QueryTitle) + "&QueryText=" + Url.Encode(Model.QueryText) + "&Type=" + Model.Type + "&Date=" + Model.Date + "&order=titleuk")">
+                        за назвою
+                    </a>
+                </li>*@
+        </ul>
+    </div>
+    
+    @if (Model.Docs != null && Model.Docs.Count > 0)
+    {
+        <div>
+            @foreach (var item in Model.Docs)
+            {
+
+                <div class="result-item">
+                    <div class="container">
+                        <a href="/@CurrentCulture.Name.ToLower()/documents/item/@item.Id">
+                            @*<div class="result-item-head"></div>*@
+							<div class="result-item-content">
+								<span style="float:right" class="time"> <img src="/img/icons/date.svg" alt=""> @CmsLabels.From   @(item.PostDate.HasValue ? item.PostDate.Value.ToString("dd.MM.yyyy") : (item.AcceptDate.HasValue ? item.AcceptDate.Value.ToString("dd.MM.yyyy") : item.PublishDate?.Substring(0, item.PublishDate?.LastIndexOf(" ") ?? 0))) </span>
+								<p>
+									@item.Title
+								</p>
+							</div>
+                        </a>
+                    </div>
+                </div>
+            }
+        </div>
+        @Helpers.LinkPager("/" + CurrentCulture.Name.ToLower() + "/documents/category/" + Model.CategoryUrl + "/", "?QueryTitle=" + Url.Encode(Model.QueryTitle) + "&QueryText=" + Url.Encode(Model.QueryText) + "&Type=" + Model.Type + "&Date=" + Model.Date + "&order=" + Model.Order, Model.Count, Model.Page, 5)
+
+    }
+    else
+    {
+        <em>@CmsLabels.NoEntry</em>
+    }
+</div>
+

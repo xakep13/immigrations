@@ -1,0 +1,62 @@
+﻿@model List<NewsletterListItem>
+
+@if (Model != null && Model.Count > 0)
+{
+    @Helpers.CpPager(ViewBag.Count, ViewBag.Page, ViewBag.PerPage)
+
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Заголовок</th>
+                    <th>Дата створення</th>
+                    <th>Дата редагування</th>
+                    <th>Дата публикації</th>
+                    <th>Статус публікації</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr> 
+                        <td class="td-min">
+                            @item.Id
+                        </td>
+                        <td>
+                            <strong>
+                                @item.Title 
+                                №@item.Number
+                            </strong>
+                        </td>
+                        <td class="td-min no-wrap">
+                            @DateTimeHelper.DateString(item.CreateDate)
+                        </td>
+                        <td class="td-min no-wrap">
+                            @DateTimeHelper.DateString(item.LastEditDate)
+                        </td>
+                        <td class="td-min no-wrap">
+                            @DateTimeHelper.DateString(item.PublishDate)
+                        </td>
+                        <td class="td-min no-wrap">
+                            @item.PublishStatus
+                        </td>
+                        <td class="td-min no-wrap">
+                            <a href="/@(CurrentCulture.Name.ToLower())/controlpanel/newsletters/getform/@item.Id" class="link-btn nav-link" data-prev="false" data-type="edit" data-id="@item.Id" data-target="divEdit">
+                                <i class="fa fa-fw fa-pencil"></i>
+                            </a>
+                            <a href="@item.File" download="Електронна газета №@item.Number" class="link-btn">
+                                <i class="fa fa-file" aria-hidden="true"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    @Helpers.CpPager(ViewBag.Count, ViewBag.Page, ViewBag.PerPage)
+}
+
+

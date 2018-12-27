@@ -1,0 +1,72 @@
+﻿@model TextBlockContent
+
+@{
+    var targetId = Model.IsNew ? ("column" + Model.ContentColumnId + "contents") : ("content" + Model.Id);
+    var insMode = Model.IsNew ? InsertionMode.InsertAfter : InsertionMode.ReplaceWith;
+
+    var colors = new List<SelectListItem>() { new SelectListItem() { Text = "#fff", Value = "#fff" }, new SelectListItem() { Text = "#333", Value = "#333" }, new SelectListItem() { Text = "#666", Value = "#666" }, new SelectListItem() { Text = "#eac303", Value = "#eac303" }, new SelectListItem() { Text = "#5089a0", Value = "#5089a0" } };
+}
+
+@using (Ajax.BeginForm(new AjaxOptions()
+    {
+        Url = "/uk/controlpanel/ajax/SaveTextBlockContent",
+    HttpMethod = "POST",
+    InsertionMode = insMode,
+    UpdateTargetId = targetId,
+    OnSuccess = "bsAdmin.divContentEdit.modal('hide')"
+}))
+{
+    @Html.Hidden("Id", Model.Id, new { Value = Model.Id })
+    @Html.HiddenFor(x => x.ContentColumnId)
+    @Html.HiddenFor(x => x.Position)
+
+    <div class="remodal-title">
+        Текстовий блок
+    </div>
+    <div class="row">
+        <div class="col-sm-3">
+            @Html.SimpleDropDownListFor(x => x.BlockColor, colors, "Колір фону", new { @class = "form-control bs-colorpicker" })
+        </div>
+        <div class="col-sm-3">
+            @Html.SimpleDropDownListFor(x => x.TextColor, colors, "Колір тексту", new { @class = "form-control bs-colorpicker" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            @Html.SimpleTextBoxFor(x => x.TitleUk, "Заголовок блоку (ua)", new { @class = "form-control" })
+        </div>
+        <div class="col-sm-12">
+            @Html.SimpleTextAreaFor(x => x.TextUk, "Текст блоку (ua)", new { @class = "form-control bs-ckeditor" })
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-sm-12">
+            @Html.SimpleTextBoxFor(x => x.TitleRu, "Заголовок блоку (ru)", new { @class = "form-control" })
+        </div>
+
+        <div class="col-sm-12">
+            @Html.SimpleTextAreaFor(x => x.TextRu, "Текст блоку (ru)", new { @class = "form-control bs-ckeditor" })
+        </div>
+    </div>
+    <div class="modal-footer">
+        @if (Model.IsNew)
+        {
+            <button type="button" href="#" class="btn btn-link nav-link" onclick="javascript: if (confirm('Увага! Зміни не збережено, Ви впевнені що хочете закрити це вікно?')) { $(this).prop('disabled', true); window.removeContent(@Model.Id); window.divContentEdit.modal('hide'); }">
+                @Locals.Cancle
+            </button>
+            <button type="submit" class="btn btn-primary">
+                @Locals.Add
+            </button>
+        }
+        else
+        {
+            <button type="button" href="#" class="btn btn-link nav-link" onclick="javascript: window.divContentEdit.modal('hide');">
+                @Locals.Close
+            </button>
+            <button type="submit" class="btn btn-primary">
+                @Locals.Save
+            </button>
+        }
+    </div>
+}

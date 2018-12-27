@@ -1,0 +1,16 @@
+﻿@model AllowedUser
+
+<div class='card-sm' id="itemItem@(Model.ItemId)User@(Model.UserId)">
+    <div class='row'>
+        <div class="col-sm-5">
+            @Model.Name
+        </div>        
+        <div class="col-sm-5  text-center">
+            @Model.Email 
+        </div>                
+            <span class='link-btn nav-link' data-action="remove-user" data-item-id="@Model.ItemId" data-user-id="@Model.UserId">
+                <i class='fa fa-fw fa-trash'></i>
+            </span>
+        </div>
+    </div>
+</div>

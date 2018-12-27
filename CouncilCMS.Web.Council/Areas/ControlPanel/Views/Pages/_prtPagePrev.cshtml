@@ -1,0 +1,40 @@
+﻿@model PageEdit
+    <div class="row">
+        <div class="col-sm-12 text-center remodal-title" style="">
+            @Model.TitleRu
+        </div>
+    </div>
+
+    @foreach (var row in Model.ContentRows)
+    {
+        <div class="row @(row.CssClasses)" style="background-color: @(row.BackgroundColor);background-image: @(row.BackgroundImage);
+             background-position: @(row.BackgroundPosition);background-repeat: @(row.BackgroundRepeat);background-size:@(row.BackgroundSize); @(row.CssStyles)">
+            @foreach (var col in row.ContentColumns)
+            {
+                <div class="@(col.CssClasses) col-lg-@col.LgWidth col-md-@col.MdWidth col-sm-@col.SmWidth col-lg-offset-@col.LgOffset col-md-offset-@col.MdOffset col-sm-offset-@col.SmOffset"
+                     style="background-color: @(col.BackgroundColor);background-image: @(col.BackgroundImage);
+                     background-position: @(col.BackgroundPosition);background-repeat: @(col.BackgroundRepeat);background-size:@(col.BackgroundSize); @(col.CssStyles)">
+                    @foreach (var content in col.Contents)
+                    {
+                        if (content.Type == "Widget")
+                        {
+                            @Html.Action(content.BodyRu, "Widgets")
+                        }
+                        else if (content.Type  == "Menu")
+                        {
+                            @Html.Action("GetMenu", "Menu", new { id = content.BodyRu })
+                        }
+                        else
+                        {
+                            @Html.Raw(content.BodyRu)
+                        }
+                    }
+                </div>
+            }
+        </div>
+    }
+    <div class="modal-footer">
+        <a href="#" type="button" class="btn btn-link nav-link" data-dismiss="modal">
+            @Locals.Close
+        </a>
+    </div>

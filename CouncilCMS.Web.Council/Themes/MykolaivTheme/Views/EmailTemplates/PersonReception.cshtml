@@ -1,0 +1,22 @@
+﻿@using Bissoft.CouncilCMS.BLL.ViewModels;
+@using Bissoft.CouncilCMS.Web.Globalization;
+
+@model CmsPersonReception
+
+<div>
+    <h2>Запорізька міська рада</h2>
+    <hr />
+    <em>@DateTime.Now.ToString("dd MMMM yyyy HH:mm")</em>
+    <p>
+        Надійшов запит через форму запису на прийом.<br /><br /><br />
+
+        ПІБ: <strong>@Model.SecondName @Model.FirstName @Model.ThirdName</strong><br />
+        Email: <strong>@Model.Email</strong><br />
+        @CmsLabels.Phone: <strong>@Model.Mobile</strong><br />
+        @CmsLabels.Address: <strong>@Model.Address</strong><br />
+        IP @CmsLabels.Address: <strong>@Model.IpAddress</strong><br /><br />
+
+        Текст повідомлення:<br />
+        @Model.Text                        
+    </p>
+</div>

@@ -1,0 +1,98 @@
+﻿@mixin font-16 { font-size: 16px; line-height: 20px; }
+@mixin font-18 { font-size: 18px; line-height: 23px; }
+@mixin font-20 { font-size: 20px; line-height: 25px; }
+@mixin font-22 { font-size: 22px; line-height: 28px; }
+@mixin font-24 { font-size: 24px; line-height: 32px; }
+@mixin font-28 { font-size: 28px; line-height: 35px; }
+@mixin font-32 { font-size: 32px; line-height: 40px; }
+
+@mixin blur($val) { -webkit-filter: blur($val); -moz-filter: blur($val); -ms-filter: blur($val); filter: blur($val); }
+@mixin rotate($val) { -moz-transform: rotate($val); -ms-transform: rotate($val); -o-transform: rotate($val); -webkit-transform: rotate($val); transform: rotate($val); }
+
+@mixin soc-link($width) {
+    display: block;
+    width: $width;
+    height: $width;
+    background-repeat: no-repeat;
+    background-size: 30px 30px;
+    background-position: center;
+    border-radius: 100%;
+    @extend %trans-all;
+}
+
+@mixin link($def-color, $active-color, $underlined: false, $underlined-hover: false, $border-style: null) {
+    color: $def-color;
+
+    @if $underlined == true { @if $border-style == null { text-decoration: underline; } @else { border-bottom: 1px $border-style $def-color; } }
+    @else { text-decoration: none !important; }
+
+    &:visited {
+        color: $def-color;
+        @if $underlined == true { @if $border-style == null { text-decoration: underline !important; } @else { border-bottom: 1px $border-style $def-color; } }
+        @else { text-decoration: none !important; }
+    }
+
+    &:hover {
+        color: $active-color;
+        @if $underlined-hover == true { @if $border-style == null { text-decoration: underline !important; } @else { border-bottom: 1px $border-style $active-color; } }
+        @else { text-decoration: none !important; }
+    }
+
+    &:active {
+        color: $active-color;
+        @if $underlined-hover == true { @if $border-style == null { text-decoration: underline !important; } @else { border-bottom: 1px $border-style $active-color; } }
+        @else { text-decoration: none !important; }
+    }
+
+    &:focus {
+        color: $active-color;
+        @if $underlined-hover == true { @if $border-style == null { text-decoration: underline !important; } @else { border-bottom: 1px $border-style $active-color; } }
+        @else { text-decoration: none !important; }
+    }
+}
+
+@mixin transition-ease($property: all, $duration: 0.2s) {
+    -moz-transition: $property ease $duration; -o-transition: $property ease $duration; -webkit-transition: $property ease $duration; transition: $property ease $duration;
+}
+
+@mixin multi-elipsis($font-size, $line-height, $lines-to-show) {
+    display: block;
+    display: -webkit-box;
+    max-height: $font-size * $line-height * $lines-to-show; 
+    font-size: $font-size;
+    line-height: $line-height;
+    -webkit-line-clamp: $lines-to-show;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@mixin multi-elipsis-fixed($font-size, $line-height, $lines-to-show) {
+    display: block;
+    display: -webkit-box;
+    height: $font-size * $line-height * $lines-to-show; 
+    font-size: $font-size;
+    line-height: $line-height;
+    -webkit-line-clamp: $lines-to-show;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@mixin multi-elipsis-reset($font-size, $line-height) {    
+    height: auto;   
+    max-height:initial;
+    -webkit-line-clamp: initial;
+    -webkit-box-orient: initial;
+    overflow: visible;
+    text-overflow: initial;
+}
+
+@mixin card-shadow { box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2); }
+@mixin card-base { display:block; position:relative; width:100%; background:#fff; border-radius:2px; @include card-shadow; }
+
+%elipsis { white-space: nowrap; overflow: hidden; -ms-text-overflow: ellipsis; -o-text-overflow: ellipsis; text-overflow: ellipsis; }
+%trans-all { -moz-transition: all ease 0.2s; -o-transition: all ease 0.2s; -webkit-transition: all ease 0.2s; transition: all ease 0.2s; }
+%inline-menu { position: relative; display: block; list-style-type: none; margin: 0; padding: 0; }
+%inline-menu-item { position: relative; display: block; float: left; }
+

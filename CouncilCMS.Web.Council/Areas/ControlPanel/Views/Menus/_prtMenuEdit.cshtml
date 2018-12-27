@@ -1,0 +1,49 @@
+﻿@model MenuEdit
+
+@{
+    var targetId = Model.Id <= 0 ? "divList" : ("divContainer" + Model.Id);
+    var insertionMode = Model.Id <= 0 ? InsertionMode.InsertAfter : InsertionMode.ReplaceWith;
+}
+
+<div class="modal-title">
+    Меню
+    <ul class="modal-lang-swicher">
+        <li data-lang="en">EN</li>
+        <li data-lang="ru">RU</li>
+        <li class="active" data-lang="uk">UA</li>
+    </ul>
+</div>
+
+@using (Ajax.BeginForm(new AjaxOptions()
+{
+    Url = "/uk/controlpanel/menus/savemenu",
+    HttpMethod = "POST",
+    OnBegin = "coreUtils.disableButton($(this).find('button[type=submit]'));",
+    OnComplete = "window.saveContainerComplete();",
+    UpdateTargetId = targetId,
+    InsertionMode = insertionMode
+}))
+{
+   
+    <div class="lang-uk">
+        @Html.SimpleTextBoxFor(x => x.NameUk, "Назва (ua)", new { @class = "form-control" })
+    </div>
+    <div class="lang-ru">
+        @Html.SimpleTextBoxFor(x => x.NameRu, "Назва (ru)", new { @class = "form-control" })
+    </div>
+    <div class="lang-en">
+        @Html.SimpleTextBoxFor(x => x.NameEn, "Назва (en)", new { @class = "form-control" })
+    </div>    
+    
+    @Html.SimpleTextBoxFor(x => x.Name, "Унікальна назва меню (латинськими літерами)", new { @class = "form-control" })
+    @Html.HiddenFor(x => x.Id)
+
+    <div class="modal-footer">
+        <a href="#" type="button" class="btn btn-link" data-dismiss="modal">
+            @Locals.Close
+        </a>
+        <button type="submit" class="btn btn-primary">
+            @Locals.Save
+        </button>
+    </div>
+}

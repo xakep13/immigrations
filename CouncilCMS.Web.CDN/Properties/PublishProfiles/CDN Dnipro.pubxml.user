@@ -1,0 +1,404 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit http://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword />
+    <_PublishTargetUrl>ftp://89.251.26.214:21100/cdn</_PublishTargetUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="app/css/theme/simple-blue.min.css">
+      <publishTime>07/10/2017 14:02:53</publishTime>
+    </File>
+    <File Include="app/css/theme/simple-brown.min.css">
+      <publishTime>07/10/2017 14:02:53</publishTime>
+    </File>
+    <File Include="app/css/theme/simple-gray.min.css">
+      <publishTime>07/09/2017 14:43:56</publishTime>
+    </File>
+    <File Include="app/css/theme/simple-green.min.css">
+      <publishTime>07/09/2017 14:43:58</publishTime>
+    </File>
+    <File Include="app/css/theme/simple-purple.min.css">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="app/css/theme/simple-red.min.css">
+      <publishTime>07/09/2017 14:44:02</publishTime>
+    </File>
+    <File Include="app/css/theme/simple-teal.min.css">
+      <publishTime>07/09/2017 14:41:56</publishTime>
+    </File>
+    <File Include="app/css/theme/simple-yellow.min.css">
+      <publishTime>07/09/2017 14:44:06</publishTime>
+    </File>
+    <File Include="app/css/theme/site-blue.min.css">
+      <publishTime>07/09/2017 14:02:38</publishTime>
+    </File>
+    <File Include="app/css/theme/site-brown.min.css">
+      <publishTime>07/09/2017 14:43:37</publishTime>
+    </File>
+    <File Include="app/css/theme/site-gray.min.css">
+      <publishTime>07/09/2017 14:43:34</publishTime>
+    </File>
+    <File Include="app/css/theme/site-green.min.css">
+      <publishTime>07/09/2017 14:43:32</publishTime>
+    </File>
+    <File Include="app/css/theme/site-purple.min.css">
+      <publishTime>07/09/2017 14:43:29</publishTime>
+    </File>
+    <File Include="app/css/theme/site-red.min.css">
+      <publishTime>07/09/2017 14:43:26</publishTime>
+    </File>
+    <File Include="app/css/theme/site-teaL.min.css">
+      <publishTime>07/09/2017 14:42:25</publishTime>
+    </File>
+    <File Include="app/css/theme/site-yellow.min.css">
+      <publishTime>07/09/2017 14:43:15</publishTime>
+    </File>
+    <File Include="app/css/_mixins.scss">
+      <publishTime>07/08/2017 14:07:37</publishTime>
+    </File>
+    <File Include="app/css/_simple.scss">
+      <publishTime>07/10/2017 14:02:53</publishTime>
+    </File>
+    <File Include="app/js/controlpanel.min.js">
+      <publishTime>07/13/2017 16:43:01</publishTime>
+    </File>
+    <File Include="app/js/core-utils.min.js">
+      <publishTime>07/07/2017 16:47:27</publishTime>
+    </File>
+    <File Include="app/js/globals.min.js">
+      <publishTime>06/27/2017 20:23:01</publishTime>
+    </File>
+    <File Include="app/js/jquery.conditionalvalidate.min.js">
+      <publishTime>06/26/2017 14:52:48</publishTime>
+    </File>
+    <File Include="app/js/locals.en.min.js">
+      <publishTime>06/26/2017 16:56:41</publishTime>
+    </File>
+    <File Include="app/js/locals.ru.min.js">
+      <publishTime>06/26/2017 14:52:48</publishTime>
+    </File>
+    <File Include="app/js/locals.uk.min.js">
+      <publishTime>06/26/2017 14:52:48</publishTime>
+    </File>
+    <File Include="app/js/site.min.js">
+      <publishTime>06/26/2017 14:52:48</publishTime>
+    </File>
+    <File Include="app/js/uploader.min.js">
+      <publishTime>06/26/2017 14:52:48</publishTime>
+    </File>
+    <File Include="bin/Antlr3.Runtime.dll">
+      <publishTime>02/22/2013 06:43:40</publishTime>
+    </File>
+    <File Include="bin/CouncilCMS.Web.CDN.dll">
+      <publishTime>07/17/2017 02:38:28</publishTime>
+    </File>
+    <File Include="bin/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll">
+      <publishTime>06/15/2015 02:06:24</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Web.Infrastructure.dll">
+      <publishTime>07/25/2012 10:48:56</publishTime>
+    </File>
+    <File Include="bin/Newtonsoft.Json.dll">
+      <publishTime>03/08/2014 20:33:56</publishTime>
+    </File>
+    <File Include="bin/roslyn/csc.exe">
+      <publishTime>06/18/2015 20:19:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.Build.Tasks.CodeAnalysis.dll">
+      <publishTime>06/18/2015 20:19:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.CSharp.dll">
+      <publishTime>06/18/2015 20:19:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.dll">
+      <publishTime>06/18/2015 20:19:44</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.VisualBasic.dll">
+      <publishTime>06/18/2015 20:19:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CSharp.Core.targets">
+      <publishTime>06/18/2015 20:19:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.VisualBasic.Core.targets">
+      <publishTime>06/18/2015 20:19:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Collections.Immutable.dll">
+      <publishTime>06/18/2015 20:19:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Reflection.Metadata.dll">
+      <publishTime>06/18/2015 20:19:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/vbc.exe">
+      <publishTime>06/18/2015 20:19:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/VBCSCompiler.exe">
+      <publishTime>06/18/2015 20:19:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/VBCSCompiler.exe.config">
+      <publishTime>06/18/2015 20:19:46</publishTime>
+    </File>
+    <File Include="bin/System.Web.Helpers.dll">
+      <publishTime>01/28/2015 03:04:30</publishTime>
+    </File>
+    <File Include="bin/System.Web.Mvc.dll">
+      <publishTime>01/28/2015 03:02:18</publishTime>
+    </File>
+    <File Include="bin/System.Web.Optimization.dll">
+      <publishTime>11/02/2014 13:26:04</publishTime>
+    </File>
+    <File Include="bin/System.Web.Razor.dll">
+      <publishTime>01/28/2015 03:02:32</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Deployment.dll">
+      <publishTime>01/28/2015 03:04:30</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.dll">
+      <publishTime>01/28/2015 03:04:30</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Razor.dll">
+      <publishTime>01/28/2015 03:04:30</publishTime>
+    </File>
+    <File Include="bin/WebGrease.dll">
+      <publishTime>07/17/2013 16:03:52</publishTime>
+    </File>
+    <File Include="Global.asax">
+      <publishTime>06/26/2017 19:18:55</publishTime>
+    </File>
+    <File Include="img/parts/bissoft-logo-color.png">
+      <publishTime>02/22/2017 13:31:16</publishTime>
+    </File>
+    <File Include="img/parts/bissoft-logo-white-color-100.png">
+      <publishTime>03/16/2017 12:30:45</publishTime>
+    </File>
+    <File Include="img/parts/bissoft-logo.png">
+      <publishTime>02/22/2017 13:31:16</publishTime>
+    </File>
+    <File Include="img/parts/def_bg_1200.jpg">
+      <publishTime>03/08/2017 22:35:45</publishTime>
+    </File>
+    <File Include="img/parts/file-icon.png">
+      <publishTime>02/22/2017 13:31:16</publishTime>
+    </File>
+    <File Include="img/parts/line-loading.gif">
+      <publishTime>02/22/2017 13:31:16</publishTime>
+    </File>
+    <File Include="img/parts/no-file.png">
+      <publishTime>02/22/2017 13:31:16</publishTime>
+    </File>
+    <File Include="img/parts/no-pic.png">
+      <publishTime>02/22/2017 13:31:16</publishTime>
+    </File>
+    <File Include="libs/bootsrap-datetimepicker/css/bootstrap-datetimepicker.min.css">
+      <publishTime>06/26/2017 12:04:32</publishTime>
+    </File>
+    <File Include="libs/bootsrap-datetimepicker/js/bootstrap-datetimepicker.min.js">
+      <publishTime>06/26/2017 12:04:32</publishTime>
+    </File>
+    <File Include="libs/bootstrap-modal/css/bootstrap-modal.min.css">
+      <publishTime>06/26/2017 12:04:32</publishTime>
+    </File>
+    <File Include="libs/bootstrap-modal/img/ajax-loader.gif">
+      <publishTime>06/26/2017 12:04:32</publishTime>
+    </File>
+    <File Include="libs/bootstrap-modal/js/bootstrap-modal.min.js">
+      <publishTime>06/26/2017 12:04:32</publishTime>
+    </File>
+    <File Include="libs/bootstrap-modal/js/bootstrap-modalmanager.min.js">
+      <publishTime>06/26/2017 12:04:32</publishTime>
+    </File>
+    <File Include="libs/bootstrap-select/css/bootstrap-select.min.css">
+      <publishTime>06/26/2017 12:04:32</publishTime>
+    </File>
+    <File Include="libs/bootstrap-select/js/bootstrap-select.min.js">
+      <publishTime>06/26/2017 12:04:32</publishTime>
+    </File>
+    <File Include="libs/bootstrap-smartcity/css/city/bs-cp-blue.min.css">
+      <publishTime>06/27/2017 19:59:02</publishTime>
+    </File>
+    <File Include="libs/bootstrap-smartcity/css/city/bs-cp-brown.min.css">
+      <publishTime>06/27/2017 19:59:03</publishTime>
+    </File>
+    <File Include="libs/bootstrap-smartcity/css/city/bs-cp-gray.min.css">
+      <publishTime>06/27/2017 19:59:04</publishTime>
+    </File>
+    <File Include="libs/bootstrap-smartcity/css/city/bs-cp-green.min.css">
+      <publishTime>06/27/2017 19:59:05</publishTime>
+    </File>
+    <File Include="libs/bootstrap-smartcity/css/city/bs-cp-purple.min.css">
+      <publishTime>06/27/2017 19:59:06</publishTime>
+    </File>
+    <File Include="libs/bootstrap-smartcity/css/city/bs-cp-red.min.css">
+      <publishTime>06/27/2017 19:59:07</publishTime>
+    </File>
+    <File Include="libs/bootstrap-smartcity/css/city/bs-cp-teal.min.css">
+      <publishTime>06/27/2017 19:59:08</publishTime>
+    </File>
+    <File Include="libs/bootstrap-smartcity/css/city/bs-cp-yellow.min.css">
+      <publishTime>06/27/2017 19:59:10</publishTime>
+    </File>
+    <File Include="libs/bootstrap-smartcity/js/bootstrap.min.js">
+      <publishTime>06/26/2017 15:00:44</publishTime>
+    </File>
+    <File Include="libs/ckeditor/config.js">
+      <publishTime>06/27/2017 20:23:01</publishTime>
+    </File>
+    <File Include="libs/ckeditor/contents.css">
+      <publishTime>06/26/2017 12:04:32</publishTime>
+    </File>
+    <File Include="libs/ckeditor/plugins/cmslink/dialogs/cmslink.js">
+      <publishTime>07/13/2017 16:42:50</publishTime>
+    </File>
+    <File Include="libs/ckeditor/plugins/cmslink/icons/icn.png">
+      <publishTime>06/26/2017 12:04:34</publishTime>
+    </File>
+    <File Include="libs/ckeditor/plugins/cmslink/icons/icon.png">
+      <publishTime>06/26/2017 12:04:34</publishTime>
+    </File>
+    <File Include="libs/ckeditor/plugins/cmslink/plugin.js">
+      <publishTime>06/27/2017 20:11:48</publishTime>
+    </File>
+    <File Include="libs/ckeditor/plugins/documenthref/icons/documenthref.png">
+      <publishTime>06/26/2017 12:04:34</publishTime>
+    </File>
+    <File Include="libs/ckeditor/plugins/documenthref/plugin.js">
+      <publishTime>06/26/2017 12:04:34</publishTime>
+    </File>
+    <File Include="libs/ckeditor/styles.js">
+      <publishTime>06/26/2017 12:04:37</publishTime>
+    </File>
+    <File Include="libs/cropper/cropper.min.css">
+      <publishTime>06/26/2017 12:04:37</publishTime>
+    </File>
+    <File Include="libs/cropper/cropper.min.js">
+      <publishTime>06/26/2017 12:04:37</publishTime>
+    </File>
+    <File Include="libs/font-awesome/css/font-awesome.min.css">
+      <publishTime>06/26/2017 12:04:37</publishTime>
+    </File>
+    <File Include="libs/font-awesome/fonts/fontawesome-webfont.eot">
+      <publishTime>06/26/2017 12:04:37</publishTime>
+    </File>
+    <File Include="libs/font-awesome/fonts/fontawesome-webfont.svg">
+      <publishTime>06/26/2017 12:04:37</publishTime>
+    </File>
+    <File Include="libs/font-awesome/fonts/fontawesome-webfont.ttf">
+      <publishTime>06/26/2017 12:04:37</publishTime>
+    </File>
+    <File Include="libs/font-awesome/fonts/fontawesome-webfont.woff">
+      <publishTime>06/26/2017 12:04:37</publishTime>
+    </File>
+    <File Include="libs/font-awesome/fonts/fontawesome-webfont.woff2">
+      <publishTime>06/26/2017 12:04:37</publishTime>
+    </File>
+    <File Include="libs/font-awesome/fonts/FontAwesome.otf">
+      <publishTime>06/26/2017 12:04:37</publishTime>
+    </File>
+    <File Include="libs/fotorama/fotorama%402x.png">
+      <publishTime>06/26/2017 12:04:37</publishTime>
+    </File>
+    <File Include="libs/fotorama/fotorama.min.css">
+      <publishTime>06/26/2017 12:04:37</publishTime>
+    </File>
+    <File Include="libs/fotorama/fotorama.min.js">
+      <publishTime>06/26/2017 12:04:37</publishTime>
+    </File>
+    <File Include="libs/fotorama/fotorama.png">
+      <publishTime>06/26/2017 12:04:37</publishTime>
+    </File>
+    <File Include="libs/jQuery/jquery-3.1.1.min.js">
+      <publishTime>06/26/2017 12:04:38</publishTime>
+    </File>
+    <File Include="libs/jQuery/jquery.autocomplete.min.js">
+      <publishTime>06/26/2017 12:04:38</publishTime>
+    </File>
+    <File Include="libs/jQuery/jquery.maskedinput.min.js">
+      <publishTime>06/26/2017 12:04:38</publishTime>
+    </File>
+    <File Include="libs/jQuery/jQuery.print.min.js">
+      <publishTime>06/26/2017 12:04:38</publishTime>
+    </File>
+    <File Include="libs/jQuery/jquery.unobtrusive-ajax.min.js">
+      <publishTime>06/26/2017 12:04:38</publishTime>
+    </File>
+    <File Include="libs/jQuery/jquery.validate.min.js">
+      <publishTime>06/26/2017 12:04:39</publishTime>
+    </File>
+    <File Include="libs/jQuery/jquery.validate.unobtrusive.min.js">
+      <publishTime>06/26/2017 12:04:39</publishTime>
+    </File>
+    <File Include="libs/jsCookie/js-cookie.min.js">
+      <publishTime>06/26/2017 12:04:39</publishTime>
+    </File>
+    <File Include="libs/moment/moment-wl.min.js">
+      <publishTime>06/26/2017 12:04:39</publishTime>
+    </File>
+    <File Include="libs/palete-color-picker/img/icon/palette-color-picker-icon.svg">
+      <publishTime>06/26/2017 12:04:39</publishTime>
+    </File>
+    <File Include="libs/palete-color-picker/palette-color-picker.min.css">
+      <publishTime>06/26/2017 12:04:39</publishTime>
+    </File>
+    <File Include="libs/palete-color-picker/palette-color-picker.min.js">
+      <publishTime>06/26/2017 12:04:39</publishTime>
+    </File>
+    <File Include="libs/plupload/moxie.min.js">
+      <publishTime>06/26/2017 16:56:41</publishTime>
+    </File>
+    <File Include="libs/plupload/Moxie.swf">
+      <publishTime>06/26/2017 12:04:39</publishTime>
+    </File>
+    <File Include="libs/plupload/Moxie.xap">
+      <publishTime>06/26/2017 12:04:39</publishTime>
+    </File>
+    <File Include="libs/plupload/plupload.dev.js">
+      <publishTime>06/26/2017 12:04:39</publishTime>
+    </File>
+    <File Include="libs/plupload/plupload.full.min.js">
+      <publishTime>06/26/2017 12:04:39</publishTime>
+    </File>
+    <File Include="libs/plupload/plupload.min.js">
+      <publishTime>06/26/2017 12:04:39</publishTime>
+    </File>
+    <File Include="libs/slick/ajax-loader.gif">
+      <publishTime>06/26/2017 12:04:39</publishTime>
+    </File>
+    <File Include="libs/slick/fonts/slick.eot">
+      <publishTime>06/26/2017 12:04:39</publishTime>
+    </File>
+    <File Include="libs/slick/fonts/slick.svg">
+      <publishTime>06/26/2017 12:04:39</publishTime>
+    </File>
+    <File Include="libs/slick/fonts/slick.ttf">
+      <publishTime>06/26/2017 12:04:39</publishTime>
+    </File>
+    <File Include="libs/slick/fonts/slick.woff">
+      <publishTime>06/26/2017 12:04:39</publishTime>
+    </File>
+    <File Include="libs/slick/slick-theme.min.css">
+      <publishTime>06/26/2017 12:04:39</publishTime>
+    </File>
+    <File Include="libs/slick/slick.css">
+      <publishTime>06/26/2017 12:04:39</publishTime>
+    </File>
+    <File Include="libs/slick/slick.min.css">
+      <publishTime>06/26/2017 12:04:39</publishTime>
+    </File>
+    <File Include="libs/slick/slick.min.js">
+      <publishTime>06/26/2017 12:04:39</publishTime>
+    </File>
+    <File Include="libs/sortable/sortable.min.js">
+      <publishTime>06/26/2017 12:04:39</publishTime>
+    </File>
+    <File Include="packages.config">
+      <publishTime>02/22/2017 10:33:34</publishTime>
+    </File>
+    <File Include="Web.config">
+      <publishTime>07/17/2017 01:36:18</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

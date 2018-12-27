@@ -1,0 +1,22 @@
+﻿@model List<MenuItemListItem>
+
+@if (Model != null && Model.Count() > 0)
+{
+    foreach (var item in Model)
+    {
+        <div class="rel">
+            @Html.Partial("_prtMenuItemListItem", item)
+            <div class="related-list collapse" id="itemChilds@(item.Id)" data-id="@item.Id">
+                @if (item.ChildMenuItems != null && item.ChildMenuItems.Count > 0)
+                {
+                    if (User.HasPremission("menu_allowed") && item.Allowed)
+                    {
+                        item.ChildMenuItems.ForEach(x => x.Allowed = true);
+                    }
+
+                    @Html.Partial("_prtMenuItemList", item.ChildMenuItems)
+                }
+            </div>
+        </div>
+    }
+}

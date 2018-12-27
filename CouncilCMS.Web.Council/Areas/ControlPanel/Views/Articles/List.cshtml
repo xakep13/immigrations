@@ -1,0 +1,456 @@
+﻿@model ArticleList
+@{
+    ViewBag.Title = "Матеріали";
+    Layout = "~/Areas/ControlPanel/Views/Shared/_Layout.cshtml";
+    var filterState = Request.Cookies["filter_states"] != null ? Request.Cookies["filter_states"].Values["articles"] : "0";
+}
+
+<div class="page-title">
+    <div class="pull-right">
+        <a href="#" class="nav-link btn btn-primary" data-action="edit" data-id="0">
+            <i class="fa fa-fw fa-plus"></i>
+            <span>
+                @Locals.Add
+            </span>
+        </a>
+    </div>
+    <h1>
+        Матеріали
+    </h1>
+</div>
+
+<div class="card">
+    <div class="list-nav">
+        <div class="pull-right">
+            <ul class="nav nav-pills">
+                <li class="dropdown">
+                    <a href="#" data-toggle="dropdown" id="ddlLang" title="мова відображення">
+                        <i class="fa fa-fw fa-globe"></i>
+                        <span>@CurrentCulture.Name.ToLower()</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-right list-lang-swicher">
+                        <li>
+                            <a href="#" data-lang="uk">українська</a>
+                        </li>
+                        <li>
+                            <a href="#" data-lang="ru">російська</a>
+                        </li>
+                        <li>
+                            <a href="#" data-lang="en">англійська</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" data-toggle="dropdown" id="ddlSortBy">
+                        <i class="fa fa-fw fa-sort"></i>
+                        <span></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li>
+                            <a href="#" class="nav-link" data-action="list" data-sort-by="PublishDate">за датою публікації на сайті</a>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-link" data-action="list" data-sort-by="CreateDate">за датою створення</a>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-link" data-action="list" data-sort-by="TitleUk">за назвою</a>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-link" data-action="list" data-sort-by="ViewCount">за кількістю переглядів</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" class="nav-link" data-sort-dir="@Model.SortDirection">
+                        <i class="fa fa-fw fa-sort-amount-@(Model.SortDirection > 0 ? "desc" : "asc")"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="btn btn-link" id="btnShowFilter">
+                        <i class="fa fa-fw fa-filter"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <ul class="nav nav-pills text-uppercase" role="tablist">
+            <li class="@(Model.ItemState == 1 ? "active" : null)">
+                <a href="#divList" class="nav-link" data-toggle="pill" data-action="list" data-item-state="1">
+                    Опубліковані
+                </a>
+            </li>
+            <li class="@(Model.ItemState == 2 ? "active" : null)">
+                <a href="#divList" class="nav-link" data-toggle="pill" data-action="list" data-item-state="2">
+                    Чернетки
+                </a>
+            </li>
+            <li class="@(Model.ItemState == 3 ? "active" : null)">
+                <a href="#divList" class="nav-link" data-toggle="pill" data-action="list" data-item-state="3">
+                    Видалені
+                </a>
+            </li>
+            <li class="@(Model.ItemState == 0 ? "active" : null)">
+                <a href="#divList" class="nav-link" data-toggle="pill" data-action="list" data-item-state="0">
+                    Всі
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="filter @(filterState == "1" ? "expanded" : "")" id="divFilter">
+        @using (Ajax.BeginForm(ajaxOptions: new AjaxOptions()
+        {
+            Url = "/uk/controlpanel/articles/list?ajaxmode=true",
+            HttpMethod = "get",
+            OnBegin = "bsAdmin.startProcessing(); $('#hPage').val(1); window.createListState();",
+            OnComplete = " bsAdmin.endProcessing(); window.pushState(); coreUtils.enableButton($(this).find('button[type=submit]'));",
+            UpdateTargetId = "divList",
+            InsertionMode = InsertionMode.Replace,
+        }))
+        {
+            @Html.HiddenFor(x => x.Page, new { @class = "filter-input", id = "hPage", data_default_val = 1 })
+            @Html.HiddenFor(x => x.ItemState, new { @class = "filter-input", id = "hItemState", data_default_val = 1 })
+            @Html.HiddenFor(x => x.SortBy, new { @class = "filter-input", id = "hSortBy", data_default_val = "PublishDate" })
+            @Html.HiddenFor(x => x.SortDirection, new { @class = "filter-input", id = "hSortDirection", data_default_val = "1" })
+
+            <div class="form" id="formFilter" style="display:@(filterState == "1" ? "block" : "none")">
+                <div class="row">
+                    <div class="col-sm-7">
+                        @Html.SimpleTextBoxFor(x => x.Query, "Назва або ID", new { @class = "form-control filter-input" })
+                    </div>
+                    <div class="col-sm-5">
+                        @Html.SimpleDropDownListFor(x => x.CategoryId, Model.Categories, "Категорія", new { @class = "form-control bs-select filter-input" })
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-5">
+                        <div class="form-group">
+                            <label class="control-label">
+                                <select name="DateType" class="form-control bs-select label-select filter-input">
+                                    <option value="0" @(Model.DateType == 0 ? "selected" : null)>Період створення</option>
+                                    <option value="1" @(Model.DateType == 1 ? "selected" : null)>Період публікації на сайті</option>
+                                </select>
+                            </label>
+                            @Html.TextBoxFor(x => x.DateRange, new { @class = "form-control bs-daterangepicker filter-input" })
+                        </div>
+                    </div>
+                    <div class="col-sm-7">
+                        <div class="form-group">
+                            <label class="control-label">
+                                <select name="UserAction" class="form-control bs-select label-select filter-input">
+                                    <option value="0" @(Model.UserAction == 0 ? "selected" : null)>Користувач, що створив</option>
+                                    <option value="1" @(Model.UserAction == 1 ? "selected" : null)>Користувач, що відредагував останнім</option>
+                                </select>
+                            </label>
+                            @Html.DropDownListFor(x => x.User, Model.Users, new { @class = "form-control bs-select filter-input" })
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="pull-right">
+                        <button type="button" class="btn btn-default" id="btnClearFilter" data-onclear="window.createListState();window.getList();" title="скинути фільтр">
+                            <i class="fa fa-refresh"></i>
+                            <span class="hidden-xs">
+                                Скинути
+                            </span>
+                        </button>
+                        <button type="submit" class="btn btn-primary" id="btnFiter" title="застосувати фільтр">
+                            <i class="fa fa-search"></i>
+                            <span class="hidden-xs">
+                                Знайти
+                            </span>
+                        </button>
+                    </div>
+                    <button type="button" class="btn btn-link" onclick="$('#btnShowFilter').trigger('click');" title="закрити фільтр">
+                        <i class="fa fa-times"></i>
+                        <span class="hidden-xs">
+                            Сховати
+                        </span>
+                    </button>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="tab-content">
+        <div class="tab-pane active" id="divList"></div>
+    </div>
+</div>
+
+
+<div id="divEdit" class="modal modal-960 fade" tabindex="-1" data-width="960" style="display:none;">
+    <div class="modal-body" id="divEditForm"></div>
+</div>
+<div id="divRowEdit" class="modal modal-700 fade" tabindex="-1" data-width="700" style="display:none;">
+    <div class="modal-body"></div>
+</div>
+<div id="divColumnEdit" class="modal modal-700 fade" tabindex="-1" data-width="700" style="display:none;">
+    <div class="modal-body"></div>
+</div>
+<div id="divContentEdit" class="modal modal-800 fade" tabindex="-1" data-width="800" style="display:none;">
+    <div class="modal-body"></div>
+</div>
+<div id="divPreview" class="modal modal-800 fade" tabindex="-1" data-width="800" style="display:none;">
+    <div class="modal-body"></div>
+</div>
+
+@section Scripts {
+    <script>
+        $(function () {
+            window.divList = $("#divList");
+            window.divEdit = $("#divEdit");
+            window.modalManager = $("body").data("modalmanager");
+
+            bsAdmin.divPreview = $("#divPreview");
+            bsAdmin.divRowEdit = $("#divRowEdit");
+            bsAdmin.divColumnEdit = $("#divColumnEdit");
+            bsAdmin.divContentEdit = $("#divContentEdit");
+
+            window.getList = function (pushState) {
+                pushState = pushState || true;
+
+                bsAdmin.startProcessing();
+
+                $.get("/uk/controlpanel/articles/list?ajaxmode=true", window.currentState, function (r) {
+                    window.divList.html(r);
+                    bsAdmin.endProcessing();
+
+                    if (pushState)
+                        window.pushState();
+
+                    $("#ddlSortBy").find("span").text($("a[data-sort-by='" + window.currentState.sortby + "']").text());
+                });
+            };
+
+            window.getEdit = function (pushState) {
+                pushState = pushState || true;
+
+                $('body').modalmanager('loading');
+
+                window.divEdit.find(".modal-body").load("/uk/controlpanel/articles/getform", window.currentState, function () {
+
+                    window.divEdit.modal({ backdrop: 'static', keyboard: false, modalOverflow: true });
+
+                    $('.slide-gallery').fotorama();
+
+                    if (pushState)
+                        window.pushState();
+                });
+            }
+
+            window.delete = function (id) {
+                if (confirm("Ви впевнені що бажаєте видалити елемент? Даний елемент можна буде відновити!")) {
+                    bsAdmin.startProcessing();
+
+                    $.post("/uk/controlpanel/articles/delete", { id: id }, function () {
+                        window.getList(false);
+                        bsAdmin.endProcessing();
+                    });
+                }
+            }
+
+            window.restore = function (id) {
+                bsAdmin.startProcessing();
+
+                $.post("/uk/controlpanel/articles/restore", { id: id }, function () {
+                    window.getList(false);
+                    bsAdmin.endProcessing();
+                });
+            }
+
+            window.createListState = function () {
+                window.currentState = {};
+
+                $(".filter-input").each(function () {
+                    var t = $(this);
+
+                    if (t.val()) {
+                        window.currentState[t.attr("name").toLowerCase()] = t.val();
+                    }
+                });
+
+                return window.currentState;
+            }
+
+            window.createEditState = function (id) {
+                window.currentState = { id: id };
+                return window.currentState;
+            }
+
+
+            window.updateRow = function (data) {
+                var el = $("#row" + data.Id);
+                window.divRowEdit.modal('hide');
+
+                el.css({ backgroundColor: data.BackgroundColor });
+            }
+        }());
+    </script>
+
+    <script>
+        $(function () {
+
+            //Get id
+            let id = location.search.split('id=')[1];
+
+            window.createListState();
+            window.getList(false);
+
+            if (id) {
+                createEditState(id);
+            }
+
+            if (window.currentState.id != undefined) {
+                window.getEdit();
+            }
+
+            $(document).on("click", ".nav-link", function (e) {
+                e.preventDefault();
+                var t = $(this);
+
+                switch (t.data("action")) {
+                    case "edit":
+                        window.createEditState(t.data("id") || "0");
+                        window.getEdit();
+                        break;
+                    case "delete":
+                        window.delete(t.data("id"));
+                        break;
+                    case "restore":
+                        window.restore(t.data("id"));
+                        break;
+                    default:
+                        $("#hPage").val("1");
+
+                        if ($(this).data("page") && $(this).data("page") != window.currentState.page)
+                            $("#hPage").val($(this).data("page"));
+
+                        if (($(this).data("item-state") || $(this).data("item-state") == 0) && $(this).data("item-state") != window.currentState.itemstate)
+                            $("#hItemState").val($(this).data("item-state"));
+
+                        if ($(this).data("sort-by") && $(this).data("sort-by") != window.currentState.sortby) {
+                            $(this).parents(".dropdown").find("span").text($(this).text());
+                            $("#hSortBy").val($(this).data("sort-by"));
+                        }
+
+                        if (($(this).data("sort-dir") || $(this).data("sort-dir") == 0)) {
+                            if ($(this).data("sort-dir") == 1) {
+                                $(this).data("sort-dir", 0).find(".fa").removeClass("fa-sort-amount-desc").addClass("fa-sort-amount-asc");
+                            } else {
+                                $(this).data("sort-dir", 1).find(".fa").removeClass("fa-sort-amount-asc").addClass("fa-sort-amount-desc");
+                            }
+
+                            $("#hSortDirection").val($(this).data("sort-dir"));
+                        }
+
+                        window.createListState();
+                        window.getList();
+                        break;
+                }
+            });
+
+            $(window).on("popstate", function (e) {
+                var state = e.originalEvent.state;
+                window.currentState = state;
+
+                if (window.currentState.id) {
+                    window.getEdit(false);
+                } else {
+                    window.getList(false);
+                }
+            });
+        });
+    </script>
+
+    <script>
+        $("body").delegate("#facebookLogInBtn", "click", function (event) {
+            event.preventDefault();
+            let url = "/FacebookLogin/InvokeTheLoginDialogWindow";
+
+            let window2 = window.open(url);
+        });
+        $("body").delegate("#facebookPostBtn", "click", function (event) {
+            event.preventDefault();
+            let $form = $("#formMain");
+            let = descriptions = $form.find("textarea#DescriptionUk,textarea#DescriptionRu,textarea#DescriptionEn");
+            let = titles = $form.find("textarea#TitleUk,textarea#TitleUkRu,textarea#TittleEn");
+            let img = $form.find("div#divPersonUpload img");
+            let originalSrc = $(img).attr("data-original");
+
+            let name = "";
+            $(titles).each(function (index, elem) {
+                if (elem.value) {
+                    name = elem.value;
+                }
+            });
+
+            let message = "";
+            $(descriptions).each(function (index, elem) {
+                if (elem.value) {
+                    message = elem.value;
+                }
+            });
+
+            let source = originalSrc;
+
+            let itemNumber = window.location.href.split('?')[1].split("=")[1];
+            let link = "/articles/item/" + itemNumber;
+
+            let postObj = {
+                name,
+                message,
+                source,
+                link
+            };
+
+            $.ajax({
+                type: "Post",
+                url: "FacebookLogin/PostOnPage",
+                contentType: "application/json",
+                data: JSON.stringify(postObj),
+                success: function (data) {
+                    console.log("post on page success");
+                    $("#postPageStatus").text("операція виконана успішно");
+                },
+                error: function (data) {
+                    $("#postPageStatus").text("помилка під час виконання операції. Потрібно залогінитися в фейсбук або такий пост вже існує");
+                    console.log("post on page error");
+                }
+            });
+
+
+        });
+
+        function setCookie(name, value, options) {
+            options = options || {};
+
+            var expires = options.expires;
+
+            if (typeof expires == "number" && expires) {
+                var d = new Date();
+                d.setTime(d.getTime() + expires * 1000);
+                expires = options.expires = d;
+            }
+            if (expires && expires.toUTCString) {
+                options.expires = expires.toUTCString();
+            }
+
+            value = encodeURIComponent(value);
+
+            var updatedCookie = name + "=" + value;
+
+            for (var propName in options) {
+                updatedCookie += "; " + propName;
+                var propValue = options[propName];
+                if (propValue !== true) {
+                    updatedCookie += "=" + propValue;
+                }
+            }
+
+            document.cookie = updatedCookie;
+        }
+        function deleteCookie(name) {
+            setCookie(name, "", {
+                expires: -1
+            })
+        }
+    </script>
+}

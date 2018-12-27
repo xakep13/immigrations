@@ -1,0 +1,16 @@
+﻿@model CmsMenu
+
+@if (Model != null)
+{
+    <div class="cms-simple-menu">
+        <div class="title">@Model.Name</div>
+        <ul>
+            @foreach (var item in Model.Items)
+            {
+                @Html.Partial("_prtSimpleMenuItem", item)
+            }
+        </ul>
+    </div>
+}
+
+

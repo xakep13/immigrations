@@ -1,0 +1,315 @@
+﻿@model MenuItemEdit
+
+@{
+	var childsContainer = Model.ParentMenuId > 0 ? ("itemChilds" + Model.ParentMenuId) : ("containerChilds" + Model.MenuId);
+	var targetId = Model.Id <= 0 ? (Model.ParentMenuId > 0 ? ("itemChilds" + Model.ParentMenuId) : ("containerChilds" + Model.MenuId)) : ("divItem" + Model.Id);
+	var insertionMode = Model.Id <= 0 ? "after" : "replace-with";
+}
+
+<div class="modal-title">
+	@(Model.ParentMenuId > 0 ? "Вкладений пункт меню" : "Верхній пункт меню")
+	<ul class="modal-lang-swicher">
+		<li data-lang="en">EN</li>
+		<li data-lang="ru">RU</li>
+		<li class="active" data-lang="uk">UA</li>
+	</ul>
+</div>
+
+<ul class="nav nav-tabs" role="tablist">
+	<li class="active">
+		<a href="#divMain" data-toggle="tab">Головне</a>
+	</li>
+	@if(User.HasPremission("al_users"))
+	{
+		<li>
+			<a href="#divUsers" data-toggle="tab">Доступ</a>
+		</li>
+	}
+</ul>
+
+<div class="tab-content">
+	<div class="tab-pane active" id="divMain">
+		<form action="/uk/controlpanel/menus/savemenuitem" id="formMain" method="post" novalidate="novalidate"
+			  data-ajax="true"
+			  data-ajax-begin="coreUtils.disableButton($(this).find('button[type=submit]'));"
+			  data-ajax-complete="window.saveItemComplete('@childsContainer',@Model.MenuId, @(Model.ParentMenuId ?? 0));"
+			  data-ajax-mode="@insertionMode"
+			  data-ajax-update="#@targetId">
+
+			@Html.HiddenFor(x => x.Id)
+			@Html.HiddenFor(x => x.ParentMenuId)
+			@Html.HiddenFor(x => x.MenuId)
+
+			<div class="lang-uk">
+				@Html.SimpleTextBoxFor(x => x.NameUk, "Назва (ua)", new { @class = "form-control" })
+			</div>
+			<div class="lang-ru">
+				@Html.SimpleTextBoxFor(x => x.NameRu, "Назва (ru)", new { @class = "form-control" })
+			</div>
+			<div class="lang-en">
+				@Html.SimpleTextBoxFor(x => x.NameEn, "Назва (en)", new { @class = "form-control" })
+			</div>
+
+			<div class="row">
+				<div class="col-sm-5">
+					@Html.SimpleDropDownListFor(x => x.Type, Model.Types, "Тип посилання", new { @class = "form-control", id = "ddlTypeSelect" })
+				</div>
+				<div class="col-sm-7 menu-item-value">
+					@if(Model.Type == MenuItemType.Page)
+					{
+					<div id="divPage">
+						@Html.SimpleDropDownListFor(x => x.Value, Model.Pages, "Сторінка", new { @class = "form-control bs-select", id = "ddlArticleCategory" })
+						@*@Html.SimpleTextBoxFor(x => x.Value, "Сторінка", new { @class = "form-control bs-autocompleteselect", data_text = Model.ValueText, data_remote = "/uk/controlpanel/ajax/findpage" }, true)*@
+					</div>
+					}
+					else
+					{
+						<div id="divPage" style="display:none">
+							@Html.SimpleTextBoxFor(x => x.Value, "Сторінка", new { disabled = "disabled", @class = "form-control bs-autocompleteselect", data_text = Model.ValueText, data_remote = "/uk/controlpanel/ajax/findpage" }, true)
+						</div>
+					}
+
+					@if(Model.Type == MenuItemType.Article)
+					{
+						<div id="divArticle">
+							@Html.SimpleTextBoxFor(x => x.Value, "Матеріали", new { @class = "form-control bs-autocompleteselect", data_text = Model.ValueText, data_remote = "/uk/controlpanel/ajax/findarticle" }, true)
+						</div>
+					}
+					else
+					{
+						<div id="divArticle" style="display:none">
+							@Html.SimpleTextBoxFor(x => x.Value, "Матеріали", new { disabled = "disabled", @class = "form-control bs-autocompleteselect", data_text = Model.ValueText, data_remote = "/uk/controlpanel/ajax/findarticle" }, true)
+						</div>
+					}
+
+					@if(Model.Type == MenuItemType.Person)
+					{
+						<div id="divPerson">
+							@Html.SimpleTextBoxFor(x => x.Value, "Персони", new { @class = "form-control bs-autocompleteselect", data_text = Model.ValueText, data_remote = "/uk/controlpanel/ajax/findperson" }, true)
+						</div>
+					}
+					else
+					{
+						<div id="divPerson" style="display:none">
+							@Html.SimpleTextBoxFor(x => x.Value, "Персони", new { disabled = "disabled", @class = "form-control bs-autocompleteselect", data_text = Model.ValueText, data_remote = "/uk/controlpanel/ajax/findperson" }, true)
+						</div>
+					}
+
+					@if(Model.Type == MenuItemType.Document)
+					{
+						<div id="divDocument">
+							@Html.SimpleTextBoxFor(x => x.Value, "@CmsLabels.Documents", new { @class = "form-control bs-autocompleteselect", data_text = Model.ValueText, data_remote = "/uk/controlpanel/ajax/finddoc" }, true)
+						</div>
+					}
+					else
+					{
+						<div id="divDocument" style="display:none">
+							@Html.SimpleTextBoxFor(x => x.Value, "@CmsLabels.Documents", new { disabled = "disabled", @class = "form-control bs-autocompleteselect", data_text = Model.ValueText, data_remote = "/uk/controlpanel/ajax/finddoc" }, true)
+						</div>
+					}
+
+					@if(Model.Type == MenuItemType.Enterprise)
+					{
+						<div id="divEnterprise">
+							@Html.SimpleTextBoxFor(x => x.Value, "Організації", new { @class = "form-control bs-autocompleteselect", data_text = Model.ValueText, data_remote = "/uk/controlpanel/ajax/findenterprise" }, true)
+						</div>
+					}
+					else
+					{
+						<div id="divEnterprise" style="display:none">
+							@Html.SimpleTextBoxFor(x => x.Value, "Організації", new { disabled = "disabled", @class = "form-control bs-autocompleteselect", data_text = Model.ValueText, data_remote = "/uk/controlpanel/ajax/findenterprise" }, true)
+						</div>
+					}
+
+					@if(Model.Type == MenuItemType.ArticleCategory)
+					{
+						<div id="divArticleCategory">
+							@Html.SimpleDropDownListFor(x => x.Value, Model.ArticleCategories, "Категорія матералів", new { @class = "form-control bs-select", id = "ddlArticleCategory" })
+						</div>
+
+					}
+					else
+					{
+						<div id="divArticleCategory" style="display:none">
+							@Html.SimpleDropDownListFor(x => x.Value, Model.ArticleCategories, "Категорія матералів", new { @class = "form-control bs-select", id = "ddlArticleCategory", disabled = "disabled" })
+						</div>
+
+					}
+
+					@if(Model.Type == MenuItemType.PersonCategory)
+					{
+						<div id="divPersonCategory">
+							@Html.SimpleDropDownListFor(x => x.Value, Model.PersonCategories, "Категорія персон", new { @class = "form-control bs-select", id = "ddlPersonCategory" })
+						</div>
+
+					}
+					else
+					{
+						<div id="divPersonCategory" style="display:none">
+							@Html.SimpleDropDownListFor(x => x.Value, Model.PersonCategories, "Категорія персон", new { @class = "form-control bs-select", id = "ddlPersonCategory", disabled = "disabled" })
+						</div>
+
+					}
+
+					@if(Model.Type == MenuItemType.DocumentCategory)
+					{
+						<div id="divDocumentCategory">
+							@Html.SimpleDropDownListFor(x => x.Value, Model.DocCategories, "Категорія документів", new { @class = "form-control bs-select", id = "ddlDocumentCategory" })
+						</div>
+					}
+					else
+					{
+						<div id="divDocumentCategory" style="display:none">
+							@Html.SimpleDropDownListFor(x => x.Value, Model.DocCategories, "Категорія документів", new { @class = "form-control bs-select", id = "ddlDocumentCategory", disabled = "disabled" })
+						</div>
+					}
+
+					@if(Model.Type == MenuItemType.EnterpriseCategory)
+					{
+						<div id="divEnterpriseCategory">
+							@Html.SimpleDropDownListFor(x => x.Value, Model.EnterpriseCategories, "Категорія організацій", new { @class = "form-control bs-select", id = "ddlEnterpriseCategory" })
+						</div>
+
+					}
+					else
+					{
+						<div id="divEnterpriseCategory" style="display:none">
+							@Html.SimpleDropDownListFor(x => x.Value, Model.EnterpriseCategories, "Категорія організацій", new { @class = "form-control bs-select", id = "ddlEnterpriseCategory", disabled = "disabled" })
+						</div>
+					}
+
+					@if(Model.Type == MenuItemType.Url)
+					{
+						<div id="divUrl">
+							@Html.SimpleTextBoxFor(x => x.Value, "Посилання", new { @class = "form-control", id = "ddlUrl" })
+						</div>
+					}
+					else
+					{
+						<div id="divUrl" style="display:none">
+							@Html.SimpleTextBoxFor(x => x.Value, "Посилання", new { @class = "form-control", id = "ddlUrl", disabled = "disabled" })
+						</div>
+
+					}
+
+					@if(Model.Type == MenuItemType.CouncilSession)
+					{
+						<div id="divCouncilSession">
+							<select name="Value" class="form-control bs-select" id="ddlCouncilSession">
+								<option value="cur">Поточна</option>
+								<option value="prev">Попередні</option>
+							</select>
+						</div>
+					}
+					else
+					{
+						<div id="divCouncilSession" style="display:none;">
+							<select name="Value" class="form-control bs-select" id="ddlCouncilSession" disabled="disabled">
+								<option value="cur">Поточна</option>
+								<option value="prev">Попередні</option>
+							</select>
+						</div>
+					}
+				</div>
+			</div>
+
+
+			<div class="lang-uk">
+				@Html.SimpleCheckboxFor(x => x.ShowItemUk, null, "Показувати пункт меню для цієї мови")
+			</div>
+			<div class="lang-ru">
+				@Html.SimpleCheckboxFor(x => x.ShowItemRu, null, "Показувати пункт меню для цієї мови")
+			</div>
+			<div class="lang-en">
+				@Html.SimpleCheckboxFor(x => x.ShowItemEn, null, "Показувати пункт меню для цієї мови")
+			</div>
+			<div class="row">
+				<div class="col-sm-6">
+					@Html.SimpleUploaderFor(x => x.Image, "Зображення/іконка",
+			new ImageUploaderOptions()
+			{
+				UploadUrl = "/api/upload/uploadfile?type=image&directory=category_icon",
+				ContainerId = "divLogoUpload",
+				ContainerHeight = 150
+			}, new { @class = "form-control", @readonly = "readonly" })
+				</div>
+				<div class="col-sm-6">
+					@Html.SimpleUploaderFor(x => x.HoverImage, "Зображення/іконка при наведенні",
+			new ImageUploaderOptions()
+			{
+				UploadUrl = "/api/upload/uploadfile?type=image&directory=category_icon",
+				ContainerId = "divLogoUpload",
+				ContainerHeight = 150
+			}, new { @class = "form-control", @readonly = "readonly" })
+				</div>
+			</div>
+
+		</form>
+	</div>
+	@if(User.HasPremission("al_users"))
+	{
+		<div class="tab-pane" id="divUsers">
+			<h3 class="card-subtitle">
+				Надати доступ ролі користувачів
+			</h3>
+			@using(Ajax.BeginForm(new AjaxOptions()
+			{
+				Url = "/uk/controlpanel/menus/addrole",
+				OnBegin = "coreUtils.disableButton($('#btnAddRole'));",
+				OnComplete = "coreUtils.enableButton($('#btnAddRole'));",
+				InsertionMode = InsertionMode.InsertAfter,
+				UpdateTargetId = "divItemRoles"
+			}))
+			{
+				<div class="form-group">
+					<div class="row">
+						<div class="col-sm-10">
+							@Html.SimpleDropDownList("RoleId", Model.Roles, "Оберіт роль", new { @class = "form-control bs-select" })
+							@Html.Hidden("ItemId", Model.Id)
+						</div>
+						<div class="col-sm-2">
+							<div class="form-group">
+								<label class="control-label">&nbsp;</label>
+								<input type="submit" class="btn btn-default btn-block" id="btnAddRole" value="Додати" />
+							</div>
+						</div>
+					</div>
+				</div>
+
+			}
+			<h3 class="card-subtitle">
+				Ролі користувачів, що мають доступ
+			</h3>
+			<div class="well">
+				<div class="item-users" id="divItemRoles">
+					<div class="card-header-sm">
+						<div class='row'>
+							<div class="col-sm-10">
+								Назва
+							</div>
+							<div class="col-sm-2 text-right">
+								Видалити
+							</div>
+						</div>
+					</div>
+					@if(Model.AllowedRoles != null)
+					{
+						foreach(var item in Model.AllowedRoles)
+						{
+							@Html.Partial("_prtAllowedRoleItem", item)
+						}
+					}
+				</div>
+			</div>
+		</div>
+	}
+</div>
+
+<div class="modal-footer">
+	<a href="#" type="button" class="btn btn-link" data-dismiss="modal">
+		@Locals.Close
+	</a>
+	<button type="button" id="btnSave" class="btn btn-primary" onclick="javascript: $('#formMain').trigger('submit');">
+		@Locals.Save
+	</button>
+</div>

@@ -1,0 +1,8 @@
+﻿@model CmsMenu
+
+<ul class="main-menu">
+    @foreach (var item in Model.Items)
+    {
+        @Html.Partial("_prtSimpleMenuItem",item)
+    }  
+</ul>

@@ -1,0 +1,405 @@
+﻿@model SessionList
+@{
+    ViewBag.Title = "Сесії міськради";
+    Layout = "~/Areas/ControlPanel/Views/Shared/_Layout.cshtml";
+    var filterState = Request.Cookies["filter_states"] != null ? Request.Cookies["filter_states"].Values["docs"] : "0";
+}
+
+<div class="page-title">
+    @if (User.HasPremissions("session"))
+    {
+        <div class="pull-right">
+            <a href="#" class="nav-link btn btn-primary" data-action="edit" data-id="0">
+                <i class="fa fa-fw fa-plus"></i>
+                <span>
+                    @Locals.Add
+                </span>
+            </a>
+        </div>
+    }
+
+    <h1>
+        Сесії міськради
+    </h1>
+</div>
+
+<div class="card">
+    <div class="list-nav">
+        <div class="pull-right">
+            <ul class="nav nav-pills">
+                <li class="dropdown">
+                    <a href="#" data-toggle="dropdown" id="ddlLang" title="мова відображення">
+                        <i class="fa fa-fw fa-globe"></i>
+                        <span>@CurrentCulture.Name.ToLower()</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-right list-lang-swicher">
+                        <li>
+                            <a href="#" data-lang="uk">українська</a>
+                        </li>
+                        <li>
+                            <a href="#" data-lang="ru">російська</a>
+                        </li>
+                        <li>
+                            <a href="#" data-lang="en">англійська</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" data-toggle="dropdown" id="ddlSortBy">
+                        <i class="fa fa-fw fa-sort"></i>
+                        <span></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li>
+                            <a href="#" class="nav-link" data-action="list" data-sort-by="SessionDate">за датою сесії</a>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-link" data-action="list" data-sort-by="CreateDate">за датою створення</a>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-link" data-action="list" data-sort-by="PublishDate">за датою публікації</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" class="nav-link" data-sort-dir="@Model.SortDirection">
+                        <i class="fa fa-fw fa-sort-amount-@(Model.SortDirection > 0 ? "desc" : "asc")"></i>
+                    </a>
+                </li>               
+            </ul>
+        </div>
+        <ul class="nav nav-pills text-uppercase" role="tablist">
+            <li class="@(Model.State == 1 ? "active" : null)">
+                <a href="#divList" class="nav-link" data-toggle="pill" data-action="list" data-item-state="1">
+                    Опубліковані
+                </a>
+            </li>
+            <li class="@(Model.State == 2 ? "active" : null)">
+                <a href="#divList" class="nav-link" data-toggle="pill" data-action="list" data-item-state="2">
+                    Чернетки
+                </a>
+            </li>
+            <li class="@(Model.State == 3 ? "active" : null)">
+                <a href="#divList" class="nav-link" data-toggle="pill" data-action="list" data-item-state="3">
+                    Видалені
+                </a>
+            </li>
+            <li class="@(Model.State == 0 ? "active" : null)">
+                <a href="#divList" class="nav-link" data-toggle="pill" data-action="list" data-item-state="0">
+                    Всі
+                </a>
+            </li>
+        </ul>
+    </div>  
+    <div class="filter @(filterState == "1" ? "expanded" : "")" id="divFilter">
+        @using (Ajax.BeginForm(ajaxOptions: new AjaxOptions()
+        {
+            Url = "/uk/controlpanel/sessions/list?ajaxmode=true",
+            HttpMethod = "get",
+            OnBegin = "bsAdmin.startProcessing(); $('#hPage').val(1); window.createListState();",
+            OnComplete = " bsAdmin.endProcessing(); window.pushState(); coreUtils.enableButton($(this).find('button[type=submit]'));",
+            UpdateTargetId = "divList",
+            InsertionMode = InsertionMode.Replace,
+        }))
+        {
+
+            <div class="form" id="formFilter" style="display:@(filterState == "1" ? "block" : "none")">
+                @Html.HiddenFor(x => x.Page, new { @class = "filter-input", id = "hPage", data_default_val = 1 })
+                @Html.HiddenFor(x => x.State, new { @class = "filter-input", id = "hItemState", data_default_val = 1 })
+                @Html.HiddenFor(x => x.SortBy, new { @class = "filter-input", id = "hSortBy", data_default_val = "PublishDate" })
+                @Html.HiddenFor(x => x.SortDirection, new { @class = "filter-input", id = "hSortDirection", data_default_val = "1" })
+            </div>
+        }
+    </div>
+    <div class="tab-content">
+        <div class="tab-pane active" id="divList"></div>
+    </div>
+</div>
+
+
+<div id="divEdit" class="modal modal-960 fade" tabindex="-1" data-width="960" style="display:none;">
+    <div class="modal-body" id="divEditForm"></div>
+</div>
+<div id="divAgendaEdit" class="modal modal-960 fade" tabindex="-1" data-width="800" style="display:none;">
+    <div class="modal-body" id="divAgendaForm"></div>
+</div>
+<div id="divVoteEdit" class="modal modal-960 fade" tabindex="-1" data-width="800" style="display:none;">
+    <div class="modal-body" id="divVoteForm"></div>
+</div>
+
+
+@section Scripts {
+    <script>
+        $(function () {
+            window.divList = $("#divList");
+            window.divEdit = $("#divEdit");
+            window.divAgendaEdit = $("#divAgendaEdit");
+            window.divVoteEdit = $("#divVoteEdit");
+            window.modalManager = $("body").data("modalmanager");            
+
+            window.getList = function (pushState) {
+                pushState = pushState || true;
+
+                bsAdmin.startProcessing();
+
+                $.get("/uk/controlpanel/sessions/list?ajaxmode=true", window.currentState, function (r) {
+                    window.divList.html(r);
+                    bsAdmin.endProcessing();
+
+                    if (pushState)
+                        window.pushState();
+
+                    $("#ddlSortBy").find("span").text($("a[data-sort-by='" + window.currentState.sortby + "']").text());
+                });
+            };
+
+            window.getEdit = function (pushState) {
+                pushState = pushState || true;
+
+                $('body').modalmanager('loading');
+
+                window.divEdit.find(".modal-body").load("/uk/controlpanel/sessions/getform", window.currentState, function () {
+
+                    window.divEdit.modal({ backdrop: 'static', keyboard: false, modalOverflow: true });
+                    window.createSortable();
+
+                    if (pushState)
+                        window.pushState();
+                });
+            }            
+
+            window.moveProject = function (dId, sId) {
+                bsAdmin.startProcessing();
+                $.post("/uk/controlpanel/sessions/moveprojecttoagenda", { docId: dId, sessionId: sId }, function (r) {
+                    if (r && r.length > 0) {
+                        $("#divSessionAgendas").append(r);
+                        $("#doc" + dId + "session" + sId).find("[data-target='move-prject']").remove();
+                        $("#doc" + dId + "session" + sId).find("strong").append("<br/><em class='text-success'>в порядку денному</em>");
+                        bsAdmin.endProcessing();
+                    } else {
+                        bsAdmin.endProcessing();
+                    }                    
+                });
+            }
+
+            window.getAgendaEdit = function (id, sId) {
+                $('body').modalmanager('loading');
+
+                window.divAgendaEdit.find(".modal-body").load("/uk/controlpanel/sessions/getagendaform", { id: id, sessionId: sId }, function () {
+                    window.divAgendaEdit.modal({ backdrop: 'static', keyboard: false, modalOverflow: true });                    
+                });
+            }
+
+            window.getVoteEdit = function (id, sId) {
+                $('body').modalmanager('loading');
+
+                window.divVoteEdit.find(".modal-body").load("/uk/controlpanel/sessions/getvoteform", { id: id, sessionId: sId }, function () {
+                    window.divVoteEdit.modal({ backdrop: 'static', keyboard: false, modalOverflow: true });
+                });
+            }            
+
+            window.createListState = function () {
+                window.currentState = {};
+
+                $(".filter-input").each(function () {
+                    var t = $(this);
+
+                    if (t.val()) {
+                        window.currentState[t.attr("name").toLowerCase()] = t.val();
+                    }
+                });
+
+                return window.currentState;
+            }
+
+            window.createEditState = function (id) {
+                window.currentState = { id: id };
+                return window.currentState;
+            }
+
+            window.deleteProject = function (dId, sId) {
+                if (confirm("Ви впевнені що бажаєте видалити елемент? Цю дію неможливо відмінити!")) {
+                    bsAdmin.startProcessing();
+
+                    $.post("/uk/controlpanel/sessions/deleteproject", { docId: dId, sessionId: sId }, function () {
+                        $("#doc" + dId + "session" + sId).empty().remove();
+                        window.recountNumber();
+                        bsAdmin.endProcessing();
+                    });
+                }
+            }
+
+            window.deleteAgenda = function (id) {
+                if (confirm("Ви впевнені що бажаєте видалити елемент? Цю дію неможливо відмінити!")) {
+                    bsAdmin.startProcessing();
+
+                    $.post("/uk/controlpanel/sessions/deleteagenda", { id: id }, function () {
+                        $("#agenda" + id).empty().remove();
+                        window.recountNumber();
+                        bsAdmin.endProcessing();
+                    });
+                }
+            }
+
+            window.deleteVote = function (id) {
+                if (confirm("Ви впевнені що бажаєте видалити елемент? Цю дію неможливо відмінити!")) {
+                    bsAdmin.startProcessing();
+
+                    $.post("/uk/controlpanel/sessions/deletevote", { id: id }, function () {
+                        $("#vote" + id).empty().remove();
+                        window.recountNumber();
+                        bsAdmin.endProcessing();
+                    });
+                }
+            }
+
+            window.delete = function (id) {
+                if (confirm("Ви впевнені що бажаєте видалити елемент? Даний елемент можна буде відновити!")) {
+                    bsAdmin.startProcessing();
+
+                    $.post("/uk/controlpanel/sessions/delete", { id: id }, function () {
+                        window.getList(false);
+                        bsAdmin.endProcessing();
+                    });
+                }
+            }
+
+            window.restore = function (id) {
+                bsAdmin.startProcessing();
+
+                $.post("/uk/controlpanel/sessions/restore", { id: id }, function () {
+                    window.getList(false);
+                    bsAdmin.endProcessing();
+                });
+            }
+
+            window.recountNumber = function () {
+                $(".sort-list").each(function () {
+                    var t = $(this);
+
+                    t.find(".card-sm").each(function (i) {
+                        $(this).find(".number").text(i + 1);
+                    });
+                });
+            }
+
+            window.createSortable = function () {
+                $(".sort-list").each(function () {
+                    var t = $(this);
+                    try {
+                        t.sortable("destroy");
+                    }
+                    catch (ex) { }
+
+                    var sort = Sortable.create(t[0], {
+                        handle: ".btn-drag",
+                        animation: 150,
+                        onEnd: function (e) {
+                            bsAdmin.startProcessing();
+                            var item = $(e.item);
+
+                            $.post(
+                                "/uk/controlpanel/sessions/update" + t.data("type") + "position",
+                                { id: item.data("id"), sessionId: t.data("session-id"), oldPosition: e.oldIndex + 1, newPosition: e.newIndex + 1 },
+                                function () {
+                                    window.recountNumber();
+                                    bsAdmin.endProcessing();
+                                });
+                        }
+                    });
+                });
+            };
+        }());
+    </script>
+
+    <script>
+        $(function () {
+            window.getList();
+
+            if (window.currentState.id != undefined) {
+                window.getEdit();
+            }
+
+            $(document).on("click", ".nav-link", function (e) {
+                e.preventDefault();
+                var t = $(this);
+
+                switch (t.data("action")) {
+                    case "edit":
+                        window.createEditState(t.data("id") || "");
+                        window.getEdit();
+                        break;
+                    case "edit-agenda":
+                        window.getAgendaEdit(t.data("id"), t.data("session-id"));
+                        break;
+                    case "edit-vote":
+                        window.getVoteEdit(t.data("id"), t.data("session-id"));
+                        break;
+                    case "move-project":
+                        window.moveProject(t.data("docid"), t.data("sessionid"));
+                        break;
+                    case "remove-project":
+                        window.deleteProject(t.data("docid"), t.data("sessionid"));
+                        break;
+                    case "remove-agenda":
+                        window.deleteAgenda(t.data("id"));
+                        break;
+                    case "remove-vote":
+                        window.deleteVote(t.data("id"));
+                        break;
+                    case "delete":
+                        window.delete(t.data("id"));
+                        break;
+                    case "restore":
+                        window.restore(t.data("id"));
+                        break;
+                    default:
+                        $("#hPage").val("1");
+
+                        if ($(this).data("page") && $(this).data("page") != window.currentState.page)
+                            $("#hPage").val($(this).data("page"));
+
+                        if (($(this).data("item-state") || $(this).data("item-state") == 0) && $(this).data("item-state") != window.currentState.state)
+                            $("#hItemState").val($(this).data("item-state"));
+
+                        if ($(this).data("sort-by") && $(this).data("sort-by") != window.currentState.sortby) {
+                            $(this).parents(".dropdown").find("span").text($(this).text());
+                            $("#hSortBy").val($(this).data("sort-by"));
+                        }
+
+                        if (($(this).data("sort-dir") || $(this).data("sort-dir") == 0)) {
+                            if ($(this).data("sort-dir") == 1) {
+                                $(this).data("sort-dir", 0).find(".fa").removeClass("fa-sort-amount-desc").addClass("fa-sort-amount-asc");
+                            } else {
+                                $(this).data("sort-dir", 1).find(".fa").removeClass("fa-sort-amount-asc").addClass("fa-sort-amount-desc");
+                            }
+
+                            $("#hSortDirection").val($(this).data("sort-dir"));
+                        }
+
+                        window.createListState();
+                        window.getList();
+                }
+            });
+
+            $(window).on("popstate", function (e) {
+                var state = e.originalEvent.state;
+                window.currentState = state;
+
+                if (window.currentState.id) {
+                    window.getEdit(false);
+                } else {
+                    window.getList(false);
+                }
+            });
+
+
+        });
+    </script>
+}
+
+
+
+
+
+

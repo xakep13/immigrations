@@ -1,0 +1,196 @@
+﻿@import "../../libs/bootstrap-smartcity/css/bootstrap/_variables.scss";
+@import "_variables.scss";
+@import "_mixins.scss";
+
+/*LAYOUT*/
+html, body { font-family: 'PT Sans'; height: 100%; }
+
+body { background: #f7f9fa; }
+
+.layout-wrapper { position:relative; min-height:100%; }
+
+.sidebar { 
+    position:absolute; width:240px; height:100%; background:#455A64; 
+    .sidebar-header { height:70px; padding:10px 0 10px 20px; }
+    .sidebar-header .bissoft-logo { height:50px; }
+    .sidebar-toggle { display:block; width:58px; color:#fff; text-align:center; font-size:24px; line-height:50px; cursor:pointer; transition:all ease 0.3s; transition-delay:0.2s; }
+    .sidebar-menu { 
+        background:#455A64; 
+        .arrow-left { position:absolute; right:0; top:0; width: 0; height: 0; border-top: 20px solid transparent; border-bottom: 20px solid transparent; border-right:15px solid #f7f9fa;  }
+        .nav-hr { display:block; margin-bottom:15px; margin-top:15px; margin-left:20px; margin-right:20px; height:1px; background: lighten(#455A64, 5%); }
+        li {
+            .fa { display:block; float:left; margin-right:20px; }
+            a { 
+                position:relative; padding:10px 20px; color: #fff; 
+                &:hover { background: #607D8B; }
+                &.cur { border-left: 5px solid $brand-primary; padding:10px 20px 10px 15px; }
+            }                        
+        }        
+    }
+    &.collapsed { 
+        width:58px; 
+        .sidebar-toggle { transform: rotate(180deg); }
+        .sidebar-header .bissoft-logo  { display:none; }
+        .sidebar-menu {
+            .arrow-left  { top:14px; border-top: 6px solid transparent; border-bottom: 6px solid transparent; border-right:6px solid #f7f9fa; }
+            li {
+                .fa { float:none; margin-right:0; line-height:$line-height-base; }
+                a {
+                    span { display:none; position:absolute; top:0; left:58px; line-height:40px; padding:0 10px; background:#455A64; white-space:nowrap; }
+                    &.cur span { left:53px; } 
+                    &:hover span { display:block; z-index:1000; background: #607D8B; }
+                }                
+            }         
+        }    
+    }
+}
+
+.content { 
+    position:relative; height:100%; margin-left:240px; 
+    &.collapsed { margin-left:58px; }
+    .content-header { height:70px; padding:10px 20px; border-bottom:1px solid $input-border; }
+    .content-header-title { 
+        text-transform:uppercase; 
+        strong { display:block; font-size:22px; }
+        span { display:block; font-size:14px; font-variant:small-caps; }
+    }    
+    .content-header-title .user {
+        display:block; position:absolute; right:20px; top:0;  text-align:right;
+        .name { display:block; font-size:16px; font-weight:bold; text-transform:none !important; font-variant:normal !important; }
+        .email { display:block; font-size:12px; margin-bottom:5px; text-transform:none !important; font-variant:normal !important; }
+        .links { 
+            display:block; font-size:14px; 
+            a { color:#fff !important; display:inline-block; margin-left:10px; text-transform:none !important; font-variant:normal !important; } 
+        }
+}
+    .content-main .container-fluid { position:relative; padding-left:20px; padding-right:20px; margin-left:0; margin-right:0; }
+}
+
+.processing {
+     position: fixed; bottom: 0; left: 0; width: 100%; overflow:hidden; z-index:10010;
+     .text-center { position:absolute; bottom:0; left:0; width:100%; line-height: 60px; }
+     span { font-size: 24px; }
+}
+
+.modal-title { background:$brand-primary; color:#fff; margin:-30px -30px 30px -30px; padding:20px 35px 0 35px;
+    position:relative; font-size:28px; line-height:36px;
+    .nav-tabs { border-bottom:none;
+        > li { float:right; }
+        > li > a, > li > a:hover, > li > a:visited, > li > a:active { font-size:16px; line-height:20px; padding:8px 10px; border:none; color:#fff; background:none; border-radius:2px 2px 0 0; }
+        > li.active > a, > li.active > a:hover, > li.active > a:visited, > li.active > a:active { border:none; color:$brand-primary; background:#fff; }
+    }
+}
+
+.modal-lang-swicher { 
+    display:block; position:relative; list-style:none; height:36px;
+    > li { display:block; float:right; font-size:16px; line-height:20px; padding:8px 10px; color:#fff; border-radius:2px 2px 0 0; cursor:pointer; }
+    > li.active { color:$brand-primary; background:#fff; }
+}
+
+.modal-body {
+    .tab-pane { padding-top:20px; }
+
+}
+
+.modal-footer { border-top:none; padding:10px 0 0 0; }
+
+.page-title { 
+    color:#999; padding:20px 0; 
+    h1 {
+         font-size: 32px; line-height:42px; text-transform:uppercase; 
+        .fa { font-size:28px; }
+    }
+}
+
+.list-nav { margin-top:-5px; margin-right:-20px; margin-left:-20px; padding-left:20px; padding-right:20px; padding-bottom:10px; border-bottom:1px solid $brand-primary; }
+
+.filter { 
+    margin-right:-20px; margin-left:-20px; background:#eee; border-bottom:1px solid $brand-primary;
+    .form { padding:20px; }
+}
+
+.pager-container {
+    text-align:right; margin-top:15px;
+    .btn { margin: 0 auto 20px auto !important; }
+    .list-pager { display: inline-block; position: relative; margin: 0; padding: 0; text-align: center; }
+    .list-pager li { display: block; float: left; }
+    .list-pager li a,
+    .list-pager li a:visited { display: block; line-height: 1; padding: 10px 12px; color: $brand-primary; text-decoration: none; border-radius:2px; }
+    .list-pager li a.cur,
+    .list-pager li a.cur:visited,
+    .list-pager li a:active { background:#ddd; text-decoration: none; }
+    .list-pager li a:hover,
+    .list-pager li a:focus { background:#eee; text-decoration: none; }
+}
+
+.complete-text {
+    .text-success { font-size:70px; margin:30px; }
+    .icon { font-size:70px; margin:30px; }
+    .message { display:block; font-size:28px; margin-bottom:50px; }
+    .desc { font-size:22px; margin-bottom:30px; }
+    .links { margin-bottom:50px; }
+    .links a { font-size:18px; display:block; margin-bottom:15px; }
+} 
+
+
+
+
+
+
+.content-edit { padding:15px; border:1px solid $panel-default-border; background:#f5f5f5; box-shadow: inset 0 1px 1px rgba(0,0,0,.05); }
+
+.page-content {
+    margin-bottom:15px;
+}
+
+.row-item, .col-item > .panel {
+    &:hover { border-color:$brand-primary; box-shadow: 0 3px 5px rgba(0,0,0,.3); }
+}
+
+.card-title { display: block; margin:0 0 20px 0; color: $brand-primary; font-size: 24px; font-weight: 300; text-transform: uppercase; }
+
+
+
+
+.content-item { 
+    position:relative; border:1px dashed #ccc; z-index:9999; min-height:35px; padding:10px; margin-bottom:10px;  background:#fff;
+    &:hover { 
+        border-color: $brand-primary; box-shadow: 0 1px 3px rgba(0,0,0,.3);
+        .controls { display:block; position:absolute; top:0; left:0; width:100%; transition:all ease 0.2s; z-index:9999; }
+    }
+    .controls { border-bottom:1px solid $input-border; padding:5px 10px; background:$panel-footer-bg; display:none; transition:all ease 0.2s; z-index:9999; }
+    
+    .content-body { position:relative; z-index:9997; }
+
+    .content-map { 
+        background:#f7f7f7; background-image:url('/Content/img/parts/map-icon.svg'); background-position:center; background-repeat:no-repeat; background-size:150px;
+    }
+}
+
+.row-item {
+    position:relative;
+    .panel-body {
+        padding:10px 10px 0 10px;
+        > .row { margin-left:-5px; margin-right:-5px; }
+    }    
+}
+
+.row-preview {
+    background:#f7f7f7; margin-bottom:20px; padding:20px; text-align:center;
+    .title { display:block; text-align:center; margin-bottom:15px; color:$brand-primary; font-weight:bold; text-transform:uppercase; }
+    .row-column { background:#fff; border:1px dashed #bbb; height:80px; line-height:80px; }
+    &:hover { background:#ddd; box-shadow: 0 1px 3px rgba(0,0,0,.3); cursor:pointer; }
+}
+
+.col-item { 
+    .panel { margin-bottom:10px; }
+    padding-left:5px; padding-right:5px;
+}
+
+.special-content { background:rgba(0,0,0,.3); padding:80px 20px 80px 20px; text-align:center; font-size:18px; font-weight:700; }
+
+.gallery-edit-item {
+    .div-cell { padding:0 10px; }
+    .gallery-edit-item-img { border:1px solid #ccc; background:#f7f7f7; cursor:move; }
+    img { max-width:100%; max-height:100%; }
+} 

@@ -1,0 +1,29 @@
+﻿@model NewsletterArticleItem
+
+<div class="card item" id="art@(Model.Id)nl@(Model.NewsletterId)" data-article-id="@Model.Id" data-newsletter-id="@Model.NewsletterId">
+    <div class="row">
+        <div class="col-sm-8">
+            @Model.Title
+        </div>
+        <div class="col-sm-4 text-right">
+            <div class="link-btns">
+                <a href="#" class="link-btn" data-target="#divArticleContent@(Model.Id)" data-toggle="collapse">
+                    <i class="fa fa-fw fa-angle-down"></i>
+                </a>
+                <a href="#" class="link-btn btn-drag">
+                    <i class="fa fa-fw fa-bars"></i>
+                </a>
+                <span class="link-btn" onclick="javascript:window.removeArticle(@Model.Id, @Model.NewsletterId);">
+                    <i class="fa fa-fw fa-trash"></i>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="pdf-article-text collapse" id="divArticleContent@(Model.Id)">
+                @Html.Raw(Model.Html)
+            </div>
+        </div>
+    </div>
+</div>

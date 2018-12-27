@@ -1,0 +1,40 @@
+﻿@model CmsDocList
+
+@if (Model.Docs != null && Model.Docs.Count > 0)
+{
+    foreach (var item in Model.Docs)
+    {
+        <div class="card-sm item is-Doc-li">
+            <div class="container" style="width:100%">
+                <a href="/@CurrentCulture.Name.ToLower()/documents/item/@item.Id">
+                    <div class="result-item-content">
+                        <span style="float:right" class="time">
+                            <img src="/img/icons/date.svg" alt="">
+                            @(
+
+                                 item.PostDate.HasValue ? item.PostDate.Value.ToString("dd MMMM yyyy")
+                                : item.AcceptDate.HasValue ? item.AcceptDate.Value.ToString("dd.MMMM.yyyy")
+                                : item.PublishDate?.Substring(0, item.PublishDate?.LastIndexOf(" ") ?? 0)
+
+                            )
+                        </span>
+                        <p>
+                            @item.Title
+                        </p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    }
+
+    if (ViewBag.totalPages > 1)
+    {
+        <div class="is-Doc-li">
+            @for (int i = 1; i <= ViewBag.totalPages; i++)
+            {
+                <a href="javascript:void(0)" class="docs-in-folder">@i</a>
+            }
+        </div>
+    }
+}
+

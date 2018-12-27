@@ -1,0 +1,40 @@
+﻿
+@model List<Bissoft.CouncilCMS.BLL.ViewModels.Public.CmsPoll>
+
+@if(Model != null)
+{
+	<div class="voting-block">
+
+		<div class="voting__head">
+			<span class="">ОПИТУВАННЯ</span>
+		</div>
+
+		@foreach(var item in Model)
+		{
+			<div class="voting__item" id="@item.Id">
+				<div class="voting__item__city-icon voting__item__part">
+					<img class="voting__item__city-icon__img"
+						 src="@CmsSettings.LogoUk" alt="city_icon" />
+				</div>
+				<div class="voting__item__text voting__item__part">
+					<div class="voting__item__part__text">
+						<span class="voting__item__text__title">@item.Title</span>
+					</div>
+					<div class="voting__item__part__text">
+						@if(item.DateTo != null)
+						{
+							<span class="voting__item__text__text">
+								до
+							</span>
+							<span class="voting__item__text__title">
+								@item.DateTo
+							</span>
+						}<br />
+						<a href="/poll/poll" class="voting__item__link">Детальніше</a>
+					</div>
+				</div>
+			</div>
+		}
+
+	</div>
+}

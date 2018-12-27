@@ -1,0 +1,85 @@
+﻿@model CmsPage
+@{
+	ViewBag.Title = Model.Title;
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container">
+	@if(Model.PageTemplateId == 2)
+	{
+		<div class="left-content">
+			<div class="cms-page">
+				<div class="cms-page-header">
+					<h1 class="cms-page-title">@Model.Title</h1>
+					@if(!String.IsNullOrEmpty(Model.Description))
+					{
+						<span class="cms-page-header-devider"></span>
+						<p class="cms-page-desc">
+							@Html.Raw(Model.Description)
+						</p>
+					}
+				</div>
+				<div class="cms-page-content">
+					@Html.Partial("_prtContent", Model.ContentRows)
+				</div>
+				<div class="cms-article-date text-right">
+					@if(!String.IsNullOrEmpty(Model.PublishDate))
+					{
+						<em class="help-text">
+							Опубліковано: @Model.PublishDate
+						</em>
+					}
+					@if(!String.IsNullOrEmpty(Model.LastEditDate))
+					{
+						<em class="help-text">
+							(оновлено: @Model.LastEditDate)
+						</em>
+					}
+				</div>
+			</div>
+		</div>
+		<div class="right-content">
+			@Html.Partial("_prtSidebar")
+			@if(Model.PageMenu != null)
+			{
+				@Html.Partial("_prtSidebarMenu", Model.PageMenu)
+			}
+		</div>
+	}
+	else
+	{
+		<div class="cms-page">
+			<div class="cms-page-header">
+				<h1 class="cms-page-title">@Model.Title</h1>
+				@if(!String.IsNullOrEmpty(Model.Description))
+				{
+					<span class="cms-page-header-devider"></span>
+					<p class="cms-page-desc">
+						@Html.Raw(Model.Description)
+					</p>
+				}
+			</div>
+			<div class="cms-page-content">
+				@Html.Partial("_prtContent", Model.ContentRows)
+			</div>
+			<div class="cms-article-date text-right">
+				@if(!String.IsNullOrEmpty(Model.PublishDate))
+				{
+					<em class="help-text">
+						Опубліковано: @Model.PublishDate
+					</em>
+				}
+				@if(!String.IsNullOrEmpty(Model.LastEditDate))
+				{
+					<em class="help-text">
+						(оновлено: @Model.LastEditDate)
+					</em>
+				}
+			</div>
+		</div>
+	}
+</div>
+<script>
+	$(function () {
+		coreUtils.createPage($(".cms-page-content"));
+	});
+</script>

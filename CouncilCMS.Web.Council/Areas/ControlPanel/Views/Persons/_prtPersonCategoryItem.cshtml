@@ -1,0 +1,20 @@
+﻿@model PersonCategoryItem
+
+<div class='card-sm' id="itemCategory@(Model.CategoryId)Person@(Model.PersonId)">
+    <div class='row'>
+        <div class="col-sm-7">
+            @Model.Title
+        </div>        
+        <div class="col-sm-3  text-center">
+            @Model.Position 
+        </div>        
+        <div class="col-sm-2 text-right">
+            <span class='link-btn nav-link' data-action="edit-category" data-category-id="@Model.CategoryId" data-person-id="@Model.PersonId">
+                <i class='fa fa-fw fa-pencil'></i>
+            </span>
+            <span class='link-btn nav-link' data-action="remove-category" data-category-id="@Model.CategoryId" data-person-id="@Model.PersonId">
+                <i class='fa fa-fw fa-trash'></i>
+            </span>
+        </div>
+    </div>
+</div>

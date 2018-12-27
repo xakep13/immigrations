@@ -1,0 +1,89 @@
+﻿@model CmsArticle
+
+@{
+	ViewBag.Title = Model.Title;
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+	<div class="container">
+		<div class="left-content">
+			<div class="cms-page">
+				
+				<div class="cms-article-header">
+					<h1 class="cms-article-header">@Model.Title</h1>
+
+					@if(Model.userIsAdmin == true)
+					{
+						<button id="fixOnAdminPage">Редагувати</button>
+					}
+
+					<div class="addthis_inline_share_toolbox share"></div>
+				</div>
+
+				@if(Model.CategoryUrl == "video")
+				{
+
+				}
+				else
+				{
+
+					if(!String.IsNullOrEmpty(Model.Image))
+					{
+
+						<div class="cms-article-img">
+							<img src="@CmsSettings.BaseDomain@Model.Image" class="img-responsive" />
+						</div>
+
+					}
+				}
+
+					<div class="cms-article-content">
+						@Html.Partial("_prtContent", Model.ContentRows)
+					</div>
+					<div class="cms-article-date text-right">
+						@if(!String.IsNullOrEmpty(Model.PublishDate))
+						{
+							<em class="help-text">
+								Опубліковано: @Model.PublishDate
+							</em>
+						}
+						@if(!String.IsNullOrEmpty(Model.LastEditDate))
+						{
+							<em class="help-text">
+								(оновлено: @Model.LastEditDate)
+							</em>
+						}
+					</div>
+					@if(Model.ShowComments)
+					{
+						<div class="cms-article-comments">
+							<div id="disqus_thread"></div>
+							<script>
+                        var disqus_config = function () {
+                            this.page.url = "http://@CmsSettings.BaseDomain/@CurrentCulture.Name.ToLower()/articles/item/@Model.Id/@Model.Url";
+                            this.page.identifier = "article-@CurrentCulture.Name.ToLower()-@Model.Id";
+                        };
+
+                        (function () {
+                            var d = document, s = d.createElement('script');
+                            s.src = 'https://@(CmsSettings.DisqusName).disqus.com/embed.js';
+                            s.setAttribute('data-timestamp', +new Date());
+                            (d.head || d.body).appendChild(s);
+                        })();
+							</script>
+						</div>
+					}
+				</div>
+		</div>
+		@*<div class="right-content">
+				@Html.Partial("_prtSidebar")
+				@if(Model.ArticleMenu != null)
+				{
+					@Html.Partial("_prtSidebarMenu", Model.ArticleMenu)
+				}
+			</div>*@
+	</div>
+
+}

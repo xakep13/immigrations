@@ -1,0 +1,203 @@
+﻿@model PageEdit
+
+<div class="modal-title">
+    Статична сторінка
+    <ul class="modal-lang-swicher">
+        <li data-lang="en">EN</li>
+        <li data-lang="ru">RU</li>
+        <li class="active" data-lang="uk">UA</li>
+    </ul>
+</div>
+
+<ul class="nav nav-tabs" role="tablist">
+    <li class="active">
+        <a href="#divMain" data-toggle="tab">Головне</a>
+    </li>
+    <li>
+        <a href="#divContent" data-toggle="tab">Контент</a>
+    </li>
+
+    @if (User.HasPremission("al_users"))
+    {
+        <li>
+            <a href="#divUsers" data-toggle="tab">Доступ</a>
+        </li>
+    }
+
+    <li>
+        <a href="#divMeta" data-toggle="tab">МЕТА-теги</a>
+    </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane active" id="divMain">
+        <form action="/uk/ControlPanel/Pages/Save" id="formMain" method="post" novalidate="novalidate"
+              data-ajax="true" 
+              data-ajax-begin="bsAdmin.startProcessing(); coreUtils.disableButton($('#btnSave'));" 
+              data-ajax-complete="bsAdmin.endProcessing();" 
+              data-ajax-mode="replace" 
+              data-ajax-update="#divEditForm">
+                        
+            <div class="row">
+                <div class="col-sm-8">                    
+                    <div class="lang-uk">
+                        @Html.SimpleTextBoxFor(x => x.TitleUk, "Назва (ua)", new { @class = "form-control", maxlength = 255 })
+                    </div>
+                    <div class="lang-ru">
+                        @Html.SimpleTextBoxFor(x => x.TitleRu, "Назва (ru)", new { @class = "form-control", maxlength = 255 })
+                    </div>
+                    <div class="lang-en">
+                        @Html.SimpleTextBoxFor(x => x.TitleEn, "Назва (en)", new { @class = "form-control", maxlength = 255 })
+                    </div>
+                    @Html.SimpleTextBoxFor(x => x.UrlName, "Ім'я для URL", new { @class = "form-control", maxlength = 255 }, helpText: "Можна залишити пустим, в такому випадку ім`я для URL буде створене автоматично за правилами траслітерації для мови за замовчуванням")
+                    @*<div class="lang-uk">
+                        @Html.SimpleTextAreaFor(x => x.DescriptionRu, "Опис (ua)", new { @class = "form-control", rows = 8 })
+                    </div>
+                    <div class="lang-ru">
+                        @Html.SimpleTextAreaFor(x => x.DescriptionRu, "Опис (ru)", new { @class = "form-control", rows = 8 })
+                    </div>
+                    <div class="lang-en">
+                        @Html.SimpleTextAreaFor(x => x.DescriptionEn, "Опис (en)", new { @class = "form-control", rows = 8 })
+                    </div>*@                    
+                    <div class="row">
+                        <div class="col-sm-4">
+                            @Html.SimpleTextBoxFor(x => x.PublishDate, "Дата публікації", new { @class = "form-control bs-datepicker", data_format = "DD.MM.YYYY HH:mm" })
+                        </div>
+                        <div class="col-sm-4">
+                            @Html.SimpleTextBoxFor(x => x.EditedDate, "Дата оновлення інформації", new { @class = "form-control bs-datepicker", data_format = "DD.MM.YYYY HH:mm" })
+                        </div>                        
+                        <div class="col-sm-4">
+                            @Html.SimpleDropDownListFor(x => x.PageTemplateId, Model.PageTemplates, "Шаблон", new { @class = "form-control bs-select", id = "ddlPageTemplate" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    @Html.SimpleCheckboxFor(x => x.Published, "Налаштування", "Опублікувати на сайті", helpText: "Допоки параметр \"Опублікувати на сайті\" не відмічено, сторінка не буде доступним для перегляду на сайті")
+                    @Html.SimpleCheckboxFor(x => x.ShowPublihDate, null, "Показувати дату публікації")
+                    @Html.SimpleCheckboxFor(x => x.ShowEditDate, null, "Показувати дату оновлення")                    
+                    @*@Html.SimpleDropDownListFor(x => x.SidebarMenuId, Model.SidebarMenus, "Меню в сайдбарі", new { @class = "form-control bs-select" })*@
+                </div>
+            </div>
+        
+        @Html.HiddenFor(x => x.Id, new { Value = Model.Id })
+        </form>
+    </div> 
+
+    <div class="tab-pane" id="divContent">
+        <h3 class="card-subtitle">
+            Контент сторінки
+        </h3>
+        <div class="content-edit" data-type="Page">
+            <div id="divRows" data-prefix="ContentRows">
+                @foreach (var item in Model.ContentRows)
+                {
+                    @Html.Partial("~/areas/controlpanel/views/ajax/_prtContentRowItem.cshtml", item)
+                }
+            </div>
+            <hr />
+            <div>
+                <button type="button" class="btn btn-primary add-row" data-item-id="@Model.Id" data-type="Page">
+                    <i class="fa fa-fw fa-plus-circle"></i>
+                    <span>Додати блок</span>
+                </button>
+                <a href="#" class="btn btn-default preview-content" data-id="@Model.Id" data-type="Page">
+                    <i class="fa fa-eye"></i>
+                    <span>Попередній перегляд</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    @if (User.HasPremission("al_users"))
+    {
+        <div class="tab-pane" id="divUsers">
+            <h3 class="card-subtitle">
+                Надати доступ користувачеві
+            </h3>
+            @using (Ajax.BeginForm(new AjaxOptions()
+            {
+                Url = "/uk/controlpanel/pages/adduser",
+                OnBegin = "coreUtils.disableButton($('#btnAddUser'));",
+                OnComplete = "coreUtils.enableButton($('#btnAddUser'));",
+                InsertionMode = InsertionMode.InsertAfter,
+                UpdateTargetId = "divItemUsers"
+            }))
+            {
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-8">
+                            @Html.SimpleDropDownList("UserId", Model.Users, "Оберіт користувача", new { @class = "form-control bs-select" })
+                            @Html.Hidden("ItemId", Model.Id)
+                        </div>
+                        <div class="col-sm-2">
+                            &nbsp;
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label class="control-label">&nbsp;</label>
+                                <input type="submit" class="btn btn-default btn-block" id="btnAddUser" value="Додати" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            }
+            <h3 class="card-subtitle">
+                Користувачі, що мають доступ
+            </h3>
+            <div class="well">
+                <div class="item-users" id="divItemUsers">
+                    <div class="card-header-sm">
+                        <div class='row'>
+                            <div class="col-sm-5">
+                                П.І.Б.
+                            </div>
+                            <div class="col-sm-5 text-center">
+                                Email
+                            </div>
+                            <div class="col-sm-2 text-right">
+                                Видалити
+                            </div>
+                        </div>
+                    </div>
+                    @if (Model.AllowedUsers != null)
+                    {
+                        foreach (var item in Model.AllowedUsers)
+                        {
+                            @Html.Partial("_prtAllowedUserItem", item)
+                        }
+                    }                    
+                </div>
+            </div>
+        </div>
+    }
+
+    <div class="tab-pane" id="divMeta">
+        <div class="lang-uk">
+            @Html.SimpleTextBoxFor(x => x.MetaTitleUk, "МЕТА Заголовок (ua)", new { @class = "form-control", maxlength = 255, form = "formMain" })
+            @Html.SimpleTextBoxFor(x => x.MetaKeywordsUk, "МЕТА Ключові слова (ua)", new { @class = "form-control", maxlength = 255, form = "formMain" })
+            @Html.SimpleTextAreaFor(x => x.MetaDescriptionUk, "МЕТА Опис (ua)", new { @class = "form-control", maxlength = 255, form = "formMain" })
+        </div>
+        <div class="lang-ru">
+            @Html.SimpleTextBoxFor(x => x.MetaTitleRu, "МЕТА Заголовок (ru)", new { @class = "form-control", maxlength = 255, form = "formMain" })
+            @Html.SimpleTextBoxFor(x => x.MetaKeywordsRu, "МЕТА Ключові слова (ru)", new { @class = "form-control", maxlength = 255, form = "formMain" })
+            @Html.SimpleTextAreaFor(x => x.MetaDescriptionRu, "МЕТА Опис (ru)", new { @class = "form-control", maxlength = 255, form = "formMain" })
+        </div>
+        <div class="lang-en">
+            @Html.SimpleTextBoxFor(x => x.MetaTitleEn, "МЕТА Заголовок (en)", new { @class = "form-control", maxlength = 255, form = "formMain" })
+            @Html.SimpleTextBoxFor(x => x.MetaKeywordsEn, "МЕТА Ключові слова (en)", new { @class = "form-control", maxlength = 255, form = "formMain" })
+            @Html.SimpleTextAreaFor(x => x.MetaDescriptionEn, "МЕТА Опис (en)", new { @class = "form-control", maxlength = 255, form = "formMain" })
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal-footer">
+    <a href="#" type="button" class="btn btn-link back-to-list" data-dismiss="modal">
+        @Locals.Close
+    </a>
+    <button type="button" id="btnSave" class="btn btn-primary" onclick="$('#formMain').trigger('submit');">
+        @Locals.Save
+    </button>
+</div>

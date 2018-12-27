@@ -1,0 +1,266 @@
+﻿@model CmsDocList
+@{
+    ViewBag.Title = Model.CategoryName;
+}
+
+@if (Model.ShowSearchForm)
+{
+    <div class="container">
+        <button id="showForm" class="site-btn" style="float:right;">показати/сховати форму пошуку</button>
+    </div>
+    <section class="search">
+
+        <form action="" class="search-form hidden"
+              id="form0" local="uk" method="post">
+
+            <div class="container">
+                @{Model.Types[0].Text = CmsLabels.All;}
+                <label>@CmsLabels.DocQueryTitle<input type="text" name="QueryTitle"></label>
+                <label>@CmsLabels.DocQueryText<input type="text" name="QueryText"></label>
+                <label class="select">
+                    @Html.SimpleDropDownListFor(x => x.Type, Model.Types, CmsLabels.DocQueryType, new { @class = "form-control" })
+                </label>
+                <label>
+                    @Html.SimpleTextBoxFor(x => x.PersonId, @CmsLabels.DocSubject, new { @class = "form-control bs-autocompleteselect ac-text ac-value", @autocomplete = "off", data_text = Model.PersonName, data_remote = "/" + CurrentCulture.Name.ToLower() + "/ajax/findperson" }, false)
+                </label>
+                <label>
+                    @Html.SimpleTextBoxFor(x => x.EnterpriseId, "Видавник", new { @class = "form-control bs-autocompleteselect ac-text ac-value", data_text = Model.EnterpriseName, data_remote = "/" + CurrentCulture.Name.ToLower() + "/ajax/findenterprise" }, false)
+                </label>
+                <label class="date">
+                    @CmsLabels.DocQueryDate
+                    @Html.TextBoxFor(x => x.Date, new { @class = "form-control bs-daterangepicker input-wi", @readonly = "readonly" })
+                </label>
+
+                <input type="hidden" class="hidden" value="@Model.CategoryUrl" name="Url" />
+                <input type="submit" class="site-btn" value="@CmsLabels.FindDoc" />
+
+            </div>
+        </form>
+
+        @*@using (Ajax.BeginForm("Category", "Documents", new AjaxOptions { UpdateTargetId = "results", HttpMethod = "Get" }, new { local = CurrentCulture.Name.ToLower(), Url = Model.CategoryUrl, Page = 1, @class = "search-form" }))
+        {
+            <div class="container">
+                @{Model.Types[0].Text = CmsLabels.All;}
+                <label>@CmsLabels.DocQueryTitle<input type="text" name="QueryTitle"></label>
+                <label>@CmsLabels.DocQueryText<input type="text" name="QueryText"></label>
+                <label class="select">
+                    @Html.SimpleDropDownListFor(x => x.Type, Model.Types, CmsLabels.DocQueryType, new { @class = "form-control" })
+                </label>
+                <label>
+                    @Html.SimpleTextBoxFor(x => x.PersonId, @CmsLabels.DocSubject, new { @class = "form-control bs-autocompleteselect ac-text ac-value", @autocomplete = "off", data_text = Model.PersonName, data_remote = "/" + CurrentCulture.Name.ToLower() + "/ajax/findperson" }, false)
+                </label>
+                <label>
+                    @Html.SimpleTextBoxFor(x => x.EnterpriseId, "Видавник", new { @class = "form-control bs-autocompleteselect ac-text ac-value", data_text = Model.EnterpriseName, data_remote = "/" + CurrentCulture.Name.ToLower() + "/ajax/findenterprise" }, false)
+                </label>
+                <label class="date">
+                    @CmsLabels.DocQueryDate
+                    @Html.TextBoxFor(x => x.Date, new { @class = "form-control bs-daterangepicker input-wi", @readonly = "readonly" })
+                </label>
+                <input type="submit" class="site-btn" value="@CmsLabels.FindDoc" />
+            </div>
+        }*@
+
+    </section>
+    <div id="resultsFromAjax" class="container hidden">
+    </div>
+
+    <script>
+
+        $("#form0").on('submit', function (event) {
+            event.preventDefault();
+
+            $.ajax({
+                type: "POST",
+                url: "/uk/Documents/SearchDocument",
+                data: $(this).serialize(),
+                success: function (data) {
+                    let $elem = $("#resultsFromAjax");
+                    let children = $($elem).children().get(0);
+                    if (children == undefined || children == null) {
+                        $($elem).append(data);
+                    }
+                }
+            })
+        });
+
+        $("#showForm").on("click", function () {
+            $("#form0,#resultsFromAjax").toggleClass("hidden");
+        })
+
+            var format = format || "DD.MM.YYYY";
+
+            $(".bs-daterangepicker").daterangepicker({
+                "autoApply": true,
+                "showDropdowns": true,
+                "locale": {
+                    "applyLabel": "<i class='fa fa-check'></i>",
+                    "format": format || "DD.MM.YYYY",
+                    "separator": " - ",
+                    "fromLabel": "@CmsLabels.From",
+                    "toLabel": "До",
+                    cancelLabel: 'Clear',
+                    "daysOfWeek": [
+                        "@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetShortestDayName(DayOfWeek.Sunday)",
+                        "@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetShortestDayName(DayOfWeek.Monday)",
+                        "@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetShortestDayName(DayOfWeek.Tuesday)",
+                        "@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetShortestDayName(DayOfWeek.Wednesday)",
+                        "@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetShortestDayName(DayOfWeek.Thursday)",
+                        "@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetShortestDayName(DayOfWeek.Friday)",
+                        "@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetShortestDayName(DayOfWeek.Saturday)"
+                    ],
+                    "monthNames": [
+                        "@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(1)",
+                        "@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(2)",
+                        "@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(3)",
+                        "@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(4)",
+                        "@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(5)",
+                        "@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(6)",
+                        "@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(7)",
+                        "@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(8)",
+                        "@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(9)",
+                        "@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(10)",
+                        "@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(11)",
+                        "@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(12)"
+                    ],
+                    "firstDay": 1
+                },
+                "showCustomRangeLabel": false,
+                "alwaysShowCalendars": true,
+                "opens": "right",
+                "autoUpdateInput": false,
+            });
+
+            $(".bs-daterangepicker").on('apply.daterangepicker', function (ev, picker) {
+                $(this).val(picker.startDate.format(format) + ' - ' + picker.endDate.format(format));
+            });
+
+            $(".bs-daterangepicker").on('cancel.daterangepicker', function (ev, picker) {
+                $(this).val('');
+            });
+
+        $(".bs-autocompleteselect").each(function () {
+                coreUtils.createAutocompleteSelect($(this));
+            });
+            $(".bs-select").each(function () {
+                coreUtils.createSelect($(this));
+            });
+
+            $(document).on("click", ".input-clear", function () {
+                var input = $(this).parents(".input-group").find(".form-control");
+                input.prop("readonly", input.hasClass("bs-select") ? true : false).val("");
+
+                if (input.data("related-element"))
+                    $(input.data("related-element")).val("");
+
+                if (input.hasClass("bs-autocomplete"))
+                    coreUtils.createAutocomplete(input);
+
+                input.each(function () {
+                    if ($(this).hasClass("ac-value"))
+                        coreUtils.createAutocompleteSelect($(this));
+                });
+            });
+
+    </script>
+}
+
+    <section class="result">
+        <div class="container">
+
+            @Html.Action("List")
+            @*<ul class="news-filter">
+                <li class="news-filter-item active"><a href="">Усі теми</a></li>
+                <li class="news-filter-item"><a href="">Адміністративні послуги</a></li>
+                <li class="news-filter-item"><a href="">Ордери</a></li>
+                <li class="news-filter-item"><a href="">Виконавчий комітет</a></li>
+                <li class="news-filter-item"><a href="">Адміністративні послуги</a></li>
+                <li class="news-filter-item"><a href="">Адміністративні послуги</a></li>
+                <li class="news-filter-item"><a href="">Ордери</a></li>
+                <li class="news-filter-item"><a href="">Реформи</a></li>
+            </ul>*@
+        </div>
+        
+    </section>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $(document).on("click", ".btn-expand", function () {
+
+            $(this).toggleClass("fa-rotate-180");
+
+            let targetId = $(this).attr("data-target");
+
+            let $child = $(targetId);
+            let dataId = $($child).attr("data-id");
+            let ariaExpanded = $($child).attr("aria-expanded");
+
+            if (ariaExpanded === "true") {
+                LoadDocs(dataId, $child, 1);
+            } else {
+                CleanDocs($child);
+            }
+
+        });
+
+        function LoadDocs(parentId, $child, currPage) {
+            $.ajax({
+                url: "/uk/Documents/LoadSubFolders/" + parentId + '/' + currPage,
+                method: "Get",
+                success: function (data) {
+                    let docsAreExist = $($child).children().filter(".is-Doc-li");
+                    if (docsAreExist != undefined) {
+                        docsAreExist.remove();
+                    }
+                    $(data).appendTo($child);
+                },
+                error: function (ex) {
+                    let respText = ex.responseText;
+                    console.log("error of loading docs");
+                }
+            })
+        }
+
+        function CleanDocs($child) {
+            let $target = $($child).children().filter(".is-Doc-li");
+            $($target).remove();
+        }
+
+        $("body").delegate(".docs-in-folder", 'click', function (event) {
+
+            let currPage = $(this).text();
+            let $target = $(this).parent().parent();
+            let targetId = $($target).attr('data-id');
+
+            LoadDocs(targetId, $target, currPage);
+        });
+    });
+</script>
+
+<style type="text/css">
+    .time {
+        margin-right: 35px;
+    }
+
+    .card-sm {
+        display: block;
+        position: relative;
+        /* width: 100%; */
+        padding: 10px 15px;
+        margin-bottom: 10px;
+        background: lightgray;
+        border-radius: 2px;
+        box-shadow: 0 2px 4px rgba(0,0,0,.05);
+    }
+
+    .result-item-content p {
+        margin-bottom: 0px;
+    }
+
+    .is-Doc-li {
+        padding: 6px 0 6px 0;
+    }
+
+    .related-list {
+        padding-left: 40px;
+    }
+</style>

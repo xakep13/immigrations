@@ -1,0 +1,51 @@
+﻿@model ContentColumnEdit
+
+
+@using (Ajax.BeginForm(new AjaxOptions()
+{
+    Url = "/uk/controlpanel/ajax/savecontentcolumn",
+    HttpMethod = "POST",
+    OnSuccess = "window.updateRow"
+}))
+{
+
+    @Html.HiddenFor(x => x.Id)
+
+    <div class="remodal-title">
+        Настройки колонки контента
+    </div>
+    <div class="row">
+        <div class="col-sm-6">          
+            @Html.SimpleTextBoxFor(x => x.BackgroundColor,"Колір фона" , new { @class = "form-control" })
+            @Html.SimpleUploaderFor(x => x.BackgroundImage, "Фонове зображення",
+         new ImageUploaderOptions() { UploadUrl = "/api/upload/uploadimage?type=image&directory=contentColumns", ContainerId = "divImgUpload", IsImageUploader = true},
+         new { @class = "form-control", @readonly = "readonly" })
+             @Html.SimpleDropDownListFor(x => x.BackgroundPosition, ValueHelper.BackgroundPositionSelect, "Позиція фону", new { @class = "form-control bs-select" })
+            @Html.SimpleDropDownListFor(x => x.BackgroundRepeat, ValueHelper.BackgroundRepeatSelect, "Повторення фону", new { @class = "form-control bs-select" })
+            @Html.SimpleDropDownListFor(x => x.BackgroundSize, ValueHelper.BackgroundSizeSelect, "Розмір фону", new { @class = "form-control bs-select" })
+            @Html.SimpleTextBoxFor(x => x.LgOffset, "Отступ > 1170px / Відступ 1170", new { @class = "form-control" })
+            @Html.SimpleTextBoxFor(x => x.LgWidth, "Ширина > 1170px / Ширина > 1170 ", new { @class = "form-control" })
+            @Html.SimpleTextBoxFor(x => x.MdOffset, "Отступ > 970px / Відступ > 970", new { @class = "form-control" })
+            @Html.SimpleTextBoxFor(x => x.MdWidth, "Ширина > 970px / Ширина > 970", new { @class = "form-control" })
+        </div>
+        <div class="col-sm-6">
+            @Html.SimpleTextBoxFor(x => x.CssClasses, "Название CSS стиля / Назва CSS стиля", new { @class = "form-control" })
+            @Html.SimpleTextBoxFor(x => x.CssStyles, "Просто CSS стили / Простій CSS стилі", new { @class = "form-control" })
+            @Html.SimpleTextBoxFor(x => x.BackgroundSize, "Размер подложки / Розмір підкладки", new { @class = "form-control" })
+            @Html.HiddenFor(x => x.Position)
+            @Html.SimpleTextBoxFor(x => x.SmOffset, "Отступ > 750px / Відступ > 750 ", new { @class = "form-control" })
+            @Html.SimpleTextBoxFor(x => x.SmWidth, "Ширина > 750px / Ширина > 750", new { @class = "form-control" })
+            @Html.SimpleTextBoxFor(x => x.XsOffset, "Отступ > auto / Відступ > auto", new { @class = "form-control" })
+            @Html.SimpleTextBoxFor(x => x.XsWidth, "Ширина > auto / Ширина > auto", new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <a href="#" type="button" class="btn btn-link nav-link" data-dismiss="modal">
+            @Locals.Close
+        </a>
+        <button type="submit" class="btn btn-primary">
+            @Locals.Save
+        </button>
+    </div>
+}

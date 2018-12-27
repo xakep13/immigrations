@@ -1,0 +1,24 @@
+﻿@model List<CmsArticleListItem>
+
+<div class="district-right">
+    <span class="news-block-title">Новини міст та районів Миколаівщини</span>
+    @foreach (var item in Model)
+    {
+        <div class="news-block-item">
+            <a href="/@CurrentCulture.Name.ToLower()/articles/item/@item.Id/@item.UrlName">
+                <img class="news-block-item-img" src="/img/news-block-item-1.jpg" alt="">
+                <div class="info">
+                    <span class="title">@item.Title</span>
+                    <p class="descr">@item.Description</p>
+                    <div class="news-item-info">
+                        <time>@item.PublishDate</time>
+                        <span class="views">@item.ViewCount</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    }
+
+    
+    <a class="all-news" href="/uk/articles/category/novini">Всі новини районів</a>
+</div>

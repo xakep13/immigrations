@@ -1,0 +1,145 @@
+﻿@model CmsArticleList
+@{
+	ViewBag.Title = Model.CategoryName;
+}
+
+@if(Model.CategoryUrl == "video")
+{
+	@Html.Partial("VideoCategory", Model)
+}
+else
+{
+	<div class="video container">
+		<div class="left-content">
+			<div class="cms-list">
+				<div class="cms-list-header">
+					<h1>@Model.CategoryName</h1>
+					@if(!String.IsNullOrEmpty(Model.CategoryDescription))
+					{
+						<div class="cms-list-desc">
+							@Html.Raw(Model.CategoryDescription)
+						</div>
+					}
+					@if(Model.ShowSearchForm)
+					{
+						<div class="search-form">
+							@using(Html.BeginForm("Category", "Articles", FormMethod.Get, new { Url = Model.CategoryUrl }))
+							{
+								<div class="row">
+									<div class="col-sm-6 col-xs-6">
+										@Html.TextBox("Query", String.Empty, new { placeholder = "Пошук за назвою", @class = "form-control" })
+									</div>
+									<div class="col-sm-4 col-xs-6">
+										@Html.TextBox("Date", String.Empty, new { placeholder = "Пошук за датою", @class = "form-control bs-datepicker" })
+									</div>
+									<div class="col-sm-2 col-xs-12">
+										<span class="text visible-xs-block">&nbsp;</span>
+										<button type="submit" class="btn btn-primary btn-block">
+											<i class="fa fa-fw fa-search visible-xs-inline-block"></i>
+											Пошук
+										</button>
+									</div>
+								</div>
+							}
+						</div>
+					}
+
+					<div class="row">
+						@if(Model.Articles != null && Model.Articles.Count > 0)
+						{
+							foreach(var item in Model.Articles)
+							{
+								switch(Model.TemplateName.ToLower())
+								{
+									case "news":
+										{
+											<div class="col-sm-6">
+												<div class="cms-article-item fixed sm">
+													<a href="/@CurrentCulture.Name.ToLower()/articles/item/@item.Id/@item.UrlName">
+														<div class="img" style="background-image:url('@(!String.IsNullOrEmpty(item.Image) ? (CmsSettings.BaseDomain + item.Image) : "/Content/img/parts/default-img-4x3.png" )');"></div>
+														<div class="text">
+															<div class="date">@item.PublishDate</div>
+															<div class="title">@item.Title</div>
+															<div class="desc">@item.Description</div>
+														</div>
+													</a>
+												</div>
+											</div>
+											break;
+										}
+									case "WithPhoto":
+										{
+											<div class="cms-article-item fixed sm">
+												<a href="/@CurrentCulture.Name.ToLower()/articles/item/@item.Id/@item.UrlName">
+													<div class="img" style="background-image:url('@(!String.IsNullOrEmpty(item.Image) ? ("http://" + CmsSettings.BaseDomain + item.Image) : (item.IsAnons ? "/Content/img/parts/default-img-4x3-ac16.png" : "/Content/img/parts/default-img-4x3.png") )');"></div>
+													<div class="text">
+														<div class="title">@item.Title</div>
+														<div class="desc">@item.Description</div>
+													</div>
+												</a>
+											</div>
+											break;
+										}
+									case "SimpleList":
+										{
+											<div class="cms-article-item simple sm">
+												<a href="/@CurrentCulture.Name.ToLower()/articles/item/@item.Id/@item.UrlName">
+													<div class="text">
+														<div class="title">@item.Title</div>
+														<div class="desc">@item.Description</div>
+													</div>
+												</a>
+											</div>
+											break;
+										}
+									case "SimpleWithDate":
+										{
+											<div class="cms-article-item simple sm">
+												<a href="/@CurrentCulture.Name.ToLower()/articles/item/@item.Id/@item.UrlName">
+													<div class="text">
+														<div class="date">@item.PublishDate</div>
+														<div class="title">@item.Title</div>
+														<div class="desc">@item.Description</div>
+													</div>
+												</a>
+											</div>
+											break;
+										}
+									default:
+										{
+											<div class="cms-article-item simple sm">
+												<a href="/@CurrentCulture.Name.ToLower()/articles/item/@item.Id/@item.UrlName">
+													<div class="text">
+														<div class="title">@item.Title</div>
+														<div class="desc">@item.Description</div>
+													</div>
+												</a>
+											</div>
+											break;
+										}
+								}
+							}
+
+							@Helpers.LinkPager("/" + CurrentCulture.Name.ToLower() + "/articles/category/" + Model.CategoryUrl + "/", null, Model.Count, Model.Page, 20)
+						}
+						else
+						{
+							<div class="well">
+								У цьому розділі записів не знайдено
+							</div>
+						}
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<div class="right-content">
+			@Html.Partial("_prtSidebar")
+			@if(Model.CategoryMenu != null)
+			{
+				@Html.Partial("_prtSidebarMenu", Model.CategoryMenu)
+			}
+		</div>
+	</div>
+}

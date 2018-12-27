@@ -1,0 +1,47 @@
+﻿@model MenuItemListItem
+
+<div class="item rel" id="divMenuItem@(Model.Id)" data-id="@Model.Id" data-parent-id="@Model.ParentMenuId" data-menu-id="@Model.MenuId">
+    <div class="card-sm">
+        <div class="div-table">
+            <div class="div-cell" style="width:70px;">
+                <span class="link-btn btn-drag btn-@(Model.ParentMenuId ?? 0)-drag">
+                    <i class="fa fa-fw fa-bars"></i>
+                </span>
+                @if (Model.ChildMenuItems != null && Model.ChildMenuItems.Count > 0)
+                {
+                    <span class="link-btn" data-toggle="collapse" data-target="#menuItemRelated@(Model.Id)">
+                        <i class="fa fa-fw fa-angle-down"></i>
+                    </span>
+                }
+            </div>
+            <div class="div-cell">
+                @if (!string.IsNullOrEmpty(Model.Image))
+                {
+                    <img src="@Model.Image" width="30" height="30" style="display:inline-block; vertical-align:middle; margin-right:15px;" />
+                }
+                <div class="inline-elipsis" style="vertical-align:middle;">
+                    <span class="@(Model.ShowItem ? null : "text-gray")">
+                        <strong>@Model.GetLocalValue("Title")</strong><br />
+                        <span style="font-size:12px">
+                            <a href="@Model.Url" target="_blank" style="font-size:12px">@Model.Url</a>
+                        </span>
+                    </span>
+                </div>
+            </div>
+            <div class="div-cell text-right" style="width:100px;">
+                <a href="/@(CurrentCulture.Name.ToLower())/controlpanel/menus/getmenuitemform/0" class="link-btn nav-link" data-id="0" data-parentid="@Model.Id" data-menuid="@Model.MenuId">
+                    <i class="fa fa-fw fa-plus"></i>
+                </a>
+                <a href="/@(CurrentCulture.Name.ToLower())/controlpanel/menus/getmenuitemform/@Model.Id" class="link-btn nav-link" data-id="@Model.Id" data-parentid="@Model.ParentMenuId" data-menuid="@Model.MenuId">
+                    <i class="fa fa-fw fa-pencil"></i>
+                </a>
+                <span onclick="javascript:window.removeMenuItem(@Model.Id);" class="link-btn rem-link" data-id="@Model.Id" title="видалити пункт меню">
+                    <i class="fa fa-fw fa-trash"></i>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="related-list collapse" id="menuItemRelated@(Model.Id)" data-parent-id="@Model.Id">
+        @Html.EditorFor(x => x.ChildMenuItems)
+    </div>
+</div>

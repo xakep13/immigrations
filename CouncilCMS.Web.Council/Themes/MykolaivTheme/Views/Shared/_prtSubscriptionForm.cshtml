@@ -1,0 +1,22 @@
+﻿@model CmsSubscriber
+<div class="subscription-title">
+    Підписка на розсилку Дніпровської міської ради
+</div>
+
+<form action="https://feedburner.google.com/fb/a/mailverify" class="" method="post" target="popupwindow"
+      onsubmit="window.open('https://feedburner.google.com/fb/a/mailverify?uri=dnipro-rada-news', 'popupwindow', 'scrollbars=yes,width=600,height=650');return true">
+    <div class="form-group">
+        <label class="control-label">Ваш email</label>
+        <input type="text" name="email" class="form-control" placeholder="Ваш email" aria-describedby="email-addon">
+    </div>
+    <div class="text-left" style="margin-top:25px;">
+        <button type="submit" class="btn btn-primary">Підписатися</button>
+        <button data-remodal-action="cancel" class="remodal-cancel btn btn-default">Закрити</button>
+    </div>
+    <div class="help-block help-text">
+        Розсилка матеріалів виконується за допомогою сервісу Google FeedBurner.<br />
+        Дніпровська міська рада не несе відповідальності за роботу сервісу.
+    </div>
+    <input type="hidden" value="dnipro-rada-news" name="uri">
+    <input type="hidden" name="loc" value="ru_RU">
+</form>

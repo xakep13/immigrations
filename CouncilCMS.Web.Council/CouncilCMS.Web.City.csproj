@@ -1,0 +1,1028 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{4696C8BD-1002-4427-BFE2-3FA298702AA2}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Bissoft.CouncilCMS.Web</RootNamespace>
+    <AssemblyName>CouncilCMS.Web.Pervomaysk</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>false</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Facebook, Version=6.0.10.0, Culture=neutral, PublicKeyToken=58cb4f2111d1e6de, processorArchitecture=MSIL">
+      <HintPath>..\packages\Facebook.7.0.6\lib\net45\Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RazorEngine, Version=3.10.0.0, Culture=neutral, PublicKeyToken=9ee697374c7e744a, processorArchitecture=MSIL">
+      <HintPath>..\packages\RazorEngine.3.10.0\lib\net45\RazorEngine.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="reCAPTCHA.MVC, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\reCAPTCH.MVC.1.0.1\lib\net45\reCAPTCHA.MVC.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web.Cors, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.3\lib\net45\System.Web.Cors.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http.Cors, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Cors.5.2.3\lib\net45\System.Web.Http.Cors.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controllers\AjaxController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\OrganizatinsController.cs" />
+    <Compile Include="Controllers\DocumentsController.cs" />
+    <Compile Include="Controllers\PollController.cs" />
+    <Compile Include="Controllers\SessionsController.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
+    <Compile Include="Controllers\PersonsController.cs" />
+    <Compile Include="Controllers\ArticlesController.cs" />
+    <Compile Include="Controllers\FeedController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PagesController.cs" />
+    <Compile Include="Controllers\WidgetsController.cs" />
+    <Compile Include="Core\MkIndex.cs" />
+    <Compile Include="Globalization\CmsLabels.uk.Designer.cs">
+      <DependentUpon>CmsLabels.uk.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Globalization\CmsLabels.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CmsLabels.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Globalization\CmsLabels.en.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CmsLabels.en.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Globalization\CmsLabels.ru.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CmsLabels.ru.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\ControlPanel\Views\Newsletters\_prtNewsletterArticle.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Newsletters\_prtNewsletterCover.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Shared\_prtDocListItemShared.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Shared\_ptrDocListShared.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Users\_prtUserEdit.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Users\_prtUserEditComplete.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Users\_prtUserList.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Users\List.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Menus\_prtMenuListItem.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Menus\_prtMenuItemListItem.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Menus\_prtMenuItemList.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\PersonCategories\_prtPersonCategoryItemEdit.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Enterprises\_prtEnterpriseEdit.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Enterprises\_prtEnterpriseEditComplete.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Enterprises\_prtEnterpriseList.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Enterprises\_prtPersonPrev.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Enterprises\List.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\DocTypes\_prtDocTypeEdit.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\DocTypes\_prtDocTypeList.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\DocTypes\_prtDocTypeListItem.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\DocTypes\List.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\DocCategories\_prtDocCategoryItemEdit.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\DocCategories\List.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Docs\_prtDocEdit.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Docs\_prtDocEditComplete.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Docs\_prtDocList.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Docs\List.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Docs\_prtDocFileAdd.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Docs\_prtDocFileListItem.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Ajax\_prtContentCollpaseEdit.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Docs\_prtDocPersonListItem.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Docs\_prtDocEnterpriseListItem.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Persons\_prtPersonCategoryItem.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Enterprises\_prtEnterpriseCategoryItem.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Enterprises\_prtEnterprisePersonItem.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Enterprises\_prtEnterprisePersonItemEdit.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Enterprises\_prtEnterpriseCategoryItemEdit.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Persons\_prtPersonCategoryItemEdit.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Ajax\_prtRowSelect.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Account\_prtChangePassword.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Account\_prtChangePasswordComplete.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Account\Login.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Roles\_prtRoleEdit.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Roles\_prtRoleList.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Roles\_prtRoleListItem.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Roles\List.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Shared\EditorTemplates\CheckedListItemStr.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Shared\_prtAllowedUserItem.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Users\_prtPasswordReset.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Sessions\_prtSessionEdit.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Sessions\_prtSessionEditComplete.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Sessions\_prtSessionAgendaEdit.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Sessions\_prtSessionList.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Sessions\_prtSessionAgendaListItem.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Sessions\List.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Sessions\_prtSessionVoteListItem.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Sessions\_prtSessionVoteEdit.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Sessions\_prtSessionProjectListItem.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Shared\_prtAllowedRoleItem.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Shared\_prtCategoryListItem.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Shared\_prtCategoryList.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\EnterpriseCategories\List.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\EnterpriseCategories\_prtEnterpriseCategoryItemEdit.cshtml" />
+    <Content Include="Content\chosen\chosen-sprite%402x.png" />
+    <Content Include="Content\chosen\chosen-sprite.png" />
+    <Content Include="Content\chosen\chosen.css" />
+    <Content Include="Content\chosen\chosen.jquery.js" />
+    <Content Include="Content\chosen\chosen.jquery.min.js" />
+    <Content Include="Content\chosen\chosen.min.css" />
+    <Content Include="Content\chosen\chosen.proto.js" />
+    <Content Include="Content\chosen\chosen.proto.min.js" />
+    <Content Include="Content\chosen\docsupport\chosen.png" />
+    <Content Include="Content\chosen\docsupport\init.js" />
+    <Content Include="Content\chosen\docsupport\init.proto.js" />
+    <Content Include="Content\chosen\docsupport\jquery-1.12.4.min.js" />
+    <Content Include="Content\chosen\docsupport\jquery-3.2.1.min.js" />
+    <Content Include="Content\chosen\docsupport\oss-credit.png" />
+    <Content Include="Content\chosen\docsupport\prism.css" />
+    <Content Include="Content\chosen\docsupport\prism.js" />
+    <Content Include="Content\chosen\docsupport\prototype-1.7.0.0.js" />
+    <Content Include="Content\chosen\docsupport\style.css" />
+    <Content Include="Content\chosen\index.html" />
+    <Content Include="Content\chosen\index.proto.html" />
+    <Content Include="Content\chosen\options.html" />
+    <Content Include="Areas\ControlPanel\Views\Articles\_prtArticlePrev.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Persons\_prtPersonPrev.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Ajax\_prtContentTextBlockEdit.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Ajax\_prtContentTableEdit.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Newsletters\_prtNewsletterEdit.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Newsletters\_prtNewsletterEditComplete.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Newsletters\_prtNewsletterList.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Newsletters\_prtNewsletterPreview.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Newsletters\List.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Subscribers\_prtSubscriberList.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Subscribers\List.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Shared\_prtCrop.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Ajax\_prtContentPreview.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Ajax\_prtContentMenuEdit.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Ajax\_prtContentAccordionEdit.cshtml" />
+    <Content Include="Content\css\dropzone.css" />
+    <Content Include="Content\css\media_desktop.css" />
+    <Content Include="Content\css\media_mobile.css" />
+    <Content Include="Content\css\media_tablet.css" />
+    <Content Include="Content\css\reset.css" />
+    <Content Include="Content\css\style.css" />
+    <Content Include="Content\img\1200px-May2015_Volgograd_img14_Gergardt_Mill.jpg" />
+    <Content Include="Content\img\accessibility-icon-big%402x.png" />
+    <Content Include="Content\img\accessibility-icon-big%403x.png" />
+    <Content Include="Content\img\accessibility-icon-big.png" />
+    <Content Include="Content\img\avatar%402x.png" />
+    <Content Include="Content\img\avatar%403x.png" />
+    <Content Include="Content\img\avatar.png" />
+    <Content Include="Content\img\bg-coat-of-arms.png" />
+    <Content Include="Content\img\bissoft-icon.png" />
+    <Content Include="Content\img\cafe.jpg" />
+    <Content Include="Content\img\cancel%402x.png" />
+    <Content Include="Content\img\cancel%403x.png" />
+    <Content Include="Content\img\cancel.png" />
+    <Content Include="Content\img\dropdown.png" />
+    <Content Include="Content\img\Facebook%401x.png" />
+    <Content Include="Content\img\facebook%402x.png" />
+    <Content Include="Content\img\facebook%403x.png" />
+    <Content Include="Content\img\facebook.png" />
+    <Content Include="Content\img\Facebook_bottom%401x.png" />
+    <Content Include="Content\img\fam-bg-image%402x.png" />
+    <Content Include="Content\img\fam-bg-image%403x.png" />
+    <Content Include="Content\img\fam-bg-image.png" />
+    <Content Include="Content\img\gb%402x.png" />
+    <Content Include="Content\img\gb%403x.png" />
+    <Content Include="Content\img\gb.png" />
+    <Content Include="Content\img\Gerb.png" />
+    <Content Include="Content\img\gov-site%402x.png" />
+    <Content Include="Content\img\gov-site%403x.png" />
+    <Content Include="Content\img\gov-site.png" />
+    <Content Include="Content\img\group-132.png" />
+    <Content Include="Content\img\icon.png" />
+    <Content Include="Content\img\kpp_0.jpg" />
+    <Content Include="Content\img\language-icon-big%402x.png" />
+    <Content Include="Content\img\language-icon-big%403x.png" />
+    <Content Include="Content\img\language-icon-big.png" />
+    <Content Include="Content\img\rectangle-11-copy-8%402x.png" />
+    <Content Include="Content\img\rectangle-11-copy-8%403x.png" />
+    <Content Include="Content\img\rectangle-11-copy-8.png" />
+    <Content Include="Content\img\right%402x.png" />
+    <Content Include="Content\img\right%403x.png" />
+    <Content Include="Content\img\right-h-2%402x.png" />
+    <Content Include="Content\img\right-h-2%403x.png" />
+    <Content Include="Content\img\right-h-2.png" />
+    <Content Include="Content\img\right.png" />
+    <Content Include="Content\img\right_black.png" />
+    <Content Include="Content\img\ru%402x.png" />
+    <Content Include="Content\img\ru%403x.png" />
+    <Content Include="Content\img\ru.png" />
+    <Content Include="Content\img\sonnyk-pasport-21.jpeg" />
+    <Content Include="Content\img\top-background%402x.png" />
+    <Content Include="Content\img\top-background%403x.png" />
+    <Content Include="Content\img\top-background.png" />
+    <Content Include="Content\img\twitter%402x.png" />
+    <Content Include="Content\img\twitter%403x.png" />
+    <Content Include="Content\img\twitter.png" />
+    <Content Include="Content\img\ua%402x.png" />
+    <Content Include="Content\img\ua%403x.png" />
+    <Content Include="Content\img\ua.png" />
+    <Content Include="Content\img\warning%402x.png" />
+    <Content Include="Content\img\warning%403x.png" />
+    <Content Include="Content\img\warning.png" />
+    <Content Include="Content\js\custom.js" />
+    <Content Include="Content\js\dropzone.js" />
+    <Content Include="Content\js\src\infobubble-compiled.js" />
+    <Content Include="Content\js\src\infobubble.js" />
+    <Content Include="Content\owlcarousel\assets\ajax-loader.gif" />
+    <Content Include="Content\owlcarousel\assets\owl.carousel.css" />
+    <Content Include="Content\owlcarousel\assets\owl.carousel.min.css" />
+    <Content Include="Content\owlcarousel\assets\owl.theme.default.css" />
+    <Content Include="Content\owlcarousel\assets\owl.theme.default.min.css" />
+    <Content Include="Content\owlcarousel\assets\owl.theme.green.css" />
+    <Content Include="Content\owlcarousel\assets\owl.theme.green.min.css" />
+    <Content Include="Content\owlcarousel\assets\owl.video.play.png" />
+    <Content Include="Content\owlcarousel\owl.carousel.js" />
+    <Content Include="Content\owlcarousel\owl.carousel.min.js" />
+    <Content Include="Global.asax" />
+    <Content Include="upload\24BLkDn7Y7D393Q.jpg" />
+    <Content Include="upload\6A2wvKc2B8L5etS.jpg" />
+    <Content Include="upload\7TSFMrmfBSS1xTE.jpg" />
+    <Content Include="upload\8bNFg1m34G8KCD2.jpg" />
+    <Content Include="upload\avatar\o_1bjsd2hvo5jfs02v6fen8doh.jpg" />
+    <Content Include="upload\avatar\o_1bjsd2hvo5jfs02v6fen8doh_original.jpg" />
+    <Content Include="upload\b9bDwZJjv331X8M.jpeg" />
+    <Content Include="upload\b9p6FNtgRLagChU.jpg" />
+    <Content Include="upload\bl3FWDPX7FLVtAY.jpg" />
+    <Content Include="upload\BoZQrYbpnvZQ3DB.jpg" />
+    <Content Include="upload\cms_logo\3R4l5KtCHoRzE8x.png" />
+    <Content Include="upload\cms_logo\mhhVpZLgzN7Yhwp.png" />
+    <Content Include="upload\cms_logo\Te3cWGhdUJZygd4.png" />
+    <Content Include="upload\cms_logo\uW3xFgMNJuQX8PN.png" />
+    <Content Include="upload\cms_logo\yl32gnsOQEbTJR3.png" />
+    <Content Include="upload\content\1lcPVmb3h7kynx8.jpg" />
+    <Content Include="upload\content\5LCVoP4CfSsqZOH.jpg" />
+    <Content Include="upload\content\8a3tMZoFVqChrtL.jpg" />
+    <Content Include="upload\content\ANHFEaKt3UP3F5S.jpg" />
+    <Content Include="upload\content\BYaCveG6HJ8PSJK.jpg" />
+    <Content Include="upload\content\cusUe5H5YbcqvlM1Wher.jpg" />
+    <Content Include="upload\content\dx2LHK8XjWmCY91.jpg" />
+    <Content Include="upload\content\Fhrm5U6x1sUW4tU.jpg" />
+    <Content Include="upload\content\fyPxJKtrOBHmwt9.jpg" />
+    <Content Include="upload\content\KCjryp8YMUEgatP.jpg" />
+    <Content Include="upload\content\LngSTbqag6gAFpl.jpg" />
+    <Content Include="upload\content\nJkB87yTaSNyyjT.jpg" />
+    <Content Include="upload\content\o_1bhuto5ji1fqknmr1eq0o9eikh19.jpg" />
+    <Content Include="upload\content\o_1bhutpeg519ja1t14oogerjcr228.jpg" />
+    <Content Include="upload\content\o_1bhutpng5oup19po1f6d1v5r1ldn37.jpg" />
+    <Content Include="upload\content\o_1bi17mudk4p8iuj4j412as5k7a.jpg" />
+    <Content Include="upload\content\o_1bi18njcq1i491lfa1o1718l5ucta.jpg" />
+    <Content Include="upload\content\o_1bi19oticje81e7c15d5kob7lba.jpg" />
+    <Content Include="upload\content\o_1bigs8k2bn2e1kl61nebcofklb8.jpg" />
+    <Content Include="upload\content\o_1bigsgtd01q43dc413pldou1jo78.jpg" />
+    <Content Include="upload\content\o_1bigsh4gpe2pjch1ods11n3v6bg.jpg" />
+    <Content Include="upload\content\o_1bigstblcmqc1pjc1l9i1c649a08.jpg" />
+    <Content Include="upload\content\o_1bigsti0ekek84jdfg16p79ag.jpg" />
+    <Content Include="upload\content\o_1bigtcgq0uqr1vad6fh1ln61vu88.jpg" />
+    <Content Include="upload\content\o_1bigtd2q51b8i17rbf56psd4h4g.jpg" />
+    <Content Include="upload\content\o_1bigtic3n1867ksf119m1rj91gij8.jpg" />
+    <Content Include="upload\content\o_1bigtifa1i2chbg18t91d4k1s5kg.jpg" />
+    <Content Include="upload\content\o_1bigtptti12a74mp8ec1vp31hico.jpg" />
+    <Content Include="upload\content\o_1bigtq3c6iuq12vgc851mqk1boi16.jpg" />
+    <Content Include="upload\content\o_1bigtqnlp1h5s26519j2joc1idu1g.jpg" />
+    <Content Include="upload\content\o_1bigtqnlp1i354ak157s1hh5isu1f.jpg" />
+    <Content Include="upload\content\o_1cih6md88f5p1uelga7140n28a.JPG" />
+    <Content Include="upload\content\pUkNfnt7VpymxRg.jpg" />
+    <Content Include="upload\content\PXk8f1fk3lydEyn.jpg" />
+    <Content Include="upload\content\Q7cnXU3x7nTxx39.jpg" />
+    <Content Include="upload\content\qQpqYB6C57F16hj.jpg" />
+    <Content Include="upload\content\QuwfQy1U4kfucpZ.jpg" />
+    <Content Include="upload\content\S7nFhRW8MnXx5cX.jpg" />
+    <Content Include="upload\content\tPkKJ27KQDGGJ3c.jpg" />
+    <Content Include="upload\content\v1fPUvajMkSsHp3.jpg" />
+    <Content Include="upload\content\V7UT5UK2wP23xxq.jpg" />
+    <Content Include="upload\content\VPJJ1VXE8Rzd3LG.jpg" />
+    <Content Include="upload\content\w2hkRGqpYPe3wgc.jpg" />
+    <Content Include="upload\content\W9AbykUVKGg7MQP.jpg" />
+    <Content Include="upload\content\XBkC5SLdrU9SzhX.jpg" />
+    <Content Include="upload\content\yaFuUcqb49P3fxu.jpg" />
+    <Content Include="upload\content\yHRg8ZjCaVrWcme.jpg" />
+    <Content Include="upload\content\yvwXEkuzS2nKK13.jpg" />
+    <Content Include="upload\content\ZcrjLX3Vgzmnz8H.jpg" />
+    <Content Include="upload\content\ZdLRj3p35wZANav.jpg" />
+    <Content Include="upload\content\Zrkc8fw8sAv8VVA.jpg" />
+    <Content Include="upload\content\zu4mYAlNde79Msq.jpg" />
+    <Content Include="upload\content\ZwZA2vG6mJYfu2A.jpg" />
+    <Content Include="upload\docs_agenda\o_1bk6bpgp015jehvv3uf1p2bp1la.sql" />
+    <Content Include="upload\doc_files\anYv2b45WXyEmNAqDzq3.jpg" />
+    <Content Include="upload\doc_files\D4nlDtpB7mUwrnNRAoOg.jpg" />
+    <Content Include="upload\doc_files\hjKWfV9bucwpDRwsv4cR.jpg" />
+    <Content Include="upload\doc_files\JQ5qLwc7TeZAzSzoZfvZ.jpg" />
+    <Content Include="upload\doc_files\o_1bigk4ach1kee13v811qmn511n3fc.jpg" />
+    <Content Include="upload\doc_files\o_1bigk4achf516cehvtlmvauhb.jpg" />
+    <Content Include="upload\doc_files\o_1bigk7906j3e1j3uoch1kgg1c0kc.jpg" />
+    <Content Include="upload\doc_files\o_1bigkk6jm1kdj1m7b1har1l51rlvb.jpg" />
+    <Content Include="upload\doc_files\o_1bigkk6jml8k42k1da91oninrc.jpg" />
+    <Content Include="upload\doc_files\o_1bigl6u2hfm417vubggq2l1i3hc.jpg" />
+    <Content Include="upload\doc_files\o_1bigl6u2hn891ugc1oec81t1mtsb.jpg" />
+    <Content Include="upload\doc_files\o_1biglctje14jl14s43nv106t1jurb.jpg" />
+    <Content Include="upload\doc_files\o_1biglctje1m8a1octi2c1c061gcqc.jpg" />
+    <Content Include="upload\doc_files\o_1bigm56ta1pjmbhm1mtn101fmeb.jpg" />
+    <Content Include="upload\doc_files\o_1bigm56tatm814t9189c8lm1cs7c.jpg" />
+    <Content Include="upload\doc_files\o_1bigmd45c148dasu1qpbunj1i5ja.jpg" />
+    <Content Include="upload\doc_files\o_1bigmdh0j3mt69m16a27ug1lu9i.jpg" />
+    <Content Include="upload\doc_files\o_1bigmdust1ljp1jdtm681hc5vtu18.jpg" />
+    <Content Include="upload\doc_files\o_1bign4asslcjjjj1j1j8db1mbqa.jpg" />
+    <Content Include="upload\doc_files\o_1bign4ev3st1cr2151u15nt1j5bo.jpg" />
+    <Content Include="upload\doc_files\o_1bign4loj95vh72u9p1q1c18v1n.jpg" />
+    <Content Include="upload\doc_files\o_1bign9ueck1411qg15ld6lh5rga.jpg" />
+    <Content Include="upload\doc_files\o_1bigna2de1dt51t3mc1o1ta362ao.jpg" />
+    <Content Include="upload\doc_files\o_1bigndkcphfs1blk1hbi12qlukua.jpg" />
+    <Content Include="upload\doc_files\o_1bigne7ad1325qik17e91q73198o.jpg" />
+    <Content Include="upload\doc_files\o_1bigo5ppmv8p2a41hiv1ofm1r1ua.jpg" />
+    <Content Include="upload\doc_files\o_1bigo61651lle13f0t8m2ab8dho.jpg" />
+    <Content Include="upload\doc_files\o_1bigobgjelcn14ig13tk125n1dfua.jpg" />
+    <Content Include="upload\doc_files\o_1bigobq8b1c1o4at15kp1mcti6qi.jpg" />
+    <Content Include="upload\doc_files\o_1bigp620b1cb91o782n774d1tma.jpg" />
+    <Content Include="upload\doc_files\o_1bigp699g13oeufokpr1oon1upni.jpg" />
+    <Content Include="upload\doc_files\o_1bigvf1csoch1v4f17sd5v61t1316.jpg" />
+    <Content Include="upload\doc_files\o_1bl826t8ek2tivc1s971je71pula.png" />
+    <Content Include="upload\doc_files\o_1bl827stc15701pmppok1m6h1cb0o.png" />
+    <Content Include="upload\doc_files\o_1cih6ni61qvfq6v19laetpnnn10.JPG" />
+    <Content Include="upload\doc_files\o_1cih6nq2r175d1pp285d18fb1cj218.jpg" />
+    <Content Include="upload\doc_files\o_1cih6nuuejjt13gegku12e710af1g.jpg" />
+    <Content Include="upload\doc_files\XLL3bpzq2mhn1K5q98GW.jpg" />
+    <Content Include="upload\e6E6SnAsR9qC7zq.jpg" />
+    <Content Include="upload\editor\79nFXbuxdFOgXMC.jpg" />
+    <Content Include="upload\editor\aQTcbrECy9.png" />
+    <Content Include="upload\editor\BsK5js7Kvry3YhQ.jpg" />
+    <Content Include="upload\editor\dsc_1296.JPG" />
+    <Content Include="upload\editor\euz.jpg" />
+    <Content Include="upload\enterprise_image\3MtRJa7zWaxHHJD.jpg" />
+    <Content Include="upload\enterprise_image\3MtRJa7zWaxHHJ_originalD.jpg" />
+    <Content Include="upload\f9fj4EsrRa3lA4f.jpg" />
+    <Content Include="upload\FfhGKWjzA8nahh7.jpg" />
+    <Content Include="upload\files\o_1bi1c8k9luff14gq44vrse1j25a.jpg" />
+    <Content Include="upload\G5LT2mCeBQCAXnZ.jpg" />
+    <Content Include="upload\GbMmUKFqRUxsfHm.jpg" />
+    <Content Include="upload\icons\advantages-item-1.svg" />
+    <Content Include="upload\icons\advantages-item-2.svg" />
+    <Content Include="upload\icons\advantages-item-3.svg" />
+    <Content Include="upload\icons\advantages-item-4.svg" />
+    <Content Include="upload\icons\advantages-item-5.svg" />
+    <Content Include="upload\icons\advantages-item-6.svg" />
+    <Content Include="upload\icons\advantages-item-7.svg" />
+    <Content Include="upload\icons\advantages-item-8.svg" />
+    <Content Include="upload\icons\advantages-item-9.svg" />
+    <Content Include="upload\icons\banner-mail.svg" />
+    <Content Include="upload\icons\banner-phone.svg" />
+    <Content Include="upload\icons\calendar.svg" />
+    <Content Include="upload\icons\chat.svg" />
+    <Content Include="upload\icons\comments.svg" />
+    <Content Include="upload\icons\contacts-mail.svg" />
+    <Content Include="upload\icons\contacts-phone.svg" />
+    <Content Include="upload\icons\contacts-place.svg" />
+    <Content Include="upload\icons\contacts-social-item-1.svg" />
+    <Content Include="upload\icons\contacts-social-item-2.svg" />
+    <Content Include="upload\icons\contacts-social-item-3.svg" />
+    <Content Include="upload\icons\contacts-social-item-4.svg" />
+    <Content Include="upload\icons\contacts-social-item-5.svg" />
+    <Content Include="upload\icons\date.svg" />
+    <Content Include="upload\icons\e-services-item-1.svg" />
+    <Content Include="upload\icons\e-services-item-10.svg" />
+    <Content Include="upload\icons\e-services-item-11.svg" />
+    <Content Include="upload\icons\e-services-item-12.svg" />
+    <Content Include="upload\icons\e-services-item-2.svg" />
+    <Content Include="upload\icons\e-services-item-3.svg" />
+    <Content Include="upload\icons\e-services-item-4.svg" />
+    <Content Include="upload\icons\e-services-item-5.svg" />
+    <Content Include="upload\icons\e-services-item-6.svg" />
+    <Content Include="upload\icons\e-services-item-7.svg" />
+    <Content Include="upload\icons\e-services-item-8.svg" />
+    <Content Include="upload\icons\e-services-item-9.svg" />
+    <Content Include="upload\icons\extra-icon.svg" />
+    <Content Include="upload\icons\eye.svg" />
+    <Content Include="upload\icons\header_banner-mail.svg" />
+    <Content Include="upload\icons\header_banner-phone.svg" />
+    <Content Include="upload\icons\info-active.svg" />
+    <Content Include="upload\icons\language-1.svg" />
+    <Content Include="upload\icons\location.svg" />
+    <Content Include="upload\icons\login.svg" />
+    <Content Include="upload\icons\logout.svg" />
+    <Content Include="upload\icons\mail.svg" />
+    <Content Include="upload\icons\next.svg" />
+    <Content Include="upload\icons\next_b.svg" />
+    <Content Include="upload\icons\phone.svg" />
+    <Content Include="upload\icons\placeholder.svg" />
+    <Content Include="upload\icons\prev.svg" />
+    <Content Include="upload\icons\prev_b.svg" />
+    <Content Include="upload\icons\search-logo.svg" />
+    <Content Include="upload\icons\services-item-1.svg" />
+    <Content Include="upload\icons\services-item-2.svg" />
+    <Content Include="upload\icons\services-item-3.svg" />
+    <Content Include="upload\icons\services-item-4.svg" />
+    <Content Include="upload\icons\services-item-5.svg" />
+    <Content Include="upload\icons\services-item-6.svg" />
+    <Content Include="upload\icons\services-item-7.svg" />
+    <Content Include="upload\icons\services-item-8.svg" />
+    <Content Include="upload\icons\services-item-9.svg" />
+    <Content Include="upload\icons\site-map.svg" />
+    <Content Include="upload\icons\social-item-1.svg" />
+    <Content Include="upload\icons\social-item-2.svg" />
+    <Content Include="upload\icons\social-item-3.svg" />
+    <Content Include="upload\icons\social-item-4.svg" />
+    <Content Include="upload\icons\social-item-5.svg" />
+    <Content Include="upload\icons\sun.svg" />
+    <Content Include="upload\JFroXxc2QKTh4or.jpg" />
+    <Content Include="upload\lbjlvUxFJAnc34a.jpg" />
+    <Content Include="upload\lBQoJarkBcZ4LPZ.png" />
+    <Content Include="upload\LJfQuDfZ1C5TnGZ.jpg" />
+    <Content Include="upload\ll1JGNHxGXfhgTj.png" />
+    <Content Include="upload\m6CPzlQLQdZ7gSZ.jpg" />
+    <Content Include="upload\NL4YGEkuMBwvAns.jpg" />
+    <Content Include="upload\other\11VzVQk6Y7fZZds.jpg" />
+    <Content Include="upload\other\6YvBcuDENKfN1NR.jpg" />
+    <Content Include="upload\other\7WkPweR942fk2sb.jpg" />
+    <Content Include="upload\other\7zLpLDMhzNxWOMN.jpg" />
+    <Content Include="upload\other\9u4hGOFkSTtpSR9.jpg" />
+    <Content Include="upload\other\agPOaPJl4QnpZC5.jpg" />
+    <Content Include="upload\other\AMPOE9u7Q2W1vox.png" />
+    <Content Include="upload\other\amQngZxfMQTqmoe.jpg" />
+    <Content Include="upload\other\AnoU5PZWSwkKxUv.jpg" />
+    <Content Include="upload\other\avfooSwb9vtB7dC.png" />
+    <Content Include="upload\other\B8vo6NoTZWvEbHl.jpg" />
+    <Content Include="upload\other\BHAN2GblCPjXqbn.jpg" />
+    <Content Include="upload\other\BHR2STGqKOQmsPA.jpg" />
+    <Content Include="upload\other\cptqSjH5s3f4MON.jpg" />
+    <Content Include="upload\other\DNCYht1jjJcwhgH.jpg" />
+    <Content Include="upload\other\e9mehRgbZxT6wTe.jpg" />
+    <Content Include="upload\other\eHb2MqZHTP7VXwf.jpg" />
+    <Content Include="upload\other\eyUK4JEu6XWau2H.jpg" />
+    <Content Include="upload\other\FdSPeXYwTV1o7Sz.jpg" />
+    <Content Include="upload\other\FpXmFcTHVZV14g4.jpg" />
+    <Content Include="upload\other\G9HDvKCyyC3kGvH.jpg" />
+    <Content Include="upload\other\gR8hlw5eOTer9eQ.jpg" />
+    <Content Include="upload\other\H7mfWX5yPzOJGOm.jpg" />
+    <Content Include="upload\other\HNEhNQ5uBKdm4Q6.jpg" />
+    <Content Include="upload\other\HufX34SpctOcMpQ.jpg" />
+    <Content Include="upload\other\HzPOCr8yzre9rZx.jpg" />
+    <Content Include="upload\other\jgJt7Xf65QSMeHz.jpg" />
+    <Content Include="upload\other\KjBhDnowsb5nCMN.jpg" />
+    <Content Include="upload\other\LSdWG7cSP3FVsEO.png" />
+    <Content Include="upload\other\ml9M7letOu4l7x9.jpg" />
+    <Content Include="upload\other\nMr6FpP5VZdKlTE.jpg" />
+    <Content Include="upload\other\NOdLrJaYqVAvCCq.jpg" />
+    <Content Include="upload\other\NskfEmxW91qgj5j.png" />
+    <Content Include="upload\other\oEfWUCRMbUwLvXF.jpg" />
+    <Content Include="upload\other\o_1bhuts21eljqesr14aq1fv017il46.jpg" />
+    <Content Include="upload\other\o_1bhuts90l1gr6thealo7g1v2755.jpg" />
+    <Content Include="upload\other\o_1bhutsekio1l19ob1ghe1mng19ig5k.jpg" />
+    <Content Include="upload\other\PrQD5YfNmh3VwoF.jpg" />
+    <Content Include="upload\other\PsmO4VC39Bg5eu2.jpg" />
+    <Content Include="upload\other\QbWoAFjqAnkfQrd.jpg" />
+    <Content Include="upload\other\QvuxF5wpDUuSdMH.jpg" />
+    <Content Include="upload\other\R1QJC1aOoBlffqm.jpg" />
+    <Content Include="upload\other\skOPDhlDpHzbJTJ.jpg" />
+    <Content Include="upload\other\sw5lXd5jg9jOPmy.jpg" />
+    <Content Include="upload\other\VugPhRVjzt2gssK.jpg" />
+    <Content Include="upload\other\whZ7gMSCnOWmHjG.jpg" />
+    <Content Include="upload\other\wqtY1x5GMqK3noL.jpg" />
+    <Content Include="upload\other\x6FEHhSYBKvtEeE.jpg" />
+    <Content Include="upload\other\XcPolWNNVjxZvG2.jpg" />
+    <Content Include="upload\other\Xlaf5a3lWrXHHSl.jpg" />
+    <Content Include="upload\other\y9NX2Nr8kdEUq6p.jpg" />
+    <Content Include="upload\other\yAqHvCjwuF5wkhd.jpg" />
+    <Content Include="upload\other\yEqcEzSZv15kac6.jpg" />
+    <Content Include="upload\other\zfKAYCaQzvxTgs4.png" />
+    <Content Include="upload\other\zZvzTAC7CN4MszL.jpg" />
+    <Content Include="upload\partner\1Yn7qtZ1pl8FzFU.png" />
+    <Content Include="upload\partner\1Yn7qtZ1pl8FzF_originalU.png" />
+    <Content Include="upload\partner\JqFrRn8RQDpzfCk.png" />
+    <Content Include="upload\partner\JqFrRn8RQDpzfC_originalk.png" />
+    <Content Include="upload\partner\v4sxSuJ2UqH78rW.png" />
+    <Content Include="upload\partner\v4sxSuJ2UqH78r_originalW.png" />
+    <Content Include="upload\partner\W2T3y9XtjOf77qd.png" />
+    <Content Include="upload\partner\W2T3y9XtjOf77q_originald.png" />
+    <Content Include="upload\partner\YjnGZkujAQpllgV.png" />
+    <Content Include="upload\partner\YjnGZkujAQpllg_originalV.png" />
+    <Content Include="upload\Pazn6m6Okx7pddr.jpg" />
+    <Content Include="upload\peron_image\1T35KT92euarCg5UTXQE.jpg" />
+    <Content Include="upload\peron_image\1T35KT92euarCg5UTXQE_original.jpg" />
+    <Content Include="upload\peron_image\AFGAyhh3Hf9xgBF.jpg" />
+    <Content Include="upload\peron_image\AFGAyhh3Hf9xgB_originalF.jpg" />
+    <Content Include="upload\peron_image\awewlqovDWXlSxg.jpg" />
+    <Content Include="upload\peron_image\awewlqovDWXlSx_originalg.jpg" />
+    <Content Include="upload\peron_image\mjqETSeEDez3tC2.jpg" />
+    <Content Include="upload\peron_image\mjqETSeEDez3tC_original2.jpg" />
+    <Content Include="upload\peron_image\xs44TuFctRUEZl1.jpg" />
+    <Content Include="upload\peron_image\xs44TuFctRUEZl_original1.jpg" />
+    <Content Include="upload\post_image\o_1bht544451kq315791viq1g6913f59t.jpg" />
+    <Content Include="upload\post_image\o_1bht544451kq315791viq1g6913f59t_original.jpg" />
+    <Content Include="upload\post_image\o_1bht5fkfqeduoi01bis4mu72ri.jpg" />
+    <Content Include="upload\post_image\o_1bht5fkfqeduoi01bis4mu72ri_original.jpg" />
+    <Content Include="upload\post_image\o_1bhutepbh7hgpauucmt90dq1a.jpg" />
+    <Content Include="upload\post_image\o_1bhutepbh7hgpauucmt90dq1a_original.jpg" />
+    <Content Include="upload\post_image\o_1bj1402p71uqjt991dgh173trsv.jpg" />
+    <Content Include="upload\post_image\o_1bj1402p71uqjt991dgh173trsv_original.jpg" />
+    <Content Include="upload\Q1zrdp8AJbxu5Aq.jpg" />
+    <Content Include="upload\QGTyokorlzDb6Sq.jpg" />
+    <Content Include="upload\qHGNQnMyMjHYxJZ.png" />
+    <Content Include="upload\qQZVsPU1noe44E7.jpg" />
+    <Content Include="upload\RCAm3BlwhdLAu2v.png" />
+    <Content Include="upload\rgfhCVfGAxFaZSu.jpg" />
+    <Content Include="upload\RnBWNhEbXlks7kH.jpg" />
+    <Content Include="upload\rrYzTTGS4GDoA6Y.jpg" />
+    <Content Include="upload\sKmDtErq5X4Apxp.png" />
+    <Content Include="upload\TYb63h1NuWgO43C.jpg" />
+    <Content Include="upload\uKunxJXdBUsRN6m.jpg" />
+    <Content Include="upload\vdg95VZb5wLtOBy.jpg" />
+    <Content Include="upload\VSdBeQA38bS8m58.jpg" />
+    <Content Include="upload\VtRzo7PbYsPVWoK.jpg" />
+    <Content Include="upload\W5FmmyTYXmLrXHy.jpg" />
+    <Content Include="upload\Wq11XfVVlA9oJyF.jpg" />
+    <Content Include="upload\XlKScfjHHCeGE81.jpg" />
+    <Content Include="upload\xNEKWOXbODr1kYq.jpg" />
+    <Content Include="upload\y6SwVvL5S82R3dl.jpg" />
+    <Content Include="upload\YcWOQasFRWtbMbE.jpg" />
+    <Content Include="upload\yQHJQML5LRW8Rlr.jpg" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Polls\List.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Polls\_prtPollList.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Polls\_prtPollEdit.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Polls\_prtQuestionEdit.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Polls\_prtQuestionList.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Polls\_prtPollListItem.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Polls\_prtQuestionItem.cshtml" />
+    <Content Include="Content\chosen\composer.json" />
+    <Content Include="Content\chosen\LICENSE.md" />
+    <Content Include="Content\fonts\ProbaPro-Regular.eot" />
+    <Content Include="Content\fonts\ProbaPro-Regular.ttf" />
+    <Content Include="Content\fonts\ProbaPro-Regular.woff" />
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\Dnepr Publish.pubxml" />
+    <Content Include="Views\Shared\EditorTemplates\MenuItemItem.cshtml" />
+    <Content Include="Views\EmailTemplates\RegisterAdminUser.cshtml" />
+    <Content Include="Views\Shared\_simpleLayout.cshtml" />
+    <Content Include="Views\EmailTemplates\PasswordReseted.cshtml" />
+    <Content Include="Views\EmailTemplates\ContactReception.cshtml" />
+    <Content Include="Views\EmailTemplates\PersonReception.cshtml" />
+    <Content Include="Views\EmailTemplates\EnterpriseReception.cshtml" />
+    <Content Include="Views\Error\NotFound.cshtml" />
+    <Content Include="Views\Error\ServerError.cshtml" />
+    <Content Include="Views\Shared\_errorLayout.cshtml" />
+    <Content Include="Views\Shared\_prtAccordionMenu.cshtml" />
+    <Content Include="Views\Shared\_prtAccordionMenuItem.cshtml" />
+    <Content Include="Views\Shared\_prtBanners.cshtml" />
+    <Content Include="Views\Shared\_prtContent.cshtml" />
+    <Content Include="Views\Shared\_prtEmailSubscribe.cshtml" />
+    <Content Include="Views\Shared\_prtFooterMenu.cshtml" />
+    <Content Include="Views\Shared\_prtLastArticles.cshtml" />
+    <Content Include="Views\Shared\_prtMajorLast.cshtml" />
+    <Content Include="Views\Shared\_prtNewsletterCover.cshtml" />
+    <Content Include="Views\Shared\_prtSidebar.cshtml" />
+    <Content Include="Views\Shared\_prtSidebarMenu.cshtml" />
+    <Content Include="Views\Shared\_prtSimpleMenu.cshtml" />
+    <Content Include="Views\Shared\_prtSimpleMenuItem.cshtml" />
+    <Content Include="Views\Shared\_prtSubscriptionComplete.cshtml" />
+    <Content Include="Views\Shared\_prtSubscriptionForm.cshtml" />
+    <Content Include="Views\Shared\_prtWeather.cshtml" />
+    <Content Include="Views\Home\_prtMainMenu.cshtml" />
+    <Content Include="Views\Pages\Page.cshtml" />
+    <Content Include="Views\Articles\ArticleList.cshtml" />
+    <Content Include="Views\Articles\Category.cshtml" />
+    <Content Include="Views\Articles\Item.cshtml" />
+    <Content Include="Views\Search\Search.cshtml" />
+    <Content Include="Views\Persons\Category.cshtml" />
+    <Content Include="Views\Persons\Item.cshtml" />
+    <Content Include="Views\Organizations\Category.cshtml" />
+    <Content Include="Views\Organizations\Item.cshtml" />
+    <Content Include="Views\Shared\_prtSimpleMenuSubItem.cshtml" />
+    <Content Include="Views\Documents\Category.cshtml" />
+    <Content Include="Views\Documents\Item.cshtml" />
+    <Content Include="upload\content\o_1bilin7ikvoa1scnjjmrfp1h0da.xlsx" />
+    <Content Include="upload\content\o_1bilisq8a1gc21mt4m1n1hbm1rd8a.xlsx" />
+    <Content Include="upload\content\o_1bilitlie1qgk1p8p3l61tg1tt6f.xlsx" />
+    <Content Include="upload\content\o_1bilqi7ov1r7sj2msp319b0bkma.zip" />
+    <Content Include="upload\content\o_1bilqv30v7ah162dem8ku81ts5f.gz" />
+    <Content Include="upload\content\o_1bils15321e6bafgdk51o4p1fqla.gz" />
+    <Content Include="upload\content\o_1bils6i8f19vq15ei11b4rb313cia.gz" />
+    <Content Include="upload\doc_files\o_1bhkhbpna1r95gj21sjf198i1fpda.zip" />
+    <Content Include="upload\doc_files\o_1bhkhui6r14049t81blhs07beda.zip" />
+    <Content Include="upload\doc_files\o_1bhki9cgc6m31imm1ifb19g6ls4a.zip" />
+    <Content Include="upload\doc_files\o_1bhkirtf61itc12ie17cc1grr16p3a.zip" />
+    <Content Include="upload\doc_files\o_1bhkitknhotdo88831tb11dfa.zip" />
+    <Content Include="upload\doc_files\o_1bhkivsl9sd812l6v7e9md1535a.zip" />
+    <Content Include="upload\doc_files\o_1bhkj468lc7hc7m1n0gjir1h1vs.gz" />
+    <Content Include="upload\doc_files\o_1bhkj674j1ni31pbk1q3gphcng4a.gz" />
+    <Content Include="upload\doc_files\o_1bhkj6gim18h1v5c176md42mu5k.rar" />
+    <Content Include="upload\doc_files\o_1bhkjar0k147i1q7ng8ncra6jsa.gz" />
+    <Content Include="upload\doc_files\o_1bhkjb27i16rv1deqd2148n1ofkk.gz" />
+    <Content Include="upload\doc_files\o_1bhkjf675q101nlv1e8b13irarha.rar" />
+    <Content Include="upload\files\mPCylL37u746n5W.zip" />
+    <Content Include="Views\Shared\_prtSimpleSubMenuItem.cshtml" />
+    <Content Include="Themes\MykolaivTheme\Views\Articles\ArticleList.cshtml" />
+    <Content Include="Themes\MykolaivTheme\Views\Articles\Category.cshtml" />
+    <Content Include="Themes\MykolaivTheme\Views\Articles\Item.cshtml" />
+    <Content Include="Themes\MykolaivTheme\Views\Documents\Category.cshtml" />
+    <Content Include="Themes\MykolaivTheme\Views\Documents\Item.cshtml" />
+    <Content Include="Themes\MykolaivTheme\Views\EmailTemplates\ContactReception.cshtml" />
+    <Content Include="Themes\MykolaivTheme\Views\EmailTemplates\EnterpriseReception.cshtml" />
+    <Content Include="Themes\MykolaivTheme\Views\EmailTemplates\PasswordReseted.cshtml" />
+    <Content Include="Themes\MykolaivTheme\Views\EmailTemplates\PersonReception.cshtml" />
+    <Content Include="Themes\MykolaivTheme\Views\EmailTemplates\RegisterAdminUser.cshtml" />
+    <Content Include="Themes\MykolaivTheme\Views\Error\NotFound.cshtml" />
+    <Content Include="Themes\MykolaivTheme\Views\Error\ServerError.cshtml" />
+    <Content Include="Themes\MykolaivTheme\Views\Home\Index%28old%29.cshtml" />
+    <Content Include="Themes\MykolaivTheme\Views\Home\Index.cshtml" />
+    <Content Include="Themes\MykolaivTheme\Views\Home\_prtMainMenu.cshtml" />
+    <Content Include="Themes\MykolaivTheme\Views\Organizations\Category.cshtml" />
+    <Content Include="Themes\MykolaivTheme\Views\Organizations\Item.cshtml" />
+    <Content Include="Themes\MykolaivTheme\Views\Pages\Page.cshtml" />
+    <Content Include="Themes\MykolaivTheme\Views\Persons\Category.cshtml" />
+    <Content Include="Themes\MykolaivTheme\Views\Persons\Item.cshtml" />
+    <Content Include="Themes\MykolaivTheme\Views\Search\Search.cshtml" />
+    <Content Include="Themes\MykolaivTheme\Views\Shared\EditorTemplates\MenuItemItem.cshtml" />
+    <Content Include="Themes\MykolaivTheme\Views\Shared\_errorLayout.cshtml" />
+    <Content Include="Themes\MykolaivTheme\Views\Shared\_Layout.cshtml" />
+    <Content Include="Themes\MykolaivTheme\Views\Shared\_prtAccordionMenu.cshtml" />
+    <Content Include="Themes\MykolaivTheme\Views\Shared\_prtAccordionMenuItem.cshtml" />
+    <Content Include="Themes\MykolaivTheme\Views\Shared\_prtBanners.cshtml" />
+    <Content Include="Themes\MykolaivTheme\Views\Shared\_prtContent.cshtml" />
+    <Content Include="Themes\MykolaivTheme\Views\Shared\_prtDocList.cshtml" />
+    <Content Include="Themes\MykolaivTheme\Views\Shared\_prtEmailSubscribe.cshtml" />
+    <Content Include="Themes\MykolaivTheme\Views\Shared\_prtFooterMenu.cshtml" />
+    <Content Include="Themes\MykolaivTheme\Views\Shared\_prtLastArticles.cshtml" />
+    <Content Include="Themes\MykolaivTheme\Views\Shared\_prtMajorLast.cshtml" />
+    <Content Include="Themes\MykolaivTheme\Views\Shared\_prtNewsletterCover.cshtml" />
+    <Content Include="Themes\MykolaivTheme\Views\Shared\_prtSidebar.cshtml" />
+    <Content Include="Themes\MykolaivTheme\Views\Shared\_prtSidebarMenu.cshtml" />
+    <Content Include="Themes\MykolaivTheme\Views\Shared\_prtSimpleMenu.cshtml" />
+    <Content Include="Themes\MykolaivTheme\Views\Shared\_prtSimpleMenuItem.cshtml" />
+    <Content Include="Themes\MykolaivTheme\Views\Shared\_prtSimpleMenuSubItem.cshtml" />
+    <Content Include="Themes\MykolaivTheme\Views\Shared\_prtSimpleSubMenuItem.cshtml" />
+    <Content Include="Themes\MykolaivTheme\Views\Shared\_prtSubscriptionComplete.cshtml" />
+    <Content Include="Themes\MykolaivTheme\Views\Shared\_prtSubscriptionForm.cshtml" />
+    <Content Include="Themes\MykolaivTheme\Views\Shared\_prtWeather.cshtml" />
+    <Content Include="Themes\MykolaivTheme\Views\Shared\_simpleLayout.cshtml" />
+    <Content Include="Themes\MykolaivTheme\Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Themes\MykolaivTheme\Views\_ViewStart.cshtml" />
+    <Content Include="Themes\MykolaivTheme\Views\Shared\_prtServicesMenu.cshtml" />
+    <Content Include="Themes\MykolaivTheme\Views\Shared\_prtSimpleLocalNews.cshtml" />
+    <Content Include="Themes\MykolaivTheme\Views\Shared\_prtHotLineBlock.cshtml" />
+    <Content Include="Views\Poll\Poll.cshtml" />
+    <Content Include="Views\Poll\_prtPoll.cshtml" />
+    <Content Include="Themes\MykolaivTheme\Views\Poll\_prtPoll.cshtml" />
+    <Content Include="Themes\MykolaivTheme\Views\Poll\Poll.cshtml" />
+    <Content Include="Themes\SafeSity\Views\_ViewStart.cshtml" />
+    <Content Include="Themes\SafeSity\Views\Articles\ArticleList.cshtml" />
+    <Content Include="Themes\SafeSity\Views\Articles\Category.cshtml" />
+    <Content Include="Themes\SafeSity\Views\Articles\Item.cshtml" />
+    <Content Include="Themes\SafeSity\Views\Documents\Category.cshtml" />
+    <Content Include="Themes\SafeSity\Views\Documents\Item.cshtml" />
+    <Content Include="Themes\SafeSity\Views\EmailTemplates\ContactReception.cshtml" />
+    <Content Include="Themes\SafeSity\Views\EmailTemplates\EnterpriseReception.cshtml" />
+    <Content Include="Themes\SafeSity\Views\EmailTemplates\PasswordReseted.cshtml" />
+    <Content Include="Themes\SafeSity\Views\EmailTemplates\PersonReception.cshtml" />
+    <Content Include="Themes\SafeSity\Views\EmailTemplates\RegisterAdminUser.cshtml" />
+    <Content Include="Themes\SafeSity\Views\Error\NotFound.cshtml" />
+    <Content Include="Themes\SafeSity\Views\Error\ServerError.cshtml" />
+    <Content Include="Themes\SafeSity\Views\Home\_prtMainMenu.cshtml" />
+    <Content Include="Themes\SafeSity\Views\Home\Index%28old%29.cshtml" />
+    <Content Include="Themes\SafeSity\Views\Home\Index.cshtml" />
+    <Content Include="Themes\SafeSity\Views\Organizations\Category.cshtml" />
+    <Content Include="Themes\SafeSity\Views\Organizations\Item.cshtml" />
+    <Content Include="Themes\SafeSity\Views\Pages\Page.cshtml" />
+    <Content Include="Themes\SafeSity\Views\Persons\Category.cshtml" />
+    <Content Include="Themes\SafeSity\Views\Persons\Item.cshtml" />
+    <Content Include="Themes\SafeSity\Views\Poll\_prtPoll.cshtml" />
+    <Content Include="Themes\SafeSity\Views\Poll\Poll.cshtml" />
+    <Content Include="Themes\SafeSity\Views\Search\Search.cshtml" />
+    <Content Include="Themes\SafeSity\Views\Shared\_errorLayout.cshtml" />
+    <Content Include="Themes\SafeSity\Views\Shared\_Layout.cshtml" />
+    <Content Include="Themes\SafeSity\Views\Shared\_prtAccordionMenu.cshtml" />
+    <Content Include="Themes\SafeSity\Views\Shared\_prtAccordionMenuItem.cshtml" />
+    <Content Include="Themes\SafeSity\Views\Shared\_prtBanners.cshtml" />
+    <Content Include="Themes\SafeSity\Views\Shared\_prtContent.cshtml" />
+    <Content Include="Themes\SafeSity\Views\Shared\_prtDocList.cshtml" />
+    <Content Include="Themes\SafeSity\Views\Shared\_prtEmailSubscribe.cshtml" />
+    <Content Include="Themes\SafeSity\Views\Shared\_prtFooterMenu.cshtml" />
+    <Content Include="Themes\SafeSity\Views\Shared\_prtHotLineBlock.cshtml" />
+    <Content Include="Themes\SafeSity\Views\Shared\_prtLastArticles.cshtml" />
+    <Content Include="Themes\SafeSity\Views\Shared\_prtMajorLast.cshtml" />
+    <Content Include="Themes\SafeSity\Views\Shared\_prtNewsletterCover.cshtml" />
+    <Content Include="Themes\SafeSity\Views\Shared\_prtServicesMenu.cshtml" />
+    <Content Include="Themes\SafeSity\Views\Shared\_prtSidebar.cshtml" />
+    <Content Include="Themes\SafeSity\Views\Shared\_prtSidebarMenu.cshtml" />
+    <Content Include="Themes\SafeSity\Views\Shared\_prtSimpleLocalNews.cshtml" />
+    <Content Include="Themes\SafeSity\Views\Shared\_prtSimpleMenu.cshtml" />
+    <Content Include="Themes\SafeSity\Views\Shared\_prtSimpleMenuItem.cshtml" />
+    <Content Include="Themes\SafeSity\Views\Shared\_prtSimpleMenuSubItem.cshtml" />
+    <Content Include="Themes\SafeSity\Views\Shared\_prtSimpleSubMenuItem.cshtml" />
+    <Content Include="Themes\SafeSity\Views\Shared\_prtSubscriptionComplete.cshtml" />
+    <Content Include="Themes\SafeSity\Views\Shared\_prtSubscriptionForm.cshtml" />
+    <Content Include="Themes\SafeSity\Views\Shared\_prtWeather.cshtml" />
+    <Content Include="Themes\SafeSity\Views\Shared\_simpleLayout.cshtml" />
+    <Content Include="Themes\SafeSity\Views\Shared\EditorTemplates\MenuItemItem.cshtml" />
+    <Content Include="Themes\SafeSity\Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Themes\SafeSity\Views\Shared\_prtRecordingAtReception.cshtml" />
+    <Content Include="Themes\SafeSity\Views\Shared\_prtPollHome.cshtml" />
+    <Content Include="Themes\SafeSity\Views\Shared\_prtEmergencyCalls.cshtml" />
+    <Content Include="Themes\SafeSity\Views\Shared\_prtSubscribe.cshtml" />
+    <Content Include="Themes\SafeSity\Views\Home\_prtTopMenu.cshtml" />
+    <Content Include="Views\Shared\_prtHotLineBlock.cshtml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <Content Include="Themes\MykolaivTheme\Views\Shared\_prtDocListShared.cshtml" />
+    <Content Include="Themes\MykolaivTheme\Views\Shared\_prtDocListItemShared.cshtml" />
+    <Content Include="Themes\MykolaivTheme\Views\Shared\_prtDocsAtFolder.cshtml" />
+    <Content Include="Themes\MykolaivTheme\Views\Shared\_prtPersonsList.cshtml" />
+    <Content Include="Themes\MykolaivTheme\Views\Shared\_prtDocResultList.cshtml" />
+    <Content Include="Views\Shared\_prtPollHome.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Areas\ControlPanel\Views\Index\" />
+    <Folder Include="Themes\MykolaivTheme\Views\Widgets\" />
+    <Folder Include="Themes\SafeSity\Views\Widgets\" />
+    <Folder Include="upload\category_icon\" />
+    <Folder Include="Views\Widgets\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+    <Content Include="App_Code\Helpers.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Shared\EditorTemplates\CategoryListItem.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Shared\EditorTemplates\TeamCategoryList.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Ajax\_prtContentMapEdit.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Pages\_prtPagePrev.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Pages\_prtPageEditComplete.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Ajax\_prtContentFileEdit.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Articles\_prtArticleEditComplete.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Persons\_prtPersonEditComplete.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Ajax\_prtContentWidgetEdit.cshtml" />
+    <None Include="bundleconfig.json" />
+    <Content Include="Areas\ControlPanel\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Ajax\_prtContentCkeEdit.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Ajax\_prtContentColumnEdit.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Ajax\_prtContentColumnItems.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Ajax\_prtContentGalleryEdit.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Ajax\_prtContentGalleryItemEdit.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Ajax\_prtContentHtmlEdit.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Ajax\_prtContentImageEdit.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Ajax\_prtContentItem.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Ajax\_prtContentRowEdit.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Ajax\_prtContentRowItem.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Ajax\_prtContentSelect.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Ajax\_prtContentVideoEdit.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Articles\_prtArticleEdit.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Articles\_prtArticleList.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Articles\List.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Banners\_prtBannerEdit.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Banners\_prtBannerEditComplete.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Banners\_prtBannerList.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Banners\List.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\CmsSettings\_prtCmsSettingsEditComplete.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\CmsSettings\Edit.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Menus\_prtMenuEdit.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Menus\_prtMenuItemEdit.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Menus\_prtMenuList.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Menus\List.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Pages\_prtPageEdit.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Pages\_prtPageList.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Pages\List.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Persons\_prtPersonEdit.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Persons\_prtPersonList.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Persons\List.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Shared\EditorTemplates\CheckedListItem.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Shared\EditorTemplates\MenuItemListItem.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Shared\EditorTemplates\RelatedItem.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Shared\EditorTemplates\SimpleTextBox.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Areas\ControlPanel\Views\PersonCategories\List.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\ArticleCategories\List.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\ArticleCategories\_prtArticleCategoryItemEdit.cshtml" />
+    <None Include="compilerconfig.json" />
+    <None Include="compilerconfig.json.defaults">
+      <DependentUpon>compilerconfig.json</DependentUpon>
+    </None>
+    <Content Include="Views\Home\Index.cshtml" />
+    <None Include="Properties\PublishProfiles\Bissoft Publish.pubxml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CouncilCMS.BLL\CouncilCMS.BLL.csproj">
+      <Project>{666e19b4-047d-49b3-a184-a4e7922b190a}</Project>
+      <Name>CouncilCMS.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CouncilCMS.Core\CouncilCMS.Core.csproj">
+      <Project>{3449b910-0147-4aec-81ac-9c004ee58ddf}</Project>
+      <Name>CouncilCMS.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CouncilCMS.Web.Core\CouncilCMS.Web.Core.csproj">
+      <Project>{55342071-3180-47e7-894e-4228f7d992a5}</Project>
+      <Name>CouncilCMS.Web.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\xTab.Tools\xTab.Tools.csproj">
+      <Project>{a68a16b6-657a-4e3f-b126-5695c45abab7}</Project>
+      <Name>xTab.Tools</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Globalization\CmsLabels.uk.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>CmsLabels.uk.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Globalization\CmsLabels.en.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>CmsLabels.en.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Globalization\CmsLabels.ru.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>CmsLabels.ru.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Globalization\CmsLabels.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>CmsLabels.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>52195</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost.immigrant</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

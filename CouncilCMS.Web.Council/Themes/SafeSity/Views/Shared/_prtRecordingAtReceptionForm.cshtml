@@ -1,0 +1,37 @@
+﻿@model Bissoft.CouncilCMS.BLL.ViewModels.Public.RecordingAtReceptionModel
+@Html.ValidationSummary()
+<form method="POST" class="record-form" action="" id="signToTheOfficial">
+    <label class="top-name">
+        Ваше прізвище ім'я по батькові<b>*</b>
+        @Html.EditorFor(x=> x.name,
+        new { htmlAttributes = new
+            { type="text", name="name" } })
+    
+        @*<input type="text" name="name">*@
+    </label>
+    <label>
+        Ваш телефон<b>*</b>
+        @Html.EditorFor(x=> x.phone,
+        new { htmlAttributes = new
+            { type="tel", name="phone" } })
+
+        @*<input type="tel" name="phone">*@
+    </label>
+    <label>
+        Електронна адреса<b>*</b>
+        @Html.EditorFor(x=> x.email,
+        new { htmlAttributes = new
+            { type="email", name="email" } })
+
+        @*<input type="email" name="email">*@
+    </label>
+    <label class="comment">
+        Коментар<b>*</b>
+        @Html.TextAreaFor(x=> x.comment,
+        new { htmlAttributes = new
+            { name="comment" } })
+        @*<textarea name="comment"></textarea>*@
+    </label>
+    <p class="licence">Заповнивши цю форму, Ви приймаєте угоду користувача сайту</p>
+    <button type="submit" class="site-btn">Відправити запит</button>
+</form>

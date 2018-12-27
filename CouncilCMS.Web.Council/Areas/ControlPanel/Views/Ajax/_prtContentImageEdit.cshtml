@@ -1,0 +1,81 @@
+﻿@model UploadImage
+
+@{
+    var targetId = Model.IsNew ? ("column" + Model.ContentColumnId + "contents") : ("content" + Model.Id);
+    var insMode = Model.IsNew ? InsertionMode.InsertAfter : InsertionMode.ReplaceWith;
+}
+
+<div class="modal-title">
+    Зображення
+    <ul class="modal-lang-swicher">
+        <li data-lang="en">EN</li>
+        <li data-lang="ru">RU</li>
+        <li class="active" data-lang="uk">UA</li>
+    </ul>
+</div>
+
+@using (Ajax.BeginForm(new AjaxOptions()
+{
+    Url = "/uk/controlpanel/ajax/SaveImageContent",
+    HttpMethod = "POST",
+    InsertionMode = insMode,
+    UpdateTargetId = targetId,
+    OnSuccess = "bsAdmin.divContentEdit.modal('hide'); $('.slide-gallery').fotorama();"
+}))
+{
+    @Html.HiddenFor(x => x.ContentColumnId)
+    @Html.HiddenFor(x => x.Position)
+
+    <input type="hidden" name="Id" value="@Model.Id" />
+    <div class="row">
+        <div class="col-lg-7">
+            <div class="simply-uploader">
+                @Html.SimpleUploaderFor(x => x.Image, "Зображення",
+            new ImageUploaderOptions()
+            {
+                UploadUrl = "/api/upload/uploadfile?type=image&directory=content",
+                IsImageUploader = true,
+                ContainerId = "divImageUpload",
+                ContainerHeight = 200,
+                AllowEdit = true,
+                
+            }, new { @class = "form-control", @readonly = "readonly" })
+            </div>
+        </div>
+        <div class="col-lg-5">
+            <div class="lang-uk">
+                @Html.SimpleTextBoxFor(x => x.TitleUk, "Підпис (uk)", new { @class = "form-control" })
+            </div>
+            <div class="lang-ru">
+                @Html.SimpleTextBoxFor(x => x.TitleRu, "Підпис (ru)", new { @class = "form-control" })
+            </div>
+            <div class="lang-en">
+                @Html.SimpleTextBoxFor(x => x.TitleEn, "Підпис (en)", new { @class = "form-control" })
+            </div>
+                    
+            @Html.SimpleTextBoxFor(x => x.Url, "Посилання (по кліку на зображення)", new { @class = "form-control" })
+            @Html.SimpleCheckboxFor(x => x.AllowFullscreen, "Збільшення по кліку", "Додати кнопку збільшення зображення")
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        @if (Model.IsNew)
+        {
+            <button type="button" href="#" class="btn btn-link remove-content" data-id="@Model.Id">
+                @Locals.Cancle
+            </button>
+            <button type="submit" class="btn btn-primary">
+                @Locals.Add
+            </button>
+        }
+        else
+        {
+            <button type="button" class="btn btn-link nav-link" data-dismiss="modal">
+                @Locals.Close
+            </button>
+            <button type="submit" class="btn btn-primary">
+                @Locals.Save
+            </button>
+        }
+    </div>
+}

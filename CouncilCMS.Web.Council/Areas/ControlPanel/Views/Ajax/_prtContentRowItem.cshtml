@@ -1,0 +1,32 @@
+﻿@model ContentRowItem
+
+<div class="panel panel-default row-item" id="row@(Model.Id)">
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-sm-4">
+                <span class="link-btn move-content-row" data-id="@Model.Id" data-direction="-1">
+                    <i class="fa fa-fw fa-chevron-up"></i>
+                </span>
+                <span class="link-btn move-content-row" data-id="@Model.Id" data-direction="1">
+                    <i class="fa fa-fw fa-chevron-down"></i>
+                </span>
+                <span>
+                    блок
+                </span>
+            </div>
+            <div class="col-sm-8 text-right">
+                <span class="link-btn edit-content-row" title="Редагувати блок" data-id="@Model.Id">
+                    <i class="fa fa-fw fa-pencil"></i>
+                </span>
+                <span class="link-btn remove-content-row" title="Видалити блок" data-id="@Model.Id" data-item-id="@Model.ItemId">
+                    <i class="fa fa-fw fa-trash"></i>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="row" id="row@(Model.Id)columns" data-prefix="ContentColums">
+            @Html.Partial("~/areas/controlpanel/views/ajax/_prtContentColumnItems.cshtml", Model.ContentColumns ?? new List<ContentColumnItem>())
+        </div>
+    </div>
+</div>

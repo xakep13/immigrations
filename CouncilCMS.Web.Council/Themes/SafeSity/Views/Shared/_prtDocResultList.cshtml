@@ -1,0 +1,24 @@
+﻿@model CmsDocList
+
+@foreach (var item in Model.Docs)
+{
+<div class="card-sm item" style="margin: 0 30px 0 30px auto;">
+    <div class="container">
+        <a href="/@CurrentCulture.Name.ToLower()/documents/item/@item.Id">
+            <div style="float:right" class="result-item-content">
+                <span class="time">
+                    <img src="/img/icons/date.svg" alt="">
+                    @(DateTimeHelper.NullableDateTimeString(item.AcceptDate, Format: "dd MMMM yyyy") ??
+                            DateTimeHelper.NullableDateTimeString(item.PostDate, Format: "dd MMMM yyyy") ??
+                                    item.PublishDate)
+                </span>
+            </div>
+            <div class="">
+                <p style="margin-bottom: 0px;">
+                    @item.Title
+                </p>
+            </div>
+        </a>
+    </div>
+ </div>
+ }

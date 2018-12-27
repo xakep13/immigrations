@@ -1,0 +1,38 @@
+﻿@model Bissoft.CouncilCMS.BLL.ViewModels.Admin.QuestionListItem
+   
+@if (Model != null)
+{
+    <div class="card-sm item" id="divItem@(Model.Id)" data-id="@Model.Id" data-container-id="@Model.PollId">
+        <div class="div-table">
+            <div class="div-cell">
+               
+                <div class="form-control-static" style="display:inline-block;">
+                    <strong class="lang-uk text-uppercase">
+                        @Model.TitleUk
+                    </strong>
+                    <strong class="lang-ru text-uppercase">
+                        @Model.TitleRu
+                    </strong>
+                    <strong class="lang-en text-uppercase">
+                        @Model.TitleEn
+                    </strong>
+                </div>
+            </div>
+            <div class="div-cell" style="width:200px;">
+                <em style="font-size:12px">вибрали цю відповідь: @Model.CountClick (@Html.Action("GetPercent","Polls",new { questionId = Model.Id, pollId =Model.PollId  }) %)</em>
+            </div>
+                <div class="div-cell text-right">
+                    
+                    <a href="#" class="link-btn nav-link" data-action="edit-item" title="редагувати питання">
+                        <i class="fa fa-fw fa-pencil"></i>
+                    </a>
+                    <a href="#" class="link-btn nav-link" data-action="remove-item" title="видалити питання">
+                        <i class="fa fa-fw fa-trash"></i>
+                    </a>
+                </div>
+            
+        </div>
+    </div>
+}
+
+

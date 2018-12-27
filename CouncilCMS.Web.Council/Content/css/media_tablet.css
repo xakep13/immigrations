@@ -1,0 +1,105 @@
+@media (max-width: 1150px) {
+	.container{
+		width: 960px;
+	}
+	.inform_container_left{
+		width: 570px;
+	}
+	.main_new{
+		width: 571px;
+	}
+	.footer_top_info{
+		margin-right: 50px;
+	}
+	.footer_top_menus .foot_menu1{
+		margin-right: 5px;
+	}
+	/*.new_item{
+		width: 100%;
+		position: relative;
+		margin-bottom: 25px;
+	}
+	.new_item_image{
+		width: 28%;
+		float: left;
+	}
+	.news_item_name{
+		width: 70%;
+		margin-left: 2%;
+		float: left;
+		margin-top: 0;
+	}
+	.new_item_image img{
+		width: 100%;
+		height: 100%;
+	}
+	.news_item_info{
+		position: absolute;
+		bottom: 0;
+		left: 28%;
+		margin-top: 90px;
+		margin-left: 2%;
+	}
+	.footer_top_info{
+		margin-right: 40px;
+	}
+	.search_input{
+		width: 510px;
+	}
+	.header_informer{
+		width: 308px;
+	}
+	.initiative_container_text{
+		width: 725px;
+	}
+	.popular_items{
+		text-align: center;
+	}
+	.popular_item{
+		text-align: left;
+	}
+	.consultation_elem{
+		width: 544px;
+		float: none;
+    	display: inline-block;
+    	position: relative;
+	}
+	.last_week_consultation{
+		text-align: center;
+	}
+	.consultation_elem_info{
+		position: absolute;
+		bottom: 25px;
+	}
+	.consultation_elem_desc{
+		width: auto;
+	}
+	.consultation_elem_img{
+		float: right;
+		margin-top: 15px;
+	}
+	.person_liders_list li{
+		width: 183px;
+	}
+	.main_content_left{width: 100%;}
+	.hide_tablet{display: none;}
+	.img_galery img{
+		max-width: 100%;
+	}
+	.main_content_right{
+		width: 300px;
+		margin: 0 auto;
+		float: none;
+	}
+	.consulting_item_info .consulting_item_info_download{
+		margin-left: 0;
+	}
+	.consulting_item_rating{margin-right: 5px;}
+	.consulting_item_comment_user{width: 540px;}
+	.consulting_item_comment_images{width: 540px;}
+	.consulting_item_comment_download{width: 540px;}
+	.consulting_item_comment_text{width: 540px;}
+	.consulting_item_comment.subcomment .consulting_item_comment_user{width: 475px;}
+	.consulting_item_comment.subcomment .consulting_item_comment_text{width: 475px;}
+	.comp_col{width: 235px;}*/
+}

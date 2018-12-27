@@ -1,0 +1,32 @@
+/*
+Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.md or http://ckeditor.com/license
+*/
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i&subset=cyrillic,cyrillic-ext');
+
+body { font-family: "Open Sans", Arial, Helvetica, sans-serif; font-size: 14px; color: #333; background-color: #fff; margin: 20px; }
+
+.cke_editable { font-size: 14px; line-height: 1.42; word-wrap: break-word; }
+
+a { color: #5089a0; }
+
+ol, ul, dl { *margin-right: 0px; padding: 0 40px; }
+
+h1, h2, h3, h4, h5, h6 { font-weight: bold; line-height: 1.25; color: #5089a0; margin-bottom:15px; margin-top:0; padding:0; }
+h2 { font-size:24px; }
+h3 { font-size:20px; }
+h4 { font-size:18px; }
+
+img[style*='float:left'], img.left, .cke_widget_image[style*='float:left'] { margin:0 15px 10px 0; } 
+img[style*='float:right'], img.right, .cke_widget_image[style*='float:right'] { margin:0 0 10px 15px; } 
+
+table { width:100%; }
+table td { padding:5px; font-size:12px; }
+
+a > img { padding: 1px; margin: 1px; border: none; outline: 1px solid #5089a0; }
+
+.embed-240p { max-width: 426px; max-height: 240px; margin: 0 auto; }
+.embed-360p { max-width: 640px; max-height: 360px; margin: 0 auto; }
+.embed-480p { max-width: 854px; max-height: 480px; margin: 0 auto; }
+.embed-720p { max-width: 1280px; max-height: 720px; margin: 0 auto; }
+.embed-1080p { max-width: 1920px; max-height: 1080px; margin: 0 auto; }

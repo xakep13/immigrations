@@ -1,0 +1,75 @@
+﻿@model CmsDocList
+
+<div class="cms-post-list">
+    <div class="cms-post-order">
+        <ul role="tablist">
+            <li class="@(Model.Order == "acceptdate" ? "active" : null)">
+                <a href="@("/" + CurrentCulture.Name.ToLower() + "/documents/category/" + Model.CategoryUrl + "/1" + "?QueryTitle=" + Url.Encode(Model.QueryTitle) + "&QueryText=" + Url.Encode(Model.QueryText) + "&Type=" + Model.Type + "&Date=" + Model.Date + "&order=acceptdate")">
+                    за датою
+                </a>
+            </li>
+            <li class="@(Model.Order == "number" ? "active" : null)">
+                <a href="@("/" + CurrentCulture.Name.ToLower() + "/documents/category/" + Model.CategoryUrl + "/1" + "?QueryTitle=" + Url.Encode(Model.QueryTitle) + "&QueryText=" + Url.Encode(Model.QueryText) + "&Type=" + Model.Type + "&Date=" + Model.Date + "&order=number")">
+                    за номером
+                </a>
+            </li>
+            @*<li class="@(Model.Order == "titleuk" ? "active" : null)">
+                <a href="@("/" + CurrentCulture.Name.ToLower() + "/documents/category/" + Model.CategoryUrl + "/1" + "?QueryTitle=" + Url.Encode(Model.QueryTitle) + "&QueryText=" + Url.Encode(Model.QueryText) + "&Type=" + Model.Type + "&Date=" + Model.Date + "&order=titleuk")">
+                    за назвою
+                </a>
+            </li>*@            
+        </ul>
+    </div>
+
+    @if (Model.Docs != null && Model.Docs.Count > 0)
+    {
+        <div>
+            @foreach (var item in Model.Docs)
+            {
+                if (Model.TemplateName == "date")
+                {
+                    <a href="/@CurrentCulture.Name.ToLower()/documents/item/@item.Id" class="simple-list-item link-title">
+                        <span class="date">
+                            @if (item.AcceptDate.HasValue)
+                            {
+                                <span>
+                                    @CmsLabels.From @item.AcceptDate.Value.ToString("dd.MM.yyyy")
+                                </span>
+                            }
+                        </span>
+                        <span class="title">@item.Title</span>
+                    </a>
+                }
+                else if (Model.TemplateName == "date-number")
+                {
+                    <a href="/@CurrentCulture.Name.ToLower()/documents/item/@item.Id" class="simple-list-item link-title">
+                        <span class="date">
+                            №@item.Number
+                            @if (item.AcceptDate.HasValue)
+                            {
+                                <span>
+                                    @CmsLabels.From @item.AcceptDate.Value.ToString("dd.MM.yyyy")
+                                </span>
+                            }
+                        </span>
+                        <span class="title">@item.Title</span>
+                    </a>
+                }
+                else
+                {
+                    <a href="/@CurrentCulture.Name.ToLower()/documents/item/@item.Id" class="simple-list-item link-title">
+                        <span class="title">@item.Title</span>
+                    </a>
+                }
+            }             
+        </div>
+        @Helpers.LinkPager("/" + CurrentCulture.Name.ToLower() + "/documents/category/" + Model.CategoryUrl + "/", "?QueryTitle=" + Url.Encode(Model.QueryTitle) + "&QueryText=" + Url.Encode(Model.QueryText) + "&Type=" + Model.Type + "&Date=" + Model.Date + "&order=" + Model.Order, Model.Count, Model.Page, 20)
+        
+    }
+    else
+    {
+        <em>@CmsLabels.NoEntry</em>
+    }
+</div>
+
+    

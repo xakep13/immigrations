@@ -1,0 +1,395 @@
+﻿@using System.Drawing;
+
+@{
+	var min = HttpContext.Current.IsDebuggingEnabled ? String.Empty : ".min";
+	var colors = new List<string> { "red", "blue", "green", "orng", "dblue" };
+	var color = colors.Contains(CmsSettings.DesignVersion) ? CmsSettings.DesignVersion : "blue";
+	var color_main = ColorTranslator.FromHtml(((!String.IsNullOrEmpty(CmsSettings.DesignVersion) && CmsSettings.DesignVersion.StartsWith("#")) ? CmsSettings.DesignVersion : "#0849a3"));
+	var color_dark = color_main.TransformColor((float)-0.1);
+	var color_light = color_main.TransformColor((float)0.1);
+}
+
+<!DOCTYPE html>
+<html lang="uk">
+<head prefix="og: http://ogp.me/ns#">
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<style>
+        :root {
+            --main-color:@(ColorTranslator.ToHtml(color_main));
+            --dark-color:@(ColorTranslator.ToHtml(color_dark));
+            --light-color:@(ColorTranslator.ToHtml(color_light));
+            --hotline-color:@((!String.IsNullOrEmpty(CmsSettings.HotlineColor) && CmsSettings.HotlineColor.StartsWith("#")) ? CmsSettings.HotlineColor : "#999")
+        }
+	</style>
+	<link rel="shortcut icon" href="@CmsSettings.LogoUk" type="image/x-icon">
+	<link rel="stylesheet" href="/content/css/t1/style-var.min.css?v=1906">
+
+	<title>@((String.IsNullOrEmpty(ViewBag.Title) ? null : (ViewBag.Title + " - ")) + CmsSettings.GetLocalValue("TitlePrefix"))</title>
+
+	<meta property="og:url" content="@Request.Url.AbsolutePath" />
+	<meta property="og:type" content="website" />
+	<meta property="og:title" content="@((String.IsNullOrEmpty(ViewBag.Title) ? null : (ViewBag.Title + " - ")) + CmsSettings.GetLocalValue("TitlePrefix"))" />
+	<meta property="og:image" content="@(ViewBag.ShareImage ?? "https://" + CmsSettings.BaseDomain + CmsSettings.GetLocalValue("Logo"))" />
+
+	<link rel="icon" href="/favicon/favicon.ico" type="image/x-icon" />
+	<link rel="apple-touch-icon" sizes="57x57" href="/favicon/apple-icon-57x57.png">
+	<link rel="apple-touch-icon" sizes="60x60" href="/favicon/apple-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="/favicon/apple-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="/favicon/apple-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="/favicon/apple-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="/favicon/apple-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="/favicon/apple-icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="/favicon/apple-icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-icon-180x180.png">
+	<link rel="icon" type="image/png" sizes="192x192" href="/favicon/android-icon-192x192.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="/favicon/favicon-96x96.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+	<link rel="manifest" href="/manifest.json">
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="/favicon/ms-icon-144x144.png">
+	<meta name="theme-color" content="#ffffff">
+
+	<link rel="stylesheet" href="~/Content/css/style.css">
+
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,700,700i&amp;subset=cyrillic" rel="stylesheet">
+	<link href="~/Content/libs/bootstrap-smartcity/css/dnepr/bs-dnepr.min.css" rel="stylesheet" />
+	<link href="~/Content/libs/bootsrap-datetimepicker/css/bootstrap-datetimepicker.min.css?v=@(CmsSettings.ProductVersion)" rel="stylesheet" />
+	<link href="~/Content/libs/bootstrap-select/css/bootstrap-select.min.css?v=@(CmsSettings.ProductVersion)" rel="stylesheet" />
+	<link href="~/Content/libs/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+	<link href="~/Content/libs/remodal/css/remodal.min.css?v=@(CmsSettings.ProductVersion)" rel="stylesheet" />
+	<link href="~/Content/libs/remodal/css/remodal-default-theme.min.css?v=@(CmsSettings.ProductVersion)" rel="stylesheet" />
+	<link href="~/Content/libs/slick/slick.min.css?v=@(CmsSettings.ProductVersion)" rel="stylesheet" />
+	<link href="~/Content/libs/slick/slick-theme.min.css?v=@(CmsSettings.ProductVersion)" rel="stylesheet" />
+	<link href="~/Content/app/css/theme-dnepr/smartcity-dnepr.min.css?v=@(CmsSettings.ProductVersion)" rel="stylesheet" />
+
+	<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+	<script src="~/Content/libs/jQuery/jquery.validate.min.js"></script>
+	<script src="~/Content/libs/jQuery/jquery.validate.unobtrusive.min.js"></script>
+	<script src="~/Content/libs/jQuery/jquery.unobtrusive-ajax.min.js"></script>
+	<script src="~/Content/libs/jQuery/jquery.print.min.js"></script>
+	<script src="~/Content/libs/moment/moment-wl.min.js"></script>
+	<script src="~/Content/libs/bootstrap-smartcity/js/bootstrap.min.js"></script>
+	<script src="~/Content/libs/bootsrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+	<script src="~/Content/libs/bootstrap-select/js/bootstrap-select.min.js"></script>
+	<script src="~/Content/libs/jsCookie/js-cookie.min.js"></script>
+	<script src="~/Content/libs/remodal/js/remodal.min.js"></script>
+	<script src="~/Content/libs/slick/slick.min.js"></script>
+
+	<script src="@CmsSettings.CdnDomain/app/js/core-utils.min.js?v=@(CmsSettings.ProductVersion)"></script>
+	<script src="~/Content/app/js/elements.min.js?v=@(CmsSettings.ProductVersion)"></script>
+
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js"></script>
+	<script async defer src="https://maps.googleapis.com/maps/api/js?key=@(CmsSettings.GoogleMapApiKey)&libraries=places&language=@(CurrentCulture.Name.ToLower())&callback=coreUtils.initMapApi"></script>
+	<script src='https://www.google.com/recaptcha/api.js'></script>
+	@*<script src="~/Content/js/libs.min.js" type="text/javascript"></script>*@
+	<script src="~/Content/js/custom.js" type="text/javascript"></script>
+	@Html.Raw(CmsSettings.GoogleAnaliticsCode)
+
+	@RenderSection("Head", false)
+</head>
+
+<body>
+	<div class="setings">
+		<div class="container">
+			<div class="setings_fonts">
+				<span>Шрифт: </span>
+				<div class="fonts_down">
+					&#8211;
+				</div>
+				<div class="fonts_up">
+					+
+				</div>
+			</div>
+			<div class="setings_color">
+				<span>Колір:</span>
+				<div class="color color_white"> Т</div>
+				<div class="color color_black"> Т</div>
+				<div class="color color_blue"> Т</div>
+			</div>
+			<div class="setings_images">
+				<span>Зображення: </span>
+				<div class="slideChB">
+					<input value="None" id="slideChB" name="check" type="checkbox">
+					<label for="slideChB"></label>
+				</div>
+			</div>
+			<div class="setings_full">
+				<a href="/">Звичайна версія</a>
+			</div>
+		</div>
+	</div>
+
+
+
+	<div class="body-wrapper">
+		<header class="header container">
+			<img src="~/Content/img/parts/test.png" class="header-test" />
+			<div class="header-top">
+				<div class="header-burger visible-xs" id="btnBurger">
+					<i class="fa fa-fw fa-bars"></i>
+				</div>
+				<div class="header-content">
+					<div class="links">
+						<ul>
+
+							<li class="rel">
+								<a href="#" class="dropdown lang-select">
+									<strong class="lang" data-toggle="dropdown">UA</strong>
+									<ul class="dropdown-menu dropdown-menu-right" id="langDropDown">
+										<li><a href="#">Українська</a></li>
+										<li><a href="#">Російська</a></li>
+									</ul>
+								</a>
+							</li>
+
+							<li>
+								<a href="#" data-toggle="collapse" data-target="#divMainSearch">
+									<i class="fa fa-fw fa-search"></i>
+									<span>Пошук</span>
+								</a>
+							</li>
+							<li>
+								<a class="header-middle-extra-btn vision-btn" href="">
+									<i class="fa fa-low-vision first"></i>
+								</a>
+							</li>
+						</ul>
+					</div>
+
+					<div class="icons">
+						<div>
+							<a href="#" target="_blank">
+								<i class="fa  fa-facebook soc"></i>
+							</a>
+							<a href="#" target="_blank">
+								<i class="fa  fa-twitter soc"></i>
+							</a>
+							<a href="#" target="_blank">
+								<i class="fa  fa-instagram soc"></i>
+							</a>
+							<a href="#" target="_blank">
+								<i class="fa  fa-youtube soc"></i>
+							</a>
+							<a href="#" target="_blank">
+								<i class="fa  fa-rss soc"></i>
+							</a>
+							<span class="devider"></span>
+							<div class="weather">
+								<span>Погода</span>
+								<i class="fa fa-fw fa-spin fa-refresh"></i>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="main-seacrh collapse" id="divMainSearch">
+						@using(Html.BeginForm("Search", "Search", FormMethod.Get, new { Area = "", lang = CurrentCulture.Name.ToLower() }))
+						{
+							<div class="form-group">
+								<div class="input-group">
+									<input type="text" name="query" class="form-control" placeholder="Пошук на сайті" />
+									<div class="input-group-btn">
+										<button type="submit" class="btn btn-primary">
+											<i class="fa fa-fw fa-search"></i>
+										</button>
+									</div>
+								</div>
+							</div>
+						}
+					</div>
+				</div>
+				<div class="header-logo">
+					<a class="logo-header" href="/">
+						<img src="@CmsSettings.BaseDomain@CmsSettings.GetLocalValue("Logo")" />
+					</a>
+				<div class="descr">
+					<span class="head-title">@CmsSettings.TitleUk</span><br>
+					<span class="head-subtitle">@CmsSettings.SubTitleUk</span><br>
+					@if(!string.IsNullOrEmpty(CmsSettings.OldSite))
+					{
+
+						<a class="head-old-site old-site" href="@CmsSettings.OldSite">Старий сайт</a>
+					}
+				</div>
+				</div>
+			</div>
+			
+			<div class="header-menu">
+				@Html.Action("MainMenu", "Home")
+			</div>
+		</header>
+
+		<div class="site">
+			@RenderBody()
+		</div>
+
+		<div class="container">
+			@Html.Action("Banners", "Widgets")
+		</div>
+
+		<footer class="footer">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-3 col-sm-4">
+						@Html.Action("FooterMenu", "Widgets", new { Area = String.Empty, name = "footer-menu-1" })
+					</div>
+					<div class="col-md-3 col-sm-4">
+						@Html.Action("FooterMenu", "Widgets", new { Area = String.Empty, name = "footer-menu-2" })
+					</div>
+					<div class="col-md-3 col-sm-4">
+						@Html.Action("FooterMenu", "Widgets", new { Area = String.Empty, name = "footer-menu-3" })
+					</div>
+                    <div class="col-md-3 col-sm-12 text-right">
+                        <div class="form-group">
+                            <a class="header-middle-extra-btn vision-btn" href="">
+                                <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512.001 512.001" style="enable-background:new 0 0 512.001 512.001;" xml:space="preserve">
+                                <g><g><path d="M503.698,231.895c-28.735-36.843-65.956-67.318-107.637-88.128c-42.548-21.243-88.321-32.265-136.104-32.843c-1.316-0.036-6.6-0.036-7.916,0c-47.782,0.579-93.556,11.6-136.104,32.843c-41.681,20.81-78.9,51.284-107.636,88.128c-11.07,14.193-11.07,34.018,0,48.211c28.735,36.843,65.955,67.318,107.636,88.128c42.548,21.243,88.321,32.265,136.104,32.843c1.316,0.036,6.6,0.036,7.916,0c47.782-0.579,93.556-11.6,136.104-32.843c41.681-20.81,78.901-51.284,107.637-88.128C514.768,265.911,514.768,246.088,503.698,231.895z M125.242,349.599c-38.92-19.432-73.678-47.892-100.517-82.303c-5.187-6.651-5.187-15.94,0-22.591c26.838-34.411,61.596-62.871,100.517-82.303c11.054-5.518,22.342-10.29,33.839-14.33c-29.578,26.588-48.213,65.12-48.213,107.928c0,42.81,18.636,81.345,48.217,107.932C147.588,359.892,136.297,355.118,125.242,349.599z M256,380.303c-68.542,0-124.304-55.762-124.304-124.304S187.458,131.696,256,131.696S380.304,187.458,380.304,256S324.542,380.303,256,380.303z M487.275,267.295c-26.838,34.411-61.596,62.871-100.517,82.303c-11.041,5.512-22.322,10.263-33.805,14.299c29.558-26.587,48.179-65.107,48.179-107.898c0-42.814-18.64-81.351-48.223-107.939c11.5,4.041,22.793,8.819,33.85,14.34c38.92,19.432,73.678,47.892,100.517,82.303C492.462,251.355,492.462,260.644,487.275,267.295z" /></g></g><g><g><path d="M256,202.804c-29.332,0-53.195,23.863-53.195,53.195s23.863,53.195,53.195,53.195s53.195-23.863,53.195-53.195C309.196,226.667,285.333,202.804,256,202.804z M256,288.367c-17.847,0-32.368-14.519-32.368-32.368c0-17.848,14.519-32.367,32.368-32.367c17.847,0,32.367,14.519,32.367,32.367C288.368,273.848,273.847,288.367,256,288.367z" /></g></g>
+					        </svg>
+                                <span class="first">Версія для слабозорих</span>
+                                <span class="second">Звичайна версiя сайту</span>
+                            </a>
+                        </div>
+                        <button id="admin_logIn_btn">
+                            Адміністрування
+                        </button>
+                        <div class="brand">
+                            <a href="http://bissoft.org" rel="nofollow">
+                                <img src="~/Content/img/parts/bissoft-logo.png" />
+                                <span>розроблено ТОВ "БІС-СОФТ"</span>
+                            </a>
+                        </div>
+                    </div>
+				</div>
+			</div>
+		</footer>
+
+
+		<div class="remodal" style="width:400px;" data-remodal-id="rmnews">
+			<button data-remodal-action="close" class="remodal-close"></button>
+			<div class="subscription-title">
+				Підписка на розсилку
+			</div>
+
+			<form action="https://feedburner.google.com/fb/a/mailverify" class="" method="post" target="popupwindow"
+				  onsubmit="showGFBvalidForm('news');">
+				<div class="form-group">
+					<label class="control-label">Ваш email</label>
+					<input type="text" name="email" class="form-control" placeholder="Ваш email" aria-describedby="email-addon">
+				</div>
+				<div class="form-group text-left" style="margin-top:25px;">
+					<button type="submit" class="btn btn-primary">Підписатися</button>
+					<button data-remodal-action="cancel" class="remodal-cancel btn btn-default">Закрити</button>
+				</div>
+				<div class="help-block help-text">
+					Розсилка матеріалів виконується за допомогою сервісу Google FeedBurner.<br />
+					Дніпровська міська рада не несе відповідальності за роботу сервісу.
+				</div>
+				<input type="hidden" value="dnipro-rada-news" name="uri">
+				<input type="hidden" name="loc" value="ru_RU">
+			</form>
+		</div>
+	</div>
+
+	<span id="btnGoTop"><i class="fa fa-fw fa-chevron-up"></i></span>
+
+	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-58f493468a35f45e"></script>
+	@RenderSection("Scripts", false)
+
+	<script>
+        $(document).ready(function ()
+        {
+            $("#admin_logIn_btn").on("click", function () {
+                window.location.href = "/uk/ControlPanel";
+            });
+        })
+        function subscribeForm(type) {
+            var inst = $.remodal.lookup[$('[data-remodal-id=rm' + type + ']').data('remodal')];
+            inst.open();
+        };
+
+        function showGFBvalidForm(type) {
+            var wind = window.open('https://feedburner.google.com/fb/a/mailverify?uri=dnipro-rada-' + type, 'popupwindow', 'scrollbars=yes,width=600,height=650');
+
+            wind.onbeforeunload = function () {
+                var inst = $.remodal.lookup[$('[data-remodal-id=rm' + type + ']').data('remodal')];
+                inst.close();
+            }
+            return true;
+        }
+
+        function download(url, name) {
+            window.location = '/uk/Widgets/GetWidgetContent?url=' + url + '&name=' + name;
+        }
+
+        $(function () {
+            $(".weather").load("/home/weather");
+
+            $(window).scroll(function () {
+                if ($(this).scrollTop() >= 300) {
+                    $('#btnGoTop').fadeIn(200);
+                } else {
+                    $('#btnGoTop').fadeOut(200);
+                }
+            });
+
+            $("#btnBurger").on("click", function () {
+                $(".header-content,.main-menu").toggleClass("in");
+            });
+
+            $("#btnSubMenu").on("click", function () {
+                $(this).toggleClass("in");
+                $(".sub-menu").toggleClass("in");
+            });
+
+            $('#btnGoTop').on("click", function () {
+                $('body,html').animate({
+                    scrollTop: 0
+                }, 500);
+            });
+
+            coreUtils.createDatepicker($(".date-input"));
+            coreUtils.createDatepicker($(".bs-datepicker"));
+
+            $(".date-input").on("dp.change", function () {
+                window.location.href = "/@(CurrentCulture.Name.ToLower())/articles/category/pres-centr?date=" + $(this).val();
+            });
+
+            $('.cms-banners').slick({
+                dots: true,
+                slidesToShow: 4,
+                autoplay: true,
+                responsive: [
+                    {
+                        breakpoint: 1200,
+                        settings: {
+                            arrows: true,
+                            slidesToShow: 3
+                        }
+                    },
+                     {
+                         breakpoint: 992,
+                         settings: {
+                             arrows: true,
+                             slidesToShow: 2,
+                             dots: false,
+                         }
+                     },
+                    {
+                        breakpoint: 768,
+                        settings: {
+                            arrows: false,
+                            slidesToShow: 1,
+                            dots: false,
+                        }
+                    }
+                ]
+            });
+
+        });
+	</script>
+</body>
+</html>

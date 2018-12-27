@@ -1,0 +1,132 @@
+﻿@model CmsPersonList
+@{
+    ViewBag.Title = Model.CategoryName;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<main class="">
+
+    <section class="organization rada">
+        <div class="container">
+            <span class="block-title block-decor-bottom">@Model.CategoryName</span>
+            <div class="organization-list">
+                @foreach (var item in Model.Persons)
+                {
+                    <div class="organization-item">
+                        <div class="img-wrap"><img src="@CmsSettings.BaseDomain@item.Image" alt=""></div>
+                        <div class="info">
+                            <span class="title block-decor-bottom">
+                                @item.Title
+                                <span class="subtitle">@item.Post</span>
+                            </span>
+                            <p class="descr">@item.Description</p>
+                            <a class="more-info" href="/@CurrentCulture.Name.ToLower()/persons/item/@item.Id">Переглянути</a>
+                        </div>
+                    </div>
+                }
+                </div>
+                <div class="organization-right">
+                    <div class="header_banner-info">
+                        <span class="title">Гаряча лінія</span>
+                        <div class="header_banner-contacts block-decor-bottom block-decor-top">
+                            <a class="phone" href="tel:@CmsSettings.HotlinePhone">@CmsSettings.HotlinePhone</a>
+                            <a class="mail" href="mailto:@CmsSettings.HotlineEmail">@CmsSettings.HotlineEmail</a>
+                        </div>
+                        <div class="header_banner-contacts">
+                            <a class="icon" href="tel:@CmsSettings.HotlinePhone"><img src="/content/img/icons/header_banner-phone.svg" alt=""></a>
+                            <a class="icon" href="mailto:@CmsSettings.HotlineEmail"><img src="/content/img/icons/header_banner-mail.svg" alt=""></a>
+                        </div>
+                        <p class="header_banner-descr">Електронний центр обробки інформації громадян</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    @*<div class="container">
+            <div class="left-content">
+                <div class="cms-list">
+                    <div class="cms-list-header">
+                        <h1>@Model.CategoryName</h1>
+                        @if (!String.IsNullOrEmpty(Model.CategoryDescription))
+                        {
+                            <div class="cms-list-desc">
+                                @Html.Raw(Model.CategoryDescription)
+                            </div>
+                        }
+                    </div>
+                    @if (Model.ShowSearchForm)
+                    {
+                        <div class="search-form">
+                            <form>
+                                <div class="row">
+                                    <div class="col-sm-10">
+                                        <div class="form-group">
+                                            @Html.TextBox("Query", String.Empty, new { placeholder = "Пошук за прізвищем", id = "tbPersonName", @class = "form-control" })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2 col-xs-12">
+                                        <div class="form-group">
+                                            <button type="button" id="btnFindPerson" class="btn btn-primary btn-block">
+                                                <i class="fa fa-fw fa-search visible-xs-inline-block"></i>
+                                                Пошук
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <script>
+                            $(function () {
+                                $("#btnFindPerson").click(function () {
+                                    if ($("#tbPersonName").val().length >= 3) {
+                                        $(".cms-person-item").each(function (i) {
+                                            var t = $(this);
+                                            if (t.data("title").toLowerCase().startsWith($("#tbPersonName").val().toLowerCase())) {
+                                                location.hash = "#" + t.attr("id");
+                                                $(".cms-person-item.cur").removeClass("cur");
+                                                $("#" + t.attr("id")).addClass("cur");
+                                            }
+                                        });
+                                    }
+                                });
+                            });
+                        </script>
+                    }
+                    @if (Model.Persons != null && Model.Persons.Count > 0)
+                    {
+                        foreach (var item in Model.Persons.OrderBy(x => x.Title))
+                        {
+                            <div class="cms-person-item" id="personItem@(item.Id)" data-title="@item.Title">
+                                <a href="/@CurrentCulture.Name.ToLower()/persons/item/@item.Id">
+                                    <img src="@(CmsSettings.BaseDomain + item.Image)" title="@item.Title" class="img" />
+                                    <div class="text">
+                                        <span class="name">
+                                            @item.Title
+                                        </span>
+                                        @if (!String.IsNullOrEmpty(item.Post))
+                                        {
+                                            <p class="desc">
+                                                @item.Post
+                                            </p>
+                                        }
+                                    </div>
+                                </a>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="well">
+                            У цьому розділі записів не знайдено
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="right-content">
+                @Html.Partial("_prtSidebar")
+                @if (Model.CategoryMenu != null)
+                {
+                    @Html.Partial("_prtSidebarMenu", Model.CategoryMenu)
+                }
+            </div>
+        </div>*@

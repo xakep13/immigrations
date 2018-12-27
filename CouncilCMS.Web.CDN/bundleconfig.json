@@ -1,0 +1,152 @@
+[
+  {
+    "outputFileName": "app/js/elements.min.js",
+    "inputFiles": [
+      "app/js/elements.js"
+    ]
+  },
+  {
+    "outputFileName": "app/js/site.min.js",
+    "inputFiles": [
+      "app/js/site.js"
+    ]
+  },
+  {
+    "outputFileName": "app/js/uploader.min.js",
+    "inputFiles": [
+      "app/js/uploader.js"
+    ]
+  },
+  {
+    "outputFileName": "app/js/core-utils.min.js",
+    "inputFiles": [
+      "app/js/core-utils.js"
+    ]
+  },
+  {
+    "outputFileName": "libs/jQuery/jQuery.print.min.js",
+    "inputFiles": [
+      "libs/jQuery/jQuery.print.js"
+    ]
+  },
+  {
+    "outputFileName": "app/js/jquery.conditionalvalidate.min.js",
+    "inputFiles": [
+      "app/js/jquery.conditionalvalidate.js"
+    ]
+  },
+  {
+    "outputFileName": "libs/bootstrap-select/js/bootstrap-select.min.js",
+    "inputFiles": [
+      "libs/bootstrap-select/js/bootstrap-select.js"
+    ]
+  },
+  {
+    "outputFileName": "libs/bootsrap-datetimepicker/js/bootstrap-datetimepicker.min.js",
+    "inputFiles": [
+      "libs/bootsrap-datetimepicker/js/bootstrap-datetimepicker.js"
+    ]
+  },
+  {
+    "outputFileName": "libs/jQuery/jquery-3.1.1.min.js",
+    "inputFiles": [
+      "libs/jQuery/jquery-3.1.1.js"
+    ]
+  },
+  {
+    "outputFileName": "libs/jQuery/jquery.autocomplete.min.js",
+    "inputFiles": [
+      "libs/jQuery/jquery.autocomplete.js"
+    ]
+  },
+  {
+    "outputFileName": "libs/jQuery/jquery.unobtrusive-ajax.min.js",
+    "inputFiles": [
+      "libs/jQuery/jquery.unobtrusive-ajax.js"
+    ]
+  },
+  {
+    "outputFileName": "libs/jQuery/jquery.validate.min.js",
+    "inputFiles": [
+      "libs/jQuery/jquery.validate.js"
+    ]
+  },
+  {
+    "outputFileName": "libs/jQuery/jquery.validate.unobtrusive.min.js",
+    "inputFiles": [
+      "libs/jQuery/jquery.validate.unobtrusive.js"
+    ]
+  },
+  {
+    "outputFileName": "libs/jsCookie/js-cookie.min.js",
+    "inputFiles": [
+      "libs/jsCookie/js-cookie.js"
+    ]
+  },
+  {
+    "outputFileName": "libs/moment/moment-wl.min.js",
+    "inputFiles": [
+      "libs/moment/moment-wl.js"
+    ]
+  },
+  {
+    "outputFileName": "libs/remodal/js/remodal.min.js",
+    "inputFiles": [
+      "libs/remodal/js/remodal.js"
+    ]
+  },
+  {
+    "outputFileName": "libs/sortable/sortable.min.js",
+    "inputFiles": [
+      "libs/sortable/sortable.js"
+    ]
+  },
+  {
+    "outputFileName": "libs/plupload/moxie.min.js",
+    "inputFiles": [
+      "libs/plupload/moxie.js"
+    ]
+  },
+  {
+    "outputFileName": "libs/sortable/sortable - Copy.min.js",
+    "inputFiles": [
+      "libs/sortable/sortable - Copy.js"
+    ]
+  },
+  {
+    "outputFileName": "app/js/globals.min.js",
+    "inputFiles": [
+      "app/js/globals.js"
+    ]
+  },
+  {
+    "outputFileName": "app/js/controlpanel.min.js",
+    "inputFiles": [
+      "app/js/controlpanel.js"
+    ]
+  },
+  {
+    "outputFileName": "libs/bootstrap-modal/css/bootstrap-modal.min.css",
+    "inputFiles": [
+      "libs/bootstrap-modal/css/bootstrap-modal.css"
+    ]
+  },
+  {
+    "outputFileName": "libs/bootstrap-modal/js/bootstrap-modal.min.js",
+    "inputFiles": [
+      "libs/bootstrap-modal/js/bootstrap-modal.js"
+    ]
+  },
+  {
+    "outputFileName": "libs/bootstrap-modal/js/bootstrap-modalmanager.min.js",
+    "inputFiles": [
+      "libs/bootstrap-modal/js/bootstrap-modalmanager.js"
+    ]
+  },
+  {
+    "outputFileName": "app/js/locals.en.min.js",
+    "inputFiles": [
+      "app/js/locals.en.js"
+    ]
+  }
+]

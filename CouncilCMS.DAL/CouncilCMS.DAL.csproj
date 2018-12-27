@@ -1,0 +1,275 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C85EA0F0-9556-4DDE-9CE6-F2C0CDA285B3}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Bissoft.CouncilCMS.DAL</RootNamespace>
+    <AssemblyName>CouncilCMS.DAL</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data, Version=6.10.8.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.6.10.8\lib\net452\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data.Entity.EF6, Version=6.10.8.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.Entity.6.10.8\lib\net452\MySql.Data.Entity.EF6.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Configuration.Install" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Design" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Context\CmsDbContext.cs" />
+    <Compile Include="Generic\BaseDbContext.cs" />
+    <Compile Include="Generic\BaseRepository.cs" />
+    <Compile Include="Migrations\Cms\201707051827007_InitialCreate.cs" />
+    <Compile Include="Migrations\Cms\201707051827007_InitialCreate.Designer.cs">
+      <DependentUpon>201707051827007_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Cms\201707081143555_AddUserStat.cs" />
+    <Compile Include="Migrations\Cms\201707081143555_AddUserStat.Designer.cs">
+      <DependentUpon>201707081143555_AddUserStat.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Cms\201707091005078_AddAuditionEntity.cs" />
+    <Compile Include="Migrations\Cms\201707091005078_AddAuditionEntity.Designer.cs">
+      <DependentUpon>201707091005078_AddAuditionEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Cms\201707140841150_AddHoverImage.cs" />
+    <Compile Include="Migrations\Cms\201707140841150_AddHoverImage.Designer.cs">
+      <DependentUpon>201707140841150_AddHoverImage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Cms\201708040552094_PersonSecondPage.cs" />
+    <Compile Include="Migrations\Cms\201708040552094_PersonSecondPage.Designer.cs">
+      <DependentUpon>201708040552094_PersonSecondPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Cms\201709072147280_BannerChange.cs" />
+    <Compile Include="Migrations\Cms\201709072147280_BannerChange.Designer.cs">
+      <DependentUpon>201709072147280_BannerChange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Cms\201709172234260_Subscr.cs" />
+    <Compile Include="Migrations\Cms\201709172234260_Subscr.Designer.cs">
+      <DependentUpon>201709172234260_Subscr.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Cms\201804190501257_UpdateSettings.cs" />
+    <Compile Include="Migrations\Cms\201804190501257_UpdateSettings.Designer.cs">
+      <DependentUpon>201804190501257_UpdateSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Cms\201805040557066_UpdateSettings2.cs" />
+    <Compile Include="Migrations\Cms\201805040557066_UpdateSettings2.Designer.cs">
+      <DependentUpon>201805040557066_UpdateSettings2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Cms\201805291250042_UpdateSettings3.cs" />
+    <Compile Include="Migrations\Cms\201805291250042_UpdateSettings3.Designer.cs">
+      <DependentUpon>201805291250042_UpdateSettings3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Cms\201807261625141_NewSettings.cs" />
+    <Compile Include="Migrations\Cms\201807261625141_NewSettings.Designer.cs">
+      <DependentUpon>201807261625141_NewSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Cms\201807261709087_NewSettings2.cs" />
+    <Compile Include="Migrations\Cms\201807261709087_NewSettings2.Designer.cs">
+      <DependentUpon>201807261709087_NewSettings2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Cms\201809051304147_AddWeatherWidgetHtmlField.cs" />
+    <Compile Include="Migrations\Cms\201809051304147_AddWeatherWidgetHtmlField.Designer.cs">
+      <DependentUpon>201809051304147_AddWeatherWidgetHtmlField.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Cms\201809100830584_AddThemeNameField.cs" />
+    <Compile Include="Migrations\Cms\201809100830584_AddThemeNameField.Designer.cs">
+      <DependentUpon>201809100830584_AddThemeNameField.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Cms\201809120952566_AddSubTitleForHotline.cs" />
+    <Compile Include="Migrations\Cms\201809120952566_AddSubTitleForHotline.Designer.cs">
+      <DependentUpon>201809120952566_AddSubTitleForHotline.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Cms\201809171441198_AddPollAndQuestions.cs" />
+    <Compile Include="Migrations\Cms\201809171441198_AddPollAndQuestions.Designer.cs">
+      <DependentUpon>201809171441198_AddPollAndQuestions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Cms\201809191241053_NewPollAndQuestions.cs" />
+    <Compile Include="Migrations\Cms\201809191241053_NewPollAndQuestions.Designer.cs">
+      <DependentUpon>201809191241053_NewPollAndQuestions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Cms\201809191509082_AddCountOfClickForQuestion.cs" />
+    <Compile Include="Migrations\Cms\201809191509082_AddCountOfClickForQuestion.Designer.cs">
+      <DependentUpon>201809191509082_AddCountOfClickForQuestion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Cms\201809201208019_AddColorForQuestion.cs" />
+    <Compile Include="Migrations\Cms\201809201208019_AddColorForQuestion.Designer.cs">
+      <DependentUpon>201809201208019_AddColorForQuestion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Cms\201811091210062_AddEmailAndPhoneStatus.cs" />
+    <Compile Include="Migrations\Cms\201811091210062_AddEmailAndPhoneStatus.Designer.cs">
+      <DependentUpon>201811091210062_AddEmailAndPhoneStatus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Cms\201811120923449_MenuListItemPosition.cs" />
+    <Compile Include="Migrations\Cms\201811120923449_MenuListItemPosition.Designer.cs">
+      <DependentUpon>201811120923449_MenuListItemPosition.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Cms\201811131006388_AddOldSiteField.cs" />
+    <Compile Include="Migrations\Cms\201811131006388_AddOldSiteField.Designer.cs">
+      <DependentUpon>201811131006388_AddOldSiteField.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Cms\201811200830194_facebook app keys.cs" />
+    <Compile Include="Migrations\Cms\201811211530335_Facebook access token and token expires.cs" />
+    <Compile Include="Migrations\Cms\201812061208083_baner image.cs" />
+    <Compile Include="Migrations\Cms\201812061208083_baner image.Designer.cs">
+      <DependentUpon>201812061208083_baner image.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Cms\Configuration.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\GenericRepository.cs" />
+    <Compile Include="Repositories\IntGenericRepository.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CouncilCMS.Core\CouncilCMS.Core.csproj">
+      <Project>{3449b910-0147-4aec-81ac-9c004ee58ddf}</Project>
+      <Name>CouncilCMS.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CouncilCMS.Entities\CouncilCMS.Entities.csproj">
+      <Project>{7cd812c7-2dd4-448b-a948-599c01dd7739}</Project>
+      <Name>CouncilCMS.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\xTab.Tools\xTab.Tools.csproj">
+      <Project>{a68a16b6-657a-4e3f-b126-5695c45abab7}</Project>
+      <Name>xTab.Tools</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\Cms\201707051827007_InitialCreate.resx">
+      <DependentUpon>201707051827007_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\Cms\201707081143555_AddUserStat.resx">
+      <DependentUpon>201707081143555_AddUserStat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\Cms\201707091005078_AddAuditionEntity.resx">
+      <DependentUpon>201707091005078_AddAuditionEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\Cms\201707140841150_AddHoverImage.resx">
+      <DependentUpon>201707140841150_AddHoverImage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\Cms\201708040552094_PersonSecondPage.resx">
+      <DependentUpon>201708040552094_PersonSecondPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\Cms\201709072147280_BannerChange.resx">
+      <DependentUpon>201709072147280_BannerChange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\Cms\201709172234260_Subscr.resx">
+      <DependentUpon>201709172234260_Subscr.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\Cms\201804190501257_UpdateSettings.resx">
+      <DependentUpon>201804190501257_UpdateSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\Cms\201805040557066_UpdateSettings2.resx">
+      <DependentUpon>201805040557066_UpdateSettings2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\Cms\201805291250042_UpdateSettings3.resx">
+      <DependentUpon>201805291250042_UpdateSettings3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\Cms\201807261625141_NewSettings.resx">
+      <DependentUpon>201807261625141_NewSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\Cms\201807261709087_NewSettings2.resx">
+      <DependentUpon>201807261709087_NewSettings2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\Cms\201809051304147_AddWeatherWidgetHtmlField.resx">
+      <DependentUpon>201809051304147_AddWeatherWidgetHtmlField.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\Cms\201809100830584_AddThemeNameField.resx">
+      <DependentUpon>201809100830584_AddThemeNameField.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\Cms\201809120952566_AddSubTitleForHotline.resx">
+      <DependentUpon>201809120952566_AddSubTitleForHotline.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\Cms\201809171441198_AddPollAndQuestions.resx">
+      <DependentUpon>201809171441198_AddPollAndQuestions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\Cms\201809191241053_NewPollAndQuestions.resx">
+      <DependentUpon>201809191241053_NewPollAndQuestions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\Cms\201809191509082_AddCountOfClickForQuestion.resx">
+      <DependentUpon>201809191509082_AddCountOfClickForQuestion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\Cms\201809201208019_AddColorForQuestion.resx">
+      <DependentUpon>201809201208019_AddColorForQuestion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\Cms\201811091210062_AddEmailAndPhoneStatus.resx">
+      <DependentUpon>201811091210062_AddEmailAndPhoneStatus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\Cms\201811120923449_MenuListItemPosition.resx">
+      <DependentUpon>201811120923449_MenuListItemPosition.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\Cms\201811131006388_AddOldSiteField.resx">
+      <DependentUpon>201811131006388_AddOldSiteField.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\Cms\201812061208083_baner image.resx">
+      <DependentUpon>201812061208083_baner image.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

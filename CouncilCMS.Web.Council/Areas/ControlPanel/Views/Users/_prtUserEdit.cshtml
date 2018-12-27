@@ -1,0 +1,57 @@
+﻿@model CmsUserEdit
+
+@using (Ajax.BeginForm("Save", "Users", new AjaxOptions()
+{
+    Url = "/uk/controlpanel/users/save",
+    HttpMethod = "POST",
+    OnBegin = "bsAdmin.startProcessing();",
+    OnComplete = "bsAdmin.endProcessing();",
+    UpdateTargetId = "divEditForm",
+    InsertionMode = InsertionMode.Replace,
+}))
+{
+    @Html.HiddenFor(x => x.Id, new { Value = Model.Id })
+
+    <div class="remodal-title">
+        Користувач
+    </div>
+
+    <div class="row">
+        <div class="col-sm-5">
+            @Html.SimpleUploaderFor(x => x.Avatar, "Фото",
+             new ImageUploaderOptions()
+             {
+                 UploadUrl = "/api/upload/uploadfile?type=image&directory=avatar&crop=true&cropwidth=400&cropheight=400&saveoriginal=true",
+                 ContainerId = "divPersonUpload",
+                 ContainerHeight = 140
+             }, new { @class = "form-control", @readonly = "readonly" })
+        </div>
+        <div class="col-sm-7">
+            @Html.SimpleTextBoxFor(x => x.Name, "П.І.Б *", new { @class = "form-control" })
+            @Html.SimpleTextBoxFor(x => x.Email, "Email *", new { @class = "form-control" })
+            <div class="form-group">
+                <label class="control-label">Ролі користувача</label>
+                @Html.ListBoxFor(x => x.Roles, Model.RoleList, new { @class = "form-control bs-select" })
+            </div>
+            @*<div class="row">
+                <div class="col-sm-7">
+                    @Html.SimpleTextBoxFor(x => x.Phone, "Моб. телефон", new { @class = "form-control bs-mask" })
+                </div>
+                <div class="col-sm-5">
+                    @Html.SimpleDropDownListFor(x => x.Gender, Gender.Male.ToSelectList(), "Стать", new { @class = "form-control bs-select" })
+                </div>
+            </div>*@
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <a href="#" type="button" class="btn btn-link nav-link" data-dismiss="modal">
+            @Locals.Close
+        </a>
+        <button type="submit" class="btn btn-primary">
+            @Locals.Save
+        </button>
+    </div>
+}
+
+

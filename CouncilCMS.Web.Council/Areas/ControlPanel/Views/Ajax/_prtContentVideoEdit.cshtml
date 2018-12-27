@@ -1,0 +1,56 @@
+﻿@model VideoEdit
+
+@{
+    var targetId = Model.IsNew ? ("column" + Model.ContentColumnId + "contents") : ("content" + Model.Id);
+    var insMode = Model.IsNew ? InsertionMode.InsertAfter : InsertionMode.ReplaceWith;
+}
+
+<div class="modal-title">
+    Відео
+</div>
+
+@using (Ajax.BeginForm(new AjaxOptions()
+{
+    Url = "/uk/controlpanel/ajax/SaveVideoContent",
+    HttpMethod = "POST",
+    InsertionMode = insMode,
+    UpdateTargetId = targetId,
+    OnSuccess = "bsAdmin.divContentEdit.modal('hide')"
+}))
+{ 
+    <div class="row">
+        @Html.HiddenFor(x => x.ContentColumnId)
+        @Html.HiddenFor(x => x.Position)
+
+        <input type="hidden" name="Id" value="@Model.Id" />
+
+        <div class="col-lg-12">
+            @Html.SimpleTextAreaFor(x => x.Body, "Вставте код Видео", new { @class = "form-control", rows = 8 })
+        </div>
+        
+    </div>
+
+    <div class="modal-footer">
+        @if (Model.IsNew)
+        {
+            <button type="button" href="#" class="btn btn-link remove-content" data-id="@Model.Id">
+                @Locals.Cancle
+            </button>
+            <button type="submit" class="btn btn-primary">
+                @Locals.Add
+            </button>
+        }
+        else
+        {
+            <button type="button" class="btn btn-link nav-link" data-dismiss="modal">
+                @Locals.Close
+            </button>
+            <button type="submit" class="btn btn-primary">
+                @Locals.Save
+            </button>
+        }
+    </div>
+}
+
+
+

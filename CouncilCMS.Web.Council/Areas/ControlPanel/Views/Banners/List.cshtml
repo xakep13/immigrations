@@ -1,0 +1,109 @@
+﻿@{
+    ViewBag.Title = "Банери";
+    Layout = "~/Areas/ControlPanel/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-title">
+    <div class="pull-right">
+        <a href="/@(CurrentCulture.Name.ToLower())/controlpanel/banners/getform" class="btn btn-primary nav-link" data-id="0" data-target="divEdit">
+            <i class="fa fa-plus"></i>
+            <span>
+                @Locals.Add
+            </span>
+        </a>
+    </div>
+    <h1>
+        Банери
+    </h1>
+</div>
+
+<div id="divList"></div>
+
+<div class="remodal-form remodal-md" id="divEdit">
+    <div class="remodal-content" id="divEditForm"></div>
+</div>
+
+<script>
+    (function () {
+        window.divList = $("#divList");
+        window.divEdit = $("#divEdit");
+        window.editModal = window.divEdit.remodal({ hashTracking: false, closeOnOutsideClick: false });
+
+        window.getList = function (pushState) {
+            pushState = pushState || true;
+
+            bsAdmin.startProcessing();
+
+            $.get("/uk/controlpanel/banners/list?ajaxmode=true", window.currentState, function (r) {
+                window.divList.html(r);
+                window.createSortable();
+                bsAdmin.endProcessing();
+
+                if (pushState)
+                    window.pushState();
+            });
+        };
+
+        window.getEdit = function (pushState) {
+            pushState = pushState || true;
+
+            bsAdmin.startProcessing();
+
+            window.divEdit.find(".remodal-content").load("/uk/controlpanel/banners/GetForm", window.currentState, function () {
+                bsAdmin.endProcessing();
+                window.editModal.open();
+
+                if (pushState)
+                    window.pushState();
+            });
+        }
+
+        window.createListState = function () {
+            window.currentState = {};
+
+            return window.currentState;
+        }
+
+        window.createEditState = function (id) {
+            window.currentState = { id: id };
+            return window.currentState;
+        }
+    }());
+</script>
+
+<script>
+    $(function () {
+        if (window.currentState.Id != undefined) {
+            window.getEdit();
+        } else {
+            window.getList();
+        }
+
+        window.createSortable();
+
+        $(document).on("click", ".nav-link", function (e) {
+            e.preventDefault();
+
+            var t = $(this);
+
+            if (t.data("id") != undefined) {
+                window.createEdittate(t.data("id"));
+                window.getMenuItemEdit();
+            }  else {
+                window.createListState();
+                window.getList();
+            }
+        });
+
+        $(window).on("popstate", function (e) {
+            var state = e.originalEvent.state;
+            window.currentState = state;
+
+            if (window.currentState.Id != undefined) {
+                window.getEdit(false);
+            } else {
+                window.getList(false);
+            }
+        });
+    });
+</script>

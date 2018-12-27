@@ -1,0 +1,161 @@
+﻿@model DocCategoryEdit
+
+@{
+    var childsContainer = Model.ParentCategoryId > 0 ? ("itemChilds" + Model.ParentCategoryId) : "divList";
+    var targetId = Model.Id <= 0 ? childsContainer : ("divItem" + Model.Id);
+    var insertionMode = Model.Id <= 0 ? "after" : "replace-with";
+}
+
+<div class="modal-title">
+    Категорія документів
+    <ul class="modal-lang-swicher">
+        <li data-lang="en">EN</li>
+        <li data-lang="ru">RU</li>
+        <li class="active" data-lang="uk">UA</li>
+    </ul>
+</div>
+
+<ul class="nav nav-tabs" role="tablist">
+    <li class="active">
+        <a href="#divMain" data-toggle="tab">Головне</a>
+    </li>
+    @if (User.HasPremission("al_users"))
+    {
+        <li>
+            <a href="#divUsers" data-toggle="tab">Доступ</a>
+        </li>
+    }
+    <li>
+        <a href="#divMeta" data-toggle="tab">МЕТА-теги</a>
+    </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane active" id="divMain">
+        <form action="/@CurrentCulture.Name.ToLower()/controlpanel/doccategories/saveitem" id="formMain" method="post" novalidate="novalidate"
+              data-ajax="true"
+              data-ajax-begin="bsAdmin.startProcessing(); coreUtils.disableButton($('#btnSave'));"
+              data-ajax-complete="bsAdmin.endProcessing(); window.divEdit.modal('hide');window.saveItemComplete('@childsContainer', '@Model.ParentCategoryId')"
+              data-ajax-mode="@insertionMode"
+              data-ajax-update="#@targetId">
+
+            @Html.HiddenFor(x => x.Id)
+            @Html.HiddenFor(x => x.ParentCategoryId)
+
+            <div>
+                <div class="lang-uk">
+                    @Html.SimpleTextBoxFor(x => x.TitleUk, "Назва (ua) *", new { @class = "form-control" })
+                </div>
+                <div class="lang-ru">
+                    @Html.SimpleTextBoxFor(x => x.TitleRu, "Назва (ru) *", new { @class = "form-control" })
+                </div>
+                <div class="lang-en">
+                    @Html.SimpleTextBoxFor(x => x.TitleEn, "Назва (en) *", new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-5">
+                    @Html.SimpleDropDownListFor(x => x.TemplateId, Model.Templates, "Шаблон відображення *", new { @class = "form-control bs-select" })
+                </div>
+                <div class="col-sm-7">
+                    @Html.SimpleDropDownListFor(x => x.RelatedCategoryId, Model.RelatedCategories, "Пов'язана категорія", new { @class = "form-control bs-select" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-5">
+                    @Html.SimpleTextBoxFor(x => x.Priority, "Приорітет", new { @class = "form-control" }, helpText: "Для матеріалів, які входять до декількох категорій одночасно, визначає яка категрія є головною, і буде відображена як категрія матеріалу на сторінці")
+                </div>
+                <div class="col-sm-7">
+                    @Html.SimpleTextBoxFor(x => x.UrlName, "Ім'я для URL", new { @class = "form-control" })
+                </div>
+            </div>
+            @Html.SimpleCheckboxFor(x => x.ShowSearchForm, "Форма пошуку", "показувати форму пошуку для категорії")
+        </form>
+    </div>
+
+    @if (User.HasPremission("al_users"))
+    {
+        <div class="tab-pane" id="divUsers">
+            <h3 class="card-subtitle">
+                Надати доступ ролі користувачів
+            </h3>
+            @using (Ajax.BeginForm(new AjaxOptions()
+            {
+                Url = "/uk/controlpanel/doccategories/addrole",
+                OnBegin = "coreUtils.disableButton($('#btnAddRole'));",
+                OnComplete = "coreUtils.enableButton($('#btnAddRole'));",
+                InsertionMode = InsertionMode.InsertAfter,
+                UpdateTargetId = "divItemRoles"
+            }))
+            {
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-10">
+                            @Html.SimpleDropDownList("RoleId", Model.Roles, "Оберіт роль", new { @class = "form-control bs-select" })
+                            @Html.Hidden("ItemId", Model.Id)
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label class="control-label">&nbsp;</label>
+                                <input type="submit" class="btn btn-default btn-block" id="btnAddRole" value="Додати" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            }
+            <h3 class="card-subtitle">
+                Ролі користувачів, що мають доступ
+            </h3>
+            <div class="well">
+                <div class="item-users" id="divItemRoles">
+                    <div class="card-header-sm">
+                        <div class='row'>
+                            <div class="col-sm-10">
+                                Назва
+                            </div>
+                            <div class="col-sm-2 text-right">
+                                Видалити
+                            </div>
+                        </div>
+                    </div>
+                    @if (Model.AllowedRoles != null)
+                    {
+                        foreach (var item in Model.AllowedRoles)
+                        {
+                            @Html.Partial("_prtAllowedRoleItem", item)
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    }
+
+    <div class="tab-pane" id="divMeta">
+        <div class="lang-uk">
+            @Html.SimpleTextBoxFor(x => x.MetaTitleUk, "МЕТА Заголовок (ua)", new { @class = "form-control", maxlength = 255, form = "formMain" })
+            @Html.SimpleTextBoxFor(x => x.MetaKeywordsUk, "МЕТА Ключові слова (ua)", new { @class = "form-control", maxlength = 255, form = "formMain" })
+            @Html.SimpleTextAreaFor(x => x.MetaDescriptionUk, "МЕТА Опис (ua)", new { @class = "form-control", maxlength = 255, form = "formMain" })
+        </div>
+        <div class="lang-ru">
+            @Html.SimpleTextBoxFor(x => x.MetaTitleRu, "МЕТА Заголовок (ru)", new { @class = "form-control", maxlength = 255, form = "formMain" })
+            @Html.SimpleTextBoxFor(x => x.MetaKeywordsRu, "МЕТА Ключові слова (ru)", new { @class = "form-control", maxlength = 255, form = "formMain" })
+            @Html.SimpleTextAreaFor(x => x.MetaDescriptionRu, "МЕТА Опис (ru)", new { @class = "form-control", maxlength = 255, form = "formMain" })
+        </div>
+        <div class="lang-en">
+            @Html.SimpleTextBoxFor(x => x.MetaTitleEn, "МЕТА Заголовок (en)", new { @class = "form-control", maxlength = 255, form = "formMain" })
+            @Html.SimpleTextBoxFor(x => x.MetaKeywordsEn, "МЕТА Ключові слова (en)", new { @class = "form-control", maxlength = 255, form = "formMain" })
+            @Html.SimpleTextAreaFor(x => x.MetaDescriptionEn, "МЕТА Опис (en)", new { @class = "form-control", maxlength = 255, form = "formMain" })
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <a href="#" type="button" class="btn btn-link" data-dismiss="modal">
+        @Locals.Close
+    </a>
+    <button type="button" id="btnSave" class="btn btn-primary" onclick="javascript: $('#formMain').trigger('submit');">
+        @Locals.Save
+    </button>
+</div>

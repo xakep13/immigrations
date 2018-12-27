@@ -1,0 +1,45 @@
+﻿@model PersonCategoryItem
+
+<div class="modal-title">
+    Персона в категорії
+</div>
+
+@using (Ajax.BeginForm(new AjaxOptions()
+{
+    Url = "/uk/controlpanel/persons/savecategory",
+    HttpMethod = "POST",
+    OnBegin = "bsAdmin.startProcessing();",
+    OnComplete = "bsAdmin.endProcessing(); window.divItemEdit.modal('hide');",
+    UpdateTargetId = "itemCategory" + Model.CategoryId + "Person" + Model.PersonId,
+    InsertionMode = InsertionMode.ReplaceWith,
+}))
+{    
+    @Html.HiddenFor(x => x.CategoryId, new { Value = Model.CategoryId })
+    @Html.HiddenFor(x => x.PersonId, new { Value = Model.PersonId })   
+
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="form-group">
+                <label class="control-label">Назва</label>
+                <div class="form-control-static">
+                    @Model.Title
+                </div>
+            </div>
+
+        </div>
+        <div class="col-sm-4">
+            @Html.SimpleTextBoxFor(x => x.Position, "Номер в списку", new { @class = "form-control" })            
+        </div>        
+    </div>
+
+    <div class="modal-footer">
+        <a href="#" type="button" class="btn btn-link nav-link" data-dismiss="modal">
+            @Locals.Close
+        </a>
+        <button type="submit" class="btn btn-primary">
+            @Locals.Save
+        </button>
+    </div>
+
+}
+

@@ -1,0 +1,161 @@
+﻿@model CmsDocList
+@{
+    ViewBag.Title = Model.CategoryName;
+}
+
+@if (Model.ShowSearchForm)
+{
+    <div class="doc-search">
+        <div class="row">
+            <div class="col-sm-12 col-md-8">
+                @using (Html.BeginForm("Category", "Documents", new { local = CurrentCulture.Name.ToLower(), Url = Model.CategoryUrl, Page = 1 }, FormMethod.Get))
+                {
+                    Model.Types[0].Text = CmsLabels.All;
+                    @Html.SimpleTextBoxFor(x => x.QueryTitle, CmsLabels.DocQueryTitle, new { @class = "form-control" })
+                    @Html.SimpleTextBoxFor(x => x.QueryText, CmsLabels.DocQueryText, new { @class = "form-control" })
+                    @Html.SimpleDropDownListFor(x => x.Type, Model.Types, CmsLabels.DocQueryType, new { @class = "form-control bs-select" })
+                    @Html.SimpleTextBoxFor(x => x.PersonId, CmsLabels.DocSubject, new { @class = "form-control bs-autocompleteselect", data_text = Model.PersonName, data_remote = "/" + CurrentCulture.Name.ToLower() + "/ajax/findperson" }, true)
+                    @Html.SimpleTextBoxFor(x => x.EnterpriseId, "Видавник", new { @class = "form-control bs-autocompleteselect", data_text = Model.EnterpriseName, data_remote = "/" + CurrentCulture.Name.ToLower() + "/ajax/findenterprise" }, true)
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="control-label">@CmsLabels.DocQueryDate</label>
+                                <div class="rel">
+                                    @Html.TextBoxFor(x => x.Date, new { @class = "form-control bs-daterangepicker input-wi", @readonly = "readonly" })
+                                    <img class="input-icon" src="~/Content/img/parts/icns/calendar_active_icon.svg" width="20" height="20" />
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div class="col-sm-6">
+                            <label class="control-label">&nbsp;</label>
+                            <button type="submit" class="btn btn-primary btn-block">
+                                @CmsLabels.FindDoc
+                            </button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(function () {
+            var format = format || "DD.MM.YYYY";
+
+            $(".bs-daterangepicker").daterangepicker({
+                "autoApply": true,
+                "showDropdowns": true,                
+                "locale": {
+                    "applyLabel": "<i class='fa fa-check'></i>",
+                    "format": format || "DD.MM.YYYY",
+                    "separator": " - ",
+                    "fromLabel": "@CmsLabels.From",
+                    "toLabel": "До",
+                    cancelLabel: 'Clear',
+                    "daysOfWeek": [
+                        "@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetShortestDayName(DayOfWeek.Sunday)",
+                        "@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetShortestDayName(DayOfWeek.Monday)",
+                        "@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetShortestDayName(DayOfWeek.Tuesday)",
+                        "@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetShortestDayName(DayOfWeek.Wednesday)",
+                        "@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetShortestDayName(DayOfWeek.Thursday)",
+                        "@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetShortestDayName(DayOfWeek.Friday)",
+                        "@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetShortestDayName(DayOfWeek.Saturday)"
+                    ],
+                    "monthNames": [
+                        "@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(1)",
+                        "@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(2)",
+                        "@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(3)",
+                        "@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(4)",
+                        "@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(5)",
+                        "@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(6)",
+                        "@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(7)",
+                        "@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(8)",
+                        "@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(9)",
+                        "@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(10)",
+                        "@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(11)",
+                        "@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(12)"
+                    ],
+                    "firstDay": 1
+                },
+                "showCustomRangeLabel": false,
+                "alwaysShowCalendars": true,
+                "opens": "right",
+                "autoUpdateInput": false,
+            });
+
+            $(".bs-daterangepicker").on('apply.daterangepicker', function (ev, picker) {
+                $(this).val(picker.startDate.format(format) + ' - ' + picker.endDate.format(format));
+            });
+
+            $(".bs-daterangepicker").on('cancel.daterangepicker', function (ev, picker) {
+                $(this).val('');
+            });
+
+            $(".bs-autocompleteselect").each(function () {
+                coreUtils.createAutocompleteSelect($(this));
+            });
+            $(".bs-select").each(function () {
+                coreUtils.createSelect($(this));
+            });
+
+            $(document).on("click", ".input-clear", function () {
+                var input = $(this).parents(".input-group").find(".form-control");
+                input.prop("readonly", input.hasClass("bs-select") ? true : false).val("");
+
+                if (input.data("related-element"))
+                    $(input.data("related-element")).val("");
+
+                if (input.hasClass("bs-autocomplete"))
+                    coreUtils.createAutocomplete(input);
+
+                input.each(function () {
+                    if ($(this).hasClass("ac-value"))
+                        coreUtils.createAutocompleteSelect($(this));
+                });
+            });
+        });
+    </script>
+}
+
+    <main class="">
+        <section class="organization">
+            <div class="container">
+                <span class="block-title block-decor-bottom">@Model.CategoryName</span>
+                <div class="organization-list">
+                    @foreach (var item in Model.Docs)
+                    {
+                        
+                        <div class="organization-item" style="height:auto;">
+                            <div class="info">
+                                <span class="title block-decor-bottom">@item.Title</span>
+                                <p class="descr" style="height:auto;">
+                                    №@item.Number
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                    @(item.PostDate.HasValue ? item.PostDate.Value.ToString("dd.MM.yyyy") : (item.AcceptDate.HasValue ? item.AcceptDate.Value.ToString("dd.MM.yyyy") : item.PublishDate?.Substring(0, item.PublishDate?.LastIndexOf(" ") ?? 0)))
+                                </p>
+                                <a class="more-info" href="/@CurrentCulture.Name.ToLower()/documents/item/@item.Id">Детальніше</a>
+                            </div>
+                        </div>
+                    }
+                    @Helpers.LinkPager("/" + CurrentCulture.Name.ToLower() + "/documents/category/" + Model.CategoryUrl + "/", null, Model.Count, Model.Page, 20)
+                </div>
+                
+                <div class="organization-right">
+					<div class="header_banner-info">
+						<span class="title">Гаряча лінія</span>
+						<div class="header_banner-contacts block-decor-bottom block-decor-top">
+							<a class="phone" href=@(CmsSettings.IsPhoneActive == true ? "tel:@CmsSettings.HotlinePhone" : "#")>@CmsSettings.HotlinePhone</a>
+							<a class="mail" href=@(CmsSettings.IsEmailActive == true ? "mailto:@CmsSettings.HotlineEmail:" : "#")>@CmsSettings.HotlineEmail</a>
+						</div>
+						<div class="header_banner-contacts">
+							<a class="icon" href=@(CmsSettings.IsPhoneActive == true ? "tel:@CmsSettings.HotlinePhone" : "#")><img src="/content/img/icons/header_banner-phone.svg" alt=""></a>
+							<a class="icon" href=@(CmsSettings.IsEmailActive == true ? "mailto:@CmsSettings.HotlineEmail:" : "#")><img src="/content/img/icons/header_banner-mail.svg" alt=""></a>
+						</div>
+						<p class="header_banner-descr">Електронний центр обробки інформації громадян</p>
+					</div>
+                </div>
+            </div>
+        </section>
+    </main>

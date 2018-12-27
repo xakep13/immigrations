@@ -1,0 +1,17 @@
+﻿@model List<Bissoft.CouncilCMS.BLL.ViewModels.Admin.PollListItem>
+
+@if (Model != null && Model.Count() > 0)
+{
+    foreach (var menu in Model)
+    {
+        <div class="block-sm">
+            @Html.Partial("_prtPollListItem", menu)
+            <div class="collapse related-list" id="containerChilds@(menu.Id)" data-id="0">
+                @if (menu.Questions != null && menu.Questions.Count > 0)
+                {
+                    @Html.Partial("_prtQuestionList", menu.Questions);
+                }
+            </div>
+        </div>
+    }
+}

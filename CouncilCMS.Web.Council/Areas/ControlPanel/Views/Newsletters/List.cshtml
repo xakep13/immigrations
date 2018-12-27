@@ -1,0 +1,224 @@
+﻿@model NewsletterList
+@{
+    ViewBag.Title = "Электронні журнали";
+    Layout = "~/Areas/ControlPanel/Views/Shared/_Layout.cshtml";
+    var filterState = Request.Cookies["filter_states"] != null ? Request.Cookies["filter_states"].Values["article"] : "0";
+}
+
+<style type="text/css">
+    .pdf-article { font-family: Arial, Helvetica, sans-serif; margin-bottom: 30px; }
+    .pdf-article-text, .pdf-article-text * { font-size: 18px !important; }
+    .pdf-article-date { font-style: italic; margin-bottom: 20px; }
+    .pagebreak { page-break-after: always; }
+    .pdf-article-text .page-content { margin-bottom: 10px; }
+    .pdf-article-text table { border-collapse: separate; border-spacing: 3px; background: #000; width: 100%; }
+    .pdf-article-text table td { padding: 5px; font-size: 16px; background: #fff; }
+    .pdf-article-text table th { padding: 5px; font-size: 16px; background: #fff; font-weight: bold; }
+    .pdf-article-text table tr { page-break-inside: avoid; }
+    .pdf-article-text .image-desc, .pdf-article-text .content-desc { display: block; margin-top: 5px; margin-bottom: 10px; font-style: italic; text-align: center; }
+    .pdf-article-text .content-text img { margin: 0 10px; }
+    .pdf-article-text .img-responsive { margin: 0 auto; max-width: 100%; }
+    .pdf-article-text .content-gallery img { margin: 0 auto 10px auto; max-width: 100%; }
+</style>
+
+<div class="page-title">
+    <div class="pull-right">
+        <a href="/@(CurrentCulture.Name.ToLower())/controlpanel/articles/getform" class="nav-link btn btn-primary" data-id="0">
+            <i class="fa fa-fw fa-plus"></i>
+            <span>
+                @Locals.Add
+            </span>
+        </a>
+    </div>
+    <h1>
+        Электронні журнали
+    </h1>
+</div>
+
+<div class="card">
+    <div class="filter @(filterState == "1" ? "expanded" : "")" id="divFilter">
+        @using (Ajax.BeginForm(ajaxOptions: new AjaxOptions()
+        {
+            Url = "/uk/controlpanel/newsletters/list?ajaxmode=true",
+            HttpMethod = "get",
+            OnBegin = "bsAdmin.startProcessing(); $('#hPage').val(1); window.createListState();",
+            OnComplete = " bsAdmin.endProcessing(); window.pushState();",
+            UpdateTargetId = "divList",
+            InsertionMode = InsertionMode.Replace,
+        }))
+        {
+            <div class="filter-btns form-group">
+                <div class="pull-right filter-submit">
+                    <button type="button" class="btn btn-defaul" id="btnClearFilter" data-onclear="window.createListState();window.getList();">
+                        @Locals.Reset @Locals.Filter
+                    </button>
+                    <button type="submit" class="btn btn-primary" id="btnFiter">
+                        @Locals.Apply @Locals.Filter
+                    </button>
+                </div>
+                <button class="btn btn-default" type="button" id="btnShowFilter">
+                    <i class="fa fa-fw fa-filter"></i>
+                    <span>
+                        @Locals.Filter
+                    </span>
+                    <i class="fa fa-fw fa-angle-down @(filterState == "1" ? "rotate-180" : "")"></i>
+                </button>
+            </div>
+            <div class="form" id="formFilter" style="display:@(filterState == "1" ? "block" : "none")">
+                <div class="row">
+                    <div class="col-sm-6">
+                        @Html.SimpleTextBoxFor(x => x.Query, Locals.NdbSearchPlaceholder, new { @class = "form-control filter-input" })
+                    </div>
+                    <div class="col-sm-3">
+                        @Html.SimpleTextBoxFor(x => x.From, Locals.DateFrom, new { @class = "form-control bs-datepicker filter-input", @readonly = "readonly" })
+                    </div>
+                    <div class="col-sm-3">
+                        @Html.SimpleTextBoxFor(x => x.To, Locals.DateTo, new { @class = "form-control bs-datepicker filter-input", @readonly = "readonly" })
+                    </div>
+                </div>
+                @Html.HiddenFor(x => x.Page, new { @class = "filter-input", id = "hPage", data_default_val = 1 })
+            </div>
+        }
+    </div>
+    <div class="" id="divList"></div>
+</div>
+
+
+<div id="divEdit" class="modal modal-800 fade" tabindex="-1" data-width="800" style="display:none;">
+    <div class="modal-body" id="divEditForm"></div>
+</div>
+
+@section Scripts {
+    <script>
+        $(function () {
+            window.divList = $("#divList");
+            window.divEdit = $("#divEdit");
+            window.modalManager = $("body").data("modalmanager");
+
+            window.getList = function (pushState) {
+                pushState = pushState || true;
+
+                bsAdmin.startProcessing();
+
+                $.get("/uk/controlpanel/newsletters/list?ajaxmode=true", window.currentState, function (r) {
+                    window.divList.html(r);
+                    bsAdmin.endProcessing();
+
+                    if (pushState)
+                        window.pushState();
+                });
+            };
+
+            window.getEdit = function (pushState) {
+                pushState = pushState || true;
+
+                $('body').modalmanager('loading');
+
+                window.divEdit.find(".modal-body").empty().load("/uk/controlpanel/newsletters/getform", window.currentState, function () {
+
+                    window.divEdit.modal({ backdrop: 'static', keyboard: false, modalOverflow: true });
+                    window.createSortable();
+
+                    if (pushState)
+                        window.pushState();
+                });
+            }
+
+            window.createListState = function () {
+                window.currentState = {};
+
+                $(".filter-input").each(function () {
+                    var t = $(this);
+
+                    if (t.val()) {
+                        window.currentState[t.attr("name")] = t.val();
+                    }
+                });
+
+                return window.currentState;
+            }
+
+            window.createEditState = function (id) {
+                window.currentState = { id: id };
+                return window.currentState;
+            }
+
+            window.removeArticle = function (articleId, newsletterId) {
+                $("#art" + articleId + "nl" + newsletterId).remove();
+                $.post("/uk/controlpanel/newsletters/removearticle", { articleid: articleId, newsletterid: newsletterId }, function () { });
+            }
+
+            window.sendNewsletter = function (id) {
+                $.get("/uk/controlpanel/newsletters/sendnewsletter", { id: id }, function () {
+                    window.getList(false);
+                });
+            }
+
+            window.createSortable = function () {
+             
+                    var t = $(this)
+                    var sort = Sortable.create($("#divArticles")[0], {
+                        handle: ".btn-drag",
+                        animation: 150,
+                        onEnd: function (e) {
+                            bsAdmin.startProcessing();
+                            $.post(
+                                "/uk/controlpanel/newsletters/updateposition",
+                                { articleid: $(e.item).data("article-id"), newsletterid: $(e.item).data("newsletter-id"), oldPosition: e.oldIndex + 1, newPosition: e.newIndex + 1 },
+                                function () {
+                                    bsAdmin.endProcessing();
+                                });
+                        }
+                    });
+                
+            }
+        }());
+    </script>
+
+    <script>
+        $(function () {
+            if (window.currentState.id != undefined) {
+                window.getEdit();
+            } else {
+                window.getList();
+            }
+
+            $(document).on("click", ".nav-link", function (e) {
+                e.preventDefault();
+
+                var t = $(this);
+
+                if (t.data("id") != undefined) {
+                    window.createEditState(t.data("id") || "");
+                    window.getEdit();
+                }
+                else {
+                    if ($(this).data("page") && $(this).data("page") != window.currentState.page) {
+                        $("#hPage").val($(this).data("page"));
+                    }
+
+                    window.createListState();
+                    window.getList();
+                }
+
+            });
+
+            $(window).on("popstate", function (e) {
+                var state = e.originalEvent.state;
+                window.currentState = state;
+
+                if (window.currentState.id) {
+                    window.getEdit(false);
+                } else {
+                    window.getList(false);
+                }
+            });
+        });
+    </script>
+}
+
+
+
+
+
+

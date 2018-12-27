@@ -1,0 +1,207 @@
+﻿@model MkIndex
+
+<main class="">
+	<section class="header-baner-container">
+		<div class="container">
+			<div class="header_banner">
+				<div class="owl-carousel">
+					@if(Model.Mayor != null)
+					{
+						foreach(var news in Model.Mayor.Take(1))
+						{
+							<div class="header_banner-item">
+								<img src="@CmsSettings.BanerImage" alt="">
+								<div class="container">
+									<div class="header_banner-item-info">
+										<div class="mer">
+											<img src="@CmsSettings.MayorImage" alt="">
+											<div class="info">
+												<span class="title">@news.Title</span>
+												<span class="name">@CmsSettings.MayorNameUk</span>
+												<p class="descr">@news.Description</p>
+												<a href="/uk/articles/item/@news.Id/@news.UrlName">Детальніше</a>
+											</div>
+										</div>
+									</div>
+
+									<div class="header_banner-info">
+										<span class="title">@(CmsSettings.HotlineTitleUk ?? "Гаряча лінія")</span>
+
+										<div class="header_banner-contacts block-decor-bottom block-decor-top">
+										
+											@if(CmsSettings.IsPhoneActive == true)
+											{
+												<a class="phone" href="tel:@CmsSettings.HotlinePhone">
+													@CmsSettings.HotlinePhone
+												</a>
+											}
+											else
+											{
+												<a class="phone contact-not_active-SafeCity" href="#">
+													@CmsSettings.HotlinePhone
+												</a>
+											}
+
+											@if(CmsSettings.IsEmailActive == true)
+											{
+												<a class="mail" href="mailto:@CmsSettings.HotlineEmail">
+													@CmsSettings.HotlineEmail
+												</a>
+											}
+											else
+											{
+												<a class="mail contact-not_active-SafeCity" href="#">
+													@CmsSettings.HotlineEmail
+												</a>
+											}
+										</div>
+										<div class="header_banner-contacts">
+
+											@if(CmsSettings.IsPhoneActive == true)
+											{
+												<a class="icon" href="tel:@CmsSettings.HotlinePhone">
+													<img src="/content/img/icons/header_banner-phone.svg" alt="">
+												</a>
+											}
+											else
+											{
+												<a class="icon icon-not_active-SaveCity" href="#">
+													<img src="/content/img/icons/header_banner-phone.svg" alt="">
+												</a>
+											}
+											@if(CmsSettings.IsEmailActive == true)
+											{
+												<a class="icon" href="mailto:@CmsSettings.HotlineEmail">
+													<img src="/content/img/icons/header_banner-mail.svg" alt="">
+												</a>
+											}
+											else
+											{
+												<a class="icon icon-not_active-SaveCity" href="#">
+													<img src="/content/img/icons/header_banner-mail.svg" alt="">
+												</a>
+											}
+										</div>
+										<p class="header_banner-descr">Електронний центр обробки інформації громадян</p>
+									</div>
+								</div>
+							</div>
+						}
+					}
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="news">
+		<div class="news-tabs-content">
+			<div class="container">
+				<span class="block-title block-decor-bottom">Новини та події</span>
+				<div class="news-tabs-content-item active">
+					<div class="news-list">
+
+						@if(Model.MainNews != null)
+						{
+							foreach(var item in Model.MainNews.Take(4))
+							{
+								<div class="news-item top">
+									<a href="/@CurrentCulture.Name.ToLower()/articles/item/@item.Id/@item.UrlName" class="news-item-content">
+										<span class="title">@item.Title</span>
+										<img src='@(!String.IsNullOrEmpty(item.Image) ? (CmsSettings.BaseDomain + item.Image) : "~/Content/SafeSity/img/parts/default-img-4x3.png" )' );" />
+										<p class="descr">@item.Description </p>
+										<div class="news-item-info">
+											<span class="views"><img class="view-icon" src="~/upload/icons/eye.svg" />  @item.ViewCount</span>
+											<span class="category">@item.CategoryTitle</span>
+											<time>@item.PublishDate</time>
+
+										</div>
+									</a>
+								</div>
+							}
+						}
+
+						@if(Model.MainNewsSecond != null)
+						{
+							foreach(var item in Model.MainNewsSecond.Take(2))
+							{
+								<div class="news-item bottom">
+									<a href="/@CurrentCulture.Name.ToLower()/articles/item/@item.Id/@item.UrlName" class="news-item-content">
+										<span class="title">@item.Title</span>
+										<img src='@(!String.IsNullOrEmpty(item.Image) ? (CmsSettings.BaseDomain + item.Image) : "~/Content/SafeSity/img/parts/default-img-4x3.png" )' );" />
+										<div class="info">
+											<p class="descr">@item.Description</p>
+											<div class="news-item-info">
+												<span class="views"><img class="view-icon" src="~/upload/icons/eye.svg" />  @item.ViewCount</span>
+												<span class="category">@item.CategoryTitle</span>
+												<time>@item.PublishDate</time>
+
+											</div>
+										</div>
+									</a>
+								</div>
+							}
+						}
+							<div class="news-calendar">
+								<div class="data">
+									<a href="">
+										<img src="~/Content/SafeSity/~/Content/SafeSity/img/icons/calendar.svg" alt="">
+										Обрати дату
+									</a>
+								</div>
+								<ul class="news-calendar-list">
+									<span class="title">КАЛЕНДАР ПОДІЙ</span>
+									<li class="news-calendar-item"><a href="/@CurrentCulture.Name.ToLower()/articles/category/novini">Останні</a></li>
+									<li class="news-calendar-item"><a href="/@CurrentCulture.Name.ToLower()/articles/category/vazhlivi">Важливі</a></li>
+									<li class="news-calendar-item"><a href="/@CurrentCulture.Name.ToLower()/articles/category/svyata">Свята</a></li>
+								</ul>
+							</div>
+						</div>
+					<a href="" class="site-btn">Більше новин</a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="camera">
+		<div class="container">
+			<div class="block-head">
+				<span class="block-title block-decor-bottom">Відеотрансляції</span>
+				<a href="">Камери на мапі</a>
+			</div>
+			<div class="camera-list news-list">
+				@if(Model.AreaNews != null)
+				{
+					foreach(var item in Model.AreaNews)
+					{
+						<div class="news-item camera-item top">
+							<a href="/@CurrentCulture.Name.ToLower()/articles/item/@item.Id/@item.UrlName" class="news-item-content">
+								<div class="img-wrap">
+									<img src='@(!String.IsNullOrEmpty(item.Image) ? (CmsSettings.BaseDomain + item.Image) : "~/Content/SafeSity/img/parts/default-img-4x3.png" )' );" alt="">
+								</div>
+								<span class="title">@item.Title</span>
+								<p class="descr">@item.Description</p>
+								<div class="news-item-info">
+									<span class="views"><img class="view-icon" src="~/upload/icons/eye.svg" />  @item.ViewCount</span>
+									<time>@item.PublishDate</time>
+								</div>
+							</a>
+						</div>
+					}
+				}
+					<a href="/uk/articles/category/video/" class="site-btn">Відкрити ще відео</a>
+				</div>
+			<div class="city-services">
+				@Html.Action("EmergencyCalls", "Widgets")
+				@Html.Action("Subscribe", "Widgets")
+			</div>
+		</div>
+	</section>
+
+	<section class="offense">
+		<div class="container">
+			@Html.Action("RecordingAtReception", "Widgets")
+			@Html.Action("Poll", "Widgets", new { polls = Model.Polls })
+		</div>
+	</section>
+
+</main>

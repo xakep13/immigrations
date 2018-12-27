@@ -1,0 +1,10 @@
+﻿@model CmsMenu
+@if(Model != null)
+{
+<div class="header-top-left">
+	@foreach(var item in Model.Items)
+	{
+		<a href="@item.Url">@item.Title</a>
+	}
+</div>
+}

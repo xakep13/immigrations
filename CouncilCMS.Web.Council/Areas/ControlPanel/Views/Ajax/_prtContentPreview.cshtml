@@ -1,0 +1,41 @@
+﻿@model List<ContentRowItem>
+  
+<div class="modal-title">
+    Попередній перегляд контенту
+    <ul class="modal-lang-swicher">
+        <li data-lang="en">EN</li>
+        <li data-lang="ru">RU</li>
+        <li class="active" data-lang="uk">UA</li>
+    </ul>
+</div>
+
+    @foreach (var row in Model)
+    {
+        <div class="row @(row.CssClasses)" style="background-color: @(row.BackgroundColor);background-image: @(row.BackgroundImage);
+             background-position: @(row.BackgroundPosition);background-repeat: @(row.BackgroundRepeat);background-size:@(row.BackgroundSize); @(row.CssStyles)">
+            @foreach (var col in row.ContentColumns)
+            {
+                <div class="@(col.CssClasses) col-lg-@col.LgWidth col-md-@col.MdWidth col-sm-@col.SmWidth col-lg-offset-@col.LgOffset col-md-offset-@col.MdOffset col-sm-offset-@col.SmOffset"
+                     style="background-color: @(col.BackgroundColor);background-image: @(col.BackgroundImage);
+                     background-position: @(col.BackgroundPosition);background-repeat: @(col.BackgroundRepeat);background-size:@(col.BackgroundSize); @(col.CssStyles)">
+                    @foreach (var content in col.Contents)
+                    {
+                        <div class="lang-uk">
+                            @Html.Raw(content.BodyUk)
+                        </div>
+                        <div class="lang-ru">
+                            @Html.Raw(content.BodyRu)
+                        </div>
+                        <div class="lang-en">
+                            @Html.Raw(content.BodyEn)
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    }
+    <div class="modal-footer">
+        <a href="#" type="button" class="btn btn-link nav-link" data-dismiss="modal">
+            @Locals.Close
+        </a>
+    </div>

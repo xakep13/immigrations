@@ -1,0 +1,65 @@
+﻿@model CmsArticle
+@{
+    ViewBag.Title = Model.Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <main class="">
+        @*<div class="breadcrumbs">
+            <ul class="breadcrumbs-list">
+                <li><a href="index.html">Главная</a></li>
+                <li><span>Опитування населення</span></li>
+            </ul>
+        </div>*@
+        <section class="news news-page-one">
+            <div class="container">
+                <span class="block-title block-decor-bottom">@Model.Title</span>
+                <div class="news-item">
+                    <img src="@CmsSettings.BaseDomain@Model.Image" alt="">
+                    <span class="title">@Model.Title</span>
+
+                    @if (ViewBag.isAdmin)
+					{
+                        <div>
+						<button id="fixOnAdminPage" class="btn-warning" data-id="@Model.Id">Редагувати</button>	
+					    </div>
+                    }
+
+					<div class="cms-article-content">
+                        @Html.Partial("_prtContent", Model.ContentRows)
+                    </div>
+
+                    <div class="news-item-info">
+                        <span class="views">@Model.ViewCount</span>
+                        <span class="category">@Model.CategoryName</span>
+                        <time>@Model.PublishDate</time>
+                    </div>
+                    <a href="/uk/articles/category/@Model.CategoryUrl" class="site-btn">Назад до розділу</a>
+                </div>
+                <section class="center-banner">
+                    <div class="center-banner-info">
+                        <div class="head">
+                            <span class="center-banner-title">
+                                <img src="/img/icons/header_banner-mail.svg" alt="">
+                                Як бути в курсі останніх новин?
+                            </span>
+                            <p class="block-decor-top block-decor-bottom">
+                                Підпишіться та отримуйте оперативну інформацію про заходи, надзвичайні ситуації та інші важливі події
+							</p>
+                        </div>
+                        <form method="POST" class="center-banner-form">
+                            <input type="mail" name="mail" placeholder="Введіть свою електронну адресу" required pattern="@("[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")">
+                            <button class="form-btn">Підписатися на актуальні новини</button>
+                        </form>
+                    </div>
+                </section>
+            </div>
+        </section>
+    </main>
+
+<script src="~/Content/JSCustomLib/ArticleReader.js"></script>
+<script>
+    $(function () {
+		coreUtils.createPage($(".cms-content"));
+    })
+</script>

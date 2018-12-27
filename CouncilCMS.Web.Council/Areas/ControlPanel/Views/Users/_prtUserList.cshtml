@@ -1,0 +1,136 @@
+﻿@model List<CmsUserListItem>
+
+@if (Model != null && Model.Count() > 0)
+{
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>П.І.Б.</th>
+                    <th>Email</th>
+                    <th>Ролі</th>
+                    <th>Статус</th>
+                    <th>Реєстрація</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="td-min">
+                            @item.Id
+                        </td>
+                        <td>
+                            <strong>
+                                @item.Name
+                            </strong>                          
+                        </td>
+                        <td>
+                            @item.Email
+                        </td>
+                        <td>
+                            @item.Roles
+                        </td>
+                        <td class="td-min no-wrap dropdown">
+                            <div class="dropdown">
+                                <span data-toggle="dropdown">
+                                    @if (item.Deleted)
+                                    {
+                                        <i class="fa fa-fw fa-trash" title="видалено"></i>
+                                        <span>
+                                            видалений
+                                        </span>
+                                    }
+                                    else if (item.Blocked)
+                                    {
+                                        <i class="fa fa-fw fa-lock" title="чернетка"></i>
+                                        <span>
+                                            заблокований
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <i class="fa fa-fw fa-check" title="активни "></i>
+                                        <span>
+                                            @DateTimeHelper.DateString(item.CreateDate)
+                                        </span>
+                                    }
+                                </span>
+                                <ul class="dropdown-menu dropdown-menu-right text-right">
+                                    <li>
+                                        <a href="#" class="no-event" title="дата реєстрації">
+                                            <i class="fa fa-fw fa-plus"></i>&nbsp;&nbsp;&nbsp;@DateTimeHelper.DateTimeString(item.CreateDate)
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="no-event" title="дата останнього входу">
+                                            <i class="fa fa-fw fa-check"></i>&nbsp;&nbsp;&nbsp;@(DateTimeHelper.NullableDateTimeString(item.LastLoginDate) ?? "дата не вказана")
+                                        </a>
+                                    </li>                                    
+                                </ul>
+                            </div>
+                        </td>
+                        <td class="td-min no-wrap rel">
+                            <div class="dropdown">
+                                <a href="#" class="link-btn" data-toggle="dropdown">
+                                    <i class="fa fa-fw fa-ellipsis-v"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-right text-right">
+                                    @if (item.Blocked && User.HasPremission("bl_users"))
+                                    {
+                                        <li>
+                                            <a href="#" class="nav-link" data-action="unblock" data-id="@item.Id">
+                                                <i class="fa fa-fw fa-unlock-alt"></i> розблокувати
+                                            </a>
+                                        </li>
+                                    }
+                                    else
+                                    {
+                                        <li>
+                                            <a href="#" class="nav-link" data-action="edit" data-id="@item.Id">
+                                                <i class="fa fa-fw fa-pencil"></i> редагувати
+                                            </a>
+                                        </li>
+                                        if (User.HasPremission("ch_password"))
+                                        {
+                                            <li>
+                                                <a href="#" class="nav-link" data-action="reset-password" data-id="@item.Id">
+                                                    <i class="fa fa-fw fa-refresh"></i> скинути пароль
+                                                </a>
+                                            </li>
+                                        }
+                                        if (User.HasPremission("bl_users"))
+                                        {
+                                            <li>
+                                                <a href="#" class="nav-link" data-action="block" data-id="@item.Id">
+                                                    <i class="fa fa-fw fa-lock"></i> заблокувати
+                                                </a>
+                                            </li>
+                                        }
+                                        if (User.HasPremission("dl_users"))
+                                        {
+                                            <li>
+                                                <a href="#" class="nav-link" data-action="remove" data-id="@item.Id">
+                                                    <i class="fa fa-fw fa-trash"></i> видалити
+                                                </a>
+                                            </li>
+                                        }                                       
+                                    }
+                                </ul>
+
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    @Helpers.CpPager(ViewBag.Count, ViewBag.Page, ViewBag.PerPage)
+}
+
+
+
+

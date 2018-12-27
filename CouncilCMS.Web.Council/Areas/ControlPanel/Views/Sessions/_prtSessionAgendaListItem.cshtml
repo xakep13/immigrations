@@ -1,0 +1,49 @@
+﻿@model SessionAgendaItem
+
+@if (Model != null)
+{
+    <div class='card-sm' data-id="@Model.Id" id="agenda@(Model.Id)">
+        <div class='row'>
+            <div class="col-sm-2">
+                <span class="link-btn btn-drag" data-id="@Model.Id">
+                    <i class="fa fa-fw fa-bars"></i>
+                </span>
+                <span class="number">
+                    @Model.Number
+                </span>
+            </div>
+            <div class="col-sm-8">
+                @if (Model.DocId > 0)
+                {
+                    <strong>
+                        @Model.DocTitle
+                    </strong>
+                }
+                else
+                {
+                    <strong class="lang-uk">
+                        @Model.TitleUk
+                    </strong>
+                    <strong class="lang-ru">
+                        @Model.TitleRu
+                    </strong>
+                    <strong class="lang-en">
+                        @Model.TitleEn
+                    </strong>
+                }
+            </div>
+            <div class="col-sm-2 text-right">
+                @if (Model.DocId == null)
+                {
+                    <span class='link-btn nav-link' data-action="edit-agenda" data-id="@Model.Id">
+                        <i class='fa fa-fw fa-pencil'></i>
+                    </span>
+                }                
+                <span class='link-btn nav-link' data-action="remove-agenda" data-id="@Model.Id">
+                    <i class='fa fa-fw fa-trash'></i>
+                </span>
+            </div>
+        </div>
+    </div>
+}
+

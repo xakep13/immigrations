@@ -1,0 +1,502 @@
+﻿@{
+    var sidebarState = Request.Cookies["sidebar_state"] != null ? Request.Cookies["sidebar_state"].Value : "expanded";
+    var cpColor = Request.Cookies["cp_color"] != null ? Request.Cookies["cp_color"].Value : "blue";
+    var min = HttpContext.Current.IsDebuggingEnabled ? ".min" : ".min";
+    var cdnHost = HttpContext.Current.IsDebuggingEnabled ? CmsSettings.CdnDomain : CmsSettings.CdnDomain;
+    var baseHost = HttpContext.Current.IsDebuggingEnabled ? "http://localhost:12711" : CmsSettings.BaseDomain;
+}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>@((String.IsNullOrEmpty(ViewBag.Title) ? null : (ViewBag.Title + " - ")) + "BisSoft: ControlPanel")</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Arimo:400,400i,700,700i|PT+Sans:400,400i,700,700i&amp;subset=cyrillic-ext" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.5.3/css/bootstrap-colorpicker.css" rel="stylesheet" />
+
+    <link href="@cdnHost/libs/bootstrap-smartcity/css/city/bs-cp-@(cpColor).min.css?v=@(CmsSettings.ProductVersion)" rel="stylesheet" />
+    <link href="@cdnHost/libs/bootstrap-modal/css/bootstrap-modal.min.css?v=@(CmsSettings.ProductVersion)" rel="stylesheet" />
+    <link href="@cdnHost/libs/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="@cdnHost/libs/bootsrap-datetimepicker/css/bootstrap-datetimepicker.min.css?v=@(CmsSettings.ProductVersion)" rel="stylesheet" />
+    <link href="@cdnHost/libs/bootstrap-select/css/bootstrap-select.min.css?v=@(CmsSettings.ProductVersion)" rel="stylesheet" />
+    <link href="@cdnHost/libs/cropper/cropper.min.css" rel="stylesheet" />
+    <link href="@cdnHost/libs/palete-color-picker/palette-color-picker.min.css?v=@(CmsSettings.ProductVersion)" rel="stylesheet" />
+    <link href="@cdnHost/libs/fotorama/fotorama.min.css?v=@(CmsSettings.ProductVersion)" rel="stylesheet" />
+    <link href="@cdnHost/app/css/theme/site-@(cpColor).min.css?v=@(CmsSettings.ProductVersion)" rel="stylesheet" />
+
+    <style type="text/css">
+        .lang-ru {
+            display: none;
+        }
+
+        .lang-en {
+            display: none;
+        }
+    </style>
+
+    <script>
+        BASE_DOMAIN = '@baseHost';
+        CDN_DOMAIN = '@cdnHost';
+        LANG = '@CurrentCulture.Name.ToLower()';
+    </script>
+
+
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+    <script src="@cdnHost/libs/jQuery/jquery.validate@(min).js"></script>
+    <script src="@cdnHost/libs/jQuery/jquery.validate.unobtrusive@(min).js"></script>
+    <script src="@cdnHost/libs/jQuery/jquery.autocomplete.min.js"></script>
+    <script src="@cdnHost/libs/jQuery/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="@cdnHost/libs/jQuery/jquery.maskedinput.min.js"></script>
+    <script src="@cdnHost/libs/moment/moment-wl.min.js"></script>
+    <script src="@cdnHost/libs/bootstrap-smartcity/js/bootstrap.min.js"></script>
+    <script src="@cdnHost/libs/bootstrap-modal/js/bootstrap-modalmanager.min.js"></script>
+    <script src="@cdnHost/libs/bootstrap-modal/js/bootstrap-modal.min.js"></script>
+    <script src="@cdnHost/libs/bootsrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="@cdnHost/libs/bootstrap-select/js/bootstrap-select.min.js"></script>
+    <script src="@cdnHost/libs/cropper/cropper.min.js"></script>
+    <script src="@cdnHost/libs/jsCookie/js-cookie.min.js"></script>
+    <script src="@cdnHost/libs/sortable/sortable.min.js"></script>
+    <script src="@cdnHost/libs/ckeditor/ckeditor.js"></script>
+    <script src="@cdnHost/libs/ckeditor/adapters/jquery.js"></script>
+    <script src="@cdnHost/app/js/locals.@(CurrentCulture.Name.ToLower()).min.js"></script>
+    <script src="@cdnHost/app/js/globals.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.5.3/js/bootstrap-colorpicker.js"></script>
+
+    <script>
+        CKEDITOR.timestamp = '@(CmsSettings.ProductVersion)';
+        CKEDITOR.on('instanceReady', function () {
+            $(".cke_button__source_label").text("");
+        });
+    </script>
+
+
+    <script src="@cdnHost/libs/plupload/plupload.full.min.js"></script>
+    <script src="@cdnHost/libs/palete-color-picker/palette-color-picker.min.js"></script>
+    <script src="@cdnHost/libs/fotorama/fotorama.min.js"></script>
+    <script src="@cdnHost/app/js/jquery.conditionalvalidate@(min).js"></script>
+    <script src="@cdnHost/app/js/uploader.min.js?v=@(CmsSettings.ProductVersion)"></script>
+    <script src="@cdnHost/app/js/core-utils@(min).js?v=2707"></script>
+    <script src="@cdnHost/app/js/controlpanel@(min).js?v=2707"></script>
+
+    <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ol3/3.8.2/ol.min.css" type="text/css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ol3/3.8.2/ol.min.js" type="text/javascript"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery-colpick@3.1.0/js/colpick.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-colpick@3.1.0/css/colpick.css">
+    <style>
+        .colorpicker-visible {
+            min-width: 140px;
+            z-index: 999999;
+
+        }
+        .myDropDown {
+            margin-top: 25px;
+
+        }
+        .connectionAlive {
+            border: medium 2px thin yellow;
+        }
+    </style>
+
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=@(CmsSettings.GoogleMapApiKey)&libraries=places&language=@(CurrentCulture.Name.ToLower())&callback=coreUtils.initMapApi"></script>
+</head>
+
+<body>
+    <div class="layout-wrapper">
+        <div class="sidebar @sidebarState">
+            <div class="sidebar-header">
+                <img src="http://cdn.bissoft.org/img/parts/bissoft-logo-white-color-100.png" class="bissoft-logo" />
+                <div class="pull-right">
+                    <span class="sidebar-toggle">
+                        <i class="fa fa-fw fa-angle-left"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="sidebar-menu">
+                <ul class="nav" id="side-menu">
+                    <li>
+                        <ul class="nav">
+                            @if (User.HasPremissions("pages"))
+                            {
+                                <li>
+                                    <a href="/@CurrentCulture.Name.ToLower()/controlpanel/pages" class="pages">
+                                        <i class="fa fa-fw fa-file-o"></i>
+                                        <span>
+                                            Статичні сторінки
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <span class="nav-hr"></span>
+                                </li>
+                            }
+                            @if (User.HasPremissions("articles"))
+                            {
+                                <li>
+                                    <a href="/@CurrentCulture.Name.ToLower()/controlpanel/articles" class="articles">
+                                        <i class="fa fa-fw fa-file-text-o"></i>
+                                        <span>
+                                            Матеріали
+                                        </span>
+                                    </a>
+                                </li>
+                            }
+                            @if (User.HasPremissions("persons"))
+                            {
+                                <li>
+                                    <a href="/@CurrentCulture.Name.ToLower()/controlpanel/persons" class="persons">
+                                        <i class="fa fa-fw fa-user"></i>
+                                        <span>
+                                            Персони
+                                        </span>
+                                    </a>
+                                </li>
+                            }
+                            @if (User.HasPremissions("enterprises"))
+                            {
+                                <li>
+                                    <a href="/@CurrentCulture.Name.ToLower()/controlpanel/enterprises" class="enterprises">
+                                        <i class="fa fa-fw fa-bank"></i>
+                                        <span>
+                                            Органцізації
+                                        </span>
+                                    </a>
+                                </li>
+                            }
+                            @if (User.HasPremissions("docs"))
+                            {
+                                <li>
+                                    <a href="/@CurrentCulture.Name.ToLower()/controlpanel/docs" class="docs">
+                                        <i class="fa fa-fw fa-file-o"></i>
+                                        <span>
+                                            @CmsLabels.Documents
+                                        </span>
+                                    </a>
+                                </li>
+
+                            }
+                            <li>
+                                <span class="nav-hr"></span>
+                            </li>
+
+                            @if (User.HasPremissions("_cat"))
+                            {
+                                <li>
+                                    <a href="/@CurrentCulture.Name.ToLower()/controlpanel/articlecategories" class="articlecategories">
+                                        <i class="fa fa-fw fa-list-ul"></i>
+                                        <span>
+                                            Категорії матеріалів
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/@CurrentCulture.Name.ToLower()/controlpanel/personcategories" class="personcategories">
+                                        <i class="fa fa-fw fa-list-ul"></i>
+                                        <span>
+                                            Категорії персон
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/@CurrentCulture.Name.ToLower()/controlpanel/enterprisecategories" class="enterprisecategories">
+                                        <i class="fa fa-fw fa-list-ul"></i>
+                                        <span>
+                                            Категорії органцізацій
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/@CurrentCulture.Name.ToLower()/controlpanel/doccategories" class="doccategories">
+                                        <i class="fa fa-fw fa-list-ul"></i>
+                                        <span>
+                                            Категорії документів
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/@CurrentCulture.Name.ToLower()/controlpanel/doctypes" class="doctypes">
+                                        <i class="fa fa-fw fa-list-ul"></i>
+                                        <span>
+                                            Типи документів
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <span class="nav-hr"></span>
+                                </li>
+                            }
+
+
+                            @if (User.HasPremissions("menu"))
+                            {
+                                <li>
+                                    <a href="/@CurrentCulture.Name.ToLower()/controlpanel/menus" class="menus">
+                                        <i class="fa fa-fw fa-bars"></i>
+                                        <span>
+                                            Меню
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <span class="nav-hr"></span>
+                                </li>
+                            }
+                            @if (User.HasPremissions("poll"))
+                            {
+                                <li>
+                                    <a href="/@CurrentCulture.Name.ToLower()/controlpanel/polls" class="polls">
+                                        <i class="fa fa-fw fa-bars"></i>
+                                        <span>
+                                            Опитування
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <span class="nav-hr"></span>
+                                </li>
+                            }
+                            @if (User.HasPremissions("banner"))
+                            {
+                                <li>
+                                    <a href="/@CurrentCulture.Name.ToLower()/controlpanel/banners" class="banners">
+                                        <i class="fa fa-fw fa-handshake-o"></i>
+                                        <span>
+                                            Банери
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <span class="nav-hr"></span>
+                                </li>
+                            }
+
+                            @if (User.HasPremissions("users"))
+                            {
+                                <li>
+                                    <a href="/@CurrentCulture.Name.ToLower()/controlpanel/users" class="users">
+                                        <i class="fa fa-fw fa-user-circle-o"></i>
+                                        <span>
+                                            Користувачі
+                                        </span>
+                                    </a>
+                                </li>
+                            }
+                            @if (User.HasPremissions("roles"))
+                            {
+                                <li>
+                                    <a href="/@CurrentCulture.Name.ToLower()/controlpanel/roles" class="roles">
+                                        <i class="fa fa-fw fa-user-circle-o"></i>
+                                        <span>
+                                            Ролі користувачів
+                                        </span>
+                                    </a>
+                                </li>
+                            }
+                            @if (User.HasPremissions("settings"))
+                            {
+                                <li>
+                                    <a href="/@CurrentCulture.Name.ToLower()/controlpanel/cmssettings/edit" class="cmssettings">
+                                        <i class="fa fa-fw fa-cog"></i>
+                                        <span>
+                                            Налаштування
+                                        </span>
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="content @sidebarState">
+            <div class="content-header bg-primary">
+                <div class="user pull-right">
+                    <a href="/a127/account/signout" class="header-title-exit link-white">
+                        <span class="fa fa-fw fa-sign-out"></span>
+                    </a>
+                </div>
+                <div class="content-header-title">
+                    <strong>
+                        BisSoft: Control Panel
+                    </strong>
+                    <span>Система керування контентом сайту</span>
+                    <div class="user">
+                        <span class="name">
+                            @User.Identity.Name
+                        </span>
+                        <span class="email">
+                            @User.Identity.Email
+                        </span>
+                        <div class="links dropdown">
+                            <a href="#" onclick="javascript: window.getChangePassword();">змінити пароль</a>
+                            <a href="/uk/controlpanel/account/logout">вийти</a>
+
+                            <a href="#" data-toggle="dropdown" title="налаштування">
+                                <i class="fa fa-fw fa-cog"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-right" id="ddCpColor" style="width:212px;">
+                                <li>
+                                    <div class="color-select">
+                                        <div style="padding:0 6px;">
+                                            <a href="#" data-color="blue" style="display:block; float:left; width:60px; height:60px; background-color:#2196f3; margin:3px;">
+                                            </a>
+                                            <a href="#" data-color="green" style="display:block; float:left; width:60px; height:60px; background-color:#00C853; margin:3px;">
+
+                                            </a>
+                                            <a href="#" data-color="teal" style="display:block; float:left; width:60px; height:60px; background-color:#009688; margin:3px;">
+
+                                            </a>
+                                            <a href="#" data-color="purple" style="display:block; float:left; width:60px; height:60px; background-color:#9c27b0; margin:3px;">
+
+                                            </a>
+                                            <a href="#" data-color="yellow" style="display:block; float:left; width:60px; height:60px; background-color:#f57c00; margin:3px;">
+
+                                            </a>
+                                            <a href="#" data-color="gray" style="display:block; float:left; width:60px; height:60px; background-color:#455a64; margin:3px;">
+
+                                            </a>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="content-main">
+                <div class="content-sub-header">
+                    @RenderSection("SubHeader", false)
+                </div>
+                <div class="container-fluid">
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="processing" style="height:0;" id="divProcessing">
+        <div class="text-center bg-primary">
+            <span>processing...</span>
+            <span class="fa fa-fw fa-spin fa-cog"></span>
+        </div>
+    </div>
+
+    <div id="divChangePassword" class="modal modal-600 fade" tabindex="-1" data-width="600" style="display:none;">
+        <div class="modal-body" id="divChangePasswordForm"></div>
+    </div>
+
+    <script>
+        (function () {
+            bsAdmin.divProcessing = $("#divProcessing");
+            window.divFilter = $("#divFilter");
+            window.formFilter = $("#formFilter");
+            window.urlParams = window.location.search.substring(1);
+            window.currentState = coreUtils.paramsToObject(window.urlParams) || coreUtils.formToParams(window.formFilter, ".filter-input") || {};
+            window.divChangePassword = $("#divChangePassword");
+
+            window.pushState = function () {
+                window.urlParams = coreUtils.objectToParams(window.currentState);
+                history.pushState(window.currentState, "", "?" + window.urlParams);
+            };
+
+            window.getChangePassword = function () {
+                $('body').modalmanager('loading');
+
+                window.divChangePassword.find(".modal-body").load("/uk/controlpanel/account/getchangepasswordform", function () {
+
+                    window.divChangePassword.modal({ backdrop: 'static', keyboard: false });
+                });
+            };
+        }());
+    </script>
+
+    <script>
+        $(function () {
+            var curController = "@ViewContext.RouteData.Values["controller"].ToString().ToLower()";
+
+            $("." + curController).addClass("cur").append("<div class='arrow-left'></div>");
+
+            $(document).on("click", ".sidebar-toggle", function () {
+                $(".sidebar").toggleClass("collapsed");
+                $(".content").toggleClass("collapsed");
+
+                if ($(".sidebar").hasClass("collapsed")) { Cookies.set("sidebar_state", "collapsed", { expires: 365 }); }
+                else { Cookies.set("sidebar_state", "expanded", { expires: 365 }); }
+            });
+
+            $(document).on("click", "#btnShowFilter", function (e) {
+                e.preventDefault();
+                window.formFilter.slideToggle();
+                window.divFilter.toggleClass("expanded");
+
+                var filterStatesCookies = Cookies.get("filter_states");
+                var filterSatates = coreUtils.paramsToObject(filterStatesCookies) || {};
+
+                if (window.divFilter.hasClass("expanded")) {
+                    filterSatates[curController] = "1";
+                } else {
+                    filterSatates[curController] = "0";
+                }
+
+                filterStatesCookies = coreUtils.objectToParams(filterSatates);
+                Cookies.set("filter_states", filterStatesCookies);
+            });
+
+            $(document).on("click", "#btnClearFilter", function () {
+                coreUtils.resetForm(window.formFilter);
+
+                if ($(this).data("onclear"))
+                    eval($(this).data("onclear"));
+            });
+
+            $(document).on("click", ".modal-lang-swicher > li", function () {
+                $(this).parent().find(".active").removeClass("active");
+                $(this).parents(".modal-body").find("[class^='lang-']").hide();
+                $(this).addClass("active").parents(".modal-body").find(".lang-" + $(this).data("lang")).show();
+            });
+
+            $(document).on("click", ".list-lang-swicher a", function (e) {
+                e.preventDefault();
+                $(this).parents(".dropdown").find("span").text($(this).data("lang"));
+
+                var i = 0;
+                var stylesheet = document.styleSheets[i];
+
+                while (!stylesheet.cssRules)
+                {
+                    i++;
+                    stylesheet = document.styleSheets[i];
+                }
+
+                if (stylesheet.insertRule) {
+                    stylesheet.insertRule("#divList [class^='lang-'] {display:none;}", stylesheet.cssRules.length);
+                    stylesheet.insertRule("#divList .lang-" + $(this).data("lang") + " {display:block;}", stylesheet.cssRules.length);
+                } else if (stylesheet.addRule) {
+                    stylesheet.addRule("#divList [class^='lang-']", "{display:none;}", -1);
+                    stylesheet.addRule("#divList .lang-" + $(this).data("lang"), "{display:block;}", -1);
+                }
+            });
+
+            $(document).on("click", "#ddCpColor > li a", function (e) {
+                e.preventDefault();
+                Cookies.set("cp_color", $(this).data("color"));
+                location.reload();
+            });
+
+            $('[data-toggle="popover"]').popover();
+        });
+    </script>
+
+    @RenderSection("Scripts", false)
+</body>
+</html>

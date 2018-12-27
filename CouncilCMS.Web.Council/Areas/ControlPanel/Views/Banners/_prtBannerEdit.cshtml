@@ -1,0 +1,45 @@
+﻿@model BannerEdit
+
+@using (Ajax.BeginForm(new AjaxOptions()
+{
+    Url = "/uk/controlpanel/banners/save",
+    HttpMethod = "POST",
+    OnBegin = "bsAdmin.startProcessing();",
+    OnComplete = "bsAdmin.endProcessing();",
+    UpdateTargetId = "divEditForm",
+    InsertionMode = InsertionMode.Replace,
+}))
+{
+    @Html.HiddenFor(x => x.Id)
+
+    <div class="remodal-title">
+        @Locals.Document
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6">
+            @Html.SimpleTextBoxFor(x => x.TextUk, "Текст посилання (ua)", new { @class = "form-control" })
+            @Html.SimpleTextBoxFor(x => x.TextRu, "Текст посилання (ru)", new { @class = "form-control" })
+            @Html.SimpleTextBoxFor(x => x.Url, "Посилання", new { @class = "form-control" })
+            @Html.SimpleCheckboxFor(x => x.Published, "Публікація", "Відображати банер на сайті")
+        </div>
+        <div class="col-lg-6">
+            @Html.SimpleUploaderFor(x => x.Image, "Зображення/іконка",
+             new ImageUploaderOptions()
+             {
+                 UploadUrl = "/api/upload/uploadfile?type=image&directory=partner&limitwidth=100&limitheight=100",
+                 ContainerId = "divPersonUpload",
+                 ContainerHeight = 200
+             }, new { @class = "form-control", @readonly = "readonly" })
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <a href="#" type="button" class="btn btn-link nav-link" data-remodal-action="close">
+            @Locals.Close
+        </a>
+        <button type="submit" class="btn btn-primary">
+            @Locals.Save
+        </button>
+    </div>
+}

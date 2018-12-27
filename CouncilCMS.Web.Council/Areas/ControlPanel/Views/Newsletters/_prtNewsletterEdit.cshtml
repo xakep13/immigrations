@@ -1,0 +1,102 @@
+﻿@model NewsletterEdit
+
+@using (Ajax.BeginForm("Save", "Pages", new AjaxOptions()
+{
+    Url = "/uk/controlpanel/newsletters/save",
+    HttpMethod = "POST",
+    OnBegin = "bsAdmin.startProcessing();",
+    OnComplete = "bsAdmin.endProcessing();",
+    UpdateTargetId = "divEditForm",
+    InsertionMode = InsertionMode.Replace,
+}))
+{
+    @Html.HiddenFor(x => x.Id, new { Value = Model.Id })
+
+    <div class="remodal-title">
+        Електронний журнал
+    </div>
+
+    <div class="row">
+        <div class="col-sm-9">
+            @Html.SimpleTextBoxFor(x => x.TitleUk, Locals.Title + "(ua)", new { @class = "form-control" })
+        </div>
+        <div class="col-sm-3">
+            @Html.SimpleTextBoxFor(x => x.Number, "Номер", new { @class = "form-control" })
+        </div>
+        <div class="col-sm-12">
+            @Html.SimpleTextAreaFor(x => x.DescriptionUk, "Опис (ua)", new { @class = "form-control", rows = 4 })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3">
+            @Html.SimpleTextBoxFor(x => x.PublishDate, "Дата публікації", new { @class = "form-control bs-datepicker", @readonly = "readonly" })
+        </div>
+        <div class="col-sm-6">
+            @Html.SimpleCheckboxFor(x => x.Published, "Публікація", "Опубліковано на сайті")
+        </div>
+    </div>
+
+}
+
+<h3 class="card-subtitle">
+    Матеріали журналу
+</h3>
+<div class="well">
+    <div class="form-group">
+        @using (Ajax.BeginForm(
+        "AddArticle",
+        "Newsletters",
+        new { Area = "ControlPanel", NewsletterId = Model.Id },
+        new AjaxOptions()
+        {
+            UpdateTargetId = "divArticles",
+            InsertionMode = InsertionMode.InsertAfter,
+            OnBegin = "coreUtils.disableButton($(this).find('.btn[type=\"submit\"]'));",
+            OnComplete = "coreUtils.enableButton($(this).find('.btn[type=\"submit\"]'));"
+        }))
+
+        {
+            <div class="row">
+                <div class="col-sm-12">
+                    <label class="control-label">Додати матеріал в журнал</label>
+                </div>
+                <div class="col-sm-8">
+                    <div class="input-group">
+                        <input name="ArticleId" type="text" data-placeholder="Введіть назву матеріалу" class="form-control bs-autocompleteselect" data-remote="/uk/controlpanel/ajax/findarticle" />
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-default input-clear ">
+                                <i class="fa fa-fw fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <button type="submit" class="btn btn-block btn-primary">
+                        Додати
+                    </button>
+                </div>
+            </div>
+        }
+    </div>
+    <hr />
+    <div class="items" id="divArticles">
+        @foreach (var item in Model.Articles)
+        {
+            @Html.Partial("_prtNewsletterArticle", item)
+        }
+    </div>
+    <div class="form-group">
+        <a href="/uk/controlpanel/newsletters/getpdf/@Model.Id" class="btn btn-default">
+            Завантажити PDF
+        </a>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <a href="#" type="button" class="btn btn-link nav-link" data-dismiss="modal">
+        @Locals.Close
+    </a>
+    <button type="button" class="btn btn-primary" onclick="$('#divEdit .modal-body > form').trigger('submit');">
+        @Locals.Save
+    </button>
+</div>

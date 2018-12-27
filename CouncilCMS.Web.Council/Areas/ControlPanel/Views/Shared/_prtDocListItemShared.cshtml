@@ -1,0 +1,53 @@
+﻿@model CmsDocListItem
+
+<div class="card-sm item" id="divItem@(Model.Id)" data-id="@Model.Id">
+    <div class="div-table">
+        <div class="div-cell" style="width:70px;">           
+            <span class="link-btn btn-drag btn-@(Model.ParentItemId ?? 0)-drag">
+                <i class="fa fa-fw fa-bars"></i>
+            </span>
+
+            <span class="link-btn btn-expand" data-toggle="collapse" data-target="#itemChilds@(Model.Id)" style="display:@(Model.HasChilds ? "inline-block" : "none")">
+                <i class="fa fa-fw fa-angle-down"></i>
+            </span>
+        </div>
+
+        <div class="div-cell">
+            @*<div class="inline-elipsis" style="vertical-align:middle;">
+                <strong class="lang-uk">
+                    @Model.TitleUk
+                </strong>
+                <strong class="lang-ru">
+                    @Model.TitleRu
+                </strong>
+                <strong class="lang-en">
+                    @Model.TitleEn
+                </strong>
+            </div>*@
+        </div>
+
+        @*<div class="div-cell" style="width:300px;">
+            <span>приорітет: <strong>@Model.Priority</strong></span><br />
+        </div>*@
+
+        @*<div class="div-cell text-right" style="width:100px;">
+            @if (Model.Allowed)
+            {
+                <a href="#" class="link-btn nav-link" data-action="edit-item" data-id="-1" data-parent-id="@Model.Id" title="додати вкладену категорію">
+                    <i class="fa fa-fw fa-plus"></i>
+                </a>
+
+                <a href="#" class="link-btn nav-link" data-action="edit-item" title="редагувати категорію">
+                    <i class="fa fa-fw fa-pencil"></i>
+                </a>
+
+                if (User.HasPremission("dl_cat"))
+                {
+                    <a href="#" class="link-btn nav-link" data-action="remove-item" title="видалити категорію">
+                        <i class="fa fa-fw fa-trash"></i>
+                    </a>
+                }
+            }
+        </div>*@
+    </div>
+</div>

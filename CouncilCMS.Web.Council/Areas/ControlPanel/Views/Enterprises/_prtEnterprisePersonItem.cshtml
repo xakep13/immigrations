@@ -1,0 +1,23 @@
+﻿@model EnterprisePersonItem
+
+<div class='card-sm' id="itemPerson@(Model.PersonId)Enterprise@(Model.EnterpriseId)">
+    <div class='row'>
+        <div class="col-sm-4">
+            @Model.Title
+        </div> 
+        <div class="col-sm-4">
+            @Model.GetLocalValue("Post")
+        </div>        
+        <div class="col-sm-2  text-center">
+            @Model.Position 
+        </div>        
+        <div class="col-sm-2 text-right">
+            <span class='link-btn nav-link' data-action="edit-person" data-person-id="@Model.PersonId" data-enterprise-id="@Model.EnterpriseId">
+                <i class='fa fa-fw fa-pencil'></i>
+            </span>
+            <span class='link-btn nav-link' data-action="remove-person" data-person-id="@Model.PersonId" data-enterprise-id="@Model.EnterpriseId">
+                <i class='fa fa-fw fa-trash'></i>
+            </span>
+        </div>
+    </div>
+</div>

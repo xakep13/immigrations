@@ -1,0 +1,19 @@
+﻿@model CmsArticle
+@if (Model != null)
+{
+    <div class="mer">
+        <div class="info">
+            <img src="@CmsSettings.BaseDomain@CmsSettings.MayorImage" alt="" class="circle-icon-img">
+			<span>
+				@CmsSettings.MayorTitleUk <br />
+				@CmsSettings.MayorNameUk
+			</span>
+        </div>
+		<span class="title -xz>">@Model.Title</span>
+        <p class="descr-xz">@Model.Description</p>
+
+
+        <a href="/uk/articles/item/@Model.Id/@Model.Url">Детальніше</a>
+    </div>
+}
+

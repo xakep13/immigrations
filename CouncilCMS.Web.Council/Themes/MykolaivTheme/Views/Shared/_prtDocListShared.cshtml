@@ -1,0 +1,18 @@
+﻿@model List<CategoryListItem>
+
+@if (Model != null && Model.Count() > 0)
+{
+    foreach (var item in Model)
+    {
+        <div class="rel">
+            @Html.Partial("_prtDocListItemShared", item)
+            <div class="related-list collapse" id="itemChilds-@(item.Id)" data-id="@item.Id">
+                @if (item.ChildCategoryItems != null && item.ChildCategoryItems.Count > 0)
+                {
+                    @Html.Partial("_prtDocListShared", item.ChildCategoryItems)
+                }
+            </div>
+        </div>
+    }
+}
+

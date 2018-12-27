@@ -1,0 +1,94 @@
+﻿@model CmsEnterpriseList
+@{
+    ViewBag.Title = Model.CategoryName;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main class="">
+    <section class="organization">
+        <div class="container">
+            <span class="block-title block-decor-bottom">@Model.CategoryName</span>
+            <div class="organization-list">
+                @foreach (var item in Model.Enterprises)
+                {
+                    <div class="organization-item">
+                        <div class="img-wrap"><img src="@CmsSettings.BaseDomain@item.Image" alt=""></div>
+                        <div class="info">
+                            <span class="title block-decor-bottom">@item.Title</span>
+                            <p class="descr">@item.Description</p>
+                            <a class="more-info" href="/@CurrentCulture.Name.ToLower()/organizations/item/@item.Id">Детальніше</a>
+                        </div>
+                    </div>
+                }
+
+            </div>
+            <div class="organization-right">
+                <div class="header_banner-info">
+                    <span class="title">Гаряча лінія</span>
+                    <div class="header_banner-contacts block-decor-bottom block-decor-top">
+                        <a class="phone" href="tel:@CmsSettings.HotlinePhone">@CmsSettings.HotlinePhone</a>
+                        <a class="mail" href="mailto:@CmsSettings.HotlineEmail">@CmsSettings.HotlineEmail</a>
+                    </div>
+                    <div class="header_banner-contacts">
+                        <a class="icon" href="tel:@CmsSettings.HotlinePhone"><img src="/content/img/icons/header_banner-phone.svg" alt=""></a>
+                        <a class="icon" href="mailto:@CmsSettings.HotlineEmail"><img src="/content/img/icons/header_banner-mail.svg" alt=""></a>
+                    </div>
+                    <p class="header_banner-descr">Електронний центр обробки інформації громадян</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+@*<div class="container">
+        <div class="left-content">
+            <div class="cms-list">
+                <div class="cms-list-header">
+                    <h1>@Model.CategoryName</h1>
+                    @if (!String.IsNullOrEmpty(Model.CategoryDescription))
+                    {
+                        <div class="cms-list-desc">
+                            @Html.Raw(Model.CategoryDescription)
+                        </div>
+                    }
+                </div>
+
+                @if (Model.Enterprises != null && Model.Enterprises.Count > 0)
+                {
+                    foreach (var item in Model.Enterprises.OrderBy(x => x.Title))
+                    {
+                        <div class="cms-person-item" id="personItem@(item.Id)" data-title="@item.Title">
+                            <a href="/@CurrentCulture.Name.ToLower()/organizations/item/@item.Id">
+                                <img src="@CmsSettings.BaseDomain@(!String.IsNullOrEmpty(item.Image) ? item.Image : "/content/img/parts/default-img-1x1.png")" title="@item.Title" class="img" />
+                                <div class="text">
+                                    <span class="name">
+                                        @item.Title
+                                    </span>
+                                    @if (!String.IsNullOrEmpty(item.Description))
+                                    {
+                                        <p class="desc">
+                                            @item.Description
+                                        </p>
+                                    }
+                                </div>
+                            </a>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="well">
+                        У цьому розділі записів не знайдено
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="right-content">
+            @Html.Partial("_prtSidebar")
+            @if (Model.CategoryMenu != null)
+            {
+                @Html.Partial("_prtSidebarMenu", Model.CategoryMenu)
+            }
+        </div>
+    </div>*@

@@ -1,0 +1,12 @@
+﻿@model Bissoft.CouncilCMS.BLL.ViewModels.Public.RecordingAtReceptionModel
+
+<div class="record">
+    <span class="block-title block-decor-bottom">Запис на прийом</span>
+    <p class="record-descr">
+        Особистий прийом громадян  міським головою, секретарем  міської ради, першим заступником міського голови, заступниками міського голови з питань діяльності виконавчих органів ради, керуючим справами виконавчого комітету  та  керівниками  виконавчих органів міської ради.
+    </p>
+    <span class="form-info">Пункти з позначкою <b>*</b> обов’язкові для заповнення</span>
+    <div id="placeToRecordToTheOfficial">
+        @Html.Partial("_prtRecordingAtReceptionForm", Model)
+    </div>
+</div>

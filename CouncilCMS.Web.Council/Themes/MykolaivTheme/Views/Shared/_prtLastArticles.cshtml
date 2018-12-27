@@ -1,0 +1,18 @@
+﻿@model List<CmsArticleListItem>
+
+@if (Model != null)
+{
+    foreach (var item in Model)
+    {
+        <div class="cms-article-item fixed sm">
+            <a href="/@CurrentCulture.Name.ToLower()/articles/item/@item.Id/@item.UrlName">
+                <div class="img" style="background-image:url('@(!String.IsNullOrEmpty(item.Image) ? ("http://" + CmsSettings.BaseDomain + item.Image) : "/Content/img/parts/default-img-4x3.png" )');"></div>
+                <div class="text">
+                    <div class="date">@item.PublishDate</div>
+                    <div class="title">@item.Title</div>
+                    <div class="desc">@item.Description</div>
+                </div>
+            </a>
+        </div>
+    }
+}

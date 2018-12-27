@@ -1,0 +1,41 @@
+﻿@model ContentRowsEdit
+
+@using (Ajax.BeginForm(new AjaxOptions()
+{
+    Url = "/uk/controlpanel/ajax/savecontentrow",
+    HttpMethod = "POST",
+    OnSuccess = "window.updateRow"
+}))
+{
+    @Html.HiddenFor(x => x.Id)
+    @Html.HiddenFor(x => x.Position)
+
+    <div class="remodal-title">
+        Налаштування блоку контенту
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6">
+            @Html.SimpleUploaderFor(x => x.BackgroundImage, "Фонове зображення",
+         new ImageUploaderOptions() { UploadUrl = "/api/upload/uploadimage?directory=contentColumns", ContainerId = "divImgUpload", IsImageUploader = true },
+         new { @class = "form-control", @readonly = "readonly" })
+            @Html.SimpleTextBoxFor(x => x.CssClasses, "Додаткові класи CSS", new { @class = "form-control" })
+        </div>
+        <div class="col-lg-6">
+            @Html.SimpleDropDownListFor(x => x.BackgroundPosition, ValueHelper.BackgroundPositionSelect, "Позиція фону", new { @class = "form-control bs-select" })
+            @Html.SimpleDropDownListFor(x => x.BackgroundRepeat, ValueHelper.BackgroundRepeatSelect, "Повторення фону", new { @class = "form-control bs-select" })
+            @Html.SimpleDropDownListFor(x => x.BackgroundSize, ValueHelper.BackgroundSizeSelect, "Розмір фону", new { @class = "form-control bs-select" })
+            @Html.SimpleTextBoxFor(x => x.CssStyles, "Додаткові стилі CSS", new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a href="#" type="button" class="btn btn-link nav-link" data-dismiss="modal">
+            @Locals.Close
+        </a>
+        <button type="submit" class="btn btn-primary">
+            @Locals.Save
+        </button>
+    </div>
+}
+
+

@@ -1,0 +1,24 @@
+﻿@model NewsletterEdit
+
+<div class="text-center complete-text">
+    <i class="fa fa-fw fa-floppy-o text-success"></i>
+    <span class="message">@Locals.DataSaved</span><br />
+    <p class="desc">
+        <span>
+            @Model.GetLocalValue("Title")
+            @Model.Number
+        </span>
+    </p>
+    <div class="links">
+        <a href="/uk/controlpanel/articles/getform" type="button" class="nav-link" data-id="0" data-target="divEdit">
+            <i class="fa fa-plus"></i>
+            <span>Додати нову газету</span>
+        </a>
+    </div>
+</div>
+
+<div class="text-right">
+    <a href="#" class="btn btn-link nav-link" data-dismiss="modal">
+        <span>@Locals.Close</span>
+    </a>
+</div>

@@ -1,0 +1,40 @@
+﻿@model List<BannerListItem>
+
+@if (Model != null && Model.Count() > 0)
+{
+    foreach (var item in Model)
+    {
+        <div class="drag-item" data-id="@item.Id">
+            <div class="card-sm">
+                <div class="row">
+                    <div class="col-sm-1">
+                        @item.Id
+                    </div>
+                    <div class="col-sm-5">
+                        @if (!String.IsNullOrEmpty(item.Image))
+                        {
+                            <img src="@item.Image" width="30" style="display:inline-block; vertical-align:middle;" />
+                        }
+                        <strong class="@(item.Published ? null : "text-gray")">
+                            @item.Text
+                        </strong>
+                    </div>
+                    <div class="col-sm-4">
+                        @item.Url
+                    </div>
+                    <div class="col-sm-2 text-right">
+                        <a href="/@(CurrentCulture.Name.ToLower())/controlpanel/banners/getform/@item.Id" class="link-btn  nav-link" data-id="@item.Id">
+                            <i class="fa fa-fw fa-pencil"></i>
+                        </a>
+                        <a href="#" class="link-btn btn-drag">
+                            <i class="fa fa-fw fa-bars"></i>
+                        </a>
+                    </div>
+                </div>
+                <strong>
+                    @item.GetLocalValue("Text")
+                </strong>
+            </div>
+        </div>
+    }
+}

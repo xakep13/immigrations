@@ -1,0 +1,46 @@
+﻿@model List<SubscriberListItem>
+
+@if (Model != null && Model.Count > 0)
+{
+    @Helpers.CpPager(ViewBag.Count, ViewBag.Page, ViewBag.PerPage)
+
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Ім'я</th>
+                    <th>Email</th>
+                    <th>Дата піписки</th>
+                    <th>Категорії підписки</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr> 
+                        <td class="td-min">
+                            @item.Id
+                        </td>
+                        <td>
+                            @item.Name
+                        </td>
+                        <td>
+                            @item.Email
+                        </td>
+                        <td class="td-min no-wrap">
+                            @item.CreateDate
+                        </td>
+                        <td class="td-min no-wrap">
+                            @item.Subscriptions
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    @Helpers.CpPager(ViewBag.Count, ViewBag.Page, ViewBag.PerPage)
+}
+
+

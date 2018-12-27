@@ -1,0 +1,78 @@
+﻿@model CollapseContent
+
+@{
+    var targetId = Model.IsNew ? ("column" + Model.ContentColumnId + "contents") : ("content" + Model.Id);
+    var insMode = Model.IsNew ? InsertionMode.InsertAfter : InsertionMode.ReplaceWith;
+}
+
+<div class="modal-title">
+    Розкриваючийся блок
+    <ul class="modal-lang-swicher">
+        <li data-lang="ru">EN</li>
+        <li data-lang="ru">RU</li>
+        <li class="active" data-lang="uk">UA</li>
+    </ul>
+</div>
+
+@using (Ajax.BeginForm(new AjaxOptions()
+{
+    Url = "/uk/controlpanel/ajax/SaveCollapseContent",
+    HttpMethod = "POST",
+    InsertionMode = insMode,
+    UpdateTargetId = targetId,
+    OnSuccess = "bsAdmin.divContentEdit.modal('hide')"
+}))
+{
+    @Html.Hidden("Id", Model.Id, new { Value = Model.Id })
+    @Html.HiddenFor(x => x.ContentColumnId)
+    @Html.HiddenFor(x => x.Position)
+    
+    <div class="row">
+        <div class="col-sm-7">
+            <div class="lang-uk">
+                @Html.SimpleTextBoxFor(x => x.TitleUk, "Заголовок блоку (ua)", new { @class = "form-control" })
+            </div>
+            <div class="lang-ru">
+                @Html.SimpleTextBoxFor(x => x.TitleRu, "Заголовок блоку (ru)", new { @class = "form-control" })
+            </div>
+            <div class="lang-en">
+                @Html.SimpleTextBoxFor(x => x.TitleEn, "Заголовок блоку (en)", new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-sm-5">
+            @Html.SimpleCheckboxFor(x => x.Expanded, String.Empty, "Розкритий за замовчуванням")
+        </div>
+        <div class="col-sm-12">
+            <div class="lang-uk">
+                @Html.SimpleTextAreaFor(x => x.TextUk, "Текст блоку (ua)", new { @class = "form-control bs-ckeditor", data_toolbar = "simple" })
+            </div>
+            <div class="lang-ru">
+                @Html.SimpleTextAreaFor(x => x.TextRu, "Текст блоку (ru)", new { @class = "form-control bs-ckeditor", data_toolbar = "simple" })
+            </div>
+            <div class="lang-ru">
+                @Html.SimpleTextAreaFor(x => x.TextEn, "Текст блоку (en)", new { @class = "form-control bs-ckeditor", data_toolbar = "simple" })
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        @if (Model.IsNew)
+        {
+            <button type="button" href="#" class="btn btn-link remove-content" data-id="@Model.Id">
+                @Locals.Cancle
+            </button>
+            <button type="submit" class="btn btn-primary">
+                @Locals.Add
+            </button>
+        }
+        else
+        {
+            <button type="button" class="btn btn-link nav-link" data-dismiss="modal">
+                @Locals.Close
+            </button>
+            <button type="submit" class="btn btn-primary">
+                @Locals.Save
+            </button>
+        }
+    </div>
+}

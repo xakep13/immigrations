@@ -1,0 +1,95 @@
+﻿@model FileUpload
+
+@{
+    var targetId = Model.IsNew ? ("column" + Model.ContentColumnId + "contents") : ("content" + Model.Id);
+    var insMode = Model.IsNew ? InsertionMode.InsertAfter : InsertionMode.ReplaceWith;
+}
+
+<div class="modal-title">
+    Посилання на файл
+    <ul class="modal-lang-swicher">
+        <li data-lang="en">EN</li>
+        <li data-lang="ru">RU</li>
+        <li class="active" data-lang="uk">UA</li>
+    </ul>
+</div>
+
+@using (Ajax.BeginForm(new AjaxOptions()
+{
+    Url = "/uk/controlpanel/ajax/SaveFileContent",
+    HttpMethod = "POST",
+    InsertionMode = insMode,
+    UpdateTargetId = targetId,
+    OnSuccess = "bsAdmin.divContentEdit.modal('hide')"
+}))
+{
+    @Html.HiddenFor(x => x.ContentColumnId)
+    @Html.HiddenFor(x => x.Position)
+
+    <input type="hidden" name="Id" value="@Model.Id" />
+    <div class="row">
+        <div class="col-lg-7">
+            <div class="lang-uk">
+                @Html.SimpleTextBoxFor(x => x.NameUk, "Текст посилання (uk)", new { @class = "form-control" })
+            </div>
+            <div class="lang-ru">
+                @Html.SimpleTextBoxFor(x => x.NameRu, "Текст посилання (ru)", new { @class = "form-control" })
+            </div>
+            <div class="lang-en">
+                @Html.SimpleTextBoxFor(x => x.NameEn, "Текст посилання (en)", new { @class = "form-control" })
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    @Helpers.FontSizeSelect("Розмір текста", "FontSize", Model.FontSize)
+                </div>
+                <div class="col-sm-4">
+                    @Helpers.FontWeightSelect("Ширина шрифта", "FontWeight", Model.FontWeight)
+                </div>
+                <div class="col-sm-4">
+                    @Helpers.FontStyleSelect("Стиль шрифта", "FontStyle", Model.FontStyle)
+                </div>
+                <div class="col-sm-4">
+                    @Helpers.TextAlignSelect("Вирівнювання", "TextAlign", Model.TextAlign)
+                </div>
+                <div class="col-sm-4">
+                    @Helpers.MarginBottomSelect("Відступ знизу", "MarginBottom", Model.MarginBottom)
+                </div>
+                <div class="col-sm-4">
+                    @Html.SimpleCheckboxFor(x => x.ShowIcon, "Іконка файла", "показувати іконку")
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-5">
+            @Html.SimpleUploaderFor(x => x.Url, "Файл",
+             new ImageUploaderOptions()
+             {
+                 UploadUrl = "/api/upload/uploadfile?type=fyle&directory=files",
+                 ContainerId = "divImgUpload",
+                 IsImageUploader = false,
+                 ContainerHeight = 124
+             },
+             new { @class = "form-control", @readonly = "readonly" })
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        @if (Model.IsNew)
+        {
+            <button type="button" href="#" class="btn btn-link remove-content" data-id="@Model.Id">
+                @Locals.Cancle
+            </button>
+            <button type="submit" class="btn btn-primary">
+                @Locals.Add
+            </button>
+        }
+        else
+        {
+            <button type="button" class="btn btn-link nav-link" data-dismiss="modal">
+                @Locals.Close
+            </button>
+            <button type="submit" class="btn btn-primary">
+                @Locals.Save
+            </button>
+        }
+    </div>
+}

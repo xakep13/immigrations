@@ -1,0 +1,20 @@
+﻿@model DocFileUpload
+
+<div class='card-sm' id="itemDocFile@(Model.Id)">
+    <div class='row'>
+        <div class="col-sm-7">
+            @Model.GetLocalValue("Title")
+        </div>
+        <div class="col-sm-2">
+            @(Model.Size > 1024 ? ((Model.Size / 1024) + " mb") : (Model.Size + " kb"))
+        </div>
+        <div class="col-sm-2">
+            @Model.Extension
+        </div>
+        <div class="col-sm-1 text-right">
+            <a href="#" class='btn-link nav-link' data-action="remove-file" data-id="@Model.Id">
+                <i class='fa fa-fw fa-trash'></i>
+            </a>
+        </div>
+    </div>
+</div>

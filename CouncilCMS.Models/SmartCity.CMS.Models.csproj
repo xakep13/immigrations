@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E378B327-1151-4AED-8CDA-F0FE6223B3D8}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SmartCity.CMS.Models</RootNamespace>
+    <AssemblyName>SmartCity.CMS.Models</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Entities\Article.cs" />
+    <Compile Include="Entities\ArticleCategory.cs" />
+    <Compile Include="Entities\ArticleCategoryTemplate.cs" />
+    <Compile Include="Entities\Banner.cs" />
+    <Compile Include="Entities\CmsRole.cs" />
+    <Compile Include="Entities\CmsSearch.cs" />
+    <Compile Include="Entities\CmsSettings.cs" />
+    <Compile Include="Entities\CmsUser.cs" />
+    <Compile Include="Entities\Content.cs" />
+    <Compile Include="Entities\ContentColumn.cs" />
+    <Compile Include="Entities\ContentRow.cs" />
+    <Compile Include="Entities\ContentWidget.cs" />
+    <Compile Include="Entities\Doc.cs" />
+    <Compile Include="Entities\DocCategory.cs" />
+    <Compile Include="Entities\DocCategoryTemplate.cs" />
+    <Compile Include="Entities\DocFile.cs" />
+    <Compile Include="Entities\DocType.cs" />
+    <Compile Include="Entities\Enterprise.cs" />
+    <Compile Include="Entities\EnterpriseCategory.cs" />
+    <Compile Include="Entities\EnterpriseCategoryTemplate.cs" />
+    <Compile Include="Entities\EnterpriseEnterpriseCategory.cs" />
+    <Compile Include="Entities\EnterprisePerson.cs" />
+    <Compile Include="Entities\EnterpriseType.cs" />
+    <Compile Include="Entities\Menu.cs" />
+    <Compile Include="Entities\MenuItem.cs" />
+    <Compile Include="Entities\Newsletter.cs" />
+    <Compile Include="Entities\NewsletterArticle.cs" />
+    <Compile Include="Entities\Page.cs" />
+    <Compile Include="Entities\PageTemplate.cs" />
+    <Compile Include="Entities\Person.cs" />
+    <Compile Include="Entities\PersonCategory.cs" />
+    <Compile Include="Entities\PersonCategoryTemplate.cs" />
+    <Compile Include="Entities\PersonPersonCategory.cs" />
+    <Compile Include="Entities\Session.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SmartCity.CMS.Resources\SmartCity.CMS.Resources.csproj">
+      <Project>{95CA369A-37BA-46F1-AE14-31E4DF030A41}</Project>
+      <Name>SmartCity.CMS.Resources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SmartCity.Common.Models\SmartCity.Common.Models.csproj">
+      <Project>{04b843dd-594a-491f-b847-1ab3c040310b}</Project>
+      <Name>SmartCity.Common.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\XTABLAB\xTab.Tools\xTab.Tools.csproj">
+      <Project>{A68A16B6-657A-4E3F-B126-5695C45ABAB7}</Project>
+      <Name>xTab.Tools</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

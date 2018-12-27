@@ -1,0 +1,100 @@
+﻿@model Bissoft.CouncilCMS.BLL.ViewModels.Public.CmsPoll
+
+@if(Model == null)
+{
+	<div> Error</div>
+}
+else
+{
+
+	if(Model.IsActive)
+	{
+		<div class="test-item" id="@Model.Id">
+			<span class="title block-decor-bottom">@Model.Title</span>
+			<div class="test-date">
+				<p class="date">
+					Термiн голосування:
+					<span>
+						@Model.DateFrom - @Model.DateTo
+					</span>
+				</p>
+				<p class="voted">
+					Усього голосiв:
+					<span>
+						@Model.VoiсeCount
+					</span>
+				</p>
+			</div>
+
+			<div>
+
+				@foreach(var quest in Model.CmsQuestions)
+				{
+					<div class="test-choice">
+						<label>
+							<input type="radio" id="@quest.Id" name="vote-@Model.Id">
+							<span></span>@quest.Title
+						</label>
+						<div class="vote">
+							<div class="vote-strip">
+
+							</div>
+							<p class="vote-people"></p>
+						</div>
+					</div>
+				}
+
+				<input class="btn btn-success" style="float:right;" type="submit" id="@Model.Id" value="Проголосувати" />
+			</div>
+		</div>
+	}
+
+	else
+	{
+		<div class="test-item" id="@Model.Id">
+			<span class="title block-decor-bottom">@Model.Title</span>
+			<div class="test-date">
+				<p class="date">
+					@if(DateTime.ParseExact(Model.DateTo, "MM/dd/yyyy", null) <= DateTime.Now)
+					{
+						<div> Голосування було закрито:</div>
+						<span>
+							@Model.DateTo
+						</span>
+					}
+					else
+					{
+						<div> Ви вже проголосували</div>
+					}
+				</p>
+				<p class="voted">
+					Усього голосiв:
+					<span>
+						@Model.VoiсeCount
+					</span>
+				</p>
+			</div>
+			<div>
+
+				@foreach(var quest in Model.CmsQuestions)
+				{
+					<div class="test-choice">
+						<label>
+							@quest.Title
+						</label>
+						<div class="vote">
+							<div class="vote-strip">
+								<span style="width:@((int)quest.Percent)%; background-color:@quest.Color;"></span>
+							</div>
+							<p class="vote-people">
+								<span class="vote-percent">@quest.Percent.ToString("#.00")%</span>
+								<span class="vote-number">(@quest.CheckCount)</span>
+							</p>
+						</div>
+					</div>
+				}
+
+			</div>
+		</div>
+	}
+}

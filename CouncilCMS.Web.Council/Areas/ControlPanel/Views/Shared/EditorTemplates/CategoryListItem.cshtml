@@ -1,0 +1,25 @@
+﻿@model CategoryListItem
+
+<div class="rel" data-id="@Model.Id" data-parent-id="@Model.ParentCategoryId">
+    <div class="card-sm">
+        <div class="link-btns">
+            <a href="/@(CurrentCulture.Name.ToLower())/controlpanel/@Model.Type/getcategoryitemform/0" class="link-btn nav-link" data-id="0" data-parentid="@Model.Id">
+                <i class="fa fa-fw fa-plus"></i>
+            </a>
+            <a href="/@(CurrentCulture.Name.ToLower())/controlpanel/@Model.Type/getcategoryitemform/@Model.Id" class="link-btn nav-link" data-id="@Model.Id">
+                <i class="fa fa-fw fa-pencil"></i>
+            </a>
+            <a href="#" class="link-btn btn-@Model.ParentCategoryId-drag">
+                <i class="fa fa-fw fa-bars"></i>
+            </a>
+        </div>
+        <strong class="form-control-static">
+            @Model.GetLocalValue("Title")
+        </strong>
+    </div>
+
+    <div class="related-list" data-parent-id="@Model.Id">
+        @Html.EditorFor(x => x.ChildCategoryItems)
+    </div>
+</div>
+

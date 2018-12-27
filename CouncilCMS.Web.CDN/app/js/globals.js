@@ -1,0 +1,4 @@
+﻿var BASE_DOAIN;
+var CDN_DOAIN;
+var API_DOMAIN;
+var LANG;

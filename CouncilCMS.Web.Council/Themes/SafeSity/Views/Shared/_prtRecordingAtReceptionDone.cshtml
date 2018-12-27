@@ -1,0 +1,25 @@
+﻿
+<div class="record">
+   
+    <span>
+        Ваш запит успішно відправлений
+    </span>
+    <button id="RecordAtReceptionFormInvoker" class="btn-default">
+        Закрити
+    </button>
+    
+</div>
+<script>
+    $(document).ready(function () {
+        $("#RecordAtReceptionFormInvoker").on("click", function () {
+            $.ajax({
+                type: "Get",
+                url: "/uk/Widgets/RecordingAtReceptionForm",
+                success: function (data) {
+                    $("#placeToRecordToTheOfficial").empty();
+                    $("#placeToRecordToTheOfficial").append(data);
+                }
+            })
+        });
+    });
+</script>

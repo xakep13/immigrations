@@ -1,0 +1,30 @@
+﻿@model SessionProjectItem
+
+@if (Model != null)
+{
+    <div class='card-sm' id="doc@(Model.DocId)session@(Model.SessionId)">
+        <div class='row'>
+            <div class="col-sm-10">
+                <strong>
+                    @Model.DocTitle
+                </strong>
+                @if (Model.IsAgenda)
+                {
+                    <br /><em class="text-success">в порядку денному</em>
+                }
+            </div>
+            <div class="col-sm-2 text-right">
+                @if (!Model.IsAgenda)
+                {
+                    <span class='link-btn nav-link' data-action="move-project" data-docid="@Model.DocId" data-sessionid="@Model.SessionId">
+                        <i class='fa fa-fw fa-arrow-circle-right' title="внести в порядок денний"></i>
+                    </span>
+                }
+                <span class='link-btn nav-link' data-action="remove-project" data-docid="@Model.DocId" data-sessionid="@Model.SessionId">
+                    <i class='fa fa-fw fa-trash'></i>
+                </span>
+            </div>
+        </div>
+    </div>
+}
+

@@ -1,0 +1,22 @@
+﻿@model TeamCategoryList
+
+<div class="related-item rel" data-id="@Model.Id" data-parent-id="@Model.ParentCategoryId">
+    <div class="link-btns">
+        <a href="/@(CurrentCulture.Name.ToLower())/controlpanel/articlecategories/getcategoryitemform/0" class="link-btn nav-link" data-id="0" data-parentid="@Model.Id">
+            <i class="fa fa-fw fa-plus"></i>
+        </a>
+        <a href="/@(CurrentCulture.Name.ToLower())/controlpanel/articlecategories/getcategoryitemform/@Model.Id" class="link-btn nav-link" data-id="@Model.Id">
+            <i class="fa fa-fw fa-pencil"></i>
+        </a>
+        <a href="#" class="btn btn-default btn-@Model.ParentCategoryId-drag">
+            <i class="fa fa-fw fa-bars"></i>
+        </a>
+    </div>
+    <strong class="form-control-static">
+        @Model.GetLocalValue("Name")
+    </strong>
+    <div class="related-list" data-parent-id="@Model.Id">
+        @Html.EditorFor(x => x.ChildTeamCategory)
+    </div>
+</div>
+

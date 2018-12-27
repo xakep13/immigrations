@@ -1,0 +1,375 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Absent" xml:space="preserve">
+    <value>Отсутствовали</value>
+  </data>
+  <data name="Abstained" xml:space="preserve">
+    <value>Воздержались</value>
+  </data>
+  <data name="Accepted" xml:space="preserve">
+    <value>Принято</value>
+  </data>
+  <data name="Actual" xml:space="preserve">
+    <value>Актуальное</value>
+  </data>
+  <data name="AdditionalQuestions" xml:space="preserve">
+    <value>Дополнительные вопросы</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>Адрес</value>
+  </data>
+  <data name="AdminCouncil" xml:space="preserve">
+    <value>Запорожский городской совет</value>
+  </data>
+  <data name="Against" xml:space="preserve">
+    <value>Против</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Все</value>
+  </data>
+  <data name="BackToMain" xml:space="preserve">
+    <value>Перейти на главную страницу</value>
+  </data>
+  <data name="BackToSection" xml:space="preserve">
+    <value>Назад в предыдущий раздел</value>
+  </data>
+  <data name="Billboard" xml:space="preserve">
+    <value>Анонсы событий</value>
+  </data>
+  <data name="ChildEnterprises" xml:space="preserve">
+    <value>Подразделения в подчинении</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Очистить</value>
+  </data>
+  <data name="ContactForm" xml:space="preserve">
+    <value>Обратная связь</value>
+  </data>
+  <data name="Contacts" xml:space="preserve">
+    <value>Контакты</value>
+  </data>
+  <data name="CouncilAddress" xml:space="preserve">
+    <value>пр. Соборный, 206&lt;br/&gt;г. Запорожье&lt;/br&gt;Украина&lt;br/&gt;69105</value>
+  </data>
+  <data name="Declined" xml:space="preserve">
+    <value>Не принято</value>
+  </data>
+  <data name="DeputyCount" xml:space="preserve">
+    <value>Количество депутатов</value>
+  </data>
+  <data name="Divisions" xml:space="preserve">
+    <value>Подразделения</value>
+  </data>
+  <data name="DocFind" xml:space="preserve">
+    <value>Поиск в разделе "Документы"</value>
+  </data>
+  <data name="DocQueryDate" xml:space="preserve">
+    <value>Диапазон даты принятия</value>
+  </data>
+  <data name="DocQueryText" xml:space="preserve">
+    <value>Текст в документе</value>
+  </data>
+  <data name="DocQueryTitle" xml:space="preserve">
+    <value>Название или номер документа</value>
+  </data>
+  <data name="DocQueryType" xml:space="preserve">
+    <value>Тип документа</value>
+  </data>
+  <data name="DocSubject" xml:space="preserve">
+    <value>Субъект подачи</value>
+  </data>
+  <data name="Documents" xml:space="preserve">
+    <value>Документы</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Ошибка</value>
+  </data>
+  <data name="Files" xml:space="preserve">
+    <value>Копии документов для загрузки</value>
+  </data>
+  <data name="FindDoc" xml:space="preserve">
+    <value>Найти документ</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="For" xml:space="preserve">
+    <value>За</value>
+  </data>
+  <data name="Fraction" xml:space="preserve">
+    <value>Фракция</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>от</value>
+  </data>
+  <data name="GoToAll" xml:space="preserve">
+    <value>Посмотреть все</value>
+  </data>
+  <data name="Info" xml:space="preserve">
+    <value>Информация</value>
+  </data>
+  <data name="LastNews" xml:space="preserve">
+    <value>Новости</value>
+  </data>
+  <data name="License" xml:space="preserve">
+    <value>Все материалы сайта доступны по лицензии: Creative Commons Attribution 4.0 International</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Войти</value>
+  </data>
+  <data name="Main" xml:space="preserve">
+    <value>Главное</value>
+  </data>
+  <data name="Major" xml:space="preserve">
+    <value>Городской голова</value>
+  </data>
+  <data name="MsgText" xml:space="preserve">
+    <value>Текст сообщения</value>
+  </data>
+  <data name="NoEntry" xml:space="preserve">
+    <value>Записи отсутсвуют</value>
+  </data>
+  <data name="NotVote" xml:space="preserve">
+    <value>Не голосовали</value>
+  </data>
+  <data name="OfficialSocila" xml:space="preserve">
+    <value>Официальные страницы в соцсетях</value>
+  </data>
+  <data name="OficialWebSite" xml:space="preserve">
+    <value>Официальный сайт</value>
+  </data>
+  <data name="OldSite" xml:space="preserve">
+    <value>Перейти на старую версию официального портала</value>
+  </data>
+  <data name="OrganizationReception" xml:space="preserve">
+    <value>Электронное обращение</value>
+  </data>
+  <data name="PageError" xml:space="preserve">
+    <value>Ошибка при выполнении запроса</value>
+  </data>
+  <data name="PageInProcess" xml:space="preserve">
+    <value>Страница в стадии наполнения</value>
+  </data>
+  <data name="PageNotFound" xml:space="preserve">
+    <value>Страница не найдена</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>Телефон</value>
+  </data>
+  <data name="Photoreports" xml:space="preserve">
+    <value>Фотогалереи</value>
+  </data>
+  <data name="Post" xml:space="preserve">
+    <value>Должность</value>
+  </data>
+  <data name="PostDate" xml:space="preserve">
+    <value>Дата публикации</value>
+  </data>
+  <data name="Print" xml:space="preserve">
+    <value>Напечатать</value>
+  </data>
+  <data name="Profession" xml:space="preserve">
+    <value>Профессиональная деятельность</value>
+  </data>
+  <data name="Published" xml:space="preserve">
+    <value>Опубликовано</value>
+  </data>
+  <data name="ReceptionForm" xml:space="preserve">
+    <value>Запись на прием</value>
+  </data>
+  <data name="ReceptionShedule" xml:space="preserve">
+    <value>График приема</value>
+  </data>
+  <data name="RequestTip" xml:space="preserve">
+    <value>Обращаем внимание, что указанная форма связи не является обращением в понимании Закона Украины "Об обращениях граждан", а лишь предназначена для более мобильной связи с органом местного самоуправления</value>
+  </data>
+  <data name="Resolution" xml:space="preserve">
+    <value>Решение</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Поиск</value>
+  </data>
+  <data name="SecondName" xml:space="preserve">
+    <value>Фамилия</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Отправить</value>
+  </data>
+  <data name="Services" xml:space="preserve">
+    <value>Электронные сервисы</value>
+  </data>
+  <data name="SessionAgenda" xml:space="preserve">
+    <value>Повестка дня</value>
+  </data>
+  <data name="SessionDecree" xml:space="preserve">
+    <value>Распоряжение о созыве сессии</value>
+  </data>
+  <data name="SessionFilter" xml:space="preserve">
+    <value>Фильтр сессий городского совета</value>
+  </data>
+  <data name="SessionMedia" xml:space="preserve">
+    <value>Видео- и аудиозаписи сессии</value>
+  </data>
+  <data name="SessionProjects" xml:space="preserve">
+    <value>Проекты решений городского совета</value>
+  </data>
+  <data name="SessionProtocol" xml:space="preserve">
+    <value>Протоколы заседаний сессий</value>
+  </data>
+  <data name="SessionReglament" xml:space="preserve">
+    <value>Регламент работы сесии</value>
+  </data>
+  <data name="SessionResolutions" xml:space="preserve">
+    <value>Решения городского совета</value>
+  </data>
+  <data name="SessionVotes" xml:space="preserve">
+    <value>Информация о голосовании</value>
+  </data>
+  <data name="Shedule" xml:space="preserve">
+    <value>График работы</value>
+  </data>
+  <data name="SiteSearch" xml:space="preserve">
+    <value>Поиск на сайте</value>
+  </data>
+  <data name="Test" xml:space="preserve">
+    <value>Тест</value>
+  </data>
+  <data name="TestLabel" xml:space="preserve">
+    <value>Сайт работает в тестовом режиме</value>
+  </data>
+  <data name="ThirdName" xml:space="preserve">
+    <value>Отчество</value>
+  </data>
+  <data name="Transfered" xml:space="preserve">
+    <value>Перенесено</value>
+  </data>
+  <data name="Updated" xml:space="preserve">
+    <value>обновлено</value>
+  </data>
+  <data name="Videoreports" xml:space="preserve">
+    <value>Видеорепортажи</value>
+  </data>
+  <data name="Vote" xml:space="preserve">
+    <value>Голосование</value>
+  </data>
+  <data name="WeatherTitle" xml:space="preserve">
+    <value>Погода в Запорожье</value>
+  </data>
+</root>

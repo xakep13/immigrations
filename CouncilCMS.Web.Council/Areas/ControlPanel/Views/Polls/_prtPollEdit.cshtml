@@ -1,0 +1,68 @@
+﻿@model Bissoft.CouncilCMS.BLL.ViewModels.Admin.PollEdit
+
+@{
+    var targetId = Model.Id <= 0 ? "divList" : ("divContainer" + Model.Id);
+    var insertionMode = Model.Id <= 0 ? InsertionMode.InsertAfter : InsertionMode.ReplaceWith;
+}
+
+<div class="modal-title">
+    Голосування
+    <ul class="modal-lang-swicher">
+        <li data-lang="en">EN</li>
+        <li data-lang="ru">RU</li>
+        <li class="active" data-lang="uk">UA</li>
+    </ul>
+</div>
+
+@using (Ajax.BeginForm(new AjaxOptions()
+{
+    Url = "/uk/controlpanel/polls/savepoll",
+    HttpMethod = "POST",
+    OnBegin = "coreUtils.disableButton($(this).find('button[type=submit]'));",
+    OnComplete = "window.saveContainerComplete();",
+    UpdateTargetId = targetId,
+    InsertionMode = insertionMode
+}))
+{
+
+    <div class="lang-uk">
+        @Html.SimpleTextBoxFor(x => x.NameUk, "Назва (ua)", new { @class = "form-control" })
+        @Html.SimpleTextBoxFor(x => x.DateFrom, "Дата початку", new { @class = "form-control datapicker", @style = " z-index: 99999999;" })
+        @Html.SimpleTextBoxFor(x => x.DateTo, "Дата закінчення", new { @class = "form-control datapicker", @style = " z-index: 99999999;" })
+    </div>
+    <div class="lang-ru">
+        @Html.SimpleTextBoxFor(x => x.NameRu, "Назва (ru)", new { @class = "form-control" })
+        @Html.SimpleTextBoxFor(x => x.DateFrom, "Дата початку", new { @class = "form-control datapicker", @style = " z-index: 99999999;" })
+        @Html.SimpleTextBoxFor(x => x.DateTo, "Дата закінчення", new { @class = "form-control datapicker", @style = " z-index: 99999999;" })
+    </div>
+    <div class="lang-en">
+        @Html.SimpleTextBoxFor(x => x.NameEn, "Назва (en)", new { @class = "form-control", @style = " z-index: 100000;" })
+        @Html.SimpleTextBoxFor(x => x.DateFrom, "Дата початку", new { @class = "form-control datapicker" ,@style= " z-index: 99999999;" })
+        @Html.SimpleTextBoxFor(x => x.DateTo, "Дата закінчення", new { @class = "form-control datapicker", @style = " z-index: 99999999;" })
+    </div>
+
+    @Html.HiddenFor(x => x.Id)
+
+
+    <div class="modal-footer">
+        <a href="#" type="button" class="btn btn-link" data-dismiss="modal">
+            @Locals.Close
+        </a>
+        <button type="submit" class="btn btn-primary">
+            @Locals.Save
+        </button>
+    </div>
+}
+    <script>
+        $(function () {
+            $(".datapicker").datepicker({
+                beforeShow: function (input) {
+                    $(input).css({
+                        "position": "relative",
+                        "z-index": 999999
+                    });
+                }
+            });
+        });
+    </script>
+

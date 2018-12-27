@@ -1,0 +1,315 @@
+﻿@model CmsDocList
+@{
+    ViewBag.Title = Model.CategoryName;
+}
+<div class="container">
+    <button id="showForm" class="site-btn" style="float:right;">показати/сховати форму пошуку</button>
+</div>
+@if (Model.ShowSearchForm)
+{
+<section class="search">
+    <form action="/uk/Documents/SearchDocument?Length=9" class="search-form hidden"
+        data-ajax="true" data-ajax-method="Get" data-ajax-mode="replace" data-ajax-update="#resultsFromAjax" 
+          id="form0" local="uk" method="post">
+    
+            @*@using (Ajax.BeginForm("SearchDocument", "Documents",
+                new AjaxOptions
+                {
+                    UpdateTargetId = "resultsFromAjax",
+                    HttpMethod = "Get"
+                },
+                new
+                {
+                    local = CurrentCulture.Name.ToLower(),
+                    Url = "vsi-dokumenti",
+                    Page = 1,
+                    @class = "search-form"
+                }))
+            {*@
+                <div class="container">
+                    @{Model.Types[0].Text = CmsLabels.All;}
+                    <label>@CmsLabels.DocQueryTitle<input type="text" name="QueryTitle"></label>
+                    <label>@CmsLabels.DocQueryText<input type="text" name="QueryText"></label>
+                    <label class="select">
+                        @Html.SimpleDropDownListFor(x => x.Type, Model.Types, CmsLabels.DocQueryType, new { @class = "form-control" })
+                    </label>
+                    <label>
+                        @Html.SimpleTextBoxFor(x => x.PersonId, @CmsLabels.DocSubject, new { @class = "form-control bs-autocompleteselect ac-text ac-value", @autocomplete = "off", data_text = Model.PersonName, data_remote = "/" + CurrentCulture.Name.ToLower() + "/ajax/findperson" }, false)
+                    </label>
+                    <label>
+                        @Html.SimpleTextBoxFor(x => x.EnterpriseId, "Видавник", new { @class = "form-control bs-autocompleteselect ac-text ac-value", data_text = Model.EnterpriseName, data_remote = "/" + CurrentCulture.Name.ToLower() + "/ajax/findenterprise" }, false)
+                    </label>
+                    <label class="date">
+                        @CmsLabels.DocQueryDate
+                        @Html.TextBoxFor(x => x.Date, new { @class = "form-control bs-daterangepicker input-wi", @readonly = "readonly" })
+                    </label>
+
+                    <input type="hidden" class="hidden" value="@Model.CategoryUrl" name="Url" />
+                    <input type="submit" class="site-btn" value="@CmsLabels.FindDoc" />
+
+                </div>
+            </form>
+</section>
+    <div id="resultsFromAjax" class="container hidden">
+    </div>
+    <script>
+        //$("#form0").on('submit', function (event) {
+        //    event.preventDefault();
+
+        //    $.ajax({
+        //        type: "POST",
+        //        url: "/uk/Documents/SearchDocument",
+        //        data: $(this).serialize(),
+        //        success: function () {
+                    
+        //        }
+        //    })
+        //});
+
+        $("#showForm").on("click", function ()
+        {
+            $("#form0,#resultsFromAjax").toggleClass("hidden");
+        })
+
+           var format = format || "DD.MM.YYYY";
+
+           $(".bs-daterangepicker").daterangepicker({
+               "autoApply": true,
+               "showDropdowns": true,
+               "locale": {
+                   "applyLabel": "<i class='fa fa-check'></i>",
+                   "format": format || "DD.MM.YYYY",
+                   "separator": " - ",
+                   "fromLabel": "@CmsLabels.From",
+                   "toLabel": "До",
+                   cancelLabel: 'Clear',
+                   "daysOfWeek": [
+                       "@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetShortestDayName(DayOfWeek.Sunday)",
+                       "@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetShortestDayName(DayOfWeek.Monday)",
+                       "@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetShortestDayName(DayOfWeek.Tuesday)",
+                       "@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetShortestDayName(DayOfWeek.Wednesday)",
+                       "@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetShortestDayName(DayOfWeek.Thursday)",
+                       "@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetShortestDayName(DayOfWeek.Friday)",
+                       "@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetShortestDayName(DayOfWeek.Saturday)"
+                   ],
+                   "monthNames": [
+                       "@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(1)",
+                       "@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(2)",
+                       "@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(3)",
+                       "@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(4)",
+                       "@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(5)",
+                       "@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(6)",
+                       "@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(7)",
+                       "@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(8)",
+                       "@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(9)",
+                       "@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(10)",
+                       "@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(11)",
+                       "@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(12)"
+                   ],
+                   "firstDay": 1
+               },
+               "showCustomRangeLabel": false,
+               "alwaysShowCalendars": true,
+               "opens": "right",
+               "autoUpdateInput": false,
+           });
+
+                $(".bs-daterangepicker").on('apply.daterangepicker', function (ev, picker) {
+                    $(this).val(picker.startDate.format(format) + ' - ' + picker.endDate.format(format));
+                });
+
+                $(".bs-daterangepicker").on('cancel.daterangepicker', function (ev, picker) {
+                    $(this).val('');
+                });
+
+            $(".bs-autocompleteselect").each(function () {
+                    coreUtils.createAutocompleteSelect($(this));
+                });
+                $(".bs-select").each(function () {
+                    coreUtils.createSelect($(this));
+                });
+
+                $(document).on("click", ".input-clear", function () {
+                    var input = $(this).parents(".input-group").find(".form-control");
+                    input.prop("readonly", input.hasClass("bs-select") ? true : false).val("");
+
+                    if (input.data("related-element"))
+                        $(input.data("related-element")).val("");
+
+                    if (input.hasClass("bs-autocomplete"))
+                        coreUtils.createAutocomplete(input);
+
+                    input.each(function () {
+                        if ($(this).hasClass("ac-value"))
+                            coreUtils.createAutocompleteSelect($(this));
+                    });
+                });
+
+        </script>
+}
+
+<section class="result">
+    <div class="container" id="categoriesInFooter">
+
+       
+            @* model should be of type : List<CategoryListItem>*@
+            @*@Html.Partial("_prtDocListShared", Model)*@
+            
+            @Html.Action("List")
+
+            @*<ul class="news-filter">
+                <li class="news-filter-item active"><a href="">Усі теми</a></li>
+                <li class="news-filter-item"><a href="">Адміністративні послуги</a></li>
+                <li class="news-filter-item"><a href="">Ордери</a></li>
+                <li class="news-filter-item"><a href="">Виконавчий комітет</a></li>
+                <li class="news-filter-item"><a href="">Адміністративні послуги</a></li>
+                <li class="news-filter-item"><a href="">Адміністративні послуги</a></li>
+                <li class="news-filter-item"><a href="">Ордери</a></li>
+                <li class="news-filter-item"><a href="">Реформи</a></li>
+            </ul>*@
+    </div>
+</section>
+
+<script type="text/javascript">
+    $(function () {
+        var curController = "doccategories";
+
+        $("." + curController).addClass("cur").append("<div class='arrow-left'></div>");
+
+        $(document).on("click", ".sidebar-toggle", function () {
+            $(".sidebar").toggleClass("collapsed");
+            $(".content").toggleClass("collapsed");
+
+            if ($(".sidebar").hasClass("collapsed")) { Cookies.set("sidebar_state", "collapsed", { expires: 365 }); }
+            else { Cookies.set("sidebar_state", "expanded", { expires: 365 }); }
+        });
+
+        $(document).on("click", "#btnShowFilter", function (e) {
+            e.preventDefault();
+            window.formFilter.slideToggle();
+            window.divFilter.toggleClass("expanded");
+
+            var filterStatesCookies = Cookies.get("filter_states");
+            var filterSatates = coreUtils.paramsToObject(filterStatesCookies) || {};
+
+            if (window.divFilter.hasClass("expanded")) {
+                filterSatates[curController] = "1";
+            } else {
+                filterSatates[curController] = "0";
+            }
+
+            filterStatesCookies = coreUtils.objectToParams(filterSatates);
+            Cookies.set("filter_states", filterStatesCookies);
+        });
+
+        $(document).on("click", "#btnClearFilter", function () {
+            coreUtils.resetForm(window.formFilter);
+
+            if ($(this).data("onclear"))
+                eval($(this).data("onclear"));
+        });
+
+        $(document).on("click", ".modal-lang-swicher > li", function () {
+            $(this).parent().find(".active").removeClass("active");
+            $(this).parents(".modal-body").find("[class^='lang-']").hide();
+            $(this).addClass("active").parents(".modal-body").find(".lang-" + $(this).data("lang")).show();
+        });
+
+        $(document).on("click", ".list-lang-swicher a", function (e) {
+            e.preventDefault();
+            $(this).parents(".dropdown").find("span").text($(this).data("lang"));
+
+            var i = 0;
+            var stylesheet = document.styleSheets[i];
+
+            while (!stylesheet.cssRules) {
+                i++;
+                stylesheet = document.styleSheets[i];
+            }
+
+            if (stylesheet.insertRule) {
+                stylesheet.insertRule("#divList [class^='lang-'] {display:none;}", stylesheet.cssRules.length);
+                stylesheet.insertRule("#divList .lang-" + $(this).data("lang") + " {display: block;}", stylesheet.cssRules.length);
+            } else if (stylesheet.addRule) {
+                stylesheet.addRule("#divList [class^='lang-']", "{display:none;}", -1);
+                stylesheet.addRule("#divList .lang-" + $(this).data("lang"), "{display: block;}", -1);
+            }
+        });
+
+        $(document).on("click", "#ddCpColor > li a", function (e) {
+            e.preventDefault();
+            Cookies.set("cp_color", $(this).data("color"));
+            location.reload();
+        });
+
+        $('[data-toggle="popover"]').popover();
+
+        $(".rel").on('show.bs.collapse', function () {
+            //console.log('show;');
+        });
+        $(".rel").on('hide.bs.collapse', function () {
+            //console.log('hide;');
+        });
+
+
+        $(document).on("click", ".btn-expand", function () {
+
+            $(this).toggleClass("fa-rotate-180");
+
+            let targetId = $(this).attr("data-target");
+
+            let $child = $(targetId);
+            let dataId = $($child).attr("data-id");
+            let ariaExpanded = $($child).attr("aria-expanded");
+
+            if (ariaExpanded === "true") {
+                LoadDocs(dataId, $child, 1);
+            } else {
+                CleanDocs($child);
+            }
+
+        });
+
+        function LoadDocs(parentId, $child, currPage) {
+
+            $.ajax({
+                url: "/uk/Documents/LoadSubFolders/" + parentId + '/' + currPage,
+                method: "Get",
+                success: function (data) {
+                    let docsAreExist = $($child).children().filter(".is-Doc-li");
+                    if (docsAreExist != undefined) {
+                        docsAreExist.remove();
+                    }
+                    $(data).appendTo($child);
+                },
+                error: function (ex) {
+                    let respText = ex.responseText;
+                    console.log("error of loading docs");
+                }
+            })
+        }
+
+        function CleanDocs($child) {
+            let $target = $($child).children().filter(".is-Doc-li");
+            $($target).remove();
+        }
+
+        $("body").delegate(".docs-in-folder", 'click', function (event) {
+
+            let currPage = $(this).text();
+            let $target = $(this).parent().parent();
+            let targetId = $($target).attr('data-id');
+
+            LoadDocs(targetId, $target, currPage);
+        });
+    });
+
+</script>
+<style type="text/css">
+    .time{
+        float:right;
+    }
+    .result-item-content p {
+        margin-bottom: 0px;
+    }
+</style>

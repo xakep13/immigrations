@@ -1,0 +1,66 @@
+﻿@model Bissoft.CouncilCMS.BLL.ViewModels.Admin.QuestionEdit
+
+@{
+    var childsContainer =  ("containerChilds" + Model.PollId);
+    var targetId = ("divItem" + Model.Id);
+    var insertionMode = Model.Id <= 0 ? "after" : "replace-with";
+}
+
+<div class="modal-title">
+  
+    <ul class="modal-lang-swicher">
+        <li data-lang="en">EN</li>
+        <li data-lang="ru">RU</li>
+        <li class="active" data-lang="uk">UA</li>
+    </ul>
+</div>
+
+<ul class="nav nav-tabs" role="tablist">
+    <li class="active">
+        <a href="#divMain" data-toggle="tab">Головне</a>
+    </li>   
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane active" id="divMain">
+        <form action="/uk/controlpanel/polls/savequestion" id="formMain" method="post" novalidate="novalidate"
+              data-ajax="true"
+              data-ajax-begin="coreUtils.disableButton($(this).find('button[type=submit]'));"
+              data-ajax-complete="window.saveItemComplete('@childsContainer',@Model.Id,@Model.PollId);"
+              data-ajax-mode="@insertionMode"
+              data-ajax-update="#@childsContainer">
+
+            @Html.HiddenFor(x => x.Id)
+            @Html.HiddenFor(x => x.PollId)
+
+            <div class="lang-uk">
+                @Html.SimpleTextBoxFor(x => x.NameUk, "Назва (ua)", new { @class = "form-control" })
+                @Html.SimpleTextBoxFor(x => x.Color, "Колір (ua)", new { @class = "form-control cp1" })
+            </div>
+            <div class="lang-ru">
+                @Html.SimpleTextBoxFor(x => x.NameRu, "Назва (ru)", new { @class = "form-control" })
+                @Html.SimpleTextBoxFor(x => x.Color, "Колір (ru)", new { @class = "form-control cp1" })
+            </div>
+            <div class="lang-en">
+                @Html.SimpleTextBoxFor(x => x.NameEn, "Назва (en)", new { @class = "form-control" })
+                @Html.SimpleTextBoxFor(x => x.Color, "Колір (u)", new { @class = "form-control cp1" })
+            </div>
+
+        </form>
+    </div>
+    
+</div>
+
+<div class="modal-footer">
+    <a href="#" type="button" class="btn btn-link" data-dismiss="modal">
+        @Locals.Close
+    </a>
+    <button type="button" id="btnSave" class="btn btn-primary" onclick="javascript: $('#formMain').trigger('submit');">
+        @Locals.Save
+    </button>
+</div>
+<script>
+    $(function () {
+        $('.cp1').colorpicker();          
+    });
+</script>

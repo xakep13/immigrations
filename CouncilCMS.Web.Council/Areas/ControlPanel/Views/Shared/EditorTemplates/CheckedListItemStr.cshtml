@@ -1,0 +1,12 @@
+﻿@model CheckedListItemStr
+
+<div class="form-group level-@Model.Level">
+    <div class="checkbox">
+        <label>
+            @Html.CheckBoxFor(x => x.IsChecked, new { @class = "input" })
+            @Html.HiddenFor(x => x.Value, new { @class = "input" })
+            @Html.HiddenFor(x => x.Name, new { @class = "input" })
+            <span>@Model.Name</span>
+        </label>
+    </div>
+</div>

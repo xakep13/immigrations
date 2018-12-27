@@ -1,0 +1,25 @@
+﻿@model BannerEdit
+
+<div>
+    <div class="text-center complete-text">
+        <i class="fa fa-fw fa-floppy-o text-success"></i>
+        <span class="message">@Locals.DataSaved</span><br />
+        <p class="desc">
+            <strong>Банер</strong><br />
+            <span>
+                @Model.GetLocalValue("Text")
+            </span>
+        </p>
+        <div class="links">
+            <a href="/@(CurrentCulture.Name.ToLower())/controlpanel/banners/getform" type="button" class="nav-link" data-id="0">
+                <i class="fa fa-plus"></i>
+                <span>Створити новий банер</span>
+            </a>
+        </div>
+    </div>
+    <div class="text-right">
+        <a href="#" class="btn btn-link nav-link" data-remodal-action="close">
+            <span>@Locals.Close</span>
+        </a>
+    </div>
+</div>

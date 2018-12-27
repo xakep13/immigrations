@@ -1,0 +1,40 @@
+﻿@model MenuListItem
+
+@if (Model != null)
+{
+    <div class="card container" id="divContainer@(Model.Id)" data-id="@Model.Id" data-index="@Model.Index">
+        <div class="div-table">
+            <div class="div-cell">
+                <span class="btn btn-link btn-expand " data-toggle="collapse" data-target="#containerChilds@(Model.Id)">
+                    <i class="fa fa-fw fa-angle-down"></i>
+                </span>
+                <div class="form-control-static" style="display:inline-block;">
+                    <strong class="lang-uk text-uppercase">
+                        @Model.NameUk
+                    </strong>
+                    <strong class="lang-ru text-uppercase">
+                        @Model.NameRu
+                    </strong>
+                    <strong class="lang-en text-uppercase">
+                        @Model.NameEn
+                    </strong>
+                </div>
+            </div>
+            @if (User.HasPremission("menu_full"))
+            {
+                <div class="div-cell text-right">
+                    <a href="#" class="link-btn nav-link" data-action="edit-item" data-id="-1" data-parent-id="" data-container-id="@Model.Id" title="додати пункт в меню">
+                        <i class="fa fa-fw fa-plus"></i>
+                    </a>
+                    <a href="#" class="link-btn nav-link" data-action="edit-container" title="редагувати меню">
+                        <i class="fa fa-fw fa-pencil"></i>
+                    </a>
+                    <a href="#" class="link-btn nav-link" data-action="remove-container" title="видалити меню">
+                        <i class="fa fa-fw fa-trash"></i>
+                    </a>
+                </div>
+            }            
+        </div>
+    </div>
+}
+

@@ -1,0 +1,214 @@
+﻿@model DocEdit
+
+<div class="modal-title">
+    Документ
+    <ul class="modal-lang-swicher">
+        <li data-lang="en">EN</li>
+        <li data-lang="ru">RU</li>
+        <li class="active" data-lang="uk">UA</li>
+    </ul>
+</div>
+
+
+<ul class="nav nav-tabs" role="tablist">
+    <li class="active">
+        <a href="#divMain" data-toggle="tab">Головне</a>
+    </li>
+    <li>
+        <a href="#divFiles" data-toggle="tab">Файли</a>
+    </li>
+    <li>
+        <a href="#divPersons" data-toggle="tab">Пов'язані персони</a>
+    </li>
+    <li>
+        <a href="#divOrgs" data-toggle="tab">Пов'язані організації</a>
+    </li>
+    <li>
+        <a href="#divMeta" data-toggle="tab">МЕТА-теги</a>
+    </li>
+</ul>
+<div class="tab-content">
+    <div class="tab-pane active" id="divMain">
+        <form action="/uk/ControlPanel/Docs/Save" id="formMain" method="post" novalidate="novalidate"
+              data-ajax="true"
+              data-ajax-begin="bsAdmin.startProcessing(); coreUtils.disableButton($('#btnSave'));"
+              data-ajax-complete="bsAdmin.endProcessing();"
+              data-ajax-mode="replace"
+              data-ajax-update="#divEditForm">
+            <div class="row">
+                <div class="col-sm-8">
+                    <div class="lang-uk">
+                        @Html.SimpleTextAreaFor(x => x.TitleUk, "Заголовок (ua)", new { @class = "form-control", rows = 2 })
+                        @Html.SimpleTextBoxFor(x => x.KeywordsUk, "Ключові слова (ua)", new { @class = "form-control" })
+                    </div>
+                    <div class="lang-ru">
+                        @Html.SimpleTextAreaFor(x => x.TitleRu, "Заголовок (ru)", new { @class = "form-control", rows = 2 })
+                        @Html.SimpleTextBoxFor(x => x.KeywordsRu, "Ключові слова (ru)", new { @class = "form-control" })
+                    </div>
+                    <div class="lang-en">
+                        @Html.SimpleTextAreaFor(x => x.TitleEn, "Заголовок (en)", new { @class = "form-control", rows = 2 })
+                        @Html.SimpleTextBoxFor(x => x.KeywordsEn, "Ключові слова (en)", new { @class = "form-control" })
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-8">
+                            @Html.SimpleDropDownListFor(x => x.TypeId, Model.Types, "Тип", new { @class = "form-control bs-select", @readonly = "readonly" })
+                        </div>
+                        <div class="col-sm-4">
+                            @Html.SimpleTextBoxFor(x => x.Number, "Номер", new { @class = "form-control", rows = 2 })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            @Html.SimpleTextBoxFor(x => x.PublishDate, "Дата публікації на сайті", new { @class = "form-control bs-datepicker", @readonly = "readonly", data_format = "DD.MM.YYYY HH:mm" }, helpText: "Документ буде не доступним для перегляду на сайті раніше від цієї дати")
+                        </div>
+                        <div class="col-sm-4">
+                            @Html.SimpleTextBoxFor(x => x.AcceptDate, "Дата документу", new { @class = "form-control bs-datepicker", @readonly = "readonly", data_format = "DD.MM.YYYY HH:mm" }, helpText: "Дата коли докумет було офіційно прийнято")
+                        </div>
+                        <div class="col-sm-4">
+                            @Html.SimpleTextBoxFor(x => x.PostDate, "Дата оприлюднення", new { @class = "form-control bs-datepicker", @readonly = "readonly", data_format = "DD.MM.YYYY HH:mm" }, helpText: "Дата коли документ було офіційно опубліковано")
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-8">
+                            @Html.SimpleCheckboxFor(x => x.Published, "Налаштування", "Опублікувати на сайті", helpText: "Допоки параметр \"Опублікувати на сайті\" не відмічено, документ не буде доступним для перегляду на сайті не залежно від дати публікації")
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label>Категорії документів</label>
+                        <div class="well" style="height:370px; overflow-y:scroll;">
+                            @Html.EditorFor(x => x.Categories)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @Html.SimpleTextAreaFor(x => x.Text, "Текст документа", new { @class = "form-control bs-ckeditor", data_toolbar = "simple", data_height = 400 })
+           
+            @Html.HiddenFor(x => x.Id, new { Value = Model.Id, id = "hDocId" })
+        </form>     
+    </div>
+    <div class="tab-pane" id="divFiles">
+        <div class="doc-file-upload form-group" id="divFileUploadBtn">
+            <div>
+                <button type="button" class="btn btn-default">
+                    Завантажити файл
+                </button>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label">Файли документа:</label>
+            <div class="well">
+                <div class="doc-files" id="divFileList" data-prefix="DocPersons">
+                    @foreach (var item in Model.Files)
+                    {
+                        @Html.Partial("_prtDocFileListItem", item)
+                    }
+                </div>                               
+            </div>
+        </div>
+        <hr />
+    </div>
+
+    <div class="tab-pane" id="divPersons">
+        @using (Ajax.BeginForm(new AjaxOptions()
+        {
+            Url = "/uk/controlpanel/docs/addperson",
+            OnBegin = "coreUtils.disableButton($('#btnAddPerson'));",
+            OnComplete = "coreUtils.enableButton($('#btnAddPerson'));",
+            InsertionMode = InsertionMode.InsertAfter,
+            UpdateTargetId = "divDocPersons"
+        }))
+        {
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-sm-8">
+                        @Html.SimpleTextBox("PersonId", null, "Введіть прізвище персони або ID", new { @class = "form-control bs-autocompleteselect", data_remote = "/uk/controlpanel/ajax/findperson" }, true)
+                        @Html.Hidden("DocId", Model.Id)
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="control-label">&nbsp;</label>
+                            <input type="submit" class="btn btn-default btn-block" id="btnAddPerson" value="Додати" />
+                        </div>
+                    </div>
+                </div>
+                <label class="control-label">Пов'язані персони:</label>
+                <div class="well">
+                    <div class="doc-persons" id="divDocPersons">
+                        @foreach (var item in Model.DocPersons)
+                        {
+                            @Html.Partial("_prtDocPersonListItem", item)
+                        }
+                    </div>
+                </div>
+            </div>
+            <hr />
+        }
+    </div>
+
+    <div class="tab-pane" id="divOrgs">
+        @using (Ajax.BeginForm(new AjaxOptions()
+            {
+                Url = "/uk/controlpanel/docs/addenterprise",
+                OnBegin = "coreUtils.disableButton($('#btnAddEnterprise'));",
+                OnComplete = "coreUtils.enableButton($('#btnAddEnterprise'));",
+                InsertionMode = InsertionMode.InsertAfter,
+                UpdateTargetId = "divDocEnterprises"
+            }))
+            {
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-sm-8">
+                        @Html.SimpleTextBox("EnterpriseId", null, "Введіть назву організації або ID", new { @class = "form-control bs-autocompleteselect", data_remote = "/uk/controlpanel/ajax/findenterprise" }, true)
+                        @Html.Hidden("DocId", Model.Id)
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="control-label">&nbsp;</label>
+                            <input type="submit" class="btn btn-default btn-block" id="btnAddEnterprise" value="Додати" />
+                        </div>
+                    </div>
+                </div>
+                <label class="control-label">Пов'язані організації:</label>
+                <div class="well">
+                    <div class="doc-enterprises" id="divDocEnterprises">
+                        @foreach (var item in Model.DocEnterprises)
+                        {
+                            @Html.Partial("_prtDocEnterpriseListItem", item)
+                        }
+                    </div>
+                </div>
+            </div>
+            <hr />
+        }
+    </div>
+    <div class="tab-pane" id="divMeta">
+        <div class="lang-uk">
+            @Html.SimpleTextBoxFor(x => x.MetaTitleUk, "МЕТА Заголовок (ua)", new { @class = "form-control", maxlength = 255, form = "formMain" })
+            @Html.SimpleTextBoxFor(x => x.MetaKeywordsUk, "МЕТА Ключові слова (ua)", new { @class = "form-control", maxlength = 255, form = "formMain" })
+            @Html.SimpleTextAreaFor(x => x.MetaDescriptionUk, "МЕТА Опис (ua)", new { @class = "form-control", maxlength = 255, form = "formMain" })
+        </div>
+        <div class="lang-ru">
+            @Html.SimpleTextBoxFor(x => x.MetaTitleRu, "МЕТА Заголовок (ru)", new { @class = "form-control", maxlength = 255, form = "formMain" })
+            @Html.SimpleTextBoxFor(x => x.MetaKeywordsRu, "МЕТА Ключові слова (ru)", new { @class = "form-control", maxlength = 255, form = "formMain" })
+            @Html.SimpleTextAreaFor(x => x.MetaDescriptionRu, "МЕТА Опис (ru)", new { @class = "form-control", maxlength = 255, form = "formMain" })
+        </div>
+        <div class="lang-en">
+            @Html.SimpleTextBoxFor(x => x.MetaTitleEn, "МЕТА Заголовок (en)", new { @class = "form-control", maxlength = 255, form = "formMain" })
+            @Html.SimpleTextBoxFor(x => x.MetaKeywordsEn, "МЕТА Ключові слова (en)", new { @class = "form-control", maxlength = 255, form = "formMain" })
+            @Html.SimpleTextAreaFor(x => x.MetaDescriptionEn, "МЕТА Опис (en)", new { @class = "form-control", maxlength = 255, form = "formMain" })
+        </div>
+    </div>
+</div>
+    
+
+<div class="modal-footer">
+    <a href="#" type="button" class="btn btn-link" data-dismiss="modal">
+        @Locals.Close
+    </a>
+    <button type="button" id="btnSave" class="btn btn-primary" onclick="javascript: $('#formMain').trigger('submit');">
+        @Locals.Save
+    </button>
+</div>

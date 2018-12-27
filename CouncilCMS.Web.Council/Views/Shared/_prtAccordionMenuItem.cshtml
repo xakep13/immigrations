@@ -1,0 +1,45 @@
+﻿@model CmsMenuItem
+
+@if (Model != null)
+{
+    <div class="cms-accordion-item">
+        <div class="item">
+                @if (Model.Items != null & Model.Items.Count > 0)
+                {
+                    <span class="link-btn" data-toggle="collapse" data-target="#accordChilds@(Model.Id)">
+                        <i class="fa fa-fw fa-plus"></i>
+                    </span>
+                }
+                else
+                {
+                    <span class="link-btn">
+                        <span class="fa fa-fw">&nbsp;</span>
+                    </span>
+                   
+                }
+                @if (!String.IsNullOrEmpty(Model.Url))
+                {
+                    <a href="@Model.Url" class="title">
+                        @Model.Title
+                    </a>
+                }
+                else
+                {
+                    <span class="title">
+                        @Model.Title
+                    </span>
+                }
+        </div>
+        @if (Model.Items != null & Model.Items.Count > 0)
+        {
+            <div class="cms-accordion-items collapse" id="accordChilds@(Model.Id)">
+                @foreach (var item in Model.Items)
+                {
+                    @Html.Partial("_prtAccordionMenuItem", item)
+                }
+            </div>
+        }
+    </div>
+}
+
+

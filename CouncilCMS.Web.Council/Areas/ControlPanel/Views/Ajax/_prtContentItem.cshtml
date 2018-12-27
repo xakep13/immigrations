@@ -1,0 +1,69 @@
+﻿@model ContentItem
+
+<div id="content@(Model.Id)" class="content-item">
+    <div class="controls rel">
+        <div class="pull-right">
+            <span title="Редагувати контент" class="link-btn edit-content" data-id="@Model.Id">
+                <i class="fa fa-fw fa-pencil"></i>
+            </span>
+            <span title="Видалити контент" class="link-btn remove-content" data-id="@Model.Id">
+                <i class="fa fa-fw fa-trash"></i>
+            </span>
+        </div>
+        <span class="link-btn move-content" data-id="@Model.Id" data-direction="-1">
+            <i class="fa fa-fw fa-chevron-up"></i>
+        </span>
+        <span class="link-btn move-content" data-id="@Model.Id" data-direction="1">
+            <i class="fa fa-fw fa-chevron-down"></i>
+        </span>
+        <span>
+            @Model.Type
+        </span>
+    </div>
+    <div class="content-body">
+        @if(Model.Type == "Menu")
+        {
+            <div class="special-content">
+                <span>Меню</span>
+            </div>
+        }
+        else if (Model.Type == "Accordion")
+        {
+            <div class="special-content">
+                <span>Акордеон</span>
+            </div>
+        }
+        else if (Model.Type == "Widget")
+        {
+            <div class="special-content">
+                <span>Віджет</span>
+            </div>
+        }
+        @*else if (Model.Type == "Map")
+        {
+            <div class="special-content">
+                <span>Карта</span>
+            </div>
+        }*@
+        else if (Model.Type == "HTML код")
+        {
+            <div class="special-content">
+                <span>HTML</span>
+            </div>
+        }        
+        else
+        {
+            <div class="lang-uk">
+                @Html.Raw(Model.BodyUk)                
+            </div>
+            <div class="lang-ru">
+                @Html.Raw(Model.BodyRu)                
+            </div>
+            <div class="lang-en">
+                @Html.Raw(Model.BodyEn)                
+            </div>
+        }
+    </div>
+</div>
+
+

@@ -1,0 +1,26 @@
+﻿@model CmsRoleListItem
+
+<div class="card-sm item" id="divItem@(Model.Id)" data-id="@Model.Id">
+    <div class="div-table">
+        <div class="div-cell" style="width:70px;">
+            <span class="link-btn btn-drag btn-drag">
+                <i class="fa fa-fw fa-bars"></i>
+            </span>
+        </div>
+
+        <div class="div-cell">
+            <div class="inline-elipsis" style="vertical-align:middle;">
+                <strong>@Model.TitleUk</strong><br />
+            </div>
+        </div>
+
+        <div class="div-cell text-right" style="width:100px;">
+            <a href="#" class="link-btn nav-link" data-action="edit-item" title="редагувати">
+                <i class="fa fa-fw fa-pencil"></i>
+            </a>
+            <a href="#" class="link-btn nav-link" data-action="remove-item" title="видалити">
+                <i class="fa fa-fw fa-trash"></i>
+            </a>
+        </div>
+    </div>
+</div>

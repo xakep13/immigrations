@@ -1,0 +1,89 @@
+﻿@model CmsEnterprise
+
+@{
+    ViewBag.Title = Model.Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="left-content">
+        <div class="cms-person">
+            <div class="cms-person-header" style="height:auto;">
+                <div class="text">
+                    <h1>@Model.Title</h1>                   
+                    @if (!String.IsNullOrEmpty(Model.ContactAddress))
+                    {
+                        <p class="desc">
+                            <strong>@CmsLabels.Address</strong><br />
+                            @Html.Raw(Model.ContactAddress)
+                        </p>
+                    }
+                                    </div>
+                <img src="@CmsSettings.BaseDomain@(!String.IsNullOrEmpty(Model.Image) ? Model.Image : "/content/img/parts/default-img-1x1.png")" title="@Model.Title" class="img" />
+            </div>
+
+            <div class="cms-page">
+                <div class="row">
+                    <div class="col-sm-3">
+                        @if (!String.IsNullOrEmpty(Model.ContactDates) || !String.IsNullOrEmpty(Model.ContactTimes))
+                        {
+                            <p class="desc">
+                                <strong>Графік роботи</strong><br />
+                                @Html.Raw(Model.ContactDates)
+                                @Html.Raw(Model.ContactTimes)
+                            </p>
+                        }
+                        @if (!String.IsNullOrEmpty(Model.ContactPhones))
+                        {
+                            <p class="desc">
+                                <strong>@CmsLabels.Phone</strong><br />
+                                @Html.Raw(Model.ContactPhones)
+                            </p>
+                        }
+
+                        @if (!String.IsNullOrEmpty(Model.ContactEmails))
+                        {
+                            <p class="desc">
+                                <strong>Email</strong><br />
+                                @Html.Raw(Model.ContactEmails)
+                            </p>
+                        }
+                    </div>
+                    <div class="col-sm-9">
+                        @Html.Partial("_prtContent", Model.ContentRows)
+                    </div>
+                </div>
+
+               
+
+                <div class="cms-article-date text-right">
+                    @if (!String.IsNullOrEmpty(Model.PublishDate))
+                    {
+                        <em class="help-text">
+                            Опубліковано: @Model.PublishDate
+                        </em>
+                    }
+                    @if (!String.IsNullOrEmpty(Model.LastEditDate))
+                    {
+                        <em class="help-text">
+                            (оновлено: @Model.LastEditDate)
+                        </em>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="right-content">
+        @Html.Partial("_prtSidebar")
+        @if (Model.PersonMenu != null)
+        {
+            @Html.Partial("_prtSidebarMenu", Model.PersonMenu)
+        }
+    </div>
+</div>
+
+<script>
+    $(function () {
+        coreUtils.createPage($(".page-contents"));
+    })
+</script>

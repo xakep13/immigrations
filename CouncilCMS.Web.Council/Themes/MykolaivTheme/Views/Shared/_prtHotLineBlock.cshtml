@@ -1,0 +1,41 @@
+﻿@model string
+
+@{
+    bool emailStatus = bool.Parse(ViewData["EmailStatus"].ToString());
+    bool phoneStatus = bool.Parse(ViewData["PhoneStatus"].ToString());
+}
+
+<div class="center-banner">
+    <span class="title">@CmsSettings.HotlineTitleUk</span>
+    <span class="name">@CmsSettings.MayorNameUk</span>
+    <span class="subtitle">@CmsSettings.HotlineSubTitleUk</span>
+
+    <a href="tel:@CmsSettings.HotlinePhone" class="center-banner-phone">@CmsSettings.HotlinePhone</a>
+
+    <div class="icon-link">
+        @if (phoneStatus == true)
+        {
+
+            <a class="icon" href="tel:">
+                <img src="/content/img/icons/header_banner-phone.svg" alt="" class="connectionAlive">
+            </a>
+        }
+        else
+        {
+            <a class="icon" href="tel:"><img src="/content/img/icons/header_banner-phone.svg" alt=""></a>
+        }
+        @if (emailStatus == true)
+        {
+            <a class="icon" href="mailto:@CmsSettings.HotlineEmail">
+                <img src="/content/img/icons/header_banner-mail.svg" alt="" class="connectionAlive">
+            </a>
+        }
+        else
+        {
+            <a class="icon" href=""><img src="/content/img/icons/header_banner-mail.svg" alt=""></a>
+        }
+
+    </div>
+</div>
+
+

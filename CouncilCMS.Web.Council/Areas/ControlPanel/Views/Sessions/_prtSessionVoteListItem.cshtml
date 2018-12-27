@@ -1,0 +1,36 @@
+﻿@model SessionVoteListItem
+
+<div class='card-sm' data-id="@Model.Id" id="vote@(Model.Id)">
+    <div class='row'>
+        <div class="col-sm-2">
+            <span class="link-btn btn-drag" data-id="@Model.Id">
+                <i class="fa fa-fw fa-bars"></i>
+            </span> 
+            <span class="number">
+                @Model.Number
+            </span>
+        </div>
+        <div class="col-sm-5">
+            <strong class="lang-uk">
+                @Model.TitleUk
+            </strong>
+            <strong class="lang-ru">
+                @Model.TitleRu
+            </strong>
+            <strong class="lang-en">
+                @Model.TitleEn
+            </strong>
+        </div>        
+        <div class="col-sm-3">
+            З: @Model.For; П: @Model.Absent; У: @Model.Abstained; Н:@Model.NotVote; В: @Model.Absent
+        </div>
+        <div class="col-sm-2 text-right">
+            <span class='link-btn nav-link' data-action="edit-vote" data-id="@Model.Id">
+                <i class='fa fa-fw fa-pencil'></i>
+            </span>
+            <span class='link-btn nav-link' data-action="remove-vote" data-id="@Model.Id">
+                <i class='fa fa-fw fa-trash'></i>
+            </span>
+        </div>
+    </div>
+</div>

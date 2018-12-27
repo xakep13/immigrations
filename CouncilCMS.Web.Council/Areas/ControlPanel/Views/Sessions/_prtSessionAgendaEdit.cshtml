@@ -1,0 +1,51 @@
+﻿@model SessionAgendaItem
+
+@{ 
+    var targetId = Model.Id <= 0 ? "divSessionAgendas" : ("agenda" + Model.Id);
+    var insertionMode = Model.Id <= 0 ? InsertionMode.InsertAfter : InsertionMode.ReplaceWith;
+}
+
+<div class="modal-title">
+    Питання порядку денного
+    <ul class="modal-lang-swicher">
+        <li data-lang="en">EN</li>
+        <li data-lang="ru">RU</li>
+        <li class="active" data-lang="uk">UA</li>
+    </ul>
+</div>
+
+@using (Ajax.BeginForm(new AjaxOptions()
+{
+    Url = "/uk/controlpanel/sessions/saveagenda",
+    HttpMethod = "POST",
+    OnBegin = "bsAdmin.startProcessing();",
+    OnComplete = "bsAdmin.endProcessing(); window.divAgendaEdit.modal('hide');",
+    UpdateTargetId = targetId,
+    InsertionMode = insertionMode,
+}))
+{
+    @Html.HiddenFor(x => x.Id, new { Value = Model.Id })  
+    @Html.HiddenFor(x => x.SessionId, new { Value = Model.SessionId })
+
+    <div>
+        <div class="lang-uk">
+            @Html.SimpleTextAreaFor(x => x.TitleUk, "Питання (ua)", new { @class = "form-control", rows = 3 })
+        </div>
+        <div class="lang-ru">
+            @Html.SimpleTextAreaFor(x => x.TitleRu, "Питання (ru)", new { @class = "form-control", rows = 3 })
+        </div>
+        <div class="lang-en">
+            @Html.SimpleTextAreaFor(x => x.TitleEn, "Питання (en)", new { @class = "form-control", rows = 3 })
+        </div>
+    </div>
+    
+    <div class="modal-footer">
+        <a href="#" type="button" class="btn btn-link nav-link" data-dismiss="modal">
+            @Locals.Close
+        </a>
+        <button type="submit" class="btn btn-primary">
+            @Locals.Save
+        </button>
+    </div>
+}
+

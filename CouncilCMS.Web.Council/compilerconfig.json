@@ -1,0 +1,74 @@
+﻿[
+  {
+    "outputFile": "Content/app/css/theme-city/CouncilCMS-controlpanel.css",
+    "inputFile": "Content/app/css/theme-city/CouncilCMS-controlpanel.scss"
+  },
+  {
+    "outputFile": "Content/libs/bootstrap-CouncilCMS/css/city/bs-cp.css",
+    "inputFile": "Content/libs/bootstrap-CouncilCMS/css/city/bs-cp.scss"
+  },
+  {
+    "outputFile": "Content/libs/fotorama/fotorama.css",
+    "inputFile": "Content/libs/fotorama/fotorama.scss"
+  },
+  {
+    "outputFile": "Content/libs/palete-color-picker/palette-color-picker.css",
+    "inputFile": "Content/libs/palete-color-picker/palette-color-picker.scss"
+  },
+  {
+    "outputFile": "Content/libs/bootsrap-datetimepicker/css/bootstrap-datetimepicker.css",
+    "inputFile": "Content/libs/bootsrap-datetimepicker/css/bootstrap-datetimepicker.scss"
+  },
+  {
+    "outputFile": "Content/libs/bootstrap-select/css/bootstrap-select.css",
+    "inputFile": "Content/libs/bootstrap-select/css/bootstrap-select.scss"
+  },
+  {
+    "outputFile": "Content/libs/slick/slick-theme.css",
+    "inputFile": "Content/libs/slick/slick-theme.scss"
+  },
+  {
+    "outputFile": "Content/libs/slick/slick.css",
+    "inputFile": "Content/libs/slick/slick.scss"
+  },
+  {
+    "outputFile": "Content/app/css/theme-city/CouncilCMS-site.css",
+    "inputFile": "Content/app/css/theme-city/CouncilCMS-site.scss"
+  },
+  {
+    "outputFile": "Content/libs/bootstrap-CouncilCMS/css/city/bs-city.css",
+    "inputFile": "Content/libs/bootstrap-CouncilCMS/css/city/bs-city.scss"
+  },
+  {
+    "outputFile": "Content/libs/bootstrap-smartcity/css/city/bs-city.css",
+    "inputFile": "Content/libs/bootstrap-smartcity/css/city/bs-city.scss"
+  },
+  {
+    "outputFile": "Content/app/css/theme/site.css",
+    "inputFile": "Content/app/css/theme/site.scss"
+  },
+  {
+    "outputFile": "Content/libs/simple-calendar/simple-calendar.css",
+    "inputFile": "Content/libs/simple-calendar/simple-calendar.scss"
+  },
+  {
+    "outputFile": "Content/app/css/theme-dnepr/smartcity-dnepr.css",
+    "inputFile": "Content/app/css/theme-dnepr/smartcity-dnepr.scss"
+  },
+  {
+    "outputFile": "Content/app/css/theme-dnepr/smartcity-simple.css",
+    "inputFile": "Content/app/css/theme-dnepr/smartcity-simple.scss"
+  },
+  {
+    "outputFile": "Content/libs/bootstrap-smartcity/css/dnepr/bs-cp.css",
+    "inputFile": "Content/libs/bootstrap-smartcity/css/dnepr/bs-cp.scss"
+  },
+  {
+    "outputFile": "Content/libs/bootstrap-smartcity/css/dnepr/bs-dnepr.css",
+    "inputFile": "Content/libs/bootstrap-smartcity/css/dnepr/bs-dnepr.scss"
+  },
+  {
+    "outputFile": "Content/sass/style.css",
+    "inputFile": "Content/sass/style.scss"
+  }
+]
