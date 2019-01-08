@@ -1,16 +1,17 @@
 ﻿@model CmsSettingsEdit
+
 @{
 	ViewBag.Title = Locals.Settings;
 	Layout = "~/Areas/ControlPanel/Views/Shared/_Layout.cshtml";
 
 	var colors = new List<SelectListItem>()
-{
-new SelectListItem() { Text = "blue", Value = "blue" },
-new SelectListItem() { Text = "green", Value = "green" },
-new SelectListItem() { Text = "red", Value = "red" },
-new SelectListItem() { Text = "orng", Value = "orng" },
-new SelectListItem() { Text = "dark-blue", Value = "dblue" },
-};
+	{
+		new SelectListItem() { Text = "blue", Value = "blue" },
+		new SelectListItem() { Text = "green", Value = "green" },
+		new SelectListItem() { Text = "red", Value = "red" },
+		new SelectListItem() { Text = "orng", Value = "orng" },
+		new SelectListItem() { Text = "dark-blue", Value = "dblue" },
+	};
 }
 
 <div class="page-title">
@@ -42,19 +43,20 @@ new SelectListItem() { Text = "dark-blue", Value = "dblue" },
 				@Html.SimpleTextBoxFor(x => x.DefaultMetaKeywordsUk, "МЕТА ключові слова за замовчуваням (ua)", new { @class = "form-control" })
 				@Html.SimpleTextAreaFor(x => x.DefaultMetaDescriptionUk, "МЕТА опис за замовчуваням (ua)", new { @class = "form-control", rows = 2 })
 				@Html.SimpleUploaderFor(x => x.LogoUk, "Логотип (ua)",
-	   new ImageUploaderOptions()
-	   {
-		   UploadUrl = "/api/upload/uploadfile?type=image&directory=cms_logo",
-		   ContainerId = "divLogoUpload",
-		   ContainerHeight = 150
-	   }, new { @class = "form-control", @readonly = "readonly" })
-				@Html.SimpleUploaderFor(x => x.SubLogoUk, "Додатковий логотип (ua)",
-	   new ImageUploaderOptions()
-	   {
-		   UploadUrl = "/api/upload/uploadfile?type=image&directory=cms_logo",
-		   ContainerId = "divLogoUpload",
-		   ContainerHeight = 150
-	   }, new { @class = "form-control", @readonly = "readonly" })
+					new ImageUploaderOptions()
+					{
+						UploadUrl = "/api/upload/uploadfile?type=image&directory=cms_logo",
+						ContainerId = "divLogoUpload",
+						ContainerHeight = 150
+					}, new { @class = "form-control", @readonly = "readonly" })
+
+				@Html.SimpleUploaderFor(x => x.SubLogoUk, "Герб (ua)",
+					new ImageUploaderOptions()
+					{
+						UploadUrl = "/api/upload/uploadfile?type=image&directory=cms_logo",
+						ContainerId = "divLogoUpload",
+						ContainerHeight = 150
+					}, new { @class = "form-control", @readonly = "readonly" })
 			</div>
 			<div class="col-sm-4">
 				@Html.SimpleTextBoxFor(x => x.TitleRu, "Title сайту (ru)", new { @class = "form-control" })
@@ -62,19 +64,19 @@ new SelectListItem() { Text = "dark-blue", Value = "dblue" },
 				@Html.SimpleTextBoxFor(x => x.DefaultMetaKeywordsRu, "МЕТА ключові слова за замовчуваням (ru)", new { @class = "form-control" })
 				@Html.SimpleTextAreaFor(x => x.DefaultMetaDescriptionRu, "МЕТА опис за замовчуваням (ru)", new { @class = "form-control", rows = 2 })
 				@Html.SimpleUploaderFor(x => x.LogoRu, "Логотип (ru)",
-	   new ImageUploaderOptions()
-	   {
-		   UploadUrl = "/api/upload/uploadfile?type=image&directory=cms_logo",
-		   ContainerId = "divLogoUpload",
-		   ContainerHeight = 150
-	   }, new { @class = "form-control", @readonly = "readonly" })
-				@Html.SimpleUploaderFor(x => x.SubLogoUk, "Додатковий логотип (ua)",
-new ImageUploaderOptions()
-{
-  UploadUrl = "/api/upload/uploadfile?type=image&directory=cms_logo",
-  ContainerId = "divLogoUpload",
-  ContainerHeight = 150
-}, new { @class = "form-control", @readonly = "readonly" })
+					new ImageUploaderOptions()
+					{
+						UploadUrl = "/api/upload/uploadfile?type=image&directory=cms_logo",
+						ContainerId = "divLogoUpload",
+						ContainerHeight = 150
+					}, new { @class = "form-control", @readonly = "readonly" })
+				@Html.SimpleUploaderFor(x => x.SubLogoUk, "Герб (ua)",
+					new ImageUploaderOptions()
+					{
+						UploadUrl = "/api/upload/uploadfile?type=image&directory=cms_logo",
+						ContainerId = "divLogoUpload",
+						ContainerHeight = 150
+					}, new { @class = "form-control", @readonly = "readonly" })
 			</div>
 			<div class="col-sm-4">
 				@Html.SimpleTextBoxFor(x => x.TitleEn, "Title сайту (en)", new { @class = "form-control" })
@@ -82,19 +84,20 @@ new ImageUploaderOptions()
 				@Html.SimpleTextBoxFor(x => x.DefaultMetaKeywordsEn, "МЕТА ключові слова за замовчуваням (en)", new { @class = "form-control" })
 				@Html.SimpleTextAreaFor(x => x.DefaultMetaDescriptionEn, "МЕТА опис за замовчуваням (en)", new { @class = "form-control", rows = 2 })
 				@Html.SimpleUploaderFor(x => x.LogoEn, "Логотип (en)",
-	   new ImageUploaderOptions()
-	   {
-		   UploadUrl = "/api/upload/uploadfile?type=image&directory=cms_logo",
-		   ContainerId = "divLogoUpload",
-		   ContainerHeight = 150
-	   }, new { @class = "form-control", @readonly = "readonly" })
-				@Html.SimpleUploaderFor(x => x.SubLogoUk, "Додатковий логотип (ua)",
-new ImageUploaderOptions()
-{
-  UploadUrl = "/api/upload/uploadfile?type=image&directory=cms_logo",
-  ContainerId = "divLogoUpload",
-  ContainerHeight = 150
-}, new { @class = "form-control", @readonly = "readonly" })
+					new ImageUploaderOptions()
+					{
+						UploadUrl = "/api/upload/uploadfile?type=image&directory=cms_logo",
+						ContainerId = "divLogoUpload",
+						ContainerHeight = 150
+					}, new { @class = "form-control", @readonly = "readonly" })
+
+				@Html.SimpleUploaderFor(x => x.SubLogoUk, "Герб (ua)",
+					new ImageUploaderOptions()
+					{
+						UploadUrl = "/api/upload/uploadfile?type=image&directory=cms_logo",
+						ContainerId = "divLogoUpload",
+						ContainerHeight = 150
+					}, new { @class = "form-control", @readonly = "readonly" })
 			</div>
 		</div>
 		<hr />
@@ -102,51 +105,48 @@ new ImageUploaderOptions()
 			Налаштування головної
 		</h3>
 		<div class="row">
-			<div class="col-sm-12">
-				@Html.SimpleCheckboxFor(x => x.HideMayor, null, "Приховати блок звернення")
+			@*<div class="col-sm-12">
+			@Html.SimpleCheckboxFor(x => x.HideMayor, null, "Приховати блок звернення")
+		</div>
+		<div class="col-sm-4">
+			@Html.SimpleTextBoxFor(x => x.MayorTitleUk, "Заголовок блока зверненнь (ua)", new { @class = "form-control" })
+		</div>
+		<div class="col-sm-4">
+			@Html.SimpleTextBoxFor(x => x.MayorTitleRu, "Заголовок блока зверненнь (ru)", new { @class = "form-control" })
+		</div>
+		<div class="col-sm-4">
+			@Html.SimpleTextBoxFor(x => x.MayorTitleEn, "Заголовок блока зверненнь (en)", new { @class = "form-control" })
+		</div>
+		<div class="col-sm-4">
+			@Html.SimpleTextBoxFor(x => x.MayorNameUk, "П.І.Б. голови (ua)", new { @class = "form-control" })
+		</div>
+		<div class="col-sm-4">
+			@Html.SimpleTextBoxFor(x => x.MayorNameRu, "П.І.Б. голови (ru)", new { @class = "form-control" })
+		</div>
+		<div class="col-sm-4">
+			@Html.SimpleTextBoxFor(x => x.MayorNameEn, "П.І.Б. голови (en)", new { @class = "form-control" })
+		</div>*@
+			<div class="col-sm-4">
+				@Html.SimpleUploaderFor(x => x.MayorImage, "Фото верхнього банера",
+				new ImageUploaderOptions()
+				{
+					UploadUrl = "/api/upload/uploadfile?type=image&directory=cms_logo",
+					ContainerId = "divLogoUpload",
+					ContainerHeight = 130,
+					AllowEdit = true,
+				}, new { @class = "form-control", @readonly = "readonly" })
 			</div>
 			<div class="col-sm-4">
-				@Html.SimpleTextBoxFor(x => x.MayorTitleUk, "Заголовок блока зверненнь (ua)", new { @class = "form-control" })
+				@Html.SimpleUploaderFor(x => x.BanerImage, "Фото нижнього банера",
+				new ImageUploaderOptions()
+				{
+					UploadUrl = "/api/upload/uploadfile?type=image&directory=cms_logo",
+					ContainerId = "divLogoUpload",
+					ContainerHeight = 130,
+					AllowEdit = true,
+				}, new { @class = "form-control", @readonly = "readonly" })
 			</div>
-			<div class="col-sm-4">
-				@Html.SimpleTextBoxFor(x => x.MayorTitleRu, "Заголовок блока зверненнь (ru)", new { @class = "form-control" })
-			</div>
-			<div class="col-sm-4">
-				@Html.SimpleTextBoxFor(x => x.MayorTitleEn, "Заголовок блока зверненнь (en)", new { @class = "form-control" })
-			</div>
-			<div class="col-sm-4">
-				@Html.SimpleTextBoxFor(x => x.MayorNameUk, "П.І.Б. голови (ua)", new { @class = "form-control" })
-			</div>
-			<div class="col-sm-4">
-				@Html.SimpleTextBoxFor(x => x.MayorNameRu, "П.І.Б. голови (ru)", new { @class = "form-control" })
-			</div>
-			<div class="col-sm-4">
-				@Html.SimpleTextBoxFor(x => x.MayorNameEn, "П.І.Б. голови (en)", new { @class = "form-control" })
-			</div>
-			<div class="col-sm-4">
-				@Html.SimpleUploaderFor(x => x.MayorImage, "Фото голови",
-	  new ImageUploaderOptions()
-	  {
-		  UploadUrl = "/api/upload/uploadfile?type=image&directory=cms_logo",
-		  ContainerId = "divLogoUpload",
-		  ContainerHeight = 130,
-		  AllowEdit = true,
-		  CropWidth = 130,
-		  CropHeight = 130,
-	  }, new { @class = "form-control", @readonly = "readonly" })
-			</div>
-			<div class="col-sm-4">
-				@Html.SimpleUploaderFor(x => x.BanerImage, "Фото для банера",
-	  new ImageUploaderOptions()
-	  {
-		  UploadUrl = "/api/upload/uploadfile?type=image&directory=cms_logo",
-		  ContainerId = "divLogoUpload",
-		  ContainerHeight = 130,
-		  AllowEdit = true,
-		  
-	  }, new { @class = "form-control", @readonly = "readonly" })
-			</div>
-			<div class="col-sm-4">
+			@*<div class="col-sm-4">
 				@Html.SimpleTextBoxFor(x => x.HotlineTitleUk, "Заголовок гарячої лінії (ua)", new { @class = "form-control" })
 				@Html.SimpleTextBoxFor(x => x.HotlineTitleRu, "Заголовок гарячої лінії (ru)", new { @class = "form-control" })
 				@Html.SimpleTextBoxFor(x => x.HotlineTitleEn, "Заголовок гарячої лінії (en)", new { @class = "form-control" })
@@ -155,7 +155,6 @@ new ImageUploaderOptions()
 				@Html.SimpleTextBoxFor(x => x.HotlineSubTitleUk, "Підзаголовок гарячої лінії (ua)", new { @class = "form-control" })
 				@Html.SimpleTextBoxFor(x => x.HotlineSubTitleRu, "Підзаголовок гарячої лінії (ru)", new { @class = "form-control" })
 				@Html.SimpleTextBoxFor(x => x.HotlineSubTitleEn, "Підзаголовок гарячої лінії (en)", new { @class = "form-control" })
-
 			</div>
 
 			<div class="col-sm-4">
@@ -171,17 +170,13 @@ new ImageUploaderOptions()
 				}, "Телефон Активний на сайті"
 				, new { @class = "form-control" })
 
-
 			</div>
-
 			<div class="col-sm-2">
 				@Html.SimpleTextBoxFor(x => x.HotlineColor, "Колір гарячої лінії", new { @class = "form-control bs-colpick" })
 			</div>
-
 			<div class="col-sm-2">
 				@Html.SimpleTextBoxFor(x => x.OldSite, "Посилання на старий сайт", new { @class = "form-control" })
 			</div>
-
 			<div class="col-sm-4">
 				@Html.SimpleTextBoxFor(x => x.HotlineEmail, "Email гарячої лінії", new { @class = "form-control" })
 			</div>
@@ -194,9 +189,8 @@ new ImageUploaderOptions()
 				}, "Email Активний на сайті"
 				, new { @class = "form-control" })
 
-			</div>
+			</div>*@
 		</div>
-
 		<div class="row">
 			<div class="col-sm-6">
 				@Html.SimpleTextBoxFor(x => x.FbLink, "Посилання на Facebook", new { @class = "form-control" })
@@ -308,9 +302,7 @@ new ImageUploaderOptions()
 			</div>
 		</div>
 
-		<div class="msg-alert" id="divMsg">
-
-		</div>
+		<div class="msg-alert" id="divMsg"></div>
 		<div class="text-right">
 			<button type="submit" class="btn btn-primary">
 				@Locals.Save
@@ -319,7 +311,3 @@ new ImageUploaderOptions()
 	}
 
 </div>
-
-<script>
-
-</script>

@@ -14,92 +14,56 @@
 	.footer_top_menus .foot_menu1{
 		margin-right: 5px;
 	}
-	/*.new_item{
+	.form_block_map .mapclass{
 		width: 100%;
-		position: relative;
-		margin-bottom: 25px;
 	}
-	.new_item_image{
-		width: 28%;
-		float: left;
-	}
-	.news_item_name{
-		width: 70%;
-		margin-left: 2%;
-		float: left;
-		margin-top: 0;
-	}
-	.new_item_image img{
+	.form_block_map_comment{
 		width: 100%;
-		height: 100%;
+		margin-top: 10px;
 	}
-	.news_item_info{
-		position: absolute;
-		bottom: 0;
-		left: 28%;
-		margin-top: 90px;
-		margin-left: 2%;
-	}
-	.footer_top_info{
-		margin-right: 40px;
-	}
-	.search_input{
-		width: 510px;
-	}
-	.header_informer{
-		width: 308px;
-	}
-	.initiative_container_text{
-		width: 725px;
-	}
-	.popular_items{
-		text-align: center;
-	}
-	.popular_item{
-		text-align: left;
-	}
-	.consultation_elem{
-		width: 544px;
-		float: none;
-    	display: inline-block;
-    	position: relative;
-	}
-	.last_week_consultation{
-		text-align: center;
-	}
-	.consultation_elem_info{
-		position: absolute;
-		bottom: 25px;
-	}
-	.consultation_elem_desc{
-		width: auto;
-	}
-	.consultation_elem_img{
-		float: right;
-		margin-top: 15px;
-	}
-	.person_liders_list li{
-		width: 183px;
+	.add_new_files{
+		width: 100%;
 	}
 	.main_content_left{width: 100%;}
-	.hide_tablet{display: none;}
-	.img_galery img{
-		max-width: 100%;
+	.counter_marker p, .counter_submarker p{
+		width: 90%;
 	}
-	.main_content_right{
-		width: 300px;
-		margin: 0 auto;
-		float: none;
+	.home_reestr_search_text{
+		width: 600px;
 	}
-	.consulting_item_info .consulting_item_info_download{
-		margin-left: 0;
+	.home_reestr_elem{
+		margin: 14px auto !important;
+		display: block;
+		height: 183px;
 	}
-	.consulting_item_rating{margin-right: 5px;}
-	.consulting_item_comment_user{width: 540px;}
-	.consulting_item_comment_images{width: 540px;}
-	.consulting_item_comment_download{width: 540px;}
-	.consulting_item_comment_text{width: 540px;}
-	.consulting_item_comment.subcomment .consulting_item_comment_user{width: 475px;}
-	.consulting_item_comment.subcomment .consulting_item_comment_text{width: 475px;}
-	.comp_col{width: 235px;}*/
+	.main_content_left .inform_container_left, .inform_container_right {
+		width: 100%;
+	}
+	.main_content_left .inform_container_left .main_new{
+		width: 100%;
+	}
+	.dop_news_elems{
+		display: none;
+	}
+	.news_right_col_elem{
+		display: inline-block;
+    	width: 49%;
+	}
+	.news_page.dop_news_elems{
+		display: block;
+	}
+	.news_page.dop_news_elems .dop_news_elem{
+		width: 100%;
+	}
+	.news_page.dop_news_elems .dop_news_elem .dop_news_elem_img{
+		width: 220px;
+		float: left;
+		margin-right: 30px;
+	}
+	.contacts .main_content_right{
+		display: none;
+	}
+	.repair_item .main_content_right{
+		display: none;
+	}
 }

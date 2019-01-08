@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="ConnectionString" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Server=localhost;Port=3306;Database=cms_test;uid=root;pwd=admin;charset=cp1251;</Value>
+      <Value Profile="(Default)">Server=localhost;Port=3306;Database=immigrant_db;uid=root;pwd=admin;charset=cp1251;</Value>
     </Setting>
   </Settings>
 </SettingsFile>

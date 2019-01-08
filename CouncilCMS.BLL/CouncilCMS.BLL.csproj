@@ -124,6 +124,8 @@
     <Compile Include="Services\Admin\CmsSettingsAdminService.cs" />
     <Compile Include="Services\Admin\CmsUserAdminService.cs" />
     <Compile Include="Services\Admin\ContentAdminService.cs" />
+    <Compile Include="Services\Admin\DamagedHousingAdminService.cs" />
+    <Compile Include="Services\Admin\DamagedHousingCategoryAdminService.cs" />
     <Compile Include="Services\Admin\FacebookLoginService.cs" />
     <Compile Include="Services\Admin\FacebookPagePostService.cs" />
     <Compile Include="Services\Admin\PollAdminService.cs" />
@@ -188,6 +190,10 @@
     <Compile Include="ViewModels\Admin\ContentItem.cs" />
     <Compile Include="ViewModels\Admin\ContentRowItem.cs" />
     <Compile Include="ViewModels\Admin\ContentRowsEdit.cs" />
+    <Compile Include="ViewModels\Admin\DamagedHousingCategoryEdit.cs" />
+    <Compile Include="ViewModels\Admin\DamagedHousingEdit.cs" />
+    <Compile Include="ViewModels\Admin\DamagedHousingList.cs" />
+    <Compile Include="ViewModels\Admin\DamagedHousingListItem.cs" />
     <Compile Include="ViewModels\Admin\DocCategoryEdit.cs" />
     <Compile Include="ViewModels\Admin\FacebookPostEntity.cs" />
     <Compile Include="ViewModels\Admin\MenuItemDTO.cs" />

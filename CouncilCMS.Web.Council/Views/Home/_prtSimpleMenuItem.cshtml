@@ -1,0 +1,40 @@
+﻿@model CmsMenuItem
+
+@if (Model != null)
+{
+    <li> 
+        @if (!string.IsNullOrEmpty(Model.Url))
+        {
+            if (Model.Url.StartsWith("http"))
+            {
+                <a href="@Model.Url" rel="nofollow">
+                    @Html.Raw(Model.Title)
+                </a>
+            }
+            else
+            {
+                <a href="@Model.Url">
+                    @Html.Raw(Model.Title)
+                </a>
+            }
+
+        }
+        else
+        {
+            <a href="#">
+                @Html.Raw(Model.Title)
+            </a>
+        }
+        @*@if (Model.Items != null && Model.Items.Count > 0)
+        {
+            <ul class="submenu">
+                @foreach (var item in Model.Items)
+                {
+                    @Html.Partial("_prtSimpleMenuItem", item)
+                }
+            </ul>
+        }*@
+    </li>
+}
+
+

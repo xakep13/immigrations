@@ -2,11 +2,43 @@
 
 @{
     ViewBag.Title = Model.Title;
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_secondLayout.cshtml";
 }
 
 
-<main class="">
+<div class="main_content">
+	<div class="container">
+		<div class="main_content_left">
+			<h1 class="page_header">@Model.Title</h1>
+
+			<h3 class="subheader">@Model.Type</h3>
+			<p> @Html.Raw(Model.Text)</p>
+
+
+			@if(Model.Files != null && Model.Files.Count > 0)
+			{
+				<div class="page-content content-text">
+					<h2>@CmsLabels.Files</h2>
+					@foreach(var item in Model.Files)
+					{
+						<div class="file">
+							<div class="page-content content-file text-left" style="margin-bottom:15px;">
+								<i class="fa fa-fw fa-file-text"></i>
+								<a href="@item.File" download="@item.Title">@item.Title (@item.Extension, @(item.Size > 1024 ? ((item.Size / 1024) + " mb") : (item.Size + " kb")))</a>
+							</div>
+						</div>
+					}
+				</div>
+			}
+
+		</div>
+		@Html.Action("Consultations","Home")
+	</div>
+</div>
+
+
+
+@*<main class="">
     <section class="organization">
         <div class="container">
             <span class="block-title block-decor-bottom">@Model.Title</span>
@@ -47,7 +79,7 @@
             </div>
         </div>
     </section>
-</main>
+</main>*@
 
 
 <script>

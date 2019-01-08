@@ -1,0 +1,173 @@
+﻿@model DamagedHousingEdit
+
+<div class="modal-title">
+    Матеріал
+    <ul class="modal-lang-swicher">
+        <li data-lang="en">EN</li>
+        <li data-lang="ru">RU</li>
+        <li class="active" data-lang="uk">UA</li>
+    </ul>
+</div>
+
+<ul class="nav nav-tabs" role="tablist">
+    <li class="active">
+        <a href="#divMain" data-toggle="tab">Головне</a>
+    </li>
+    <li>
+        <a href="#divContent" data-toggle="tab">Контент</a>
+    </li>
+    @*<li>
+        <a href="#divOpenData" data-toggle="tab">OpenData</a>
+    </li>*@
+    <li>
+        <a href="#divMeta" data-toggle="tab">МЕТА-теги</a>
+    </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane active" id="divMain">
+        <form action="/uk/ControlPanel/DamagedHousing/Save" id="formMain" method="post" novalidate="novalidate" 
+              data-ajax="true"
+              data-ajax-begin="bsAdmin.startProcessing(); coreUtils.disableButton($('#btnSave'));"
+              data-ajax-complete="bsAdmin.endProcessing();"
+              data-ajax-mode="replace"
+              data-ajax-update="#divEditForm">
+            
+            <div class="row">
+                <div class="col-sm-8">
+                    <div class="lang-uk">
+                        @Html.SimpleTextAreaFor(x => x.TitleUk, "Заголовок (ua)", new { @class = "form-control", rows = 2, maxlength = 255 })
+                        @Html.SimpleTextAreaFor(x => x.DescriptionUk, "Опис (ua)",
+                            htmlAttributes : new { @class = "form-control", rows = 5, maxlength = 255, name ="Desciption" },
+                            helpText: "Відображається у списку матеріалів, якщо обрано відповідний шаблон списку, а також на сторінці матеріалу, безпосередньо перед основним текстом")
+                    </div>
+                    <div class="lang-ru">
+                        @Html.SimpleTextAreaFor(x => x.TitleRu, "Заголовок (ru)", new { @class = "form-control", rows = 2, maxlength = 255 })
+                        @Html.SimpleTextAreaFor(x => x.DescriptionRu, "Опис (ru)", new { @class = "form-control", rows = 5, }, 
+                            helpText: "Відображається у списку матеріалів, якщо обрано відповідний шаблон списку, а також на сторінці матеріалу, безпосередньо перед основним текстом")
+                    </div>
+                    <div class="lang-en">
+                        @Html.SimpleTextAreaFor(x => x.TitleEn, "Заголовок (en)", new { @class = "form-control", rows = 2, maxlength = 255 })
+                        @Html.SimpleTextAreaFor(x => x.DescriptionEn, "Опис (en)", new { @class = "form-control", rows = 5 , },
+                            helpText: "Відображається у списку матеріалів, якщо обрано відповідний шаблон списку, а також на сторінці матеріалу, безпосередньо перед основним текстом")
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            @Html.SimpleTextBoxFor(x => x.PublishDate, "Дата публікації", new { @class = "form-control bs-datepicker", @readonly = "readonly", data_format = "DD.MM.YYYY HH:mm" }, helpText: "Ця дата буде відображена у полі <strong>Опубліковано</strong> на сторінці матеріалу, також матеріал буде не доступним для перегляду на сайті раніше від цієї дати")
+                        </div>
+                        <div class="col-sm-4">
+                            @Html.SimpleTextBoxFor(x => x.EditedDate, "Дата оновлення інформації", new { @class = "form-control bs-datepicker", data_format = "DD.MM.YYYY HH:mm" })
+                        </div>
+                        <div class="col-sm-4">
+                            @Html.SimpleTextBoxFor(x => x.EventDate, "Дата події", new { @class = "form-control bs-datepicker", @readonly = "readonly", data_format = "DD.MM.YYYY HH:mm" }, helpText: "Для розділу <strong>Анонси</strong> для інших розділів можна залишити постую")
+                        </div>
+
+                    </div>
+
+					<div class="row">
+						<div class="col-sm-5">
+							@Html.SimpleCheckboxFor(x => x.Published, "Налаштування", "Опублікувати на сайті", helpText: "Допоки параметр \"Опублікувати на сайті\" не відмічено, матеріал не буде доступним для перегляду на сайті не залежно від дати публікації")
+							<button id="facebookLogInBtn" class="btn-default facebookBtn">
+								Залогінитися в фейсбук
+							</button>
+							<button id="facebookPostBtn" class="btn-default facebookBtn">
+								Запостити в фейсбук
+							</button>
+							<span id="postPageStatus">
+							</span>
+							@*Html.Simple(x => x.FacebookSharing, "Поширити", "Поширити в фейсбук", new { name="FacebookSharing" })*@
+							@Html.SimpleCheckboxFor(x => x.ShowPublihDate, null, "Показувати дату публікації")
+							@Html.SimpleCheckboxFor(x => x.ShowEditDate, null, "Показувати дату оновлення")
+							@Html.SimpleCheckboxFor(x => x.AllowComments, null, "Дозволити коментування")
+						</div>
+						
+
+							<div class="col-sm-7">
+								@Html.SimpleUploaderFor(x=>x.Images, "Головне фото", helpText: "Відображається на сторінці матеріалу біля загловку",
+								 options: new ImageUploaderOptions()
+								 {
+									 UploadUrl = "/api/upload/uploadfile?type=image&directory=post_image",
+									 ContainerId = "divPersonUpload",
+									 ContainerHeight = 178,
+									 AllowEdit = true,
+
+								 }, htmlAttributes: new { @class = "form-control", @readonly = "readonly" })
+							</div>
+						
+					</div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label>Категорії матеріалів</label>
+                        <div class="well" style="height:582px; overflow-y:scroll;">
+                            @Html.EditorFor(x => x.DamagedHousingCategories)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @Html.HiddenFor(x => x.Id, new { Value = Model.Id })
+        </form>
+    </div>
+    <div class="tab-pane" id="divContent">
+        <h3 class="card-subtitle">
+            Контент матеріалу
+        </h3>
+        <div class="content-edit" data-type="Article">
+            <div id="divRows" data-prefix="ContentRows">
+                @foreach (var item in Model.ContentRows)
+                {
+                    @Html.Partial("~/areas/controlpanel/views/ajax/_prtContentRowItem.cshtml", item)
+                }
+            </div>
+            <hr />
+            <div>
+                <button type="button" class="btn btn-primary add-row" data-item-id="@Model.Id" data-type="Article">
+                    <i class="fa fa-fw fa-plus-circle"></i>
+                    <span>Додати блок</span>
+                </button>
+                <a href="#" class="btn btn-default preview-content" data-id="@Model.Id" data-type="Article">
+                    <i class="fa fa-eye"></i>
+                    <span>Попередній перегляд</span>
+                </a>
+            </div>
+        </div>
+    </div>
+   
+    <div class="tab-pane" id="divMeta">
+        <div class="lang-uk">
+            @Html.SimpleTextBoxFor(x => x.MetaTitleUk, "МЕТА Заголовок (ua)", new { @class = "form-control", maxlength = 255, form = "formMain" })
+            @Html.SimpleTextBoxFor(x => x.MetaKeywordsUk, "МЕТА Ключові слова (ua)", new { @class = "form-control", maxlength = 255, form = "formMain" })
+            @Html.SimpleTextAreaFor(x => x.MetaDescriptionUk, "МЕТА Опис (ua)", new { @class = "form-control", maxlength = 255, form = "formMain" })
+        </div>
+        <div class="lang-ru">
+            @Html.SimpleTextBoxFor(x => x.MetaTitleRu, "МЕТА Заголовок (ru)", new { @class = "form-control", maxlength = 255, form = "formMain" })
+            @Html.SimpleTextBoxFor(x => x.MetaKeywordsRu, "МЕТА Ключові слова (ru)", new { @class = "form-control", maxlength = 255, form = "formMain" })
+            @Html.SimpleTextAreaFor(x => x.MetaDescriptionRu, "МЕТА Опис (ru)", new { @class = "form-control", maxlength = 255, form = "formMain" })
+        </div>
+        <div class="lang-en">
+            @Html.SimpleTextBoxFor(x => x.MetaTitleEn, "МЕТА Заголовок (en)", new { @class = "form-control", maxlength = 255, form = "formMain" })
+            @Html.SimpleTextBoxFor(x => x.MetaKeywordsEn, "МЕТА Ключові слова (en)", new { @class = "form-control", maxlength = 255, form = "formMain" })
+            @Html.SimpleTextAreaFor(x => x.MetaDescriptionEn, "МЕТА Опис (en)", new { @class = "form-control", maxlength = 255, form = "formMain" })
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <a href="#" type="button" class="btn btn-link" data-dismiss="modal">
+        @Locals.Close
+    </a>
+    <button type="button" id="btnSave" class="btn btn-primary" onclick="$('#formMain').trigger('submit');">
+        @Locals.Save
+    </button>
+</div>
+
+<style>
+    #facebookLogInBtn {
+        margin-bottom: 15px;
+    }
+    facebookPostBtn {
+        
+    }
+    .facebookBtn {
+    }
+</style>

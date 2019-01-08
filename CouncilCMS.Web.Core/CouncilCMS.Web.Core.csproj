@@ -101,6 +101,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\Controlpanel\DamagedHousingCategoriesController.cs" />
+    <Compile Include="Controllers\Controlpanel\DamagedHousingController.cs" />
     <Compile Include="Controllers\Controlpanel\FacebookLoginController.cs" />
     <Compile Include="Controllers\API\UploadController.cs" />
     <Compile Include="Controllers\Controlpanel\AccountController.cs" />

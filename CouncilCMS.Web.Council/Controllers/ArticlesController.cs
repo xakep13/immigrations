@@ -8,7 +8,7 @@ namespace Bissoft.CouncilCMS.Web.Controllers
 {
 	public class ArticlesController : BaseCmsController
 	{
-		private Int32 perPage = 5;
+		private readonly int perPage = 9;
 
 		CmsArticleService articleService;
 		CmsUserAdminService userAdminService;
@@ -17,12 +17,6 @@ namespace Bissoft.CouncilCMS.Web.Controllers
 		{
 			articleService = new CmsArticleService(connectionString);
 			userAdminService = new CmsUserAdminService(connectionString);
-		}
-
-		public ActionResult LastArticles(string url, Int32 limit = 5, int? excludeId = null)
-		{
-			var model = articleService.LastArticles(url, limit, excludeId);
-			return PartialView("_prtLastArticles", model);
 		}
 
 		public ActionResult Category(String Url, String Date = null, String Query = null, Int32 Page = 1)
@@ -45,25 +39,18 @@ namespace Bissoft.CouncilCMS.Web.Controllers
 		{
 			var userId = User != null && User.Identity != null && User.Identity.UserId > 0 ? (int?)User.Identity.UserId : null;
 
-
 			CmsArticle model = articleService.Article(id, CmsSettings.ShowMenuItemMode, userId);
 
 			if(model != null)
 			{
-				ViewBag.PageType = MenuItemType.Article;
 				ViewBag.PageValue = id;
-				ViewBag.SecondPageType = MenuItemType.ArticleCategory;
+				ViewBag.isAdmin = false;
+				ViewBag.PageType = MenuItemType.Article;
 				ViewBag.SecondPageValue = model.CategoryId;
+				ViewBag.SecondPageType = MenuItemType.ArticleCategory;
 
-				if(User.Identity.IsAuthenticated)
-				{
-					if(userAdminService.IsAdmin(User.Identity.UserId))
-						ViewBag.isAdmin = true;
-					else
-						ViewBag.isAdmin = false;
-				}
-				else
-					ViewBag.isAdmin = false;
+				if(User.Identity.IsAuthenticated && userAdminService.IsAdmin(User.Identity.UserId))
+					ViewBag.isAdmin = true;
 
 				return View(model);
 			}
@@ -80,11 +67,18 @@ namespace Bissoft.CouncilCMS.Web.Controllers
 			return Json(model, JsonRequestBehavior.AllowGet);
 		}
 
-		public ActionResult GetMajorLast(String Url)
+		public ActionResult LastGeneralNews(string url, int count = 6)
 		{
-			var model = articleService.LastArticleInCategory(Url);
+			var model = articleService.LastArticles(url, count);
 
-			return PartialView("_prtMajorLast", model);
+			return PartialView("_prtLastNews", model);
+		}
+
+		public ActionResult LastSecondNews(string url, int count = 3)
+		{
+			var model = articleService.LastArticles(url, count);
+
+			return PartialView("_prtSecondNews", model);
 		}
 	}
 }

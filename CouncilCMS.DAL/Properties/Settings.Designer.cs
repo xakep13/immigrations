@@ -25,7 +25,8 @@ namespace Bissoft.CouncilCMS.DAL.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Server=localhost;Port=3306;Database=cms_test;uid=root;pwd=admin;charset=cp1251;")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Server=localhost;Port=3306;Database=immigrant_db;uid=root;pwd=admin;charset=cp125" +
+            "1;")]
         public string ConnectionString {
             get {
                 return ((string)(this["ConnectionString"]));

@@ -54,7 +54,17 @@ namespace Bissoft.CouncilCMS.BLL.AutoMapper
                 .ForMember(x => x.AllowedUsers, opt => opt.Ignore())
                 .ForMember(x => x.RelatedCategories, opt => opt.Ignore());
 
-            CreateMap<DocCategory, DocCategoryEdit>()
+			CreateMap<DamagedHousingCategory, DamagedHousingCategoryEdit>()
+			   .ForMember(x => x.AllowedRoles, opt => opt.Ignore())
+			   .ForMember(x => x.AllowedUsers, opt => opt.Ignore())
+			   .ForMember(x => x.RelatedCategories, opt => opt.Ignore())
+			   .ReverseMap()
+			   .ForMember(x => x.Position, opt => opt.Ignore())
+			   .ForMember(x => x.AllowedRoles, opt => opt.Ignore())
+			   .ForMember(x => x.AllowedUsers, opt => opt.Ignore())
+			   .ForMember(x => x.RelatedCategories, opt => opt.Ignore());
+
+			CreateMap<DocCategory, DocCategoryEdit>()
                .ForMember(x => x.AllowedRoles, opt => opt.Ignore())
                .ForMember(x => x.AllowedUsers, opt => opt.Ignore())
                .ForMember(x => x.RelatedCategories, opt => opt.Ignore())

@@ -1,0 +1,19 @@
+﻿@model CmsArticleList
+
+@if(Model.Articles != null)
+{
+	<div class="inform_container_right float-right">
+		<div class="news_right_col">
+			<p class="last_news_header">Останнi новини</p>
+
+			@foreach(var item in Model.Articles)
+			{
+				<div class="news_right_col_elem">
+					<div class="news_right_col_elem_date">@item.PublishDate</div>
+					<div class="news_right_col_elem_name"><a href="/uk/articles/item/@item.Id/@item.UrlName">@item.Title</a></div>
+				</div>
+			}
+
+		</div>
+	</div>
+}

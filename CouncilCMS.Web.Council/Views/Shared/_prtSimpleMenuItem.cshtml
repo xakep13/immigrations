@@ -2,7 +2,7 @@
 
 @if (Model != null)
 {
-    <li class="menu-item submenu-link"> 
+    <li class="menu-item"> 
         @if (!string.IsNullOrEmpty(Model.Url))
         {
             if (Model.Url.StartsWith("http"))
@@ -27,14 +27,12 @@
         }
         @if (Model.Items != null && Model.Items.Count > 0)
         {
-            <ul class="submenu">
-                @foreach (var item in Model.Items)
-                {
-                    @Html.Partial("_prtSimpleMenuItem", item)
-                }
-            </ul>
+			@*<ul class="menu-item submenu-link">
+				@foreach(var item in Model.Items)
+				{
+					@Html.Partial("_prtSimpleMenuItem", item)
+				}
+			</ul>*@
         }
     </li>
 }
-
-

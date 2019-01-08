@@ -1,65 +1,54 @@
 ﻿@model CmsArticle
 @{
-    ViewBag.Title = Model.Title;
-    Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewBag.Title = Model.Title;
+	Layout = "~/Views/Shared/_secondLayout.cshtml";
 }
 
-    <main class="">
-        @*<div class="breadcrumbs">
-            <ul class="breadcrumbs-list">
-                <li><a href="index.html">Главная</a></li>
-                <li><span>Опитування населення</span></li>
-            </ul>
-        </div>*@
-        <section class="news news-page-one">
-            <div class="container">
-                <span class="block-title block-decor-bottom">@Model.Title</span>
-                <div class="news-item">
-                    <img src="@CmsSettings.BaseDomain@Model.Image" alt="">
-                    <span class="title">@Model.Title</span>
 
-                    @if (ViewBag.isAdmin)
-					{
-                        <div>
-						<button id="fixOnAdminPage" class="btn-warning" data-id="@Model.Id">Редагувати</button>	
-					    </div>
-                    }
+<div class="main_content">
+	<div class="container">
 
-					<div class="cms-article-content">
-                        @Html.Partial("_prtContent", Model.ContentRows)
-                    </div>
+		<div class="main_content_left">
+			<div class="inform_container_left">
 
-                    <div class="news-item-info">
-                        <span class="views">@Model.ViewCount</span>
-                        <span class="category">@Model.CategoryName</span>
-                        <time>@Model.PublishDate</time>
-                    </div>
-                    <a href="/uk/articles/category/@Model.CategoryUrl" class="site-btn">Назад до розділу</a>
-                </div>
-                <section class="center-banner">
-                    <div class="center-banner-info">
-                        <div class="head">
-                            <span class="center-banner-title">
-                                <img src="/img/icons/header_banner-mail.svg" alt="">
-                                Як бути в курсі останніх новин?
-                            </span>
-                            <p class="block-decor-top block-decor-bottom">
-                                Підпишіться та отримуйте оперативну інформацію про заходи, надзвичайні ситуації та інші важливі події
-							</p>
-                        </div>
-                        <form method="POST" class="center-banner-form">
-                            <input type="mail" name="mail" placeholder="Введіть свою електронну адресу" required pattern="@("[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")">
-                            <button class="form-btn">Підписатися на актуальні новини</button>
-                        </form>
-                    </div>
-                </section>
-            </div>
-        </section>
-    </main>
+				<div class="main_new">
+					<img src="@CmsSettings.BaseDomain@Model.Image" alt="">
+					<div class="main_new_info">
+						<div class="main_new_date">@Model.PublishDate</div>
+						<a href="#">
+							@Model.Title
+						</a>
+					</div>
+				</div>
 
-<script src="~/Content/JSCustomLib/ArticleReader.js"></script>
+				@if(ViewBag.isAdmin)
+				{
+					<a href="/uk/controlpanel/articles?id=@Model.Id" class="btn-warning">Редагувати</a>
+				}
+
+				<div class="new_item_content">
+
+					@Html.Partial("_prtContent", Model.ContentRows)
+
+					<div class="news_share">
+						Поширити у соціальних мережах:
+						<a href="#"><img src="~/Content/img/facebook.png" alt=""></a>
+						<a href="#"><img src="~/Content/img/twitter_blue.png" alt=""></a>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+
+		@Html.Action("LastGeneralNews", "Articles", new { url = "general-news", count = 6 })
+
+		@Html.Action("LastSecondNews", "Articles", new { url = "main-news-2", count = 3 })
+
+	</div>
+</div>
 <script>
-    $(function () {
+	$(function () {
 		coreUtils.createPage($(".cms-content"));
-    })
+	});
 </script>

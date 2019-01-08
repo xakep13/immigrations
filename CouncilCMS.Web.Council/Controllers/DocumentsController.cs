@@ -10,7 +10,7 @@ namespace Bissoft.CouncilCMS.Web.Controllers
     public class DocumentsController : BaseCmsController
     {
         CmsDocService docService;
-        
+		readonly int perPage = 4;
 
         public DocumentsController()
         {
@@ -46,7 +46,7 @@ namespace Bissoft.CouncilCMS.Web.Controllers
 
         public ActionResult Category(String Url, String QueryTitle = null, String QueryText = null, Int32? Type = null, String Date = null, String Query = null, Int32 Page = 1, int? personId = null)
         {
-            var model = docService.CategoryList(Url, QueryTitle, QueryText, Type, Date, Page, 20, null, personId);
+            var model = docService.CategoryList(Url, QueryTitle, QueryText, Type, Date, Page, perPage, null, personId);
             
             if (model != null && model.CategoryId > 0)
             {

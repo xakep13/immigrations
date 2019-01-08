@@ -1,6 +1,6 @@
 ﻿using System.Data.Entity;
-using Bissoft.CouncilCMS.DAL.Entities;
 using System;
+using Bissoft.CouncilCMS.DAL.Entities;
 using Bissoft.CouncilCMS.Entities.Entities;
 
 namespace Bissoft.CouncilCMS.DAL.Contexts
@@ -21,26 +21,33 @@ namespace Bissoft.CouncilCMS.DAL.Contexts
         }
 
         public DbSet<Doc> Docs { get; set; }
-        public DbSet<Page> Pages { get; set; }
-        public DbSet<Person> Persons { get; set; }
+        public DbSet<DocCategory> DocCategories { get; set; }
+        public DbSet<DocCategoryTemplate> DocCategoryTemplates { get; set; }
+
+		public DbSet<Page> Pages { get; set; }
+        public DbSet<PageTemplate> PageTemplates { get; set; }
+
+		public DbSet<DamagedHousing> DamagedHousings { get; set; }
+		public DbSet<DamagedHousingCategory> DamagedHousingCategories { get; set; }
+		public DbSet<DamagedHousingCategoryTemplate> DamagedHousingCategoryTemplates { get; set; }
+
         public DbSet<Banner> Banners { get; set; }
-        public DbSet<Article> Articles { get; set; }
         public DbSet<Newsletter> Newsletters { get; set; }
         public DbSet<Subscriber> Subscribers { get; set; }
-        public DbSet<Enterprise> Enterprises { get; set; }
-        public DbSet<DocCategory> DocCategories { get; set; }
-        public DbSet<PersonCategory> PersonCategories { get; set; }
-        public DbSet<ArticleCategory> ArticleCategories { get; set; }
-        public DbSet<EnterpriseCategory> EnterpriseCategories { get; set; }
 
-        public DbSet<PersonPersonCategory> PersonPersonCategories { get; set; }
+        public DbSet<Enterprise> Enterprises { get; set; }
+        public DbSet<EnterpriseCategory> EnterpriseCategories { get; set; }
+        public DbSet<EnterpriseCategoryTemplate> EnterpriseCategoryTemplates { get; set; }
         public DbSet<EnterpriseEnterpriseCategory> EnterpriseEnterpriseCategories { get; set; }
 
-        public DbSet<PageTemplate> PageTemplates { get; set; }
-        public DbSet<DocCategoryTemplate> DocCategoryTemplates { get; set; }
-        public DbSet<PersonCategoryTemplate> PersonCategoryTemplates { get; set; }
+        public DbSet<Article> Articles { get; set; }
+        public DbSet<ArticleCategory> ArticleCategories { get; set; }
         public DbSet<ArticleCategoryTemplate> ArticleCategoryTemplates { get; set; }
-        public DbSet<EnterpriseCategoryTemplate> EnterpriseCategoryTemplates { get; set; }
+
+        public DbSet<Person> Persons { get; set; }
+        public DbSet<PersonCategory> PersonCategories { get; set; }
+        public DbSet<PersonPersonCategory> PersonPersonCategories { get; set; }
+        public DbSet<PersonCategoryTemplate> PersonCategoryTemplates { get; set; }
 
         public DbSet<Menu> Menus { get; set; }
         public DbSet<MenuItem> MenuItems { get; set; }
@@ -196,7 +203,17 @@ namespace Bissoft.CouncilCMS.DAL.Contexts
                .WithMany(d => d.RelatedCategories)
                .HasForeignKey(x => x.RelatedCategoryId);
 
-            modelBuilder.Entity<PersonCategory>()
+			modelBuilder.Entity<DamagedHousingCategory>()
+			   .HasOptional<DamagedHousingCategory>(d => d.ParentCategory)
+			   .WithMany(d => d.ChildCategories)
+			   .HasForeignKey(x => x.ParentCategoryId);
+
+			modelBuilder.Entity<DamagedHousingCategory>()
+			   .HasOptional<DamagedHousingCategory>(d => d.RelatedCategory)
+			   .WithMany(d => d.RelatedCategories)
+			   .HasForeignKey(x => x.RelatedCategoryId);
+
+			modelBuilder.Entity<PersonCategory>()
                 .HasOptional<PersonCategory>(d => d.ParentCategory)
                 .WithMany(d => d.ChildCategories)
                 .HasForeignKey(x => x.ParentCategoryId);
@@ -260,7 +277,9 @@ namespace Bissoft.CouncilCMS.DAL.Contexts
                     x.ToTable("ArticleContentRow");
                 });
 
-            modelBuilder.Entity<Person>()
+			
+
+			modelBuilder.Entity<Person>()
                 .HasMany(a => a.ContentRows)
                 .WithMany()
                 .Map(x =>

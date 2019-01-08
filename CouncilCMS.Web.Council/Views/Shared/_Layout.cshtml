@@ -1,11 +1,254 @@
-﻿@using System.Drawing;
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+	<link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,400i,500,700,900&amp;subset=cyrillic" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="~/Content/css/style.css">
+	<link rel="stylesheet" href="~/Content/chosen/chosen.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+	<link rel="stylesheet" href="~/Content/owlcarousel/assets/owl.carousel.min.css">
+	<link rel="stylesheet" href="~/Content/owlcarousel/assets/owl.theme.default.min.css">
+	<link rel="stylesheet" type="text/css" href="~/Content/css/reset.css">
+	<title>@CmsSettings.TitleUk</title>
+</head>
+<body>
+	<header>
+		<div class="mobile_header">
+			<div class="container">
+				<div class="mobile_logo">
+					<a href="/">
+						<span class="logo"><img class="gerb-icon" src="@CmsSettings.LogoUk" alt=""></span>
+					</a>
+				</div>
+				<div class="mobile_breadcrumbs">
+					<ul>
+						<li></li>
+					</ul>
+				</div>
+				<div class="mobile_sandvich">
+					<div class="mobile_collapsed">
+						<div class="close_mobile_collapsed"></div>
+						<div class="logo_container">
+							<a href="/">
+								<span class="logo"><img src="@CmsSettings.SubLogoUk" alt=""><img class="gerb-icon" src="@CmsSettings.LogoUk" alt=""></span>
+							</a>
+							<div class="slogan">
+								<h5>@CmsSettings.TitleUk</h5>
+								<p>@CmsSettings.SubTitleUk</p>
+							</div>
+						</div>
+						<div class="main_menu">
+							@Html.Action("MainMenu", "Home")
+						</div>
+						<div class="low">
+							<img src="~/Content/img/accessibility-icon-big.png" alt="">
+							Версія для людей з обмеженими можливостями
+						</div>
+						<div class="language_mob">
+							<img src="~/Content/img/language-icon-big.png" alt="">
+							<span>English</span>
+						</div>
+						<div class="login">
+							<img src="~/Content/img/avatar.png" alt="">
+							<span>Вхід</span>
+						</div>
+						<div class="social">
+							<ul>
+								@if(!String.IsNullOrEmpty(CmsSettings.FbLink))
+								{
+									<li><a href="@CmsSettings.FbLink"><img src="/content/img/icons/social-item-5.svg" alt=""></a></li>
+								}
+								@if(!String.IsNullOrEmpty(CmsSettings.TwLink))
+								{
+									<li><a href="@CmsSettings.TwLink"><img src="/content/img/icons/social-item-3.svg" alt=""></a></li>
+								}
+								@if(!String.IsNullOrEmpty(CmsSettings.YtLink))
+								{
+									<li><a href="@CmsSettings.YtLink"><img src="/content/img/icons/social-item-2.svg" alt=""></a></li>
+								}
+								@if(!String.IsNullOrEmpty(CmsSettings.IgLink))
+								{
+									<li><a href="@CmsSettings.IgLink"><img src="/content/img/icons/social-item-4.svg" alt=""></a></li>
+								}
+							</ul>
+						</div>
+						<div class="mob_logo"><img src="~/Content/img/gov-site.png" alt=""></div>
+					</div>
+				</div>
+			</div>
+		</div>
 
+		<div class="top_panel">
+			<div class="container">
+				<div class="top_logo">
+					<a href="#"><img src="~/Content/img/gov-site.png" alt=""></a>
+				</div>
+				<div class="social">
+					<ul>
+						@if(!String.IsNullOrEmpty(CmsSettings.FbLink))
+						{
+							<li><a href="@CmsSettings.FbLink"><img src="~/Content/img/Facebook@1x.png" alt=""></a></li>
+						}
+						@if(!String.IsNullOrEmpty(CmsSettings.TwLink))
+						{
+							<li><a href="@CmsSettings.TwLink"><img src="~/Content/img/twitter.png" alt=""></a></li>
+						}
+						@if(!String.IsNullOrEmpty(CmsSettings.YtLink))
+						{
+							<li><a href="@CmsSettings.YtLink"><img src="/content/img/icons/social-item-2.svg" alt=""></a></li>
+						}
+						@if(!String.IsNullOrEmpty(CmsSettings.IgLink))
+						{
+							<li><a href="@CmsSettings.IgLink"><img src="/content/img/icons/social-item-4.svg" alt=""></a></li>
+						}
+					</ul>
+				</div>
+				<div class="right heder_block_dopmenu">
+					<a href="#" class="low_vis"><img src="~/Content/img/accessibility-icon-big.png" alt=""></a>
+					<div class="language">
+						<img src="~/Content/img/language-icon-big.png" alt="">
+						<span>English</span>
+						<div class="language_menu">
+							<ul>
+								<li>
+									<img src="~/Content/img/ua.png" alt="">
+									<a href="#">Українська</a>
+								</li>
+								<li>
+									<img src="~/Content/img/gb.png" alt="">
+									<a href="#">English</a>
+								</li>
+								<li>
+									<img src="~/Content/img/ru.png" alt="">
+									<a href="#">Русский</a>
+								</li>
+							</ul>
 
+						</div>
+					</div>
+					<div class="login">
+						<img src="~/Content/img/avatar.png" alt="">
+						<span>Рева О.О.</span>
+						<div class="logined_menu">
+							<ul>
+								<li><a href="#">Налаштування</a></li>
+								<li><a href="#">Вихід</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
-
-
+		<div class="main_header" style=" background: url(@CmsSettings.MayorImage) no-repeat top center; background-size: 100%;">
+			<div class="container">
+				<div class="logo_container">
+					<a href="/">
+						<span class="logo"><img src="@CmsSettings.SubLogoUk" alt=""><img class="gerb-icon" src="@CmsSettings.LogoUk" alt=""></span>
+					</a>
+					<div class="slogan">
+						<h5>@CmsSettings.TitleUk</h5>
+						<p>@CmsSettings.SubTitleUk</p>
+					</div>
+				</div>
+				<div class="right">
+					<div class="main_menu">
+						@Html.Action("MainMenu", "Home")
+					</div>
+				</div>
+				<div class="main_info_container">
+					<div class="main_info_container_text">
+						<div class="main_info_container_text_header">
+							Допомога тим, хто її потребує
+						</div>
+						<div class="main_info_container_text_desc">Ми вважаємо, що у кожного повинен бути будинок, в якому людина відчуває себе в безпеці.</div>
+						<div class="main_info_container_link"><a href="#">Як це працює</a></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
 
 	@RenderBody()
 
-	
+	<footer class="footer">
+		<div class="container">
+			<div class="footer_top">
+				<div class="footer_top_info">
+					<div class="footer_top_info_logos">
+						<img src="~/Content/img/Gerb.png" alt="">
+						<img class="gerb-icon" src="~/Content/img/group-132.png" alt="">
+					</div>
+					<div class="footer_top_info_sitename">
+						@CmsSettings.TitleUk
+						<a href="#">Зворотній зв'язок</a>
+					</div>
+					<div class="low_visible">
+						<img src="~/Content/img/accessibility-icon-big.png" alt="">
+						<a href="#">Версія для людей з обмеженими можливостями</a>
+					</div>
+				</div>
+				<div class="footer_top_menus">
+					<div class="foot_menu1">
+						<div class="foot_menu_name">Меню</div>
 
+						@Html.Action("MainMenu", "Home")
+					</div>
+
+					<div class="foot_menu2">
+						<div class="foot_menu_name">Пільги та гарантії</div>
+						@Html.Action("BenefitsAndGuarantees", "Home")
+					</div>
+				</div>
+			</div>
+			<div class="footer_bot">
+				<div class="footer_bot_socials">
+
+					@if(!String.IsNullOrEmpty(CmsSettings.FbLink))
+					{
+						<a href="@CmsSettings.FbLink"><img src="~/Content/img/Facebook@1x.png" alt=""></a>
+					}
+					@if(!String.IsNullOrEmpty(CmsSettings.TwLink))
+					{
+						<a href="@CmsSettings.TwLink"><img src="~/Content/img/twitter.png" alt=""></a>
+					}
+					@if(!String.IsNullOrEmpty(CmsSettings.YtLink))
+					{
+						<a href="@CmsSettings.YtLink"><img src="/content/img/icons/social-item-2.svg" alt=""></a>
+					}
+					@if(!String.IsNullOrEmpty(CmsSettings.IgLink))
+					{
+						<a href="@CmsSettings.IgLink"><img src="/content/img/icons/social-item-4.svg" alt=""></a>
+					}
+
+				</div>
+				<div class="footer_bot_copyright">
+					<img src="~/Content/img/bissoft-icon.png" alt="">
+					<p>Компанія «БІС-СОФТ»</p>
+					<p>Всі права захищені.</p>
+				</div>
+				<div class="footer_bot_licensing">
+					<img src="~/Content/img/icon.png" alt="">
+					<p>Всі матеріали сайту доступні за ліцензією: Creative Commons «Attribution» 4.0 Всесвітня</p>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+	<!--
+	<div class="alert_popup">
+		<div class="container">
+			<img src="~/Content/img/warning.png" alt="">
+			<div class="alert_popup_text">Протягом декількох хвилин Ви отримаєте лист з інструкціями по скиданню Вашого паролю.</div>
+			<img class="cancel_icon" src="~/Content/img/cancel.png" alt="">
+		</div>
+	</div>
+	-->
+
+	<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+	<script src="~/Content/chosen/chosen.jquery.js" type="text/javascript"></script>
+	<script src="~/Content/owlcarousel/owl.carousel.min.js"></script>
+	<script src="~/Content/js/custom.js"></script>
+
+</body>
+</html>

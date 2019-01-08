@@ -1,0 +1,192 @@
+﻿@{
+    ViewBag.Title = Locals.Categories;
+    Layout = "~/Areas/ControlPanel/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-title">
+    <div class="pull-right">
+        <div class="dropdown" style="display:inline-block">
+            <a href="#" class="btn btn-link" data-toggle="dropdown" id="ddlLang" title="мова відображення">
+                <i class="fa fa-fw fa-globe"></i>
+                <span>@CurrentCulture.Name.ToLower()</span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-right list-lang-swicher">
+                <li>
+                    <a href="#" data-lang="uk">українська</a>
+                </li>
+                <li>
+                    <a href="#" data-lang="ru">російська</a>
+                </li>
+                <li>
+                    <a href="#" data-lang="en">англійська</a>
+                </li>
+            </ul>
+        </div>
+        @if (User.HasPremission("cr_cat"))
+        {
+            <a href="#" class="btn btn-primary nav-link" data-action="edit-item" data-id="-1" data-parent="">
+                <i class="fa fa-plus"></i>
+                <span>
+                    @Locals.Add
+                </span>
+            </a>
+        }        
+    </div>
+    <h1>
+        @Locals.Categories пошкоджених будівель
+    </h1>
+</div>
+
+<div class="related-list" id="divList" data-id="0"></div>
+
+<div id="divEdit" class="modal modal-700 fade" tabindex="-1" data-width="700" style="display:none;">
+    <div class="modal-body"></div>
+</div>
+
+<script>
+    (function () {
+        window.divList = $("#divList");
+        window.divEdit = $("#divEdit");
+
+        window.getList = function (pushState) {
+            pushState = pushState || true;
+
+            bsAdmin.startProcessing();
+
+            $.get("/uk/controlpanel/damagedhousingcategories/list?ajaxmode=true", window.currentState, function (r) {
+                window.divList.html(r);
+                window.createSortable();
+                bsAdmin.endProcessing();
+
+                if (pushState)
+                    window.pushState();
+            });
+        };
+
+        window.getItemEdit = function (pushState) {
+            pushState = pushState || true;
+
+            $('body').modalmanager('loading');
+
+            window.divEdit.find(".modal-body").load("/uk/controlpanel/damagedhousingcategories/getitemform", window.currentState, function () {
+                window.divEdit.modal({ backdrop: 'static', keyboard: false });
+
+                if (pushState)
+                    window.pushState();
+            });
+        }
+
+        window.removeItem = function (id) {
+            if (confirm("Ви впевнені що бажаєте видалити елемент? Цю дію не можливо відмінити!")) {
+                bsAdmin.startProcessing();
+
+                $.post("/uk/controlpanel/damagedhousingcategories/removeitem", { id: id }, function () {
+                    $("#divItem" + id).parent().remove();
+                    bsAdmin.endProcessing();
+                });
+            }
+        }
+
+        window.saveItemComplete = function (target, parentId) {
+            window.createSortable();
+            window.divEdit.modal('hide');
+            $("#" + target).addClass('in');
+            $("#divItem" + parentId).find(".btn-expand").show().addClass("rotate-180");
+        }
+
+
+        window.createListState = function () {
+            window.currentState = {};
+
+            return window.currentState;
+        }
+
+        window.createEditItemState = function (id, pId) {
+            window.currentState = { id: id, parentId: pId };
+            return window.currentState;
+        }
+
+        window.removeUser = function (iId, uId) {
+            var item = $("#itemItem" + iId + "User" + uId);
+
+            item.find(".fa-trash").removeClass("fa-trash").addClass("fa-circle-o-notch fa-spin");
+
+            $.post("/uk/controlpanel/damagedhousingcategories/deleteuser", { itemId: iId, userId: uId }, function () {
+                item.remove();
+            });
+        }
+
+        window.createSortable = function () {
+            $(".related-list").each(function () {
+                var t = $(this);
+                try {
+                    t.sortable("destroy");
+                }
+                catch (ex) { }
+
+                var sort = Sortable.create(t[0], {
+                    handle: ".btn-" + t.data("id") + "-drag",
+                    animation: 150,
+                    onEnd: function (e) {
+                        bsAdmin.startProcessing();
+                        var item = $(e.item).children(".item");
+
+                        $.post(
+                            "/uk/controlpanel/damagedhousingcategories/updateposition",
+                            { id: item.data("id"), parentId: item.data("parent-id"), oldPosition: e.oldIndex + 1, newPosition: e.newIndex + 1 },
+                            function () {
+                                bsAdmin.endProcessing();
+                            });
+                    }
+                });
+            });
+        };
+    }());
+</script>
+
+<script>
+    $(function () {
+        window.getList();
+
+        if (window.currentState.Id != undefined) {
+            window.getItemEdit();
+        }
+
+        $(document).on("click", ".nav-link", function (e) {
+            e.preventDefault();
+            var t = $(this);
+
+            switch (t.data("action")) {
+                case "edit-item":
+                    var item = t.closest(".item");
+                    window.createEditItemState(t.data("id") || item.data("id"), t.data("parent-id") || item.data("parent-id"));
+                    window.getItemEdit();
+                    break;
+                case "remove-item":
+                    window.removeItem(t.closest('.item').data("id"));
+                    break;
+                case "remove-user":
+                    window.removeUser(t.data("item-id"), t.data("user-id"));
+                    break;
+                default:
+                    window.createListState();
+                    window.getList();
+            }
+        });
+
+        $(document).on("click", ".btn-expand", function () {
+            $(this).toggleClass("rotate-180");
+        });
+
+        $(window).on("popstate", function (e) {
+            var state = e.originalEvent.state;
+            window.currentState = state;
+
+            if (window.currentState.Id != undefined) {
+                window.getItemEdit(false);
+            } else {
+                window.getList(false);
+            }
+        });
+    });
+</script>

@@ -1,0 +1,23 @@
+﻿@model CmsArticleList
+
+
+@if(Model.Articles != null)
+{
+	<div class="dop_news_elems">
+
+		@foreach(var item in Model.Articles)
+		{
+			<div class="dop_news_elem">
+				<div class="dop_news_elem_img">
+					<img src="@CmsSettings.BaseDomain@item.Image" alt="">
+				</div>
+				<div class="dop_news_elem_info">
+					<span class="dop_news_elem_date">@item.PublishDate</span>
+					<span class="dop_news_elem_views right"><img src="~/Content/img/eye.png" alt="">@item.ViewCount</span>
+				</div>
+				<div class="dop_news_elem_href"><a href="/uk/articles/item/@item.Id/@item.UrlName">@item.Title</a></div>
+			</div>
+		}
+
+	</div>
+}

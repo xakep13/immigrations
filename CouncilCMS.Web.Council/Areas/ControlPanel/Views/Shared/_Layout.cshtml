@@ -123,195 +123,214 @@
             <div class="sidebar-menu">
                 <ul class="nav" id="side-menu">
                     <li>
-                        <ul class="nav">
-                            @if (User.HasPremissions("pages"))
-                            {
-                                <li>
-                                    <a href="/@CurrentCulture.Name.ToLower()/controlpanel/pages" class="pages">
-                                        <i class="fa fa-fw fa-file-o"></i>
-                                        <span>
-                                            Статичні сторінки
-                                        </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <span class="nav-hr"></span>
-                                </li>
-                            }
-                            @if (User.HasPremissions("articles"))
-                            {
-                                <li>
-                                    <a href="/@CurrentCulture.Name.ToLower()/controlpanel/articles" class="articles">
-                                        <i class="fa fa-fw fa-file-text-o"></i>
-                                        <span>
-                                            Матеріали
-                                        </span>
-                                    </a>
-                                </li>
-                            }
-                            @if (User.HasPremissions("persons"))
-                            {
-                                <li>
-                                    <a href="/@CurrentCulture.Name.ToLower()/controlpanel/persons" class="persons">
-                                        <i class="fa fa-fw fa-user"></i>
-                                        <span>
-                                            Персони
-                                        </span>
-                                    </a>
-                                </li>
-                            }
-                            @if (User.HasPremissions("enterprises"))
-                            {
-                                <li>
-                                    <a href="/@CurrentCulture.Name.ToLower()/controlpanel/enterprises" class="enterprises">
-                                        <i class="fa fa-fw fa-bank"></i>
-                                        <span>
-                                            Органцізації
-                                        </span>
-                                    </a>
-                                </li>
-                            }
-                            @if (User.HasPremissions("docs"))
-                            {
-                                <li>
-                                    <a href="/@CurrentCulture.Name.ToLower()/controlpanel/docs" class="docs">
-                                        <i class="fa fa-fw fa-file-o"></i>
-                                        <span>
-                                            @CmsLabels.Documents
-                                        </span>
-                                    </a>
-                                </li>
+						<ul class="nav">
+							@if(User.HasPremissions("pages"))
+							{
+								<li>
+									<a href="/@CurrentCulture.Name.ToLower()/controlpanel/pages" class="pages">
+										<i class="fa fa-fw fa-file-o"></i>
+										<span>
+											Статичні сторінки
+										</span>
+									</a>
+								</li>
+								<li>
+									<span class="nav-hr"></span>
+								</li>
+							}
+							@if(User.HasPremissions("articles"))
+							{
+								<li>
+									<a href="/@CurrentCulture.Name.ToLower()/controlpanel/articles" class="articles">
+										<i class="fa fa-fw fa-file-text-o"></i>
+										<span>
+											Матеріали
+										</span>
+									</a>
+								</li>
+							}
+							@if(User.HasPremissions("damagedHousing"))
+							{
+								<li>
+									<a href="/@CurrentCulture.Name.ToLower()/controlpanel/DamagedHousing" class="damagedHousing">
+										<i class="fa fa-fw fa-bank"></i>
+										<span>
+											Пошкодженні будівлі
+										</span>
+									</a>
+								</li>
+							}
+							@if(User.HasPremissions("persons"))
+							{
+								<li>
+									<a href="/@CurrentCulture.Name.ToLower()/controlpanel/persons" class="persons">
+										<i class="fa fa-fw fa-user"></i>
+										<span>
+											Персони
+										</span>
+									</a>
+								</li>
+							}
+							@if(User.HasPremissions("enterprises"))
+							{
+								<li>
+									<a href="/@CurrentCulture.Name.ToLower()/controlpanel/enterprises" class="enterprises">
+										<i class="fa fa-fw fa-bank"></i>
+										<span>
+											Органцізації
+										</span>
+									</a>
+								</li>
+							}
+							@if(User.HasPremissions("docs"))
+							{
+								<li>
+									<a href="/@CurrentCulture.Name.ToLower()/controlpanel/docs" class="docs">
+										<i class="fa fa-fw fa-file-o"></i>
+										<span>
+											@CmsLabels.Documents
+										</span>
+									</a>
+								</li>
 
-                            }
-                            <li>
-                                <span class="nav-hr"></span>
-                            </li>
+							}
+							<li>
+								<span class="nav-hr"></span>
+							</li>
 
-                            @if (User.HasPremissions("_cat"))
-                            {
-                                <li>
-                                    <a href="/@CurrentCulture.Name.ToLower()/controlpanel/articlecategories" class="articlecategories">
-                                        <i class="fa fa-fw fa-list-ul"></i>
-                                        <span>
-                                            Категорії матеріалів
-                                        </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/@CurrentCulture.Name.ToLower()/controlpanel/personcategories" class="personcategories">
-                                        <i class="fa fa-fw fa-list-ul"></i>
-                                        <span>
-                                            Категорії персон
-                                        </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/@CurrentCulture.Name.ToLower()/controlpanel/enterprisecategories" class="enterprisecategories">
-                                        <i class="fa fa-fw fa-list-ul"></i>
-                                        <span>
-                                            Категорії органцізацій
-                                        </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/@CurrentCulture.Name.ToLower()/controlpanel/doccategories" class="doccategories">
-                                        <i class="fa fa-fw fa-list-ul"></i>
-                                        <span>
-                                            Категорії документів
-                                        </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/@CurrentCulture.Name.ToLower()/controlpanel/doctypes" class="doctypes">
-                                        <i class="fa fa-fw fa-list-ul"></i>
-                                        <span>
-                                            Типи документів
-                                        </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <span class="nav-hr"></span>
-                                </li>
-                            }
+							@if(User.HasPremissions("_cat"))
+							{
+								<li>
+									<a href="/@CurrentCulture.Name.ToLower()/controlpanel/articlecategories" class="articlecategories">
+										<i class="fa fa-fw fa-list-ul"></i>
+										<span>
+											Категорії матеріалів
+										</span>
+									</a>
+								</li>
+								<li>
+									<a href="/@CurrentCulture.Name.ToLower()/controlpanel/damagedhousingcategories" class="damagedhousingcategories">
+										<i class="fa fa-fw fa-list-ul"></i>
+										<span>
+											Категорії будівель
+										</span>
+									</a>
+								</li>
+								<li>
+									<a href="/@CurrentCulture.Name.ToLower()/controlpanel/personcategories" class="personcategories">
+										<i class="fa fa-fw fa-list-ul"></i>
+										<span>
+											Категорії персон
+										</span>
+									</a>
+								</li>
+								<li>
+									<a href="/@CurrentCulture.Name.ToLower()/controlpanel/enterprisecategories" class="enterprisecategories">
+										<i class="fa fa-fw fa-list-ul"></i>
+										<span>
+											Категорії органцізацій
+										</span>
+									</a>
+								</li>
+								<li>
+									<a href="/@CurrentCulture.Name.ToLower()/controlpanel/doccategories" class="doccategories">
+										<i class="fa fa-fw fa-list-ul"></i>
+										<span>
+											Категорії документів
+										</span>
+									</a>
+								</li>
+								<li>
+									<a href="/@CurrentCulture.Name.ToLower()/controlpanel/doctypes" class="doctypes">
+										<i class="fa fa-fw fa-list-ul"></i>
+										<span>
+											Типи документів
+										</span>
+									</a>
+								</li>
+								<li>
+									<span class="nav-hr"></span>
+								</li>
+							}
 
 
-                            @if (User.HasPremissions("menu"))
-                            {
-                                <li>
-                                    <a href="/@CurrentCulture.Name.ToLower()/controlpanel/menus" class="menus">
-                                        <i class="fa fa-fw fa-bars"></i>
-                                        <span>
-                                            Меню
-                                        </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <span class="nav-hr"></span>
-                                </li>
-                            }
-                            @if (User.HasPremissions("poll"))
-                            {
-                                <li>
-                                    <a href="/@CurrentCulture.Name.ToLower()/controlpanel/polls" class="polls">
-                                        <i class="fa fa-fw fa-bars"></i>
-                                        <span>
-                                            Опитування
-                                        </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <span class="nav-hr"></span>
-                                </li>
-                            }
-                            @if (User.HasPremissions("banner"))
-                            {
-                                <li>
-                                    <a href="/@CurrentCulture.Name.ToLower()/controlpanel/banners" class="banners">
-                                        <i class="fa fa-fw fa-handshake-o"></i>
-                                        <span>
-                                            Банери
-                                        </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <span class="nav-hr"></span>
-                                </li>
-                            }
+							@if(User.HasPremissions("menu"))
+							{
+								<li>
+									<a href="/@CurrentCulture.Name.ToLower()/controlpanel/menus" class="menus">
+										<i class="fa fa-fw fa-bars"></i>
+										<span>
+											Меню
+										</span>
+									</a>
+								</li>
+								<li>
+									<span class="nav-hr"></span>
+								</li>
+							}
+							@if(User.HasPremissions("poll"))
+							{
+								<li>
+									<a href="/@CurrentCulture.Name.ToLower()/controlpanel/polls" class="polls">
+										<i class="fa fa-fw fa-bars"></i>
+										<span>
+											Опитування
+										</span>
+									</a>
+								</li>
+								<li>
+									<span class="nav-hr"></span>
+								</li>
+							}
+							@if(User.HasPremissions("banner"))
+							{
+								<li>
+									<a href="/@CurrentCulture.Name.ToLower()/controlpanel/banners" class="banners">
+										<i class="fa fa-fw fa-handshake-o"></i>
+										<span>
+											Банери
+										</span>
+									</a>
+								</li>
+								<li>
+									<span class="nav-hr"></span>
+								</li>
+							}
 
-                            @if (User.HasPremissions("users"))
-                            {
-                                <li>
-                                    <a href="/@CurrentCulture.Name.ToLower()/controlpanel/users" class="users">
-                                        <i class="fa fa-fw fa-user-circle-o"></i>
-                                        <span>
-                                            Користувачі
-                                        </span>
-                                    </a>
-                                </li>
-                            }
-                            @if (User.HasPremissions("roles"))
-                            {
-                                <li>
-                                    <a href="/@CurrentCulture.Name.ToLower()/controlpanel/roles" class="roles">
-                                        <i class="fa fa-fw fa-user-circle-o"></i>
-                                        <span>
-                                            Ролі користувачів
-                                        </span>
-                                    </a>
-                                </li>
-                            }
-                            @if (User.HasPremissions("settings"))
-                            {
-                                <li>
-                                    <a href="/@CurrentCulture.Name.ToLower()/controlpanel/cmssettings/edit" class="cmssettings">
-                                        <i class="fa fa-fw fa-cog"></i>
-                                        <span>
-                                            Налаштування
-                                        </span>
-                                    </a>
-                                </li>
-                            }
-                        </ul>
+							@if(User.HasPremissions("users"))
+							{
+								<li>
+									<a href="/@CurrentCulture.Name.ToLower()/controlpanel/users" class="users">
+										<i class="fa fa-fw fa-user-circle-o"></i>
+										<span>
+											Користувачі
+										</span>
+									</a>
+								</li>
+							}
+							@if(User.HasPremissions("roles"))
+							{
+								<li>
+									<a href="/@CurrentCulture.Name.ToLower()/controlpanel/roles" class="roles">
+										<i class="fa fa-fw fa-user-circle-o"></i>
+										<span>
+											Ролі користувачів
+										</span>
+									</a>
+								</li>
+							}
+							@if(User.HasPremissions("settings"))
+							{
+								<li>
+									<a href="/@CurrentCulture.Name.ToLower()/controlpanel/cmssettings/edit" class="cmssettings">
+										<i class="fa fa-fw fa-cog"></i>
+										<span>
+											Налаштування
+										</span>
+									</a>
+								</li>
+							}
+						</ul>
                     </li>
                 </ul>
             </div>

@@ -1,6 +1,6 @@
 ﻿@{
     Layout = null;
-    var cdnHost = HttpContext.Current.IsDebuggingEnabled ? "http://localhost:12790" : CmsSettings.CdnDomain;
+    var cdnHost = HttpContext.Current.IsDebuggingEnabled ? "http://localhost.immigrant" : CmsSettings.CdnDomain;
     var cpColor = Request.Cookies["cp_color"] != null ? Request.Cookies["cp_color"].Value : "blue";
 }
 

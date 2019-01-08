@@ -96,44 +96,44 @@
         }
     }
 
-    <div class="container">
-        <ul class="pagination-template">
-            <span class="prev"></span>
-            @if (Count > PerPage || ForceShow)
-            {
-                <li class="pagination-item">
+	<div class="text-center w736">
+		<ul class="pagination">
+			
+			@if(Count > PerPage || ForceShow)
+			{
+				<li class="@(Page == 1 ? "active" : String.Empty)">
 
-                    <a href="@(Before)1@(After)" data-page="1" class="nav-link @(Page == 1 ? "cur" : "")">1</a>
-                </li>
+					<a href="@(Before)1@(After)" data-page="1" class="nav-link">1</a>
+				</li>
 
-               if ((Page - 2) > 3 && pageCount > 9)
-                {
-                    <li class="pagination-item">
-                        <a href="@(Before)@(Page - 4)@(After)" class="nav-link" data-page="@(Page - 4)">...</a>
-                    </li>
-                }
+				if((Page - 2) > 3 && pageCount > 9)
+				{
+					<li >
+						<a href="@(Before)@(Page - 4)@(After)" class="nav-link" data-page="@(Page - 4)">...</a>
+					</li>
+				}
 
-                for (var i = from; i <= to; i++)
-                {
-                    <li class="pagination-item list-page-@i">
-                        <a class="nav-link @(Page == i ? "cur" : String.Empty)" href="@(Before)@(i)@(After)" data-page="@(i)">@i</a>
-                    </li>
-                }
+				for(var i = from; i <= to; i++)
+				{
+					<li  class="@(Page == i ? "active" : String.Empty)">
+						<a class="nav-link " href="@(Before)@(i)@(After)" data-page="@(i)">@i</a>
+					</li>
+				}
 
-                if ((Page + 2) <= pageCount - 3 && pageCount > 9)
-                {
-                    <li >
-                        <a href="@(Before)@(Page + 4)@(After)" class="nav-link" data-page="@(Page + 4)">...</a>
-                    </li>
-                }
+				if((Page + 2) <= pageCount - 3 && pageCount > 9)
+				{
+					<li>
+						<a href="@(Before)@(Page + 4)@(After)" class="nav-link" data-page="@(Page + 4)">...</a>
+					</li>
+				}
 
-                <li class="pagination-item list-page-@pageCount">
-                    <a class="nav-link @(Page == pageCount ? "cur" : String.Empty)" href="@(Before)@(pageCount)@(After)" data-page="@pageCount">@pageCount</a>
-                </li>
+				<li  class="@(Page == pageCount ? "active" : String.Empty)">
+					<a class="nav-link " href="@(Before)@(pageCount)@(After)" data-page="@pageCount">@pageCount</a>
+				</li>
 
-            }
-        </ul>
-    </div>
+			}
+		</ul>
+	</div>
   
 }
 

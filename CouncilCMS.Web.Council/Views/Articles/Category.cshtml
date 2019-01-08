@@ -1,214 +1,31 @@
 ﻿@model CmsArticleList
+
 @{
-    ViewBag.Title = Model.CategoryName;
+	Layout = "~/Views/Shared/_secondLayout.cshtml";
+	ViewBag.Title = Model.CategoryName;
 }
 
-<main class="">
-    <section class="news news-page">
-        <div class="container">
-            <span class="block-title block-decor-bottom">
-                @Model.CategoryName
-                
-            </span>
-            @*<ul class="news-filter">
-                    <li class="news-filter-item active"><a href="">Усі теми</a></li>
-                    <li class="news-filter-item"><a href="">Аграрні новини</a></li>
-                    <li class="news-filter-item"><a href="">Свята</a></li>
-                    <li class="news-filter-item"><a href="">Будівництво</a></li>
-                    <li class="news-filter-item"><a href="">Комунальні новини</a></li>
-                    <li class="news-filter-item"><a href="">Економіка</a></li>
-                    <li class="news-filter-item"><a href="">Соціальна політика</a></li>
-                    <li class="news-filter-item"><a href="">Реформи</a></li>
-                </ul>*@
-            <div class="news-list">
-                @foreach (var news in Model.Articles)
-                {
-                    <div class="news-item top">
-                        <img src="@CmsSettings.BaseDomain@news.Image" alt="">
-                        <a href="/uk/articles/item/@news.Id/@news.UrlName" class="news-item-content">
-                            <span class="title">@news.Title</span>
-                            <p class="descr">@news.Description</p>
-                            <div class="news-item-info">
-                                <span class="views">@news.ViewCount</span>
+<div class="main_content">
+	<div class="container">
+		<h1 class="page_header">@Model.CategoryName</h1>
+		<div class="dop_news_elems news_page">
 
-                                <span class="category">@news.CategoryTitle</span>
-                                <time>@news.PublishDate</time>
-                            </div>
-                        </a>
-                    </div>
-                }
+			@foreach(var item in Model.Articles)
+			{
+				<div class="dop_news_elem">
+					<div class="dop_news_elem_img">
+						<img src="@CmsSettings.BaseDomain@item.Image" alt="">
+					</div>
+					<div class="dop_news_elem_info">
+						<span class="dop_news_elem_date">@item.PublishDate</span>
+						<span class="dop_news_elem_views right"><img src="~/Content/img/eye.png" alt="">@item.ViewCount</span>
+					</div>
+					<div class="dop_news_elem_href"><a href="/@CurrentCulture.Name.ToLower()/articles/item/@item.Id/@item.UrlName">@item.Title</a></div>
+				</div>
+			}
 
+			@Helpers.LinkPager("/" + CurrentCulture.Name.ToLower() + "/articles/category/" + Model.CategoryUrl + "/", null, Model.Count, Model.Page, 9)
 
-
-            </div>
-        </div>
-        <section class="center-banner">
-            <div class="container">
-                <div class="center-banner-info">
-                    <div class="head">
-                        <span class="center-banner-title">
-                            <img src="/img/icons/header_banner-mail.svg" alt="">
-                            Як бути в курсі останніх новин?
-                        </span>
-                        <p class="block-decor-top block-decor-bottom">
-                            Підпишіться та отримуйте оперативну інформацію про перектиття доріг, надзвичайні ситуації, зміни руху транспорту, міські заходи та інші важливі події
-                        </p>
-                    </div>
-                    <form method="POST" class="center-banner-form">
-                        <input type="mail" name="mail" placeholder="Введіть свою електронну адресу" required pattern="@("[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")">
-                        <button class="form-btn">Підписатися на актуальні новини</button>
-                    </form>
-                </div>
-                <div class="center-banner-social">
-                    <span class="title">Або заходьте на наші сторінки у соціальних мережах:</span>
-                    <ul class="header-middle-social">
-                        <li class="header-middle-social-item"><a href=""><img src="/img/icons/social-item-1.svg" alt=""></a></li>
-                        <li class="header-middle-social-item"><a href=""><img src="/img/icons/social-item-2.svg" alt=""></a></li>
-                        <li class="header-middle-social-item"><a href=""><img src="/img/icons/social-item-3.svg" alt=""></a></li>
-                        <li class="header-middle-social-item"><a href=""><img src="/img/icons/social-item-4.svg" alt=""></a></li>
-                        <li class="header-middle-social-item"><a href=""><img src="/img/icons/social-item-5.svg" alt=""></a></li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-    </section>
-</main>
-
-
-
-
-
-@*<div class="container">
-        <div class="left-content">
-            <div class="cms-list">
-                <div class="cms-list-header">
-                    <h1>@Model.CategoryName</h1>
-                    @if (!String.IsNullOrEmpty(Model.CategoryDescription))
-                    {
-                        <div class="cms-list-desc">
-                            @Html.Raw(Model.CategoryDescription)
-                        </div>
-                    }
-                    @if (Model.ShowSearchForm)
-                    {
-                        <div class="search-form">
-                            @using (Html.BeginForm("Category", "Articles", FormMethod.Get, new { Url = Model.CategoryUrl }))
-                            {
-                                <div class="row">
-                                    <div class="col-sm-6 col-xs-6">
-                                        @Html.TextBox("Query", String.Empty, new { placeholder = "Пошук за назвою", @class = "form-control" })
-                                    </div>
-                                    <div class="col-sm-4 col-xs-6">
-                                        @Html.TextBox("Date", String.Empty, new { placeholder = "Пошук за датою", @class = "form-control bs-datepicker" })
-                                    </div>
-                                    <div class="col-sm-2 col-xs-12">
-                                        <span class="text visible-xs-block">&nbsp;</span>
-                                        <button type="submit" class="btn btn-primary btn-block">
-                                            <i class="fa fa-fw fa-search visible-xs-inline-block"></i>
-                                            Пошук
-                                        </button>
-                                    </div>
-                                </div>
-                            }
-                        </div>
-                    }
-
-                    <div class="row">
-                        @if (Model.Articles != null && Model.Articles.Count > 0)
-                        {
-                            foreach (var item in Model.Articles)
-                            {
-                                switch (Model.TemplateName.ToLower())
-                                {
-                                    case "news":
-                                        {
-                                            <div class="col-sm-6">
-                                                <div class="cms-article-item fixed sm">
-                                                    <a href="/@CurrentCulture.Name.ToLower()/articles/item/@item.Id/@item.UrlName">
-                                                        <div class="img" style="background-image:url('@(!String.IsNullOrEmpty(item.Image) ? (CmsSettings.BaseDomain + item.Image) : "/Content/img/parts/default-img-4x3.png" )');"></div>
-                                                        <div class="text">
-                                                            <div class="date">@item.PublishDate</div>
-                                                            <div class="title">@item.Title</div>
-                                                            <div class="desc">@item.Description</div>
-                                                        </div>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            break;
-                                        }
-                                    case "WithPhoto":
-                                        {
-                                            <div class="cms-article-item fixed sm">
-                                                <a href="/@CurrentCulture.Name.ToLower()/articles/item/@item.Id/@item.UrlName">
-                                                    <div class="img" style="background-image:url('@(!String.IsNullOrEmpty(item.Image) ? ("http://" + CmsSettings.BaseDomain + item.Image) : (item.IsAnons ? "/Content/img/parts/default-img-4x3-ac16.png" : "/Content/img/parts/default-img-4x3.png") )');"></div>
-                                                    <div class="text">
-                                                        <div class="title">@item.Title</div>
-                                                        <div class="desc">@item.Description</div>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                            break;
-                                        }
-                                    case "SimpleList":
-                                        {
-                                            <div class="cms-article-item simple sm">
-                                                <a href="/@CurrentCulture.Name.ToLower()/articles/item/@item.Id/@item.UrlName">
-                                                    <div class="text">
-                                                        <div class="title">@item.Title</div>
-                                                        <div class="desc">@item.Description</div>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                            break;
-                                        }
-                                    case "SimpleWithDate":
-                                        {
-                                            <div class="cms-article-item simple sm">
-                                                <a href="/@CurrentCulture.Name.ToLower()/articles/item/@item.Id/@item.UrlName">
-                                                    <div class="text">
-                                                        <div class="date">@item.PublishDate</div>
-                                                        <div class="title">@item.Title</div>
-                                                        <div class="desc">@item.Description</div>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                            break;
-                                        }
-                                    default:
-                                        {
-                                            <div class="cms-article-item simple sm">
-                                                <a href="/@CurrentCulture.Name.ToLower()/articles/item/@item.Id/@item.UrlName">
-                                                    <div class="text">
-                                                        <div class="title">@item.Title</div>
-                                                        <div class="desc">@item.Description</div>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                            break;
-                                        }
-                                }
-                            }
-
-                            @Helpers.LinkPager("/" + CurrentCulture.Name.ToLower() + "/articles/category/" + Model.CategoryUrl + "/", null, Model.Count, Model.Page, 20)
-                        }
-                        else
-                        {
-                            <div class="well">
-                                У цьому розділі записів не знайдено
-                            </div>
-                        }
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-        <div class="right-content">
-            @Html.Partial("_prtSidebar")
-            @if (Model.CategoryMenu != null)
-            {
-                @Html.Partial("_prtSidebarMenu", Model.CategoryMenu)
-            }
-        </div>
-    </div>*@
-
+		</div>
+	</div>
+</div>

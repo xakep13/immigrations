@@ -43,6 +43,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\DamagedHousing.cs" />
+    <Compile Include="Entities\DamagedHousingCategory.cs" />
+    <Compile Include="Entities\DamagedHousingCategoryTemplate.cs" />
     <Compile Include="Entities\NewsletterEmailQueue.cs" />
     <Compile Include="Entities\Poll.cs" />
     <Compile Include="Entities\Question.cs" />
