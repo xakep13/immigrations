@@ -1,0 +1,59 @@
+﻿@model CmsDamagedHousing
+@{
+	ViewBag.Title = Model.Title;
+	Layout = "~/Views/Shared/_secondLayout.cshtml";
+}
+
+<div class="main_content repair_item">
+	<div class="container">
+		<div class="main_content_left">
+			<h1 class="page_header header_with_tags">@Model.Adress</h1>
+			<div class="header_with_tags header_tags">
+				<div class="header_tags_date">13.04.2017</div>
+				<div class="header_tags_tag">@Model.CategoryName</div>
+				@*<div class="header_tags_tag">Пошкоджено</div>*@
+			</div>
+			<div class="form_block_map">
+				<img class="mapclass" src="@CmsSettings.BaseDomain@Model.Image" alt="">
+			</div>
+			<p>@Model.Description</p>
+			<div class="repair_item_informers">
+				<div class="item_repair_status">Пошук виконавця робіт</div>
+				<div class="repair_item_informer">
+					<p>Початок робіт</p>
+					<b>07.11.2018</b>
+				</div>
+				<div class="repair_item_informer">
+					<p>Завершення робіт</p>
+					<b>28.12.2018</b>
+				</div>
+				<div class="repair_item_informer">
+					<p>Заплановано коштів, тис. грн</p>
+					<b>6000 тис. грн,</b>
+				</div>
+				<div class="repair_item_informer">
+					<p>Рік виконання</p>
+					<b>2018</b>
+				</div>
+				<div class="repair_item_informer">
+					<p>Джерело фінансування</p>
+					<b>Місцевий бюджет</b>
+				</div>
+				<div class="repair_item_informer">
+					<p>Тип фінансування</p>
+					<b>Cпец. Фонд відповідно до підпункту 4 пункту 24 розділу VI «Прикінцеві та перехідні положення» БК України</b>
+				</div>
+			</div>
+			@*@Html.Action("LastSecondNews", "Articles", new { url = "main-news-2", count = 2 })*@
+			<div class="news_share">
+				Поширити у соціальних мережах:
+				<a href="#"><img src="~/Content/img/facebook_blue.png" alt=""></a>
+				<a href="#"><img src="~/Content/img/twitter_blue.png" alt=""></a>
+			</div>
+		</div>
+		<div class="main_content_right">
+			@Html.Action("Consultations", "Home")
+			@Html.Action("LastGeneralNews", "Articles", new { url = "general-news", count = 6 })
+		</div>
+	</div>
+</div>

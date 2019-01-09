@@ -67,14 +67,14 @@ namespace Bissoft.CouncilCMS.Web.Controllers
 			return Json(model, JsonRequestBehavior.AllowGet);
 		}
 
-		public ActionResult LastGeneralNews(string url, int count = 6)
+		public ActionResult LastGeneralNews(string url= "general-news", int count = 6)
 		{
 			var model = articleService.LastArticles(url, count);
 
 			return PartialView("_prtLastNews", model);
 		}
 
-		public ActionResult LastSecondNews(string url, int count = 3)
+		public ActionResult LastSecondNews(string url = "main-news-2", int count = 3)
 		{
 			var model = articleService.LastArticles(url, count);
 

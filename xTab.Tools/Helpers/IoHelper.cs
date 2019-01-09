@@ -187,8 +187,8 @@ namespace xTab.Tools.Helpers
                 File.Move(CurrentServer.MapPath(sourcePath), CurrentServer.MapPath(destPath));
                 return true;
             }
-            catch (Exception ex)
-            {
+            catch(Exception)
+			{
                 return false;
             }
         }

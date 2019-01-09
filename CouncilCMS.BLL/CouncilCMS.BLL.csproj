@@ -148,6 +148,7 @@
     <Compile Include="Services\Common\WeatherService.cs" />
     <Compile Include="Services\Common\AccountService.cs" />
     <Compile Include="Services\Public\CmsArticleService.cs" />
+    <Compile Include="Services\Public\CmsDamagedHousingService.cs" />
     <Compile Include="Services\Public\CmsNewsletterService.cs" />
     <Compile Include="Services\Public\CmsBannerService.cs" />
     <Compile Include="Services\Public\CmsContentService.cs" />
@@ -257,6 +258,9 @@
     <Compile Include="ViewModels\Common\SuggestionItem.cs" />
     <Compile Include="ViewModels\Public\CalendarWidget.cs" />
     <Compile Include="ViewModels\Public\CmsContactReception.cs" />
+    <Compile Include="ViewModels\Public\CmsDamagedHousing.cs" />
+    <Compile Include="ViewModels\Public\CmsDamagedHousingList.cs" />
+    <Compile Include="ViewModels\Public\CmsDamagedHousingListItem.cs" />
     <Compile Include="ViewModels\Public\CmsDocListSubItem.cs" />
     <Compile Include="ViewModels\Public\CmsPoll.cs" />
     <Compile Include="ViewModels\Public\CmsQuestions.cs" />

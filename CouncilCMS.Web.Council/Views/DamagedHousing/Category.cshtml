@@ -1,0 +1,59 @@
+﻿@model CmsDamagedHousingList
+@{
+	ViewBag.Title = Model.CategoryName;
+	Layout = "~/Views/Shared/_secondLayout.cshtml";
+}
+
+<div class="main_content">
+	<div class="container">
+		<div class="main_content_home_reestr">
+			<h1 class="page_header">@Model.CategoryName</h1>
+
+			<div class="home_reestr_search">
+				<form action="">
+					<div class="home_reestr_search_select">
+						<select name="" id="">
+							<option value="">Категорія</option>
+							<option value="">Категорія</option>
+							<option value="">Категорія</option>
+						</select>
+					</div>
+					<input type="text" class="home_reestr_search_text" placeholder="Адреса">
+					<input type="submit" value="Пошук" class="home_reestr_search_button">
+				</form>
+			</div>
+
+			<div class="home_reestr_elems">
+
+				@foreach(var item in Model.DamagedHousings)
+				{
+					<div class="home_reestr_elem">
+						<a href="/@CurrentCulture.Name.ToLower()/damagedhousing/item/@item.Id/@item.UrlName">
+							<div class="home_reestr_elem_img">
+								<img src="@CmsSettings.BaseDomain@item.Image" alt="">
+							</div>
+							<div class="home_reestr_elem_info">
+								<div class="home_reestr_elem_info_status">@item.CategoryTitle</div>
+								<div class="home_reestr_elem_info_adress">@item.Address</div>
+								<div class="home_reestr_elem_info_price_date">
+									<div class="home_reestr_elem_info_price">
+										<span>Заплановано коштів, тис. грн</span>
+										<p>23344.474</p>
+									</div>
+									<div class="home_reestr_elem_info_date">
+										<span>Дата ствoрення</span>
+										<p>@item.PublishDate</p>
+									</div>
+								</div>
+							</div>
+						</a>
+					</div>
+				}
+
+				@Helpers.LinkPager("/" + CurrentCulture.Name.ToLower() + "/damagedhousing/category/" + Model.CategoryUrl + "/", null, Model.Count, Model.Page, 4)
+
+			</div>
+		</div>
+	</div>
+</div>
+

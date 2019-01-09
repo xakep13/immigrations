@@ -14,7 +14,10 @@ namespace Bissoft.CouncilCMS.Core.Enums
         [LocalDescription("Article", NameResourceType = typeof(Locals))]
         Article,
 
-        [LocalDescription("Enterprise", NameResourceType = typeof(Locals))]
+		[LocalDescription("DamagedHousing", NameResourceType = typeof(Locals))]
+		DamagedHousing,
+
+		[LocalDescription("Enterprise", NameResourceType = typeof(Locals))]
         Enterprise
     }
 }

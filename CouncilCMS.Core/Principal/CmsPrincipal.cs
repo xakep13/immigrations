@@ -47,8 +47,8 @@ namespace Bissoft.CouncilCMS.Web.Core
 
                     return this.Identity;
                 }
-                catch (Exception e)
-                {
+                catch(Exception)
+				{
                     return null;
                 }
             }

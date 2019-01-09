@@ -23,35 +23,35 @@ namespace Bissoft.CouncilCMS.Web.Areas.ControlPanel.Controllers
             settingsAdminService = new CmsSettingsAdminService(this.connectionString);
         }
 
-        public async Task<ActionResult> InvokeTheLoginDialogWindow()
-        {
-            // trot
-            //https://www.facebook.com/v3.2/dialog/oauth?
-            //    client_id ={ app - id}
-            //    &redirect_uri ={ redirect - uri}
-            //    &state ={ state - param }
+		public ActionResult InvokeTheLoginDialogWindow()
+		{
+			// trot
+			//https://www.facebook.com/v3.2/dialog/oauth?
+			//    client_id ={ app - id}
+			//    &redirect_uri ={ redirect - uri}
+			//    &state ={ state - param }
 
-            String host = Request.Url.Host;
-            int port = Request.Url.Port;
+			String host = Request.Url.Host;
+			int port = Request.Url.Port;
 
-            string baseUrl = "https://www.facebook.com/v3.2/dialog/oauth?";
-            string client_id = "client_id=" + CmsSettings.FacebookAppId;
-            string redirect_uri = string.Format("&redirect_uri=https://{0}/FacebookLogin/GetExternalAccessToken", Request.Url.Authority);
-            string state = "&state={st=state013gti,ds=300601903}";
+			string baseUrl = "https://www.facebook.com/v3.2/dialog/oauth?";
+			string client_id = "client_id=" + CmsSettings.FacebookAppId;
+			string redirect_uri = string.Format("&redirect_uri=https://{0}/FacebookLogin/GetExternalAccessToken", Request.Url.Authority);
+			string state = "&state={st=state013gti,ds=300601903}";
 
-            //String scope = "&scope=publish_stream,manage_pages";
-            StringBuilder sb = new StringBuilder();
+			//String scope = "&scope=publish_stream,manage_pages";
+			StringBuilder sb = new StringBuilder();
 
-            sb.Append(baseUrl);
-            sb.Append(client_id);
-            sb.Append(redirect_uri);
-            sb.Append(state);
-            
-            string url = sb.ToString();
-            return Redirect(url);
-        }
+			sb.Append(baseUrl);
+			sb.Append(client_id);
+			sb.Append(redirect_uri);
+			sb.Append(state);
 
-        [HttpGet]
+			string url = sb.ToString();
+			return Redirect(url);
+		}
+
+		[HttpGet]
         public ActionResult GetExternalAccessToken(string code)
         {
             var Route = Request.RequestContext.RouteData.Route;
@@ -93,8 +93,8 @@ namespace Bissoft.CouncilCMS.Web.Areas.ControlPanel.Controllers
                 var answer = client.GetAsync(url).Result.Content.ReadAsStringAsync().Result;
                 token = JsonConvert.DeserializeObject<FacebookAccessToken>(answer);
             }
-            catch (Exception e)
-            {
+            catch(Exception)
+			{
                 return new HttpStatusCodeResult(HttpStatusCode.UpgradeRequired); ;
             }
 

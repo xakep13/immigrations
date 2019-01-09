@@ -17,6 +17,5 @@ namespace Bissoft.CouncilCMS.BLL.ViewModels
         public string Image { get; set; }
         public int ViewCount { get; set; }
         public bool IsAnons { get; set; }
-
     }
 }

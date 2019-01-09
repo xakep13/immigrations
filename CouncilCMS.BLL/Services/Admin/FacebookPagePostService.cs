@@ -38,8 +38,7 @@ namespace Bissoft.CouncilCMS.Web
 
         public async Task<bool> PostOnPage()
         {
-            string exceptionMessage = "";
-            bool operationStatus = true;
+			bool operationStatus = true;
 
             operationStatus = await GetUserId();
             if (operationStatus == true) 
@@ -47,7 +46,7 @@ namespace Bissoft.CouncilCMS.Web
                 operationStatus = await GetPageAccessToken();
                 if (operationStatus == true)
                 {
-                    operationStatus = await Post(postObj);
+                    operationStatus = Post(postObj);
                 }
             }
             return operationStatus;
@@ -69,8 +68,8 @@ namespace Bissoft.CouncilCMS.Web
                 userId = o.id;
                 return true;
             }
-            catch (Exception e)
-            {
+            catch(Exception)
+			{
                 return false;
             }
             
@@ -87,77 +86,76 @@ namespace Bissoft.CouncilCMS.Web
                 page_access_token = o.data[0].access_token;
                 return true;
             }
-            catch (Exception e)
-            {
+            catch(Exception)
+			{
                 return false;
             }
         }
 
-        private async Task<bool> Post(FacebookPostModel entity)
-        {
-            bool result = true;
-            try
-            {
-                FacebookClient facebookClient = new FacebookClient(page_access_token);
-                Dictionary<string, object> photoArgs = new Dictionary<string, object>();
-                Dictionary<string, object> messageArgs = new Dictionary<string, object>();
-                if (string.IsNullOrEmpty(entity.source) == false)
-                {
-                    // create an media object
-                    FacebookMediaObject facebookUploader = new FacebookMediaObject
-                    {
-                        FileName = entity.name,
-                        ContentType = "image/jpg"
-                    };
+		private bool Post(FacebookPostModel entity)
+		{
+			try
+			{
+				FacebookClient facebookClient = new FacebookClient(page_access_token);
+				Dictionary<string, object> photoArgs = new Dictionary<string, object>();
+				Dictionary<string, object> messageArgs = new Dictionary<string, object>();
+				if(string.IsNullOrEmpty(entity.source) == false)
+				{
+					// create an media object
+					FacebookMediaObject facebookUploader = new FacebookMediaObject
+					{
+						FileName = entity.name,
+						ContentType = "image/jpg"
+					};
 
-                    // set the media object
-                    byte[] bytes = null;
-                    string imgPath = entity.source;
-                    imgPath = imgPath.Replace('/', '\\');
-                    imgPath = new string(imgPath.ToCharArray().ToArray());
-                    string filePath = serverPath + imgPath;
-                    try
-                    {
-                        bytes = File.ReadAllBytes(filePath);
-                    }
-                    catch (Exception e)
-                    {
-                        return false;
-                    }
-                    facebookUploader.SetValue(bytes);
-                    // 
-                    photoArgs["image"] = facebookUploader;
+					// set the media object
+					byte[] bytes = null;
+					string imgPath = entity.source;
+					imgPath = imgPath.Replace('/', '\\');
+					imgPath = new string(imgPath.ToCharArray().ToArray());
+					string filePath = serverPath + imgPath;
+					try
+					{
+						bytes = File.ReadAllBytes(filePath);
+					}
+					catch(Exception)
+					{
+						return false;
+					}
+					facebookUploader.SetValue(bytes);
+					// 
+					photoArgs["image"] = facebookUploader;
 
-                    string fullStr = "";
-                   
-                    if (string.IsNullOrEmpty(entity.name) == false)
-                    {
-                        if (string.IsNullOrEmpty(entity.message) == false)
-                        {
-                            fullStr = entity.name + "\n" + entity.message;
-                        }
-                        else
-                        {
-                            fullStr = entity.name;
-                        }
-                    }
-                    else if (string.IsNullOrEmpty(entity.message) == false)
-                    {
-                        fullStr = entity.message;
-                    }
+					string fullStr = "";
 
-                    if (string.IsNullOrEmpty(entity.link) == false)
-                    {
-                        fullStr = fullStr + "\n" + entity.link;
-                    }
-                    photoArgs["name"] = fullStr;
-                    facebookClient.Post(publicPageId + "/photos", photoArgs);
-                }
-                else
-                {
-                    if (string.IsNullOrEmpty(entity.link) == false)
-                    {
-                        /*
+					if(string.IsNullOrEmpty(entity.name) == false)
+					{
+						if(string.IsNullOrEmpty(entity.message) == false)
+						{
+							fullStr = entity.name + "\n" + entity.message;
+						}
+						else
+						{
+							fullStr = entity.name;
+						}
+					}
+					else if(string.IsNullOrEmpty(entity.message) == false)
+					{
+						fullStr = entity.message;
+					}
+
+					if(string.IsNullOrEmpty(entity.link) == false)
+					{
+						fullStr = fullStr + "\n" + entity.link;
+					}
+					photoArgs["name"] = fullStr;
+					facebookClient.Post(publicPageId + "/photos", photoArgs);
+				}
+				else
+				{
+					if(string.IsNullOrEmpty(entity.link) == false)
+					{
+						/*
                         if (string.IsNullOrEmpty(entity.message) == false)
                         {
                             entity.message += '\n';
@@ -169,37 +167,38 @@ namespace Bissoft.CouncilCMS.Web
                             entity.name += entity.link;
                         }
                         */
-                        messageArgs["link"] = entity.link;
-                    }
-                    string fullMsg  = "";
+						messageArgs["link"] = entity.link;
+					}
+					string fullMsg = "";
 
-                    if (string.IsNullOrEmpty(entity.name) == false)
-                    {
-                        if (string.IsNullOrEmpty(entity.message) == false)
-                        {
-                            fullMsg = entity.name + "\n" + entity.message;
-                        }
-                        else
-                        {
-                            fullMsg = entity.name;
-                        }
-                        messageArgs["message"] = fullMsg;
-                    }else
+					if(string.IsNullOrEmpty(entity.name) == false)
+					{
+						if(string.IsNullOrEmpty(entity.message) == false)
+						{
+							fullMsg = entity.name + "\n" + entity.message;
+						}
+						else
+						{
+							fullMsg = entity.name;
+						}
+						messageArgs["message"] = fullMsg;
+					}
+					else
 
-                    if (string.IsNullOrEmpty(entity.message) == false)
-                    {
-                        messageArgs["message"] = entity.message;
-                    }
+					if(string.IsNullOrEmpty(entity.message) == false)
+					{
+						messageArgs["message"] = entity.message;
+					}
 
-                    facebookClient.Post(publicPageId + "/feed", messageArgs);
-                }
+					facebookClient.Post(publicPageId + "/feed", messageArgs);
+				}
 
-                return true;
-            }
-            catch (Exception e)
-            {
-                return false;
-            }
-        }
-    }
+				return true;
+			}
+			catch(Exception)
+			{
+				return false;
+			}
+		}
+	}
 }

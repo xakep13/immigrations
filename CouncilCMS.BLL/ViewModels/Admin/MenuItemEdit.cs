@@ -50,8 +50,11 @@ namespace Bissoft.CouncilCMS.BLL.ViewModels
         public List<SelectListItem> PersonCategories { get; set; }
         public List<SelectListItem> EnterpriseCategories { get; set; }
         public List<SelectListItem> DocCategories { get; set; }
+        public List<SelectListItem> DamagedHousingCategory { get; set; }
+		public List<SelectListItem> DamagedHousing { get; set; }
 
-        public List<SelectListItem> Roles { get; set; }        
+
+		public List<SelectListItem> Roles { get; set; }        
         public List<AllowedRole> AllowedRoles { get; set; }
     }
 }

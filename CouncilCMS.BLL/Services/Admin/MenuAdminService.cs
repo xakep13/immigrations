@@ -19,10 +19,12 @@ namespace Bissoft.CouncilCMS.BLL.Services
 		private IRepository<MenuItem, int> menuItemRepo;
 		private IRepository<Page, int> pageRepo;
 		private IRepository<Article, int> articleRepo;
+		private IRepository<DamagedHousing, int> damagedHousingRepo;
 		private IRepository<Person, int> personRepo;
 		private IRepository<Enterprise, int> enterpriseRepo;
 		private IRepository<Doc, int> docRepo;
 		private IRepository<ArticleCategory, int> articleCatRepo;
+		private IRepository<DamagedHousingCategory, int> damagedHousingCatRepo;
 		private IRepository<PersonCategory, int> personCatRepo;
 		private IRepository<EnterpriseCategory, int> enterpriseCatRepo;
 		private IRepository<DocCategory, int> docCatRepo;
@@ -45,10 +47,12 @@ namespace Bissoft.CouncilCMS.BLL.Services
 			menuItemRepo = UnitOfWork.GetIntRepository<MenuItem>();
 			pageRepo = UnitOfWork.GetIntRepository<Page>();
 			articleRepo = UnitOfWork.GetIntRepository<Article>();
+			damagedHousingRepo = UnitOfWork.GetIntRepository<DamagedHousing>();
 			personRepo = UnitOfWork.GetIntRepository<Person>();
 			enterpriseRepo = UnitOfWork.GetIntRepository<Enterprise>();
 			docRepo = UnitOfWork.GetIntRepository<Doc>();
 			articleCatRepo = UnitOfWork.GetIntRepository<ArticleCategory>();
+			damagedHousingCatRepo = UnitOfWork.GetIntRepository<DamagedHousingCategory>();
 			personCatRepo = UnitOfWork.GetIntRepository<PersonCategory>();
 			enterpriseCatRepo = UnitOfWork.GetIntRepository<EnterpriseCategory>();
 			docCatRepo = UnitOfWork.GetIntRepository<DocCategory>();
@@ -198,7 +202,6 @@ namespace Bissoft.CouncilCMS.BLL.Services
 
 		public MenuItemEdit GetMenuItemEdit(Int32 id, Int32 menuId, Int32? parentId = null, int? userId = null)
 		{
-			var model = new MenuItemEdit();
 			var item = menuItemRepo.GetById(id) ?? new MenuItem() { Id = 0, MenuId = menuId, ParentMenuItemId = parentId };
 
 			var pagess = pageRepo.GetList();
@@ -215,33 +218,37 @@ namespace Bissoft.CouncilCMS.BLL.Services
 				});
 			}
 
-			model.Id = item.Id;
-			model.Pages = pages;
-			model.MenuId = item.MenuId;
-			model.ParentMenuId = item.ParentMenuItemId;
-			model.Position = item.Position;
-			model.NameRu = item.NameRu;
-			model.NameUk = item.NameUk;
-			model.NameEn = item.NameEn;
-			model.DescriptionRu = item.DescriptionRu;
-			model.DescriptionUk = item.DescriptionUk;
-			model.DescriptionEn = item.DescriptionEn;
-			model.Image = item.Image;
-			model.HoverImage = item.HoverImage;
-			model.Type = (MenuItemType)item.Type;
-			model.Value = item.Value;
-			model.ValueText = GetMenuItemVelueText(item);
-			model.ShowItem = item.ShowItem;
-			model.ShowItemUk = item.ShowItemUk;
-			model.ShowItemRu = item.ShowItemRu;
-			model.ShowItemEn = item.ShowItemEn;
-			model.Types = ((MenuItemType)item.Type).ToSelectList();
-			model.PersonCategories = selectListService.CategorySelectList<PersonCategory>(userId: userId);
-			model.ArticleCategories = selectListService.CategorySelectList<ArticleCategory>(userId: userId);
-			model.DocCategories = selectListService.CategorySelectList<DocCategory>(userId: userId);
-			model.EnterpriseCategories = selectListService.CategorySelectList<EnterpriseCategory>(userId: userId);
-			model.Roles = selectListService.GetCmsRoleSelectList();
-			model.AllowedRoles = item.AllowedRoles != null ? item.AllowedRoles.Select(x => new AllowedRole() { RoleId = x.Id, ItemId = item.Id, Name = x.TitleUk }).ToList() : null;
+			var model = new MenuItemEdit
+			{
+				Id = item.Id,
+				Pages = pages,
+				MenuId = item.MenuId,
+				ParentMenuId = item.ParentMenuItemId,
+				Position = item.Position,
+				NameRu = item.NameRu,
+				NameUk = item.NameUk,
+				NameEn = item.NameEn,
+				DescriptionRu = item.DescriptionRu,
+				DescriptionUk = item.DescriptionUk,
+				DescriptionEn = item.DescriptionEn,
+				Image = item.Image,
+				HoverImage = item.HoverImage,
+				Type = (MenuItemType)item.Type,
+				Value = item.Value,
+				ValueText = GetMenuItemVelueText(item),
+				ShowItem = item.ShowItem,
+				ShowItemUk = item.ShowItemUk,
+				ShowItemRu = item.ShowItemRu,
+				ShowItemEn = item.ShowItemEn,
+				Types = ((MenuItemType)item.Type).ToSelectList(),
+				DocCategories = selectListService.CategorySelectList<DocCategory>(userId: userId),
+				PersonCategories = selectListService.CategorySelectList<PersonCategory>(userId: userId),
+				ArticleCategories = selectListService.CategorySelectList<ArticleCategory>(userId: userId),
+				EnterpriseCategories = selectListService.CategorySelectList<EnterpriseCategory>(userId: userId),
+				DamagedHousingCategory = selectListService.CategorySelectList<DamagedHousingCategory>(userId:userId),
+				Roles = selectListService.GetCmsRoleSelectList(),
+				AllowedRoles = item.AllowedRoles != null ? item.AllowedRoles.Select(x => new AllowedRole() { RoleId = x.Id, ItemId = item.Id, Name = x.TitleUk }).ToList() : null
+			};
 
 			return model;
 		}
@@ -531,6 +538,24 @@ namespace Bissoft.CouncilCMS.BLL.Services
 					}
 
 					break;
+				case (int)MenuItemType.DamagedHousingCategory:
+					if(Int32.TryParse(item.Value, out id))
+					{
+						var dest = damagedHousingCatRepo.GetById(id);
+						if(dest != null)
+							result = "/" + CurrentCulture.Name.ToLower() + "/damagedhousing/category/" + dest.UrlName + "/";
+					}
+
+					break;
+				case (int)MenuItemType.DamagedHousing:
+					if(Int32.TryParse(item.Value, out id))
+					{
+						var dest = damagedHousingRepo.GetById(id);
+						if(dest != null)
+							result = "/" + CurrentCulture.Name.ToLower() + "/damagedhousing/category/" + dest.UrlNameUk + "/";
+					}
+
+					break;
 			}
 
 			return result;
@@ -565,6 +590,24 @@ namespace Bissoft.CouncilCMS.BLL.Services
 					if(Int32.TryParse(item.Value, out id))
 					{
 						var dest = articleRepo.GetById(id);
+						if(dest != null)
+							result = dest.GetLocalValue("Title") + " [id: " + id + "]";
+					}
+
+					break;
+				case (int)MenuItemType.DamagedHousing:
+					if(Int32.TryParse(item.Value, out id))
+					{
+						var dest = damagedHousingRepo.GetById(id);
+						if(dest != null)
+							result = dest.GetLocalValue("Title") + " [id: " + id + "]";
+					}
+
+					break;
+				case (int)MenuItemType.DamagedHousingCategory:
+					if(Int32.TryParse(item.Value, out id))
+					{
+						var dest = damagedHousingCatRepo.GetById(id);
 						if(dest != null)
 							result = dest.GetLocalValue("Title") + " [id: " + id + "]";
 					}

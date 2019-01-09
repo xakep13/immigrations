@@ -558,4 +558,10 @@
   <data name="CouncilSession" xml:space="preserve">
     <value>Сессії міськради</value>
   </data>
+  <data name="DamagedHousing" xml:space="preserve">
+    <value>Пошкоджені будівлі</value>
+  </data>
+  <data name="DamagedHousingCategory" xml:space="preserve">
+    <value>Категорії будівель</value>
+  </data>
 </root>

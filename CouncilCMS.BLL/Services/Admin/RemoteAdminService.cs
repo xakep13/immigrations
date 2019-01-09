@@ -16,11 +16,13 @@ namespace Bissoft.CouncilCMS.BLL.Services
         private IRepository<Page, int> pageRepo;
         private IRepository<Person, int> personRepo;
         private IRepository<Article, int> articleRepo;
-        private IRepository<Enterprise, int> enterpriseRepo;
+        private IRepository<DamagedHousing, int> damagedHousingRepo;
+		private IRepository<Enterprise, int> enterpriseRepo;
         private IRepository<Doc, int> docRepo;
         private IRepository<PersonCategory, int> personCategoryRepo;
         private IRepository<ArticleCategory, int> articleCategoryRepo;
-        private IRepository<EnterpriseCategory, int> enterpriseCategoryRepo;
+        private IRepository<DamagedHousingCategory, int> damagedHousingCategoryRepo;
+		private IRepository<EnterpriseCategory, int> enterpriseCategoryRepo;
         private IRepository<DocCategory, int> docCategoryRepo;        
         
         public RemoteAdminService(string ConnectionString) : base(ConnectionString) { }
@@ -82,7 +84,35 @@ namespace Bissoft.CouncilCMS.BLL.Services
             return list;
         }
 
-        public List<SuggestionItem> FindPerson(String Query, String excludeIds = null, Boolean OnlyPublished = true, Boolean OnlyAvailable = true)
+		public List<SuggestionItem> FindDamagedHousing(String Query, String excludeIds = null, Boolean OnlyPublished = true, Boolean OnlyAvailable = true)
+		{
+			var articleRepo = UnitOfWork.GetIntRepository<DamagedHousing>();
+
+			var predicate = PredicateBuilder.True<DamagedHousing>();
+			var id = 0;
+
+			if(OnlyPublished)
+				predicate = predicate.And(x => x.Published);
+
+			if(Int32.TryParse(Query, out id))
+				predicate = predicate.And(x => (x.TitleEn.Contains(Query) || x.TitleRu.Contains(Query) || x.TitleUk.Contains(Query) || x.Id == id));
+			else
+				predicate = predicate.And(x => (x.TitleEn.Contains(Query) || x.TitleRu.Contains(Query) || x.TitleUk.Contains(Query)));
+
+			var list = articleRepo.GetList(predicate, x => x.OrderByColumn(CurrentCulture.PropertyName("Title")), null, null, null, true, OnlyAvailable)
+				.Select(x => new { Id = x.Id, TitleRu = x.TitleRu, TitleUk = x.TitleUk, TitleEn = x.TitleEn })
+				.ToList()
+				.Select(x => new SuggestionItem()
+				{
+					Value = x.Id.ToString(),
+					DisplayText = x.GetLocalValue("Title") + " [id: " + x.Id + "]",
+					ValueText = x.GetLocalValue("Title") + " [id: " + x.Id + "]"
+				}).ToList();
+
+			return list;
+		}
+
+		public List<SuggestionItem> FindPerson(String Query, String excludeIds = null, Boolean OnlyPublished = true, Boolean OnlyAvailable = true)
         {
             var personRepo = UnitOfWork.GetIntRepository<Person>();
 
@@ -178,13 +208,15 @@ namespace Bissoft.CouncilCMS.BLL.Services
         public List<SuggestionItem> FindCmsLink(String query, Boolean OnlyAvailable = true)
         {
             articleRepo = UnitOfWork.GetIntRepository<Article>();
+			damagedHousingRepo = UnitOfWork.GetIntRepository<DamagedHousing>();
             pageRepo = UnitOfWork.GetIntRepository<Page>();
             personRepo = UnitOfWork.GetIntRepository<Person>();
             enterpriseRepo = UnitOfWork.GetIntRepository<Enterprise>();
             docRepo = UnitOfWork.GetIntRepository<Doc>();
             personCategoryRepo = UnitOfWork.GetIntRepository<PersonCategory>();
             articleCategoryRepo = UnitOfWork.GetIntRepository<ArticleCategory>();
-            enterpriseCategoryRepo = UnitOfWork.GetIntRepository<EnterpriseCategory>();
+            damagedHousingCategoryRepo = UnitOfWork.GetIntRepository<DamagedHousingCategory>();
+			enterpriseCategoryRepo = UnitOfWork.GetIntRepository<EnterpriseCategory>();
             docCategoryRepo = UnitOfWork.GetIntRepository<DocCategory>();
 
             var model = new List<SuggestionItem>();
@@ -193,10 +225,12 @@ namespace Bissoft.CouncilCMS.BLL.Services
             var pagePredicate = PredicateBuilder.True<Page>();
             var personPredicate = PredicateBuilder.True<Person>();
             var articlePredicate = PredicateBuilder.True<Article>();
-            var enterprisePredicate = PredicateBuilder.True<Enterprise>();
+            var damagedHousingPredicate = PredicateBuilder.True<DamagedHousing>();
+			var enterprisePredicate = PredicateBuilder.True<Enterprise>();
             var docPredicate = PredicateBuilder.True<Doc>();
             var articleCategoryPredicate = PredicateBuilder.True<ArticleCategory>();
-            var personCategoryPredicate = PredicateBuilder.True<PersonCategory>();
+            var damagedHousingCategoryPredicate = PredicateBuilder.True<DamagedHousingCategory>();
+			var personCategoryPredicate = PredicateBuilder.True<PersonCategory>();
             var enterpriseCategoryPredicate = PredicateBuilder.True<EnterpriseCategory>();
             var docCategoryPredicate = PredicateBuilder.True<DocCategory>();
 
@@ -207,8 +241,10 @@ namespace Bissoft.CouncilCMS.BLL.Services
                 enterprisePredicate = enterprisePredicate.And(x => (x.TitleRu.Contains(query) || x.TitleUk.Contains(query) || x.Id == id));
                 docPredicate = docPredicate.And(x => (x.TitleRu.Contains(query) || x.TitleUk.Contains(query) || x.Id == id));
                 articlePredicate = articlePredicate.And(x => (x.TitleRu.Contains(query) || x.TitleUk.Contains(query) || x.Id == id));
-                articleCategoryPredicate = articleCategoryPredicate.And(x => (x.TitleUk.Contains(query) || x.TitleRu.Contains(query) || x.Id == id));
-                personCategoryPredicate = personCategoryPredicate.And(x => (x.TitleUk.Contains(query) || x.TitleRu.Contains(query) || x.Id == id));
+                damagedHousingPredicate = damagedHousingPredicate.And(x => (x.TitleRu.Contains(query) || x.TitleUk.Contains(query) || x.Id == id));
+				articleCategoryPredicate = articleCategoryPredicate.And(x => (x.TitleUk.Contains(query) || x.TitleRu.Contains(query) || x.Id == id));
+				damagedHousingCategoryPredicate = damagedHousingCategoryPredicate.And(x => (x.TitleUk.Contains(query) || x.TitleRu.Contains(query) || x.Id == id));
+				personCategoryPredicate = personCategoryPredicate.And(x => (x.TitleUk.Contains(query) || x.TitleRu.Contains(query) || x.Id == id));
                 enterpriseCategoryPredicate = enterpriseCategoryPredicate.And(x => (x.TitleUk.Contains(query) || x.TitleRu.Contains(query) || x.Id == id));
                 docCategoryPredicate = docCategoryPredicate.And(x => (x.TitleUk.Contains(query) || x.TitleRu.Contains(query) || x.Id == id));
             }
@@ -219,8 +255,10 @@ namespace Bissoft.CouncilCMS.BLL.Services
                 enterprisePredicate = enterprisePredicate.And(x => (x.TitleRu.Contains(query) || x.TitleUk.Contains(query)));
                 docPredicate = docPredicate.And(x => (x.TitleRu.Contains(query) || x.TitleUk.Contains(query)));
                 articlePredicate = articlePredicate.And(x => (x.TitleRu.Contains(query) || x.TitleUk.Contains(query)));
-                articleCategoryPredicate = articleCategoryPredicate.And(x => (x.TitleUk.Contains(query) || x.TitleRu.Contains(query)));
-                personCategoryPredicate = personCategoryPredicate.And(x => (x.TitleUk.Contains(query) || x.TitleRu.Contains(query)));
+				damagedHousingPredicate = damagedHousingPredicate.And(x => (x.TitleRu.Contains(query) || x.TitleUk.Contains(query)));
+				articleCategoryPredicate = articleCategoryPredicate.And(x => (x.TitleUk.Contains(query) || x.TitleRu.Contains(query)));
+				damagedHousingCategoryPredicate = damagedHousingCategoryPredicate.And(x => (x.TitleUk.Contains(query) || x.TitleRu.Contains(query)));
+				personCategoryPredicate = personCategoryPredicate.And(x => (x.TitleUk.Contains(query) || x.TitleRu.Contains(query)));
                 enterpriseCategoryPredicate = enterpriseCategoryPredicate.And(x => (x.TitleUk.Contains(query) || x.TitleRu.Contains(query)));
                 docCategoryPredicate = docCategoryPredicate.And(x => (x.TitleUk.Contains(query) || x.TitleRu.Contains(query)));
             }
@@ -241,7 +279,23 @@ namespace Bissoft.CouncilCMS.BLL.Services
                     ValueText = "[матеріал] - " + x.TitleUk,
                 }).ToList());
 
-            model.AddRange(personRepo.GetList(personPredicate)
+			model.AddRange(damagedHousingRepo.GetList(damagedHousingPredicate)
+				.Select(x => new SuggestionItem()
+				{
+					Value = "/damagedhousing/item/" + x.Id.ToString() + "/" + x.UrlNameUk,
+					DisplayText = "[матеріал] - " + x.TitleUk,
+					ValueText = "[матеріал] - " + x.TitleUk,
+				}).ToList());
+
+			model.AddRange(damagedHousingCategoryRepo.GetList(damagedHousingCategoryPredicate)
+				.Select(x => new SuggestionItem()
+				{
+					Value = "/damagedhousing/category/" + x.Id.ToString() + "/" + x.UrlName,
+					DisplayText = "[матеріал] - " + x.TitleUk,
+					ValueText = "[матеріал] - " + x.TitleUk,
+				}).ToList());
+
+			model.AddRange(personRepo.GetList(personPredicate)
                 .Select(x => new SuggestionItem()
                 {
                     Value = "/persons/item/" + x.Id.ToString() + "/" + x.UrlNameUk,

@@ -47,7 +47,14 @@ namespace Bissoft.CouncilCMS.Web.Areas.ControlPanel.Controllers
             return Json(list, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult FindPerson(String Query, String ExcludeIds = null, Boolean OnlyParents = true)
+		public ActionResult FindDamagedHousing(String Query, String ExcludeIds = null)
+		{
+			var list = remoteAdminService.FindDamagedHousing(Query, ExcludeIds, false, true);
+
+			return Json(list, JsonRequestBehavior.AllowGet);
+		}
+
+		public ActionResult FindPerson(String Query, String ExcludeIds = null, Boolean OnlyParents = true)
         {
             var list = remoteAdminService.FindPerson(Query, ExcludeIds, false, true);
 

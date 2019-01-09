@@ -157,7 +157,7 @@ namespace Bissoft.CouncilCMS.BLL.Services
 				Email = article.Email,
 				Adress = article.Adress,
 				FullName = article.FullName,
-
+				
 				Id = article.Id,
 				TitleRu = article.TitleRu,
 				TitleUk = article.TitleUk,
@@ -174,7 +174,7 @@ namespace Bissoft.CouncilCMS.BLL.Services
 				MetaDescriptionRu = article.MetaDescriptionRu,
 				MetaDescriptionUk = article.MetaDescriptionUk,
 				MetaDescriptionEn = article.MetaDescriptionEn,
-				Images = article.Images,
+				Image = article.Image,
 				AllowComments = article.AllowComments,
 				Published = article.Published,
 				ShowEditDate = article.ShowEditDate,
@@ -248,7 +248,7 @@ namespace Bissoft.CouncilCMS.BLL.Services
 			item.Adress = model.Adress;
 			item.Email = model.Email;
 
-			item.Images = model.Images;
+			item.Image = model.Image;
 			item.Published = model.Published;
 			item.LastEditDate = DateTime.Now;
 			item.PublishDate = DateTimeHelper.ParseDateNullable(model.PublishDate, null, DateTimeHelper.DefaultTimeOfDay.None);

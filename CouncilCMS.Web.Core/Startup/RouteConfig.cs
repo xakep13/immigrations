@@ -105,7 +105,15 @@ namespace Bissoft.CouncilCMS.Web
                namespaces: new string[] { "Bissoft.CouncilCMS.Web.Controllers" }
            );
 
-            routes.MapRoute(
+			routes.MapRoute(
+			  name: "DamagedHousingCategoryLocal",
+			  url: "{lang}/damagedhousing/category/{url}/{page}",
+			  defaults: new { controller = "DamagedHousing", action = "Category", url = UrlParameter.Optional, page = 1 },
+			  constraints: new { lang = @"ru|uk|en", url = @"[a-zA-Z0-9-_]{1,}", page = @"[0-9]{1,}" },
+			  namespaces: new string[] { "Bissoft.CouncilCMS.Web.Controllers" }
+		  );
+
+			routes.MapRoute(
                 name: "ArticleCategory",
                 url: "articles/category/{url}/{page}",
                 defaults: new { controller = "Articles", action = "Category", url = UrlParameter.Optional, page = 1 },
@@ -113,8 +121,15 @@ namespace Bissoft.CouncilCMS.Web
                 namespaces: new string[] { "Bissoft.CouncilCMS.Web.Controllers" }
             );
 
+			routes.MapRoute(
+			   name: "DamagedHousingCategory",
+			   url: "damagedhousing/category/{url}/{page}",
+			   defaults: new { controller = "DamagedHousing", action = "Category", url = UrlParameter.Optional, page = 1 },
+			   constraints: new { url = @"[a-zA-Z0-9-_]{1,}", page = @"[0-9]{1,}" },
+			   namespaces: new string[] { "Bissoft.CouncilCMS.Web.Controllers" }
+		   );
 
-            routes.MapRoute(
+			routes.MapRoute(
               name: "ArticleItemLocal",
               url: "{lang}/articles/item/{id}/{url}",
               defaults: new { controller = "Articles", action = "Item", url = UrlParameter.Optional, id = UrlParameter.Optional },
@@ -122,7 +137,15 @@ namespace Bissoft.CouncilCMS.Web
               namespaces: new string[] { "Bissoft.CouncilCMS.Web.Controllers" }
           );
 
-            routes.MapRoute(
+			routes.MapRoute(
+			  name: "DamagedHousingItemLocal",
+			  url: "{lang}/damagedhousing/item/{id}/{url}",
+			  defaults: new { controller = "DamagedHousing", action = "Item", url = UrlParameter.Optional, id = UrlParameter.Optional },
+			  constraints: new { lang = @"ru|uk|en", url = @"[a-zA-Z0-9-_]{0,}", id = @"[0-9]{1,}" },
+			  namespaces: new string[] { "Bissoft.CouncilCMS.Web.Controllers" }
+		  );
+
+			routes.MapRoute(
                 name: "ArticleItem",
                 url: "articles/item/{id}/{url}",
                 defaults: new { controller = "Articles", action = "Item", url = UrlParameter.Optional, id = UrlParameter.Optional },

@@ -70,8 +70,8 @@ namespace Bissoft.CouncilCMS.BLL.Services
                 smtpClient.Send(message);
                 return true;
             }
-            catch (Exception ex)
-            {
+            catch(Exception)
+			{
                 return false;
             }
         }
@@ -106,8 +106,8 @@ namespace Bissoft.CouncilCMS.BLL.Services
                     smtpClient.Send(message);
                     return true;
                 }
-                catch (Exception ex)
-                {
+                catch(Exception)
+				{
                     return false;
                 }
             }
@@ -144,7 +144,7 @@ namespace Bissoft.CouncilCMS.BLL.Services
                 {
                     await smtpClient.SendMailAsync(message);
                 }
-                catch (Exception ex) { }
+                catch(Exception) { }
             }            
         }
 

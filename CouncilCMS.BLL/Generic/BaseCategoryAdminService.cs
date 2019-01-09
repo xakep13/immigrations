@@ -18,7 +18,6 @@ namespace Bissoft.CouncilCMS.BLL.Services
         where TTemplate : BaseCategoryTemplate, new()
     {
         private IRepository<TCategory, int> categoryRepo;
-        private IRepository<TTemplate, int> templateRepo;
         private IRepository<CmsUser, int> userRepo;
         private IRepository<CmsRole, int> roleRepo;
         private SelectListService selectListService;

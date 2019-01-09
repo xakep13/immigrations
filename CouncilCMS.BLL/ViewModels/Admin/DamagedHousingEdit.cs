@@ -27,7 +27,7 @@ namespace Bissoft.CouncilCMS.BLL.ViewModels
 		public string DescriptionUk { get; set; }
 		public string DescriptionEn { get; set; }
 
-		public List<string> Images { get; set; }
+		public string Image { get; set; }
 
 		[StringLength(255, ErrorMessageResourceType = typeof(Locals), ErrorMessageResourceName = "valMaxLength")]
 		public string Email { get; set; }

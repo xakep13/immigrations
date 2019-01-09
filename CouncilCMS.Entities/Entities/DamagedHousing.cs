@@ -47,7 +47,7 @@ namespace Bissoft.CouncilCMS.DAL.Entities
 		public bool Saved { get; set; }
 		public int ViewCount { get; set; }
 
-		public List<string> Images { get; set; }
+		public string Image { get; set; }
 		public string ImageSource { get; set; }
 
 		public virtual List<ContentRow> ContentRows { get; set; }
