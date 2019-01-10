@@ -12,6 +12,16 @@ namespace Bissoft.CouncilCMS.BLL.ViewModels
 		public string FullName { get; set; }
 		public string Email { get; set; }
 
+		public string StartWork { get; set; }
+		public string EndWork { get; set; }
+		public string Status { get; set; }
+		public string FinanceType { get; set; }
+		public string FinanceSource { get; set; }
+		public int Year { get; set; }
+		public int Price { get; set; }
+		public double Lat { get; set; }
+		public double Lng { get; set; }
+
 		public int Id { get; set; }
 		public string Url { get; set; }
 		public string Title { get; set; }

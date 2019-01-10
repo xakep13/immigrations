@@ -140,6 +140,9 @@ namespace Bissoft.CouncilCMS.BLL.Services
 					PublishDate = DateTime.Now,
 					ShowPublihDate = true,
 					ShowEditDate = false,
+					Lng = 0,
+					Lat = 0,
+					Year = DateTime.Now.Year,
 					Published = true,
 					CreateUserId = (HttpContext.Current.User as CmsPrincipal).Identity.UserId
 				};
@@ -157,6 +160,15 @@ namespace Bissoft.CouncilCMS.BLL.Services
 				Email = article.Email,
 				Adress = article.Adress,
 				FullName = article.FullName,
+				StartWork = DateTimeHelper.NullableDateTimeString(article.StartWork, null, false, "dd.MM.yyyy HH:mm"),
+				EndWork = DateTimeHelper.NullableDateTimeString(article.EndWork, null, false, "dd.MM.yyyy HH:mm"),
+				Year = article.Year,
+				Price = article.Price,
+				Lat = article.Lat,
+				Lng = article.Lng,
+				FinanceSource = article.FinanceSource,
+				FinanceType = article.FinanceType,
+				Status = article.Status,
 				
 				Id = article.Id,
 				TitleRu = article.TitleRu,
@@ -201,6 +213,7 @@ namespace Bissoft.CouncilCMS.BLL.Services
 
 			return model;
 		}
+
 		public DamagedHousingEdit Save(DamagedHousingEdit model)
 		{
 			var item = damagedHousingRepo.GetById(model.Id);
@@ -247,6 +260,15 @@ namespace Bissoft.CouncilCMS.BLL.Services
 			item.FullName = model.FullName;
 			item.Adress = model.Adress;
 			item.Email = model.Email;
+			item.StartWork = DateTimeHelper.ParseDateNullable(model.StartWork, null, DateTimeHelper.DefaultTimeOfDay.None);
+			item.EndWork = DateTimeHelper.ParseDateNullable(model.EndWork, null, DateTimeHelper.DefaultTimeOfDay.None);
+			item.Status = model.Status;
+			item.FinanceSource = model.FinanceSource;
+			item.FinanceType = model.FinanceType;
+			item.Lat = model.Lat;
+			item.Lng = model.Lng;
+			item.Year = model.Year;
+			item.Price = model.Price;
 
 			item.Image = model.Image;
 			item.Published = model.Published;

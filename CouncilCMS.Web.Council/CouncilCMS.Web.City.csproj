@@ -873,6 +873,7 @@
     <Content Include="Views\Shared\_prtConsultations.cshtml" />
     <Content Include="Views\DamagedHousing\Category.cshtml" />
     <Content Include="Views\DamagedHousing\Item.cshtml" />
+    <Content Include="Views\DamagedHousing\AppForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\ControlPanel\Views\Index\" />

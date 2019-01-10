@@ -18,30 +18,30 @@
 			</div>
 			<p>@Model.Description</p>
 			<div class="repair_item_informers">
-				<div class="item_repair_status">Пошук виконавця робіт</div>
+				<div class="item_repair_status">@Model.Status</div>
 				<div class="repair_item_informer">
 					<p>Початок робіт</p>
-					<b>07.11.2018</b>
+					<b>@Model.StartWork</b>
 				</div>
 				<div class="repair_item_informer">
 					<p>Завершення робіт</p>
-					<b>28.12.2018</b>
+					<b>@Model.EndWork</b>
 				</div>
 				<div class="repair_item_informer">
 					<p>Заплановано коштів, тис. грн</p>
-					<b>6000 тис. грн,</b>
+					<b>@Model.Price грн,</b>
 				</div>
 				<div class="repair_item_informer">
 					<p>Рік виконання</p>
-					<b>2018</b>
+					<b>@Model.Year</b>
 				</div>
 				<div class="repair_item_informer">
 					<p>Джерело фінансування</p>
-					<b>Місцевий бюджет</b>
+					<b>@Model.FinanceSource</b>
 				</div>
 				<div class="repair_item_informer">
 					<p>Тип фінансування</p>
-					<b>Cпец. Фонд відповідно до підпункту 4 пункту 24 розділу VI «Прикінцеві та перехідні положення» БК України</b>
+					<b>@Model.FinanceType</b>
 				</div>
 			</div>
 			@*@Html.Action("LastSecondNews", "Articles", new { url = "main-news-2", count = 2 })*@

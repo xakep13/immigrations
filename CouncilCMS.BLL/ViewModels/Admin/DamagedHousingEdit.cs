@@ -38,6 +38,24 @@ namespace Bissoft.CouncilCMS.BLL.ViewModels
 		[StringLength(255, ErrorMessageResourceType = typeof(Locals), ErrorMessageResourceName = "valMaxLength")]
 		public string FullName { get; set; }
 
+		public string StartWork { get; set; }
+		public string EndWork { get; set; }
+
+		[StringLength(255, ErrorMessageResourceType = typeof(Locals), ErrorMessageResourceName = "valMaxLength")]
+		public string Status { get; set; }
+
+		[StringLength(255, ErrorMessageResourceType = typeof(Locals), ErrorMessageResourceName = "valMaxLength")]
+		public string FinanceType { get; set; }
+
+		[StringLength(255, ErrorMessageResourceType = typeof(Locals), ErrorMessageResourceName = "valMaxLength")]
+		public string FinanceSource { get; set; }
+
+		public int Year { get; set; }
+		public int Price { get; set; }
+
+		public double Lat { get; set; }
+		public double Lng { get; set; }
+
 		public string CreateDate { get; set; }
 		public string PublishDate { get; set; }
 		public string EventDate { get; set; }

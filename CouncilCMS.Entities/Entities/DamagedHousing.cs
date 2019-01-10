@@ -11,6 +11,19 @@ namespace Bissoft.CouncilCMS.DAL.Entities
 		public string Adress { get; set; }
 		public string FullName { get; set; }
 
+		public DateTime? StartWork { get; set; }
+		public DateTime? EndWork { get; set; }
+
+		public string Status { get; set; }
+		public string FinanceType { get; set; }
+		public string FinanceSource { get; set; }
+
+		public int Year { get; set; }
+		public int Price { get; set; }
+
+		public double Lat { get; set; }
+		public double Lng { get; set; }
+
 		public string UrlNameRu { get; set; }
 		public string UrlNameUk { get; set; }
 		public string UrlNameEn { get; set; }
@@ -38,8 +51,6 @@ namespace Bissoft.CouncilCMS.DAL.Entities
 		public bool ShowPublihDate { get; set; }
 		public bool ShowEditDate { get; set; }
 		public bool AllowComments { get; set; }
-
-		
 
 		public DateTime? EventDate { get; set; }
 		public DateTime? EditedDate { get; set; }

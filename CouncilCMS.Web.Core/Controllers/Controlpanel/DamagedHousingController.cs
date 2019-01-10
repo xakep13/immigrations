@@ -97,7 +97,11 @@ namespace Bissoft.CouncilCMS.Web.Areas.ControlPanel.Controllers
 
 			damagedHousingService.Save(model);
 
-			return PartialView("_prtDamagedHousingEditComplete", model);
+			if(model.Published)
+				return PartialView("_prtDamagedHousingEditComplete", model);
+			else
+				return Redirect("/uk/damagedhousing/category/all-houses/");
+			;
 		}
 
 		public ActionResult Delete(Int32 Id)

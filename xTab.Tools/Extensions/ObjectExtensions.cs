@@ -105,7 +105,7 @@ namespace xTab.Tools.Extensions
         public static String Translit(this string obj, bool clearDoubleSpaces = true)
         {
             List<String> cyrAlbhabet = new List<String> { "а", "б", "в", "г", "ґ", "д", "є", "е", "ё", "ж",  "з", "і", "ї", "и", "й", "к", "л", "м", "н", "о", "п", "р", "с", "т", "у", "ф", "х", "ц", "ч",  "ш",  "щ",  "ы", "ь", "ъ", "э", "ю", "я",   ".", ",", " ", "-", "_", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0" };
-            List<String> latAlbhabet = new List<String>   { "a", "b", "v", "g", "g", "d", "e", "e", "e", "zh", "z", "i", "i", "i", "j", "k", "l", "m", "n", "o", "p", "r", "s", "t", "u", "f", "h", "c", "ch", "sh", "sch", "y", "",  "", "e", "yu", "ya", "-", "-", "-", "-", "_", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0" };
+            List<String> latAlbhabet = new List<String> { "a", "b", "v", "g", "g", "d", "e", "e", "e", "zh", "z", "i", "i", "y", "j", "k", "l", "m", "n", "o", "p", "r", "s", "t", "u", "f", "h", "c", "ch", "sh", "sch", "y", "",  "", "e", "yu", "ya", "-", "-", "-", "-", "_", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0" };
             String Result = String.Empty;
 
             if (!string.IsNullOrEmpty(obj))

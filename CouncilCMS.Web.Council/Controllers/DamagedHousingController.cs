@@ -59,6 +59,13 @@ namespace Bissoft.CouncilCMS.Web.Controllers
 				return new HttpNotFoundResult();
 		}
 
+		public ActionResult AppForm()
+		{
+			var model = damagedHousingService.GetForEdit();
+
+			return View(model);
+		}
+
 		public ActionResult EventCalendar(string Url)
 		{
 			var model = damagedHousingService.GetEventCalendar(Url);
