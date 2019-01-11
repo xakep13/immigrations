@@ -52,34 +52,42 @@
 							helpText: "Відображається у списку матеріалів, якщо обрано відповідний шаблон списку, а також на сторінці матеріалу, безпосередньо перед основним текстом")
 					</div>
 					<div class="row">
-						<div class="col-sm-4">
-							@Html.SimpleTextBoxFor(x => x.PublishDate, "Дата публікації", new { @class = "form-control bs-datepicker", @readonly = "readonly", data_format = "DD.MM.YYYY HH:mm" }, helpText: "Ця дата буде відображена у полі <strong>Опубліковано</strong> на сторінці матеріалу, також матеріал буде не доступним для перегляду на сайті раніше від цієї дати")
+						<div class="col-sm-8">
+							@Html.SimpleTextBoxFor(x => x.Adress, "Адреса", new { @class = "form-control" })
 						</div>
 						<div class="col-sm-4">
-							@Html.SimpleTextBoxFor(x => x.EditedDate, "Дата оновлення інформації", new { @class = "form-control bs-datepicker", data_format = "DD.MM.YYYY HH:mm" })
+							@Html.SimpleTextBoxFor(x => x.Email, "Email", new { @class = "form-control" })
 						</div>
 						<div class="col-sm-4">
-							@Html.SimpleTextBoxFor(x => x.EventDate, "Дата події", new { @class = "form-control bs-datepicker", @readonly = "readonly", data_format = "DD.MM.YYYY HH:mm" }, helpText: "Для розділу <strong>Анонси</strong> для інших розділів можна залишити постую")
+							@Html.SimpleTextBoxFor(x => x.PublishDate, "Дата публікації", new { @class = "form-control bs-datepicker", @readonly = "readonly", data_format = "DD.MM.YYYY HH:mm" }, helpText: "Для розділу <strong>Анонси</strong> для інших розділів можна залишити постую")
 						</div>
-
+						<div class="col-sm-4">
+							@Html.SimpleTextBoxFor(x => x.StartWork, "Початок робіт", new { @class = "form-control bs-datepicker", @readonly = "readonly", data_format = "DD.MM.YYYY HH:mm" }, helpText: "Для розділу <strong>Анонси</strong> для інших розділів можна залишити постую")
+						</div>
+						<div class="col-sm-4">
+							@Html.SimpleTextBoxFor(x => x.EndWork, "Кінець робіт", new { @class = "form-control bs-datepicker", @readonly = "readonly", data_format = "DD.MM.YYYY HH:mm" }, helpText: "Для розділу <strong>Анонси</strong> для інших розділів можна залишити постую")
+						</div>
+						<div class="col-sm-4">
+							@Html.SimpleTextBoxFor(x => x.Year, "Рік виконання", new { @class = "form-control " })
+						</div>
+						<div class="col-sm-8">
+							@Html.SimpleTextBoxFor(x => x.FinanceType, "Тип фінансування", new { @class = "form-control " })
+						</div>
+						<div class="col-sm-12">
+							@Html.SimpleTextBoxFor(x => x.FinanceSource, "Джерело фінансування", new { @class = "form-control" })
+						</div>
+						<div class="col-sm-4">
+							@Html.SimpleTextBoxFor(x => x.Price, "Заплановано коштів", new { @class = "form-control"})
+						</div>
+						<div class="col-sm-4">
+							@Html.SimpleTextBoxFor(x => x.Status, "Cтатус виконання", new { @class = "form-control"})
+						</div>
 					</div>
 
 					<div class="row">
 						<div class="col-sm-5">
 							@Html.SimpleCheckboxFor(x => x.Published, "Налаштування", "Опублікувати на сайті", helpText: "Допоки параметр \"Опублікувати на сайті\" не відмічено, матеріал не буде доступним для перегляду на сайті не залежно від дати публікації")
-							<button id="facebookLogInBtn" class="btn-default facebookBtn">
-								Залогінитися в фейсбук
-							</button>
-							<button id="facebookPostBtn" class="btn-default facebookBtn">
-								Запостити в фейсбук
-							</button>
-							<span id="postPageStatus">
-							</span>
-							@*Html.Simple(x => x.FacebookSharing, "Поширити", "Поширити в фейсбук", new { name="FacebookSharing" })*@
-							@Html.SimpleCheckboxFor(x => x.ShowPublihDate, null, "Показувати дату публікації")
-							@Html.SimpleCheckboxFor(x => x.ShowEditDate, null, "Показувати дату оновлення")
-							@Html.SimpleCheckboxFor(x => x.AllowComments, null, "Дозволити коментування")
-						</div>
+												</div>
 						<div class="col-sm-7">
 							@Html.SimpleUploaderFor(x=>x.Image, "Головне фото", helpText: "Відображається на сторінці матеріалу біля загловку",
 							 options: new ImageUploaderOptions()

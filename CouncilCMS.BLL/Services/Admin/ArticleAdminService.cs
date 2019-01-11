@@ -192,6 +192,7 @@ namespace Bissoft.CouncilCMS.BLL.Services
 
             return model;
         }
+
         public ArticleEdit Save(ArticleEdit model)
         {
             var item = articleRepo.GetById(model.Id);

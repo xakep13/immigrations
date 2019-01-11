@@ -8,54 +8,41 @@
 	<div class="container">
 		<h1 class="page_header">Форма звернення з відновлення житла</h1>
 		<div class="form_of_appeal_container">
-			<form action="/uk/ControlPanel/DamagedHousing/Save" id="formMain" method="post" novalidate="novalidate"
-
+			<form action="/uk/ControlPanel/DamagedHousing/Save" id="" method="post" novalidate="novalidate" data-ajax="true">
 				<div class="form_block_with_label">
-					<!--
-						<span>Назва об'єкту</span>
-						<input type="text" placeholder="Залиште назву об'єкту">
-					-->
 					@Html.SimpleTextBoxFor(x => x.TitleUk, "Назва об'єкту")
 				</div>
 				<div class="form_block_with_label form_block_with_label_half">
-					<select name="" id="" style="display: none;">
-						<option value="">Категорія</option>
-						<option value="">Категорія</option>
-						<option value="">Категорія</option>
+					<select name="DamagedLevelId" id="" style="display: none;">
+						@foreach(var item in Model.DamagedLevel)
+						{
+							<option value="@item.Value">@item.Name</option>
+						}
 					</select>
-
 				</div>
 				<div class="form_block_with_label form_block_with_label_half">
-					<select name="" id="" style="display: none;">
-						<option value="">Рівень пошкодження1</option>
-						<option value="">Рівень пошкодження2</option>
-						<option value="">Рівень пошкодження3</option>
+					<select name="DamagedHousingCategoryId" id="" style="display: none;">
+						@foreach(var item in Model.DamagedHousingCategories)
+						{
+							<option value="@item.Value">@item.Name</option>
+						}
 					</select>
 				</div>
 				<div class="form_block_with_label">
 					@Html.SimpleTextAreaFor(x => x.DescriptionUk, "Короткий опис стану пошкодження")
-					@*<textarea placeholder="Короткий опис стану пошкодження"></textarea>*@
 				</div>
 				<div class="form_block_with_label">
 					@Html.SimpleTextBoxFor(x => x.Adress, "Адрес")
-					@*<input type="text" placeholder="Адреса">*@
 				</div>
 				<div class="form_block_with_label form_block_with_label_half">
 					@Html.SimpleTextBoxFor(x => x.FullName, "Ім'я")
-					@*<input type="text" placeholder="Iм'я">*@
 				</div>
 				<div class="form_block_with_label form_block_with_label_half">
 					@Html.SimpleTextBoxFor(x => x.Email, "Email")
-					@*<input type="text" placeholder="E-mail">*@
 				</div>
-				@*<div class="form_block_map">
-					<img class="mapclass" src="~/Content/img/1188275.jpg" alt="">
-					<div class="form_block_map_comment">
-						Виберіть об'єкт на карті. Якщо ви залишите адреса не заповненими, то він буде автоматично згенеровані з вашого місця розташування
-					</div>
-				</div>*@
 
-				@*<div class="add_new_files dropzone ">
+
+				<div class="add_new_files dropzone ">
 					<div class="add_new_file_row" id="add_photo">
 						<div class="imit_file dz-clickable">Додайте фото</div>
 						<p><span>Додайте фото.</span><span>Максимальний розмір файлу — 5 Мб</span></p>
@@ -63,8 +50,12 @@
 					<div class="previewsContainer">
 
 					</div>
-				</div>*@
-						
+				</div>
+
+
+				@Html.HiddenFor(x => x.Id, new { Value = Model.Id })
+				@Html.HiddenFor(x=>x.Image,new { @id = "image-input" })
+
 				<div class="form_of_appeal_checkbox">
 					<div class="form_of_appeal_check">
 						<input type="checkbox" id="form_of_appeal_checkbox">
@@ -72,9 +63,14 @@
 					</div>
 					<div class="form_of_appeal_butt"><input class="login_popup_submit" type="submit" value="Додати"></div>
 				</div>
-			@Html.HiddenFor(x => x.Id, new { Value = Model.Id })
 			</form>
 		</div>
 	</div>
 </div>
-
+<script>
+	$('.previewsContainer').bind("DOMSubtreeModified", function () {
+		var huy = $('.previewsContainer #Image').html();
+		$('#image-input').val(huy);
+		console.log(huy);
+	});
+</script>

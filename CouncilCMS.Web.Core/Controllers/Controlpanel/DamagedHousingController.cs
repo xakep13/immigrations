@@ -94,14 +94,29 @@ namespace Bissoft.CouncilCMS.Web.Areas.ControlPanel.Controllers
 		[HttpPost]
 		public ActionResult Save(DamagedHousingEdit model)
 		{
+			if(model.DamagedHousingCategoryId != 0)
+			{
+				model.Image = "/upload/imagepath/" + model.Image;
+				model.DamagedHousingCategories = damagedHousingService.CategoriesForAdmin().Select(x =>
+					new CheckedListItem()
+					{
+						Value = x.Id,
+						Name = x.TitleUk,
+						Level = 0,
+						Allowed = true
+					}).ToList();
 
+				foreach(var item in model.DamagedHousingCategories)
+					if(item.Value == model.DamagedLevelId || item.Value == model.DamagedHousingCategoryId)
+						item.IsChecked = true;
+			}
 			damagedHousingService.Save(model);
 
 			if(model.Published)
 				return PartialView("_prtDamagedHousingEditComplete", model);
 			else
 				return Redirect("/uk/damagedhousing/category/all-houses/");
-			;
+			
 		}
 
 		public ActionResult Delete(Int32 Id)
@@ -118,5 +133,4 @@ namespace Bissoft.CouncilCMS.Web.Areas.ControlPanel.Controllers
 			return null;
 		}
 	}
-
 }

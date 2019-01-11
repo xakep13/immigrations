@@ -67,9 +67,11 @@ namespace Bissoft.CouncilCMS.BLL.ViewModels
 		public bool ShowEditDate { get; set; }
 
 		public List<CheckedListItem> DamagedHousingCategories { get; set; }
+		public List<CheckedListItem> DamagedLevel { get; set; }
 		public List<ContentRowItem> ContentRows { get; set; }
 
-
+		public int DamagedHousingCategoryId { get; set; }
+		public int DamagedLevelId { get; set; }
 		#region Meta
 
 		[StringLength(255, ErrorMessageResourceType = typeof(Locals), ErrorMessageResourceName = "valMaxLength")]

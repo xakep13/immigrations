@@ -106,6 +106,14 @@ namespace Bissoft.CouncilCMS.Web
            );
 
 			routes.MapRoute(
+			  name: "DamagedHousingCategoriesLocal",
+			  url: "{lang}/damagedhousing/getchildrencategory/{url}",
+			  defaults: new { controller = "DamagedHousing", action = "GetChildrenCategory", url = UrlParameter.Optional },
+			  constraints: new { lang = @"ru|uk|en", url = @"[a-zA-Z0-9-_]{0,}" },
+			  namespaces: new string[] { "Bissoft.CouncilCMS.Web.Controllers" }
+		  );
+
+			routes.MapRoute(
 			  name: "DamagedHousingCategoryLocal",
 			  url: "{lang}/damagedhousing/category/{url}/{page}",
 			  defaults: new { controller = "DamagedHousing", action = "Category", url = UrlParameter.Optional, page = 1 },
@@ -144,7 +152,7 @@ namespace Bissoft.CouncilCMS.Web
 			  constraints: new { lang = @"ru|uk|en", url = @"[a-zA-Z0-9-_]{0,}", id = @"[0-9]{1,}" },
 			  namespaces: new string[] { "Bissoft.CouncilCMS.Web.Controllers" }
 		  );
-
+						
 			routes.MapRoute(
                 name: "ArticleItem",
                 url: "articles/item/{id}/{url}",

@@ -148,6 +148,8 @@
     <Compile Include="Services\Common\WeatherService.cs" />
     <Compile Include="Services\Common\AccountService.cs" />
     <Compile Include="Services\Public\CmsArticleService.cs" />
+    <Compile Include="Services\Public\CmsDamagedHousingCategoryList.cs" />
+    <Compile Include="Services\Public\CmsDamagedHousingCategoryListItem.cs" />
     <Compile Include="Services\Public\CmsDamagedHousingService.cs" />
     <Compile Include="Services\Public\CmsNewsletterService.cs" />
     <Compile Include="Services\Public\CmsBannerService.cs" />

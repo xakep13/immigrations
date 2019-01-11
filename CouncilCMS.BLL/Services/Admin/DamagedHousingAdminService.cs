@@ -44,6 +44,12 @@ namespace Bissoft.CouncilCMS.BLL.Services
 			cmsSearchService = new CmsSearchAdminService(this.UnitOfWork);
 		}
 
+		public List<DamagedHousingCategory> CategoriesForAdmin()
+		{
+			var categories = categoryRepo.GetList(includeProperties: "AllowedUsers,AllowedRoles").ToList();
+			return categories;
+		}
+
 		public DamagedHousingList List(string query = null, string dateRange = null, int dateType = 0, int? categoryId = null, CmsItemState itemState = CmsItemState.All, Int32 page = 1, string sortBy = "PublishDate", int sortDir = 1, int? user = null, int userAction = 0, int? userId = null)
 		{
 			var model = new DamagedHousingList()

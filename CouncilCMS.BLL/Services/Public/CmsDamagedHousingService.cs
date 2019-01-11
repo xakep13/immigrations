@@ -1,4 +1,5 @@
-﻿using Bissoft.CouncilCMS.BLL.ViewModels;
+﻿using Bissoft.CouncilCMS.BLL.Services.Public;
+using Bissoft.CouncilCMS.BLL.ViewModels;
 using Bissoft.CouncilCMS.Core;
 using Bissoft.CouncilCMS.Core.Enums;
 using Bissoft.CouncilCMS.DAL.Entities;
@@ -538,7 +539,12 @@ namespace Bissoft.CouncilCMS.BLL.Services
 				EditedDate = null
 			};
 
-			
+			model.DamagedHousingCategories =
+				GetCategoryCheckedList(
+					model.DamagedHousingCategories,
+					categories.Where(x => x.ParentCategoryId == null).OrderBy(x => x.Position).ToList(),
+					categories,
+					0);
 
 			foreach(var item in article.Categories.Select(x => x.Id).ToList())
 			{
@@ -547,6 +553,31 @@ namespace Bissoft.CouncilCMS.BLL.Services
 
 
 			return model;
+		}
+
+		private List<CheckedListItem> GetCategoryCheckedList(List<CheckedListItem> targetList, List<DamagedHousingCategory> levelList, List<DamagedHousingCategory> sourceList, int level = 0, int? userId = null, int? roleId = null)
+		{
+			targetList = targetList ?? new List<CheckedListItem>();
+			
+
+			foreach(var cat in levelList)
+			{
+				targetList.Add(
+					new CheckedListItem()
+					{
+						Value = cat.Id,
+						Name = cat.GetLocalValue("Title"),
+						Level = level,
+						Allowed =  true
+					});
+
+				if(sourceList.Count(x => x.ParentCategoryId == cat.Id) > 0)
+				{
+					GetCategoryCheckedList(targetList, sourceList.Where(x => x.ParentCategoryId == cat.Id).OrderBy(x => x.Position).ToList(), sourceList, level + 1, userId);
+				}
+			}
+
+			return targetList;
 		}
 
 		public void Save(DamagedHousingEdit model)
@@ -632,6 +663,23 @@ namespace Bissoft.CouncilCMS.BLL.Services
 			}
 
 			UnitOfWork.Commit();
+		}
+
+		public CmsDamagedHousingCategoryList GetChildrenCategory(string parent)
+		{
+			var model = damagedHousingCatRepo.GetSingle(x => x.UrlName == parent);
+
+			CmsDamagedHousingCategoryList ChildCategories = new CmsDamagedHousingCategoryList
+			{
+				Id = model.Id,
+				Title = model.TitleUk,
+				Categories = model.ChildCategories.Select(x => new CmsDamagedHousingCategoryListItem
+				{
+					Id = x.Id,
+					Title = x.TitleUk,
+				}).ToList()
+			};
+			return ChildCategories;
 		}
 
 		public void AddView(Int32 id)

@@ -1,4 +1,5 @@
 ﻿using Bissoft.CouncilCMS.BLL.Services;
+using Bissoft.CouncilCMS.BLL.Services.Public;
 using Bissoft.CouncilCMS.BLL.ViewModels;
 using Bissoft.CouncilCMS.Core.Enums;
 using System;
@@ -53,6 +54,7 @@ namespace Bissoft.CouncilCMS.Web.Controllers
 				if(User.Identity.IsAuthenticated && userAdminService.IsAdmin(User.Identity.UserId))
 					ViewBag.isAdmin = true;
 
+
 				return View(model);
 			}
 			else
@@ -61,8 +63,36 @@ namespace Bissoft.CouncilCMS.Web.Controllers
 
 		public ActionResult AppForm()
 		{
-			var model = damagedHousingService.GetForEdit();
+			CmsDamagedHousingCategoryList damagedLevel = damagedHousingService.GetChildrenCategory("damaged-level");
+			CmsDamagedHousingCategoryList categories = damagedHousingService.GetChildrenCategory("category");
 
+			DamagedHousingEdit model = damagedHousingService.GetForEdit();
+			model.DamagedHousingCategories = new List<CheckedListItem>();
+			model.DamagedLevel = new List<CheckedListItem>();
+
+			foreach(var item in categories.Categories)
+			{
+				model.DamagedHousingCategories.Add(new CheckedListItem
+				{
+					IsChecked = false,
+					Level = 0,
+					Allowed = true,
+					Name = item.Title,
+					Value = item.Id
+				});
+			}
+
+			foreach(var item in damagedLevel.Categories)
+			{
+				model.DamagedLevel.Add(new CheckedListItem
+				{
+					IsChecked = false,
+					Level = 0,
+					Allowed = true,
+					Name = item.Title,
+					Value = item.Id
+				});
+			}
 			return View(model);
 		}
 
@@ -71,6 +101,13 @@ namespace Bissoft.CouncilCMS.Web.Controllers
 			var model = damagedHousingService.GetEventCalendar(Url);
 
 			return Json(model, JsonRequestBehavior.AllowGet);
+		}
+
+		public CmsDamagedHousingCategoryList GetChildrenCategory(string Url)
+		{
+			CmsDamagedHousingCategoryList model = damagedHousingService.GetChildrenCategory(Url);
+
+			return model;
 		}
 	}
 }
