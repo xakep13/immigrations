@@ -26,16 +26,12 @@
 			<div class="container">
 				<div class="mobile_logo">
 					<a href="/">
-						<span class="logo"><img src="~/Content/img/group-132.png" alt=""></span>
+						<span class="logo"><img class="gerb-icon" src="@CmsSettings.LogoUk" alt=""></span>
 					</a>
 				</div>
 				<div class="mobile_breadcrumbs">
 					<ul>
-						<li><a href="/">Головна</a></li>
-						<li>/</li>
-						<li>Реєстр</li>
-						<li>/</li>
-						<li>Житло, що потребуе відновлення</li>
+						<li></li>
 					</ul>
 				</div>
 				<div class="mobile_sandvich">
@@ -43,19 +39,15 @@
 						<div class="close_mobile_collapsed"></div>
 						<div class="logo_container">
 							<a href="/">
-								<span class="logo"><img src="~/Content/img/Gerb.png" alt=""><img src="~/Content/img/group-132.png" alt=""></span>
+								<span class="logo"><img src="@CmsSettings.SubLogoUk" alt=""><img class="gerb-icon" src="@CmsSettings.LogoUk" alt=""></span>
 							</a>
 							<div class="slogan">
-								<h5>Донецький обласний Центр допомоги переселенцям та відновлення Донбасу</h5>
+								<h5>@CmsSettings.TitleUk</h5>
+								<p>@CmsSettings.SubTitleUk</p>
 							</div>
 						</div>
 						<div class="main_menu">
-							<ul>
-								<li><a href="#">Головна</a></li>
-								<li><a href="#">Новини</a></li>
-								<li><a href="#">Пільги та гарантії</a></li>
-								<li><a href="#">Контакти</a></li>
-							</ul>
+							@Html.Action("MainMenu", "Home")
 						</div>
 						<div class="low">
 							<img src="~/Content/img/accessibility-icon-big.png" alt="">
@@ -71,8 +63,22 @@
 						</div>
 						<div class="social">
 							<ul>
-								<li><a href="#"><img src="~/Content/img/Facebook@1x.png" alt=""></a></li>
-								<li><a href="#"><img src="~/Content/img/twitter.png" alt=""></a></li>
+								@if(!String.IsNullOrEmpty(CmsSettings.FbLink))
+								{
+									<li><a href="@CmsSettings.FbLink"><img src="/content/img/icons/social-item-5.svg" alt=""></a></li>
+								}
+								@if(!String.IsNullOrEmpty(CmsSettings.TwLink))
+								{
+									<li><a href="@CmsSettings.TwLink"><img src="/content/img/icons/social-item-3.svg" alt=""></a></li>
+								}
+								@if(!String.IsNullOrEmpty(CmsSettings.YtLink))
+								{
+									<li><a href="@CmsSettings.YtLink"><img src="/content/img/icons/social-item-2.svg" alt=""></a></li>
+								}
+								@if(!String.IsNullOrEmpty(CmsSettings.IgLink))
+								{
+									<li><a href="@CmsSettings.IgLink"><img src="/content/img/icons/social-item-4.svg" alt=""></a></li>
+								}
 							</ul>
 						</div>
 						<div class="mob_logo"><img src="~/Content/img/gov-site.png" alt=""></div>
@@ -80,6 +86,7 @@
 				</div>
 			</div>
 		</div>
+
 		<div class="top_panel">
 			<div class="container">
 				<div class="top_logo">
@@ -87,8 +94,22 @@
 				</div>
 				<div class="social">
 					<ul>
-						<li><a href="#"><img src="~/Content/img/Facebook@1x.png" alt=""></a></li>
-						<li><a href="#"><img src="~/Content/img/twitter.png" alt=""></a></li>
+						@if(!String.IsNullOrEmpty(CmsSettings.FbLink))
+						{
+							<li><a href="@CmsSettings.FbLink"><img src="~/Content/img/Facebook@1x.png" alt=""></a></li>
+						}
+						@if(!String.IsNullOrEmpty(CmsSettings.TwLink))
+						{
+							<li><a href="@CmsSettings.TwLink"><img src="~/Content/img/twitter.png" alt=""></a></li>
+						}
+						@if(!String.IsNullOrEmpty(CmsSettings.YtLink))
+						{
+							<li><a href="@CmsSettings.YtLink"><img src="/content/img/icons/social-item-2.svg" alt=""></a></li>
+						}
+						@if(!String.IsNullOrEmpty(CmsSettings.IgLink))
+						{
+							<li><a href="@CmsSettings.IgLink"><img src="/content/img/icons/social-item-4.svg" alt=""></a></li>
+						}
 					</ul>
 				</div>
 				<div class="right heder_block_dopmenu">
@@ -119,36 +140,33 @@
 						<span>Рева О.О.</span>
 						<div class="logined_menu">
 							<ul>
-								<li><a href="#">Настройки</a></li>
+								<li><a href="#">Налаштування</a></li>
 								<li><a href="#">Вихід</a></li>
 							</ul>
-
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+
+
 		<div class="main_header">
 			<div class="container">
 				<div class="logo_container">
 					<a href="/">
-						<span class="logo"><img src="~/Content/img/Gerb.png" alt=""><img src="~/Content/img/group-132.png" alt=""></span>
+						<span class="logo"><img src="@CmsSettings.SubLogoUk" alt=""><img class="gerb-icon" src="@CmsSettings.LogoUk" alt=""></span>
 					</a>
 					<div class="slogan">
-						<h5>Центр допомоги переселенцям</h5>
-						<p>та відновлення Донабасу при ДонВЦОДА</p>
+						<h5>@CmsSettings.TitleUk</h5>
+						<p>@CmsSettings.SubTitleUk</p>
 					</div>
 				</div>
 				<div class="right">
 					<div class="main_menu">
-						<ul>
-							<li><a href="#">Головна</a></li>
-							<li><a href="#">Потрібна допомога</a></li>
-							<li><a href="#">Пільги та гарантії</a></li>
-							<li><a href="#">Контакти</a></li>
-						</ul>
+						@Html.Action("MainMenu", "Home")
 					</div>
 				</div>
+				
 			</div>
 		</div>
 	</header>

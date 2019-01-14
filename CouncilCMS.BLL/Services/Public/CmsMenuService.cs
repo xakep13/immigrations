@@ -16,11 +16,13 @@ namespace Bissoft.CouncilCMS.BLL.Services
         private IRepository<Menu, int> menuRepo;
         private IRepository<Page, int> pageRepo;
         private IRepository<Article, int> articleRepo;
-        private IRepository<Person, int> personRepo;
+        private IRepository<DamagedHousing, int> damagedHousingRepo;
+		private IRepository<Person, int> personRepo;
         private IRepository<Enterprise, int> enterpriseRepo;
         private IRepository<Doc, int> docRepo;
         private IRepository<ArticleCategory, int> articleCatRepo;
-        private IRepository<PersonCategory, int> personCatRepo;
+		private IRepository<DamagedHousingCategory, int> damagedHousingCatRepo;
+		private IRepository<PersonCategory, int> personCatRepo;
         private IRepository<EnterpriseCategory, int> enterpriseCatRepo;
         private IRepository<DocCategory, int> docCatRepo;
         private IRepository<MenuItem, int> menuItemRepo;
@@ -42,7 +44,9 @@ namespace Bissoft.CouncilCMS.BLL.Services
             menuItemRepo = UnitOfWork.GetIntRepository<MenuItem>();
             pageRepo = UnitOfWork.GetIntRepository<Page>();
             articleRepo = UnitOfWork.GetIntRepository<Article>();
-            personRepo = UnitOfWork.GetIntRepository<Person>();
+			damagedHousingRepo = UnitOfWork.GetIntRepository<DamagedHousing>();
+			damagedHousingCatRepo = UnitOfWork.GetIntRepository<DamagedHousingCategory>();
+			personRepo = UnitOfWork.GetIntRepository<Person>();
             enterpriseRepo = UnitOfWork.GetIntRepository<Enterprise>();
             docRepo = UnitOfWork.GetIntRepository<Doc>();
             articleCatRepo = UnitOfWork.GetIntRepository<ArticleCategory>();
@@ -246,8 +250,29 @@ namespace Bissoft.CouncilCMS.BLL.Services
                             result = "/" + CurrentCulture.Name.ToLower() + "/articles/item/" + id + "/" + dest.url;
                     }
 
-                    break;
-                case (int)MenuItemType.Enterprise:
+					break;
+				case (int)MenuItemType.DamagedHousing:
+					if(Int32.TryParse(item.Value, out id))
+					{
+						var dest = damagedHousingRepo.GetList(x => x.Id == id).Select(x => new { url = x.UrlNameUk }).FirstOrDefault();
+
+						if(dest != null)
+							result = "/" + CurrentCulture.Name.ToLower() + "/damagedhousing/item/" + id + "/" + dest.url;
+					}
+
+					break;
+
+				case (int)MenuItemType.DamagedHousingCategory:
+					if(Int32.TryParse(item.Value, out id))
+					{
+						var dest = damagedHousingCatRepo.GetList(x => x.Id == id).Select(x => new { url = x.UrlName }).FirstOrDefault();
+
+						if(dest != null)
+							result = "/" + CurrentCulture.Name.ToLower() + "/damagedhousing/category/"  + dest.url + "/";
+					}
+
+					break;
+				case (int)MenuItemType.Enterprise:
                     if (Int32.TryParse(item.Value, out id))
                     {
                         var dest = enterpriseRepo.GetList(x => x.Id == id).Select(x => new { url = x.UrlNameUk }).FirstOrDefault();

@@ -118,10 +118,31 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/13/2017 12:45:58</publishTime>
     </File>
     <File Include="Areas/ControlPanel/Views/CmsSettings/Edit.cshtml">
-      <publishTime>12/29/2018 14:29:39</publishTime>
+      <publishTime>12/29/2018 15:26:26</publishTime>
     </File>
     <File Include="Areas/ControlPanel/Views/CmsSettings/_prtCmsSettingsEditComplete.cshtml">
       <publishTime>06/26/2017 19:52:12</publishTime>
+    </File>
+    <File Include="Areas/ControlPanel/Views/DamagedHousing/List.cshtml">
+      <publishTime>01/08/2019 16:48:08</publishTime>
+    </File>
+    <File Include="Areas/ControlPanel/Views/DamagedHousing/_prtDamagedHousingEdit.cshtml">
+      <publishTime>01/11/2019 19:46:30</publishTime>
+    </File>
+    <File Include="Areas/ControlPanel/Views/DamagedHousing/_prtDamagedHousingEditComplete.cshtml">
+      <publishTime>01/08/2019 16:53:10</publishTime>
+    </File>
+    <File Include="Areas/ControlPanel/Views/DamagedHousing/_prtDamagedHousingList.cshtml">
+      <publishTime>01/08/2019 16:37:37</publishTime>
+    </File>
+    <File Include="Areas/ControlPanel/Views/DamagedHousing/_prtDamagedHousingPrev.cshtml">
+      <publishTime>01/08/2019 16:53:09</publishTime>
+    </File>
+    <File Include="Areas/ControlPanel/Views/DamagedHousingCategories/List.cshtml">
+      <publishTime>01/08/2019 19:03:03</publishTime>
+    </File>
+    <File Include="Areas/ControlPanel/Views/DamagedHousingCategories/_prtDamagedHousingCategoryItemEdit.cshtml">
+      <publishTime>01/08/2019 18:28:57</publishTime>
     </File>
     <File Include="Areas/ControlPanel/Views/DocCategories/List.cshtml">
       <publishTime>12/13/2018 10:14:05</publishTime>
@@ -205,7 +226,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/13/2017 16:59:14</publishTime>
     </File>
     <File Include="Areas/ControlPanel/Views/Menus/_prtMenuItemEdit.cshtml">
-      <publishTime>12/12/2018 10:44:43</publishTime>
+      <publishTime>01/09/2019 14:53:53</publishTime>
     </File>
     <File Include="Areas/ControlPanel/Views/Menus/_prtMenuItemList.cshtml">
       <publishTime>07/05/2017 18:39:28</publishTime>
@@ -364,7 +385,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/06/2017 13:55:00</publishTime>
     </File>
     <File Include="Areas/ControlPanel/Views/Shared/_Layout.cshtml">
-      <publishTime>11/12/2018 18:21:30</publishTime>
+      <publishTime>01/08/2019 19:03:31</publishTime>
     </File>
     <File Include="Areas/ControlPanel/Views/Shared/_prtAllowedRoleItem.cshtml">
       <publishTime>07/18/2017 13:24:56</publishTime>
@@ -424,67 +445,67 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/19/2018 03:25:00</publishTime>
     </File>
     <File Include="bin/App_Code.compiled">
-      <publishTime>12/29/2018 14:38:05</publishTime>
+      <publishTime>01/14/2019 18:35:15</publishTime>
     </File>
     <File Include="bin/App_Code.dll">
-      <publishTime>12/29/2018 14:38:05</publishTime>
+      <publishTime>01/14/2019 18:35:14</publishTime>
     </File>
     <File Include="bin/App_global.asax.compiled">
-      <publishTime>12/29/2018 14:38:06</publishTime>
+      <publishTime>01/14/2019 18:35:15</publishTime>
     </File>
     <File Include="bin/App_global.asax.dll">
-      <publishTime>12/29/2018 14:38:06</publishTime>
+      <publishTime>01/14/2019 18:35:15</publishTime>
     </File>
     <File Include="bin/AutoMapper.dll">
       <publishTime>04/19/2018 03:26:24</publishTime>
     </File>
     <File Include="bin/CouncilCMS.BLL.dll">
-      <publishTime>12/27/2018 11:43:40</publishTime>
+      <publishTime>01/14/2019 18:35:06</publishTime>
     </File>
     <File Include="bin/CouncilCMS.BLL.dll.config">
       <publishTime>06/26/2017 18:01:52</publishTime>
     </File>
     <File Include="bin/CouncilCMS.BLL.pdb">
-      <publishTime>12/27/2018 11:43:40</publishTime>
+      <publishTime>01/14/2019 18:35:06</publishTime>
     </File>
     <File Include="bin/CouncilCMS.Core.dll">
-      <publishTime>12/27/2018 11:43:38</publishTime>
+      <publishTime>01/14/2019 18:35:05</publishTime>
     </File>
     <File Include="bin/CouncilCMS.Core.dll.config">
       <publishTime>01/31/2017 20:46:16</publishTime>
     </File>
     <File Include="bin/CouncilCMS.Core.pdb">
-      <publishTime>12/27/2018 11:43:38</publishTime>
+      <publishTime>01/14/2019 18:35:05</publishTime>
     </File>
     <File Include="bin/CouncilCMS.DAL.dll">
-      <publishTime>12/27/2018 11:43:39</publishTime>
+      <publishTime>01/14/2019 18:35:06</publishTime>
     </File>
     <File Include="bin/CouncilCMS.DAL.dll.config">
-      <publishTime>12/12/2018 18:07:03</publishTime>
+      <publishTime>01/14/2019 11:21:32</publishTime>
     </File>
     <File Include="bin/CouncilCMS.DAL.pdb">
-      <publishTime>12/27/2018 11:43:39</publishTime>
+      <publishTime>01/14/2019 18:35:06</publishTime>
     </File>
     <File Include="bin/CouncilCMS.Entities.dll">
-      <publishTime>12/27/2018 11:43:38</publishTime>
+      <publishTime>01/14/2019 18:35:05</publishTime>
     </File>
     <File Include="bin/CouncilCMS.Entities.pdb">
-      <publishTime>12/27/2018 11:43:38</publishTime>
+      <publishTime>01/14/2019 18:35:05</publishTime>
     </File>
     <File Include="bin/CouncilCMS.Web.Core.dll">
-      <publishTime>12/27/2018 11:43:40</publishTime>
+      <publishTime>01/14/2019 18:35:07</publishTime>
     </File>
     <File Include="bin/CouncilCMS.Web.Core.pdb">
-      <publishTime>12/27/2018 11:43:40</publishTime>
+      <publishTime>01/14/2019 18:35:07</publishTime>
     </File>
     <File Include="bin/CouncilCMS.Web.Pervomaysk.dll">
-      <publishTime>12/29/2018 14:37:59</publishTime>
+      <publishTime>01/14/2019 18:35:08</publishTime>
     </File>
     <File Include="bin/CouncilCMS.Web.Pervomaysk.pdb">
-      <publishTime>12/29/2018 14:37:59</publishTime>
+      <publishTime>01/14/2019 18:35:08</publishTime>
     </File>
     <File Include="bin/en/CouncilCMS.Web.Pervomaysk.resources.dll">
-      <publishTime>12/29/2018 14:37:59</publishTime>
+      <publishTime>01/14/2019 18:35:09</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>04/19/2018 03:26:26</publishTime>
@@ -556,7 +577,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/19/2018 03:25:04</publishTime>
     </File>
     <File Include="bin/ru/CouncilCMS.Web.Pervomaysk.resources.dll">
-      <publishTime>12/29/2018 14:37:59</publishTime>
+      <publishTime>01/14/2019 18:35:09</publishTime>
     </File>
     <File Include="bin/System.Net.Http.Formatting.dll">
       <publishTime>04/19/2018 03:26:30</publishTime>
@@ -595,16 +616,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/19/2018 03:26:32</publishTime>
     </File>
     <File Include="bin/uk/CouncilCMS.Web.Pervomaysk.resources.dll">
-      <publishTime>12/29/2018 14:37:59</publishTime>
+      <publishTime>01/14/2019 18:35:08</publishTime>
     </File>
     <File Include="bin/WebGrease.dll">
       <publishTime>04/19/2018 03:25:06</publishTime>
     </File>
     <File Include="bin/xTab.Tools.dll">
-      <publishTime>12/27/2018 11:43:38</publishTime>
+      <publishTime>01/14/2019 18:35:05</publishTime>
     </File>
     <File Include="bin/xTab.Tools.pdb">
-      <publishTime>12/27/2018 11:43:38</publishTime>
+      <publishTime>01/14/2019 18:35:05</publishTime>
     </File>
     <File Include="Content/app/css/style.css">
       <publishTime>04/19/2018 15:00:50</publishTime>
@@ -811,13 +832,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/20/2018 08:32:14</publishTime>
     </File>
     <File Include="Content/css/media_desktop.css">
-      <publishTime>12/29/2018 14:35:23</publishTime>
+      <publishTime>01/14/2019 18:29:49</publishTime>
     </File>
     <File Include="Content/css/media_mobile.css">
-      <publishTime>12/26/2018 17:29:18</publishTime>
+      <publishTime>01/03/2019 10:23:00</publishTime>
     </File>
     <File Include="Content/css/media_tablet.css">
-      <publishTime>12/26/2018 14:03:20</publishTime>
+      <publishTime>01/03/2019 10:19:00</publishTime>
     </File>
     <File Include="Content/css/reset.css">
       <publishTime>12/20/2018 08:32:14</publishTime>
@@ -1081,7 +1102,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/26/2018 17:23:43</publishTime>
     </File>
     <File Include="Content/img/group-132.png">
-      <publishTime>12/27/2018 10:47:45</publishTime>
+      <publishTime>12/20/2018 08:32:00</publishTime>
     </File>
     <File Include="Content/img/header-logo.png">
       <publishTime>04/19/2018 10:31:02</publishTime>
@@ -1555,7 +1576,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/03/2018 15:53:16</publishTime>
     </File>
     <File Include="Content/js/custom.js">
-      <publishTime>12/28/2018 15:22:15</publishTime>
+      <publishTime>01/11/2019 16:53:10</publishTime>
     </File>
     <File Include="Content/js/dropzone.js">
       <publishTime>12/20/2018 08:32:36</publishTime>
@@ -9886,7 +9907,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/23/2018 12:46:04</publishTime>
     </File>
     <File Include="PrecompiledApp.config">
-      <publishTime>12/29/2018 14:38:01</publishTime>
+      <publishTime>01/14/2019 18:35:10</publishTime>
     </File>
     <File Include="Themes/MykolaivTheme/Views/Articles/ArticleList.cshtml">
       <publishTime>06/19/2018 11:08:58</publishTime>
@@ -10225,7 +10246,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/24/2018 12:16:50</publishTime>
     </File>
     <File Include="Themes/SafeSity/Views/Shared/_simpleLayout.cshtml">
-      <publishTime>11/24/2018 12:16:50</publishTime>
+      <publishTime>01/04/2019 14:56:17</publishTime>
     </File>
     <File Include="Themes/SafeSity/Views/Web.config">
       <publishTime>11/24/2018 12:16:50</publishTime>
@@ -11197,16 +11218,31 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/19/2018 11:08:58</publishTime>
     </File>
     <File Include="Views/Articles/Category.cshtml">
-      <publishTime>06/19/2018 11:08:58</publishTime>
+      <publishTime>01/08/2019 19:17:39</publishTime>
     </File>
     <File Include="Views/Articles/Item.cshtml">
-      <publishTime>12/17/2018 15:33:00</publishTime>
+      <publishTime>01/04/2019 14:53:09</publishTime>
+    </File>
+    <File Include="Views/Articles/_prtLastNews.cshtml">
+      <publishTime>01/04/2019 11:15:54</publishTime>
+    </File>
+    <File Include="Views/Articles/_prtSecondNews.cshtml">
+      <publishTime>01/04/2019 11:42:58</publishTime>
+    </File>
+    <File Include="Views/DamagedHousing/AppForm.cshtml">
+      <publishTime>01/11/2019 17:19:17</publishTime>
+    </File>
+    <File Include="Views/DamagedHousing/Category.cshtml">
+      <publishTime>01/14/2019 15:55:31</publishTime>
+    </File>
+    <File Include="Views/DamagedHousing/Item.cshtml">
+      <publishTime>01/14/2019 18:12:53</publishTime>
     </File>
     <File Include="Views/Documents/Category.cshtml">
-      <publishTime>12/13/2018 10:14:05</publishTime>
+      <publishTime>01/08/2019 19:26:14</publishTime>
     </File>
     <File Include="Views/Documents/Item.cshtml">
-      <publishTime>11/12/2018 17:32:26</publishTime>
+      <publishTime>01/08/2019 19:25:47</publishTime>
     </File>
     <File Include="Views/EmailTemplates/ContactReception.cshtml">
       <publishTime>06/19/2018 11:09:00</publishTime>
@@ -11230,13 +11266,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/19/2018 11:09:06</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>12/29/2018 14:37:34</publishTime>
+      <publishTime>01/14/2019 18:32:26</publishTime>
     </File>
     <File Include="Views/Home/_prtMainMenu.cshtml">
-      <publishTime>12/29/2018 10:58:51</publishTime>
+      <publishTime>01/08/2019 15:05:35</publishTime>
     </File>
     <File Include="Views/Home/_prtSimpleMenuItem.cshtml">
-      <publishTime>12/28/2018 15:54:36</publishTime>
+      <publishTime>01/14/2019 14:34:18</publishTime>
     </File>
     <File Include="Views/Organizations/Category.cshtml">
       <publishTime>06/19/2018 11:09:08</publishTime>
@@ -11272,19 +11308,22 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/19/2018 11:09:14</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>12/29/2018 14:34:13</publishTime>
+      <publishTime>01/14/2019 18:27:19</publishTime>
     </File>
     <File Include="Views/Shared/_prtAccordionMenu.cshtml">
-      <publishTime>06/19/2018 11:09:16</publishTime>
+      <publishTime>01/04/2019 10:28:02</publishTime>
     </File>
     <File Include="Views/Shared/_prtAccordionMenuItem.cshtml">
-      <publishTime>06/19/2018 11:09:16</publishTime>
+      <publishTime>01/04/2019 10:28:02</publishTime>
     </File>
     <File Include="Views/Shared/_prtBanners.cshtml">
       <publishTime>06/19/2018 11:09:16</publishTime>
     </File>
+    <File Include="Views/Shared/_prtConsultations.cshtml">
+      <publishTime>01/08/2019 19:24:25</publishTime>
+    </File>
     <File Include="Views/Shared/_prtContent.cshtml">
-      <publishTime>12/05/2018 17:13:53</publishTime>
+      <publishTime>01/04/2019 10:25:22</publishTime>
     </File>
     <File Include="Views/Shared/_prtEmailSubscribe.cshtml">
       <publishTime>06/19/2018 11:09:18</publishTime>
@@ -11314,10 +11353,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/19/2018 11:09:24</publishTime>
     </File>
     <File Include="Views/Shared/_prtSimpleMenu.cshtml">
-      <publishTime>06/19/2018 11:09:24</publishTime>
+      <publishTime>01/04/2019 10:28:02</publishTime>
     </File>
     <File Include="Views/Shared/_prtSimpleMenuItem.cshtml">
-      <publishTime>06/19/2018 11:09:26</publishTime>
+      <publishTime>01/04/2019 10:28:02</publishTime>
     </File>
     <File Include="Views/Shared/_prtSimpleMenuSubItem.cshtml">
       <publishTime>06/19/2018 11:09:26</publishTime>
@@ -11334,8 +11373,11 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Views/Shared/_prtWeather.cshtml">
       <publishTime>06/19/2018 11:09:28</publishTime>
     </File>
+    <File Include="Views/Shared/_secondLayout.cshtml">
+      <publishTime>01/14/2019 14:36:04</publishTime>
+    </File>
     <File Include="Views/Shared/_simpleLayout.cshtml">
-      <publishTime>06/19/2018 11:09:30</publishTime>
+      <publishTime>01/04/2019 11:24:42</publishTime>
     </File>
     <File Include="Views/Web.config">
       <publishTime>06/19/2018 11:08:56</publishTime>
@@ -11344,7 +11386,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/19/2018 11:08:56</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>12/27/2018 11:43:49</publishTime>
+      <publishTime>01/14/2019 18:35:09</publishTime>
     </File>
   </ItemGroup>
 </Project>

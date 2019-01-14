@@ -13,7 +13,11 @@ namespace Bissoft.CouncilCMS.DAL.Entities
 		public virtual DamagedHousingCategoryTemplate Template { get; set; }
 		public virtual ICollection<DamagedHousingCategory> ChildCategories { get; set; } = new List<DamagedHousingCategory>();
 		public virtual ICollection<DamagedHousingCategory> RelatedCategories { get; set; } = new List<DamagedHousingCategory>();
-		public virtual ICollection<DamagedHousing> DamagedHousing { get; set; } = new List<DamagedHousing>();
+		public virtual ICollection<DamagedHousing> DamagedHousing { get; set; } 
 
+		public DamagedHousingCategory()
+		{
+			DamagedHousing = new List<DamagedHousing>();
+		}
 	}
 }

@@ -81,25 +81,25 @@
 		<div class="ready_help_left_block">
 			<div class="ready_help_left_block_line">
 				<p>Кількість зареєстрованих звернень:</p>
-				<div>6 416</div>
+				<div>@ViewBag.HousCount</div>
 			</div>
 		</div>
 		<div class="ready_help_text">
 			<p>Ми завжди готові проявити участь і допомогти тим, кому дійсно потрібна допомога.</p>
-			<a href="#">Написати звернення</a>
+			<a href="/uk/damagedhousing/appform/">Написати звернення</a>
 		</div>
 	</div>
 </div>
 
 <div class="last_restore_container">
 	<div class="container">
-		<div class="inform_imigrant_name"><a href="/uk/articles/category/restore-objects/">Останні відновленні об`єкти</a></div>
+		<div class="inform_imigrant_name"><a href="/uk/damagedhousing/category/all-houses/">Останні відновленні об`єкти</a></div>
 		<div class="last_restore_elems">
 			@foreach(var item in Model.RestoreObjects)
 			{
 				<div class="last_restore_elem">
 					<img src='@(CmsSettings.BaseDomain + item.Image)' />
-					<a href="/@CurrentCulture.Name.ToLower()/articles/item/@item.Id/@item.UrlName">
+					<a href="/@CurrentCulture.Name.ToLower()/damagedhousing/item/@item.Id/@item.UrlName">
 						@item.Title
 					</a>
 					<div class="last_restore_date">@item.PublishDate</div>

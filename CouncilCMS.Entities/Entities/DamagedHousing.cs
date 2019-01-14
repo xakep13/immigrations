@@ -6,6 +6,12 @@ namespace Bissoft.CouncilCMS.DAL.Entities
 {
 	public class DamagedHousing : BaseAuditionEntity
 	{
+		public virtual ICollection<DamagedHousingCategory> Categories { get; set; }
+
+		public DamagedHousing()
+		{
+			Categories = new List<DamagedHousingCategory>();
+		}
 
 		public string Email { get; set; }
 		public string Adress { get; set; }
@@ -62,7 +68,5 @@ namespace Bissoft.CouncilCMS.DAL.Entities
 		public string ImageSource { get; set; }
 
 		public virtual List<ContentRow> ContentRows { get; set; }
-		public virtual List<DamagedHousingCategory> Categories { get; set; }
-		public virtual List<DamagedHousingCategory> LevelOfDamage { get; set; }
 	}
 }

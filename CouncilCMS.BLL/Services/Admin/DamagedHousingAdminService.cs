@@ -99,9 +99,7 @@ namespace Bissoft.CouncilCMS.BLL.Services
 			{
 				Id = x.Id,
 
-				LevelOfDamageEn = x.LevelOfDamage.Select(c => c.TitleEn),
-				LevelOfDamageRu = x.LevelOfDamage.Select(c => c.TitleRu),
-				LevelOfDamageUk = x.LevelOfDamage.Select(c => c.TitleUk),
+				
 
 				TitleRu = x.TitleRu,
 				TitleUk = x.TitleUk,
@@ -140,7 +138,6 @@ namespace Bissoft.CouncilCMS.BLL.Services
 					TitleRu = "Без названия",
 					TitleEn = "No name",
 					Categories = new List<DamagedHousingCategory>(),
-					LevelOfDamage = new List<DamagedHousingCategory>(),
 					ContentRows = new List<ContentRow>(),
 					CreateDate = DateTime.Now,
 					PublishDate = DateTime.Now,
@@ -229,9 +226,9 @@ namespace Bissoft.CouncilCMS.BLL.Services
 			model.TitleEn = String.IsNullOrEmpty(model.TitleEn) ? "No name" : model.TitleEn;
 
 			var texts = contentAdminService.GetContentText(item.ContentRows);
-			var textRu = model.TitleRu + " " + model.DescriptionRu + " " + texts[0];
-			var textUk = model.TitleUk + " " + model.DescriptionUk + " " + texts[1];
-			var textEn = model.TitleEn + " " + model.DescriptionEn + " " + texts[2];
+			var textRu = model.Adress + " " + model.DescriptionRu + " " + texts[0];
+			var textUk = model.Adress + " " + model.DescriptionUk + " " + texts[1];
+			var textEn = model.Adress + " " + model.DescriptionEn + " " + texts[2];
 
 			item.Id = model.Id;
 

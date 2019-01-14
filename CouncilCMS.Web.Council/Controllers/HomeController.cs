@@ -11,6 +11,7 @@ namespace Bissoft.CouncilCMS.Web.Controllers
 	public class HomeController : BaseCmsController
 	{
 		public CmsArticleService articleService;
+		public CmsDamagedHousingService damagedHousingService;
 		public CmsMenuService menuService;
 
 		public HomeController()
@@ -18,6 +19,8 @@ namespace Bissoft.CouncilCMS.Web.Controllers
 			var uow = new UnitOfWork(this.ConnectionString);
 		
 			articleService = new CmsArticleService(uow);
+			damagedHousingService = new CmsDamagedHousingService(uow);
+
 			menuService = new CmsMenuService(uow);			
 		}
 
@@ -26,13 +29,15 @@ namespace Bissoft.CouncilCMS.Web.Controllers
 			var model = new MkIndex
 			{
 				ImmigrationsNews = articleService.LastArticles("immigrations-news", 3).Articles,
-				RestoreObjects = articleService.LastArticles("restore-objects", 3).Articles,
+				RestoreObjects = damagedHousingService.LastArticles("all-houses", 3).DamagedHousings,
 				MainNewsSecond = articleService.LastArticles("main-news-2", 2).Articles,
 				FamaliesNews = articleService.LastArticles("famalies-news", 5).Articles,
 				GeneralNews = articleService.LastArticles("general-news", 6).Articles,
 				SlidersNews = articleService.LastArticles("sliders-news", 3).Articles,
 				MainNews = articleService.LastArticles("main-news", 1).Articles,
 			};
+
+			ViewBag.HousCount = damagedHousingService.HousCount();
 
 			return View(model);
 		}

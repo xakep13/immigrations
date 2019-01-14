@@ -26,7 +26,7 @@ namespace Bissoft.CouncilCMS.BLL.ViewModels
 		public string Url { get; set; }
 		public string Title { get; set; }
 		public string CategoryUrl { get; set; }
-		public string CategoryName { get; set; }
+		public List<string> CategoryName { get; set; }
 		public int CategoryId { get; set; }
 		public int RelatedCategoryId { get; set; }
 		public string RelatedCategoryUrl { get; set; }

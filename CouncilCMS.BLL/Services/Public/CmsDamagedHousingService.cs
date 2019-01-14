@@ -44,7 +44,11 @@ namespace Bissoft.CouncilCMS.BLL.Services
 
 		public CmsDamagedHousingList CategoryList(string articleUrl, ShowMenuItemMode Mode, string query = null, string date = null, int page = 1, int perPage = 20, int? excludeId = null, string excludeCategory = null)
 		{
+			if(string.IsNullOrEmpty(articleUrl))
+				articleUrl = "all-houses";
+
 			var category = damagedHousingCatRepo.GetSingle(x => x.UrlName == articleUrl, null, true, true);
+			var childlcat = category.ChildCategories;
 
 			if(category != null)
 			{
@@ -128,6 +132,7 @@ namespace Bissoft.CouncilCMS.BLL.Services
 						}).ToList().Select(x => new CmsDamagedHousingListItem()
 						{
 							Id = x.Id,
+							Address = x.Adress,
 							Title = x.GetLocalValue("Title"),
 							Description = x.GetLocalValue("Description"),
 							UrlName = x.GetLocalValue("UrlName"),
@@ -216,6 +221,7 @@ namespace Bissoft.CouncilCMS.BLL.Services
 							}).ToList().Select(x => new CmsDamagedHousingListItem()
 							{
 								Id = x.Id,
+								Address = x.Adress,
 								Title = x.GetLocalValue("Title"),
 								Description = x.GetLocalValue("Description"),
 								UrlName = x.GetLocalValue("UrlName"),
@@ -254,8 +260,8 @@ namespace Bissoft.CouncilCMS.BLL.Services
 		public CmsDamagedHousing Article(Int32 id, ShowMenuItemMode Mode, int? userId = null)
 		{
 			var item = damagedHousingRepo.GetById(id, asNoTracking: true);
-			var category = item.Categories.OrderByDescending(x => x.Priority).ThenBy(x => x.TitleUk).FirstOrDefault() ?? new DamagedHousingCategory() { RelatedCategoryId = 0 };
-			var relCategory = category.ParentCategoryId > 0 ? damagedHousingCatRepo.GetById(category.ParentCategoryId ?? 0) : category;
+			var category = item.Categories.Where(x=>x.UrlName!="all-houses");
+			//var relCategory = category.ParentCategoryId > 0 ? damagedHousingCatRepo.GetById(category.ParentCategoryId ?? 0) : category;
 
 			if(item == null || (userId == null && (!item.Published || item.Deleted || item.PublishDate == null || item.PublishDate > DateTime.Now)))
 				return null;
@@ -275,13 +281,13 @@ namespace Bissoft.CouncilCMS.BLL.Services
 				Lat = item.Lat,
 				Lng = item.Lng,
 				Price = item.Price,
-				
+
 				Url = item.GetLocalValue("UrlName"),
-				CategoryId = category.Id,
-				CategoryUrl = category.UrlName,
-				CategoryName = category.GetLocalValue("Title"),
-				RelatedCategoryId = relCategory.Id,
-				RelatedCategoryUrl = relCategory.UrlName,
+				//CategoryId = category.Id,
+				//CategoryUrl = category.UrlName,
+				CategoryName = category.Select(x => x.TitleUk).ToList(),
+				//RelatedCategoryId = relCategory.Id,
+				//RelatedCategoryUrl = relCategory.UrlName,
 				Description = item.GetLocalValue("Description"),
 				EventDate = DateTimeHelper.NullableDateTimeString(item.EventDate),
 				Image = item.Image,
@@ -291,7 +297,7 @@ namespace Bissoft.CouncilCMS.BLL.Services
 				PublishDate = item.ShowPublihDate ? DateTimeHelper.NullableDateTimeString(item.PublishDate) : String.Empty,
 				LastEditDate = item.ShowEditDate ? DateTimeHelper.NullableDateTimeString(item.EditedDate) : String.Empty,
 				Title = item.GetLocalValue("Title"),
-				DamagedHousingMenu = category.SidebarMenuId > 0 ? menuService.GetMenu(category.SidebarMenuId.Value, Mode) : null,
+				//DamagedHousingMenu = category.SidebarMenuId > 0 ? menuService.GetMenu(category.SidebarMenuId.Value, Mode) : null,
 				ContentRows = contentService.GetContentRows(item.ContentRows)
 			};
 
@@ -417,6 +423,7 @@ namespace Bissoft.CouncilCMS.BLL.Services
 					}).ToList().Select(x => new CmsDamagedHousingListItem()
 					{
 						Id = x.Id,
+						Address = x.Adress,
 						Title = x.GetLocalValue("Title"),
 						Description = x.GetLocalValue("Description"),
 						UrlName = x.GetLocalValue("UrlName"),
@@ -469,33 +476,32 @@ namespace Bissoft.CouncilCMS.BLL.Services
 		{
 			var categories = damagedHousingCatRepo.GetList(includeProperties: "AllowedUsers,AllowedRoles").ToList();
 
-			var	article = new DamagedHousing()
-				{
-					Id = 0,
-					TitleUk = "Без назви",
-					TitleRu = "Без названия",
-					TitleEn = "No name",
-					Categories = new List<DamagedHousingCategory>(),
-					LevelOfDamage = new List<DamagedHousingCategory>(),
-					ContentRows = new List<ContentRow>(),
-					CreateDate = DateTime.Now,
-					PublishDate = DateTime.Now,
-					ShowPublihDate = true,
-					ShowEditDate = false,
-					Lng = 0,
-					Lat = 0,
-					Year = DateTime.Now.Year,
-					Published = true,
-					CreateUserId = (HttpContext.Current.User as CmsPrincipal).Identity.UserId
-				};
+			var article = new DamagedHousing()
+			{
+				Id = 0,
+				TitleUk = "Без назви",
+				TitleRu = "Без названия",
+				TitleEn = "No name",
+				Categories = new List<DamagedHousingCategory>(),
+				ContentRows = new List<ContentRow>(),
+				CreateDate = DateTime.Now,
+				PublishDate = DateTime.Now,
+				ShowPublihDate = true,
+				ShowEditDate = false,
+				Lng = 0,
+				Lat = 0,
+				Year = DateTime.Now.Year,
+				Published = true,
+				CreateUserId = (HttpContext.Current.User as CmsPrincipal).Identity.UserId
+			};
 
-				damagedHousingRepo.Insert(article);
-				UnitOfWork.Commit();
+			damagedHousingRepo.Insert(article);
+			UnitOfWork.Commit();
 
-				article.TitleUk = null;
-				article.TitleRu = null;
-				article.TitleEn = null;
-			
+			article.TitleUk = null;
+			article.TitleRu = null;
+			article.TitleEn = null;
+
 
 			var model = new DamagedHousingEdit
 			{
@@ -558,7 +564,7 @@ namespace Bissoft.CouncilCMS.BLL.Services
 		private List<CheckedListItem> GetCategoryCheckedList(List<CheckedListItem> targetList, List<DamagedHousingCategory> levelList, List<DamagedHousingCategory> sourceList, int level = 0, int? userId = null, int? roleId = null)
 		{
 			targetList = targetList ?? new List<CheckedListItem>();
-			
+
 
 			foreach(var cat in levelList)
 			{
@@ -568,7 +574,7 @@ namespace Bissoft.CouncilCMS.BLL.Services
 						Value = cat.Id,
 						Name = cat.GetLocalValue("Title"),
 						Level = level,
-						Allowed =  true
+						Allowed = true
 					});
 
 				if(sourceList.Count(x => x.ParentCategoryId == cat.Id) > 0)
@@ -582,71 +588,71 @@ namespace Bissoft.CouncilCMS.BLL.Services
 
 		public void Save(DamagedHousingEdit model)
 		{
-			model.TitleRu			= String.IsNullOrEmpty(model.TitleRu) ? "Без названия"	: model.TitleRu;
-			model.TitleUk			= String.IsNullOrEmpty(model.TitleUk) ? "Без назви"		: model.TitleUk;
-			model.TitleEn			= String.IsNullOrEmpty(model.TitleEn) ? "No name"		: model.TitleEn;
+			model.TitleRu = String.IsNullOrEmpty(model.TitleRu) ? "Без названия" : model.TitleRu;
+			model.TitleUk = String.IsNullOrEmpty(model.TitleUk) ? "Без назви" : model.TitleUk;
+			model.TitleEn = String.IsNullOrEmpty(model.TitleEn) ? "No name" : model.TitleEn;
 
-			var item				= damagedHousingRepo.GetById(model.Id);
-			
-			item.Id					= model.Id;
+			var item = damagedHousingRepo.GetById(model.Id);
 
-			item.TitleRu			= model.TitleRu;
-			item.TitleUk			= model.TitleUk;
-			item.TitleEn			= model.TitleEn;
+			item.Id = model.Id;
 
-			item.DescriptionRu		= model.DescriptionRu;
-			item.DescriptionUk		= model.DescriptionUk;
-			item.DescriptionEn		= model.DescriptionEn;
+			item.TitleRu = model.TitleRu;
+			item.TitleUk = model.TitleUk;
+			item.TitleEn = model.TitleEn;
 
-			item.UrlNameRu			= model.TitleRu.Translit();
-			item.UrlNameUk			= model.TitleUk.Translit();
-			item.UrlNameEn			= model.TitleEn.Translit();
+			item.DescriptionRu = model.DescriptionRu;
+			item.DescriptionUk = model.DescriptionUk;
+			item.DescriptionEn = model.DescriptionEn;
 
-			item.MetaTitleRu		= model.MetaTitleRu;
-			item.MetaTitleUk		= model.MetaTitleUk;
-			item.MetaTitleEn		= model.MetaTitleEn;
+			item.UrlNameRu = model.TitleRu.Translit();
+			item.UrlNameUk = model.TitleUk.Translit();
+			item.UrlNameEn = model.TitleEn.Translit();
 
-			item.MetaKeywordsRu		= model.MetaKeywordsRu;
-			item.MetaKeywordsUk		= model.MetaKeywordsUk;
-			item.MetaKeywordsEn		= model.MetaKeywordsEn;
+			item.MetaTitleRu = model.MetaTitleRu;
+			item.MetaTitleUk = model.MetaTitleUk;
+			item.MetaTitleEn = model.MetaTitleEn;
 
-			item.MetaDescriptionRu	= model.MetaDescriptionRu;
-			item.MetaDescriptionUk	= model.MetaDescriptionUk;
-			item.MetaDescriptionEn	= model.MetaDescriptionEn;
+			item.MetaKeywordsRu = model.MetaKeywordsRu;
+			item.MetaKeywordsUk = model.MetaKeywordsUk;
+			item.MetaKeywordsEn = model.MetaKeywordsEn;
 
-			item.ShowPublihDate		= model.ShowPublihDate;
-			item.AllowComments		= model.AllowComments;
-			item.ShowEditDate		= model.ShowEditDate;
+			item.MetaDescriptionRu = model.MetaDescriptionRu;
+			item.MetaDescriptionUk = model.MetaDescriptionUk;
+			item.MetaDescriptionEn = model.MetaDescriptionEn;
 
-			item.FullName			= model.FullName;
-			item.Adress				= model.Adress;
-			item.Email				= model.Email;
-			item.StartWork			= DateTimeHelper.ParseDateNullable(model.StartWork, null, DateTimeHelper.DefaultTimeOfDay.None);
-			item.EndWork			= DateTimeHelper.ParseDateNullable(model.EndWork, null, DateTimeHelper.DefaultTimeOfDay.None);
-			item.Status				= model.Status;
-			item.FinanceSource		= model.FinanceSource;
-			item.FinanceType		= model.FinanceType;
-			item.Year				= model.Year;
-			item.Price				= model.Price;
-			item.Lat				= model.Lat;
-			item.Lng				= model.Lng;
+			item.ShowPublihDate = model.ShowPublihDate;
+			item.AllowComments = model.AllowComments;
+			item.ShowEditDate = model.ShowEditDate;
 
-			item.Published			= model.Published;
-			item.Image				= model.Image;
-			item.LastEditDate		= DateTime.Now;
-			item.EditedDate			= DateTimeHelper.ParseDateNullable(model.EditedDate, DateTime.Now, DateTimeHelper.DefaultTimeOfDay.None);
-			item.PublishDate		= DateTimeHelper.ParseDateNullable(model.PublishDate, null, DateTimeHelper.DefaultTimeOfDay.None);
-			item.EventDate			= DateTimeHelper.ParseDateNullable(model.EventDate, null, DateTimeHelper.DefaultTimeOfDay.None);
-			item.LastEditUserId		= (HttpContext.Current.User as CmsPrincipal).Identity.UserId;
+			item.FullName = model.FullName;
+			item.Adress = model.Adress;
+			item.Email = model.Email;
+			item.StartWork = DateTimeHelper.ParseDateNullable(model.StartWork, null, DateTimeHelper.DefaultTimeOfDay.None);
+			item.EndWork = DateTimeHelper.ParseDateNullable(model.EndWork, null, DateTimeHelper.DefaultTimeOfDay.None);
+			item.Status = model.Status;
+			item.FinanceSource = model.FinanceSource;
+			item.FinanceType = model.FinanceType;
+			item.Year = model.Year;
+			item.Price = model.Price;
+			item.Lat = model.Lat;
+			item.Lng = model.Lng;
+
+			item.Published = model.Published;
+			item.Image = model.Image;
+			item.LastEditDate = DateTime.Now;
+			item.EditedDate = DateTimeHelper.ParseDateNullable(model.EditedDate, DateTime.Now, DateTimeHelper.DefaultTimeOfDay.None);
+			item.PublishDate = DateTimeHelper.ParseDateNullable(model.PublishDate, null, DateTimeHelper.DefaultTimeOfDay.None);
+			item.EventDate = DateTimeHelper.ParseDateNullable(model.EventDate, null, DateTimeHelper.DefaultTimeOfDay.None);
+			item.LastEditUserId = (HttpContext.Current.User as CmsPrincipal).Identity.UserId;
 
 			if(item.Categories != null)
 				item.Categories.Clear();
 			else
-				item.Categories		= new List<DamagedHousingCategory>();
+				item.Categories = new List<DamagedHousingCategory>();
 
 			damagedHousingRepo.Update(item);
 
-			if(model.DamagedHousingCategories!=null)
+			if(model.DamagedHousingCategories != null)
 				foreach(var cat in model.DamagedHousingCategories)
 				{
 					if(cat.IsChecked)
@@ -677,9 +683,15 @@ namespace Bissoft.CouncilCMS.BLL.Services
 				{
 					Id = x.Id,
 					Title = x.TitleUk,
+					UrlName = x.UrlName
 				}).ToList()
 			};
 			return ChildCategories;
+		}
+
+		public int HousCount()
+		{
+			return damagedHousingRepo.GetList().Count();
 		}
 
 		public void AddView(Int32 id)

@@ -28,7 +28,7 @@ namespace Bissoft.CouncilCMS.Web.Controllers
 			var model = damagedHousingService.CategoryList(articleUrl: Url, Mode: CmsSettings.ShowMenuItemMode, query: Query, date: Date, page: Page, perPage: perPage);
 			if(model != null && model.CategoryId > 0)
 			{
-				ViewBag.PageType = MenuItemType.DamagedHousingCategory;
+				ViewBag.Categories = GetChildrenCategory("category");
 				ViewBag.PageValue = model.CategoryId;
 
 				return View(model);

@@ -13,7 +13,7 @@ namespace Bissoft.CouncilCMS.DAL.Migrations.Cms
         
         string IMigrationMetadata.Id
         {
-            get { return "201901081227434_DamagedHousing"; }
+            get { return "201901140940232_DamagedHousing"; }
         }
         
         string IMigrationMetadata.Source

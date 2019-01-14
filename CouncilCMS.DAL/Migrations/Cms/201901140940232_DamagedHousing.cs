@@ -39,13 +39,9 @@ namespace Bissoft.CouncilCMS.DAL.Migrations.Cms
                         RelatedCategoryId = c.Int(),
                         ParentCategoryId = c.Int(),
                         Deleted = c.Boolean(nullable: false),
-                        DamagedHousing_Id = c.Int(),
-                        DamagedHousing_Id1 = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.MenuItems", t => t.CurrentMenuItemId)
-                .ForeignKey("dbo.DamagedHousings", t => t.DamagedHousing_Id)
-                .ForeignKey("dbo.DamagedHousings", t => t.DamagedHousing_Id1)
                 .ForeignKey("dbo.DamagedHousingCategories", t => t.ParentCategoryId)
                 .ForeignKey("dbo.DamagedHousingCategories", t => t.RelatedCategoryId)
                 .ForeignKey("dbo.Menus", t => t.SidebarMenuId)
@@ -54,9 +50,7 @@ namespace Bissoft.CouncilCMS.DAL.Migrations.Cms
                 .Index(t => t.SidebarMenuId)
                 .Index(t => t.CurrentMenuItemId)
                 .Index(t => t.RelatedCategoryId)
-                .Index(t => t.ParentCategoryId)
-                .Index(t => t.DamagedHousing_Id)
-                .Index(t => t.DamagedHousing_Id1);
+                .Index(t => t.ParentCategoryId);
             
             CreateTable(
                 "dbo.DamagedHousings",
@@ -66,6 +60,15 @@ namespace Bissoft.CouncilCMS.DAL.Migrations.Cms
                         Email = c.String(unicode: false),
                         Adress = c.String(unicode: false),
                         FullName = c.String(unicode: false),
+                        StartWork = c.DateTime(precision: 0),
+                        EndWork = c.DateTime(precision: 0),
+                        Status = c.String(unicode: false),
+                        FinanceType = c.String(unicode: false),
+                        FinanceSource = c.String(unicode: false),
+                        Year = c.Int(nullable: false),
+                        Price = c.Int(nullable: false),
+                        Lat = c.Double(nullable: false),
+                        Lng = c.Double(nullable: false),
                         UrlNameRu = c.String(unicode: false),
                         UrlNameUk = c.String(unicode: false),
                         UrlNameEn = c.String(unicode: false),
@@ -91,6 +94,7 @@ namespace Bissoft.CouncilCMS.DAL.Migrations.Cms
                         EditedDate = c.DateTime(precision: 0),
                         Saved = c.Boolean(nullable: false),
                         ViewCount = c.Int(nullable: false),
+                        Image = c.String(unicode: false),
                         ImageSource = c.String(unicode: false),
                         TitleRu = c.String(unicode: false),
                         TitleUk = c.String(unicode: false),
@@ -102,15 +106,12 @@ namespace Bissoft.CouncilCMS.DAL.Migrations.Cms
                         LastEditUserId = c.Int(),
                         Published = c.Boolean(nullable: false),
                         Deleted = c.Boolean(nullable: false),
-                        DamagedHousingCategory_Id = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.CmsUsers", t => t.CreateUserId)
                 .ForeignKey("dbo.CmsUsers", t => t.LastEditUserId)
-                .ForeignKey("dbo.DamagedHousingCategories", t => t.DamagedHousingCategory_Id)
                 .Index(t => t.CreateUserId)
-                .Index(t => t.LastEditUserId)
-                .Index(t => t.DamagedHousingCategory_Id);
+                .Index(t => t.LastEditUserId);
             
             CreateTable(
                 "dbo.DamagedHousingCategoryTemplates",
@@ -127,6 +128,19 @@ namespace Bissoft.CouncilCMS.DAL.Migrations.Cms
                     })
                 .PrimaryKey(t => t.Id);
             
+            CreateTable(
+                "dbo.DamagedHousingDamagedHousingCategories",
+                c => new
+                    {
+                        DamagedHousing_Id = c.Int(nullable: false),
+                        DamagedHousingCategory_Id = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => new { t.DamagedHousing_Id, t.DamagedHousingCategory_Id })
+                .ForeignKey("dbo.DamagedHousings", t => t.DamagedHousing_Id, cascadeDelete: true)
+                .ForeignKey("dbo.DamagedHousingCategories", t => t.DamagedHousingCategory_Id, cascadeDelete: true)
+                .Index(t => t.DamagedHousing_Id)
+                .Index(t => t.DamagedHousingCategory_Id);
+            
             AddColumn("dbo.CmsRoles", "DamagedHousingCategory_Id", c => c.Int());
             AddColumn("dbo.CmsUsers", "DamagedHousingCategory_Id", c => c.Int());
             AddColumn("dbo.ContentRows", "DamagedHousing_Id", c => c.Int());
@@ -136,30 +150,26 @@ namespace Bissoft.CouncilCMS.DAL.Migrations.Cms
             AddForeignKey("dbo.CmsRoles", "DamagedHousingCategory_Id", "dbo.DamagedHousingCategories", "Id");
             AddForeignKey("dbo.CmsUsers", "DamagedHousingCategory_Id", "dbo.DamagedHousingCategories", "Id");
             AddForeignKey("dbo.ContentRows", "DamagedHousing_Id", "dbo.DamagedHousings", "Id");
-            
         }
         
         public override void Down()
         {
-            
             DropForeignKey("dbo.DamagedHousingCategories", "TemplateId", "dbo.DamagedHousingCategoryTemplates");
             DropForeignKey("dbo.DamagedHousingCategories", "SidebarMenuId", "dbo.Menus");
             DropForeignKey("dbo.DamagedHousingCategories", "RelatedCategoryId", "dbo.DamagedHousingCategories");
             DropForeignKey("dbo.DamagedHousingCategories", "ParentCategoryId", "dbo.DamagedHousingCategories");
-            DropForeignKey("dbo.DamagedHousings", "DamagedHousingCategory_Id", "dbo.DamagedHousingCategories");
-            DropForeignKey("dbo.DamagedHousingCategories", "DamagedHousing_Id1", "dbo.DamagedHousings");
             DropForeignKey("dbo.DamagedHousings", "LastEditUserId", "dbo.CmsUsers");
             DropForeignKey("dbo.DamagedHousings", "CreateUserId", "dbo.CmsUsers");
             DropForeignKey("dbo.ContentRows", "DamagedHousing_Id", "dbo.DamagedHousings");
-            DropForeignKey("dbo.DamagedHousingCategories", "DamagedHousing_Id", "dbo.DamagedHousings");
+            DropForeignKey("dbo.DamagedHousingDamagedHousingCategories", "DamagedHousingCategory_Id", "dbo.DamagedHousingCategories");
+            DropForeignKey("dbo.DamagedHousingDamagedHousingCategories", "DamagedHousing_Id", "dbo.DamagedHousings");
             DropForeignKey("dbo.DamagedHousingCategories", "CurrentMenuItemId", "dbo.MenuItems");
             DropForeignKey("dbo.CmsUsers", "DamagedHousingCategory_Id", "dbo.DamagedHousingCategories");
             DropForeignKey("dbo.CmsRoles", "DamagedHousingCategory_Id", "dbo.DamagedHousingCategories");
-            DropIndex("dbo.DamagedHousings", new[] { "DamagedHousingCategory_Id" });
+            DropIndex("dbo.DamagedHousingDamagedHousingCategories", new[] { "DamagedHousingCategory_Id" });
+            DropIndex("dbo.DamagedHousingDamagedHousingCategories", new[] { "DamagedHousing_Id" });
             DropIndex("dbo.DamagedHousings", new[] { "LastEditUserId" });
             DropIndex("dbo.DamagedHousings", new[] { "CreateUserId" });
-            DropIndex("dbo.DamagedHousingCategories", new[] { "DamagedHousing_Id1" });
-            DropIndex("dbo.DamagedHousingCategories", new[] { "DamagedHousing_Id" });
             DropIndex("dbo.DamagedHousingCategories", new[] { "ParentCategoryId" });
             DropIndex("dbo.DamagedHousingCategories", new[] { "RelatedCategoryId" });
             DropIndex("dbo.DamagedHousingCategories", new[] { "CurrentMenuItemId" });
@@ -171,6 +181,7 @@ namespace Bissoft.CouncilCMS.DAL.Migrations.Cms
             DropColumn("dbo.ContentRows", "DamagedHousing_Id");
             DropColumn("dbo.CmsUsers", "DamagedHousingCategory_Id");
             DropColumn("dbo.CmsRoles", "DamagedHousingCategory_Id");
+            DropTable("dbo.DamagedHousingDamagedHousingCategories");
             DropTable("dbo.DamagedHousingCategoryTemplates");
             DropTable("dbo.DamagedHousings");
             DropTable("dbo.DamagedHousingCategories");

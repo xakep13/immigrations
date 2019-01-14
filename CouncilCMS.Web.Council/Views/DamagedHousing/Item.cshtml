@@ -10,8 +10,10 @@
 			<h1 class="page_header header_with_tags">@Model.Adress</h1>
 			<div class="header_with_tags header_tags">
 				<div class="header_tags_date">13.04.2017</div>
-				<div class="header_tags_tag">@Model.CategoryName</div>
-				@*<div class="header_tags_tag">Пошкоджено</div>*@
+				@foreach(var item in Model.CategoryName)
+				{
+					<div class="header_tags_tag">@item</div>
+				}
 			</div>
 			<div class="form_block_map">
 				<img class="mapclass" src="@CmsSettings.BaseDomain@Model.Image" alt="">

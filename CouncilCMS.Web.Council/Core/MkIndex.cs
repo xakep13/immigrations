@@ -15,7 +15,7 @@ namespace Bissoft.CouncilCMS.BLL.ViewModels
         public List<CmsArticleListItem> GeneralNews { get; set; }
 		public List<CmsArticleListItem> ImmigrationsNews { get; set; }
 		public List<CmsArticleListItem> FamaliesNews { get; set; }
-		public List<CmsArticleListItem> RestoreObjects { get; set; }
 		public List<CmsArticleListItem> SlidersNews { get; set; }
+		public List<CmsDamagedHousingListItem> RestoreObjects { get; set; }
     }
 }

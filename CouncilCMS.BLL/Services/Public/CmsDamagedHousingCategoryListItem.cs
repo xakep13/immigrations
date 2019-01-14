@@ -10,5 +10,6 @@ namespace Bissoft.CouncilCMS.BLL.Services.Public
 	{
 		public int Id { get; set; }
 		public string Title { get; set; }
+		public string UrlName { get; set; }
 	}
 }

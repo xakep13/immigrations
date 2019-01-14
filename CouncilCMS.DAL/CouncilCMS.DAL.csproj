@@ -159,9 +159,9 @@
     <Compile Include="Migrations\Cms\201812061208083_baner image.Designer.cs">
       <DependentUpon>201812061208083_baner image.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\Cms\201901081227434_DamagedHousing.cs" />
-    <Compile Include="Migrations\Cms\201901081227434_DamagedHousing.Designer.cs">
-      <DependentUpon>201901081227434_DamagedHousing.cs</DependentUpon>
+    <Compile Include="Migrations\Cms\201901140940232_DamagedHousing.cs" />
+    <Compile Include="Migrations\Cms\201901140940232_DamagedHousing.Designer.cs">
+      <DependentUpon>201901140940232_DamagedHousing.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Cms\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -267,8 +267,8 @@
     <EmbeddedResource Include="Migrations\Cms\201812061208083_baner image.resx">
       <DependentUpon>201812061208083_baner image.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\Cms\201901081227434_DamagedHousing.resx">
-      <DependentUpon>201901081227434_DamagedHousing.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\Cms\201901140940232_DamagedHousing.resx">
+      <DependentUpon>201901140940232_DamagedHousing.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
